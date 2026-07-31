@@ -3,6 +3,15 @@ export interface Posologia {
   doseInicial: string;
   doseUsual: string;
   doseMaxima: string;
+
+  // Força da evidência/recomendação para ESSA indicação específica (1-5
+  // estrelas), não do fármaco em geral: 5 = primeira linha, aprovação
+  // regulatória e forte recomendação em diretrizes (CANMAT/APA/NICE); 3 =
+  // segunda linha, ou aprovado mas com evidência/recomendação mais modesta;
+  // 1 = uso off-label com evidência limitada (séries de caso/opinião de
+  // especialista). Omitir quando não houver informação suficiente para
+  // classificar com confiança.
+  nivelEvidencia?: 1 | 2 | 3 | 4 | 5;
 }
 
 export interface Medicamento {
@@ -46,13 +55,35 @@ export interface Medicamento {
 
   gravidez: string;
 
+  // Classificação resumida do texto de `gravidez`, usada para permitir
+  // filtro rápido na listagem de medicamentos:
+  // "preferencial" = uma das opções mais estudadas/seguras na gestação;
+  // "cautela" = uso possível quando benefício supera risco, com monitorização;
+  // "evitar" = contraindicado ou risco teratogênico relevante, evitar quando possível.
+  gravidezCategoria?: "preferencial" | "cautela" | "evitar";
+
   lactacao: string;
 
+  // Idem acima, resumindo `lactacao`: "compativel" = geralmente compatível
+  // com amamentação; "cautela" = compatível com monitorização do lactente;
+  // "evitar" = geralmente não recomendado durante a amamentação.
+  lactacaoCategoria?: "compativel" | "cautela" | "evitar";
+
   renal: string;
+
+  // true = requer ajuste de dose ou cautela relevante na insuficiência
+  // renal; false = não necessita ajuste específico.
+  ajusteRenalNecessario?: boolean;
 
   hepatica: string;
 
   observacoes: string;
+
+  // Dicas práticas e específicas para o uso clínico rotineiro (estilo "pearls"
+  // de Stahl's Essential Psychopharmacology) — truques de titulação, manejo
+  // de efeitos adversos, horário de administração, situações especiais.
+  // Não deve repetir o que já está em mecanismo/posologias/observações.
+  perolasClinicas?: string[];
 
   referencias?: string[];
 }

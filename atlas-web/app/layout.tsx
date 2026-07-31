@@ -1,12 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+import AppShell from "../components/AppShell";
+import ServiceWorkerRegister from "../components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
   title: "Atlas Psiquiátrico",
   description: "Biblioteca clínica de Psiquiatria",
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#020617",
 };
 
 export default function RootLayout({
@@ -17,17 +22,8 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-slate-950 text-white">
-        <div className="flex min-h-screen">
-          <Sidebar />
-
-          <div className="flex flex-1 flex-col">
-            <Topbar />
-
-            <main className="flex-1 p-8 overflow-auto">
-              {children}
-            </main>
-          </div>
-        </div>
+        <ServiceWorkerRegister />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

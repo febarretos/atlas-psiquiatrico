@@ -23,30 +23,35 @@ export const fluvoxamina: Medicamento = {
       doseInicial: "50 mg/dia",
       doseUsual: "100–300 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Transtorno Depressivo Maior",
       doseInicial: "50 mg/dia",
       doseUsual: "100–200 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 2,
     },
     {
       indicacao: "Transtorno de Ansiedade Social",
       doseInicial: "50 mg/dia",
       doseUsual: "100–300 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 4,
     },
     {
       indicacao: "Transtorno do Pânico",
       doseInicial: "50 mg/dia",
       doseUsual: "100–300 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 2,
     },
     {
       indicacao: "Transtorno de Ansiedade Generalizada",
       doseInicial: "50 mg/dia",
       doseUsual: "100–300 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 2,
     },
   ],
 
@@ -118,17 +123,31 @@ export const fluvoxamina: Medicamento = {
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 
+  gravidezCategoria: "cautela",
+
   lactacao:
     "Pode ser utilizada durante a amamentação quando indicada, embora sertralina permaneça a opção preferencial.",
 
+  lactacaoCategoria: "cautela",
+
   renal:
     "Não necessita ajuste de dose na insuficiência renal.",
+
+  ajusteRenalNecessario: false,
 
   hepatica:
     "Iniciar com doses menores e titular lentamente em pacientes com insuficiência hepática.",
 
   observacoes:
     "Antidepressivo de escolha para muitos pacientes com TOC devido à robusta evidência clínica. Seu principal fator limitante é o elevado potencial de interações medicamentosas, especialmente pela inibição das enzimas CYP1A2 e CYP2C19. Deve-se ter cautela em pacientes em uso de clozapina, tizanidina, cafeína, teofilina e outros medicamentos metabolizados por essas vias.",
+
+  perolasClinicas: [
+    "É frequentemente usada como potencializador farmacocinético deliberado da clozapina em pacientes metabolizadores rápidos ou tabagistas (que induzem CYP1A2): doses baixas de fluvoxamina (25-50 mg) podem reduzir a dose necessária de clozapina e melhorar adesão, mas exigem monitorização rigorosa de nível sérico.",
+    "É a única opção da classe com formulação de liberação controlada aprovada especificamente para ansiedade social (Luvox CR) em alguns mercados — vale considerar quando TOC coexiste com fobia social proeminente.",
+    "A interação com tizanidina é particularmente perigosa e subestimada (pode causar hipotensão profunda e sedação por elevação de até 10x nos níveis de tizanidina) — sempre checar uso concomitante antes de prescrever.",
+    "Tomar à noite reduz o impacto da sedação diurna, que tende a ser mais proeminente que em outros ISRS, especialmente nas primeiras semanas de tratamento.",
+    "Em doses altas para TOC (>150 mg/dia), dividir a dose em duas tomadas (manhã e noite) melhora a tolerabilidade gastrointestinal comparado à dose única.",
+  ],
 
   referencias: [
     "CANMAT 2023",

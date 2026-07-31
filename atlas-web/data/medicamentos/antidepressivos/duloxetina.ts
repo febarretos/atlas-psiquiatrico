@@ -23,30 +23,35 @@ export const duloxetina: Medicamento = {
       doseInicial: "30 mg/dia",
       doseUsual: "60 mg/dia",
       doseMaxima: "120 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Transtorno de Ansiedade Generalizada",
       doseInicial: "30 mg/dia",
       doseUsual: "60–120 mg/dia",
       doseMaxima: "120 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Dor Neuropática Diabética",
       doseInicial: "30 mg/dia",
       doseUsual: "60 mg/dia",
       doseMaxima: "120 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Fibromialgia",
       doseInicial: "30 mg/dia",
       doseUsual: "60 mg/dia",
       doseMaxima: "120 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Dor Musculoesquelética Crônica",
       doseInicial: "30 mg/dia",
       doseUsual: "60 mg/dia",
       doseMaxima: "120 mg/dia",
+      nivelEvidencia: 4,
     },
   ],
 
@@ -117,17 +122,31 @@ export const duloxetina: Medicamento = {
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 
+  gravidezCategoria: "cautela",
+
   lactacao:
     "Dados limitados. Avaliar individualmente riscos e benefícios.",
 
+  lactacaoCategoria: "cautela",
+
   renal:
     "Contraindicada em insuficiência renal grave (clearance de creatinina inferior a 30 mL/min).",
+
+  ajusteRenalNecessario: true,
 
   hepatica:
     "Evitar em pacientes com doença hepática crônica ou insuficiência hepática.",
 
   observacoes:
     "A duloxetina é um dos antidepressivos de escolha quando depressão ou ansiedade coexistem com dor crônica, fibromialgia ou neuropatia diabética. A dose de 60 mg/dia costuma oferecer o melhor equilíbrio entre eficácia e tolerabilidade, enquanto doses superiores raramente aumentam significativamente a eficácia clínica. Deve ser utilizada com cautela em pacientes com hipertensão arterial e evitada na presença de doença hepática importante.",
+
+  perolasClinicas: [
+    "As cápsulas são de liberação entérica e não devem ser abertas, mastigadas ou trituradas — isso destrói o revestimento protetor da mucosa gástrica e aumenta muito a degradação/irritação, sendo motivo comum de intolerância gástrica evitável.",
+    "Iniciar diretamente com 60 mg em pacientes ansiosos ou sensíveis a efeitos colaterais frequentemente causa náusea e tontura significativas — considerar iniciar com 30 mg por 1-2 semanas antes de titular, mesmo que a bula permita início direto em 60 mg.",
+    "É uma opção particularmente atraente em pacientes com síndrome dolorosa crônica associada a depressão (ex. lombalgia crônica, osteoartrite, fibromialgia) por tratar ambas as condições com um único fármaco, reduzindo polifarmácia.",
+    "Descontinuação abrupta causa síndrome de retirada proeminente (tontura, parestesias, irritabilidade) mesmo após poucas semanas de uso — reduzir gradualmente, inclusive ao trocar de classe.",
+    "Hepatotoxicidade é rara mas descrita; evitar associação com uso pesado de álcool e monitorar função hepática se houver fatores de risco.",
+  ],
 
   referencias: [
     "CANMAT 2023",

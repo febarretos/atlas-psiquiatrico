@@ -2,6 +2,8 @@ import { medicamentos } from "../../../data/medicamentos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import EffectRadarChart from "../../../components/EffectRadarChart";
+import EvidenciaStars from "../../../components/EvidenciaStars";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
 import Rating from "../../../components/Rating";
@@ -12,6 +14,30 @@ interface Props {
     nome: string;
   }>;
 }
+
+const corGravidez = {
+  preferencial: "green" as const,
+  cautela: "yellow" as const,
+  evitar: "red" as const,
+};
+
+const rotuloGravidez = {
+  preferencial: "Opção preferencial",
+  cautela: "Usar com cautela",
+  evitar: "Evitar quando possível",
+};
+
+const corLactacao = {
+  compativel: "green" as const,
+  cautela: "yellow" as const,
+  evitar: "red" as const,
+};
+
+const rotuloLactacao = {
+  compativel: "Geralmente compatível",
+  cautela: "Usar com cautela",
+  evitar: "Geralmente evitar",
+};
 
 export default async function Medicamento({
   params,
@@ -71,6 +97,10 @@ export default async function Medicamento({
                   <th className="px-4 py-3 text-left font-semibold">
                     Máxima
                   </th>
+
+                  <th className="px-4 py-3 text-left font-semibold">
+                    Evidência
+                  </th>
                 </tr>
               </thead>
 
@@ -94,6 +124,14 @@ export default async function Medicamento({
 
                     <td className="px-4 py-3">
                       {p.doseMaxima}
+                    </td>
+
+                    <td className="px-4 py-3">
+                      {p.nivelEvidencia ? (
+                        <EvidenciaStars nivel={p.nivelEvidencia} />
+                      ) : (
+                        <span className="text-slate-600">—</span>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -121,6 +159,12 @@ export default async function Medicamento({
           </div>
         </Section>
 
+        {medicamento.perolasClinicas && medicamento.perolasClinicas.length > 0 && (
+          <Section titulo="💡 Pérolas Clínicas">
+            <Lista itens={medicamento.perolasClinicas} />
+          </Section>
+        )}
+
         <Section titulo="🧠 Indicações">
           <Lista itens={medicamento.indicacoes} />
         </Section>
@@ -145,27 +189,97 @@ export default async function Medicamento({
           </Section>
         )}
 
+        <Section titulo="🤰 Populações Especiais">
+          <div className="grid gap-5 lg:grid-cols-2">
+            <InfoCard
+              titulo="Gravidez"
+              valor={
+                <div className="flex flex-col gap-2">
+                  {medicamento.gravidezCategoria && (
+                    <Badge color={corGravidez[medicamento.gravidezCategoria]}>
+                      {rotuloGravidez[medicamento.gravidezCategoria]}
+                    </Badge>
+                  )}
+                  <span>{medicamento.gravidez}</span>
+                </div>
+              }
+            />
+
+            <InfoCard
+              titulo="Lactação"
+              valor={
+                <div className="flex flex-col gap-2">
+                  {medicamento.lactacaoCategoria && (
+                    <Badge color={corLactacao[medicamento.lactacaoCategoria]}>
+                      {rotuloLactacao[medicamento.lactacaoCategoria]}
+                    </Badge>
+                  )}
+                  <span>{medicamento.lactacao}</span>
+                </div>
+              }
+            />
+
+            <InfoCard
+              titulo="Insuficiência Renal"
+              valor={
+                <div className="flex flex-col gap-2">
+                  {medicamento.ajusteRenalNecessario !== undefined && (
+                    <Badge color={medicamento.ajusteRenalNecessario ? "yellow" : "green"}>
+                      {medicamento.ajusteRenalNecessario
+                        ? "Requer ajuste/cautela"
+                        : "Sem ajuste necessário"}
+                    </Badge>
+                  )}
+                  <span>{medicamento.renal}</span>
+                </div>
+              }
+            />
+
+            <InfoCard
+              titulo="Insuficiência Hepática"
+              valor={medicamento.hepatica}
+            />
+          </div>
+        </Section>
+
         <Section titulo="📊 Perfil Clínico">
-          <div className="grid gap-5 md:grid-cols-2">
-            <InfoCard
-              titulo="Ganho de peso"
-              valor={<Rating value={medicamento.ganhoPeso} />}
-            />
+          <div className="grid gap-8 lg:grid-cols-[auto_1fr] lg:items-center">
+            <div className="flex justify-center rounded-xl border border-slate-800 bg-slate-900 p-4">
+              <EffectRadarChart
+                perfis={[
+                  {
+                    nome: medicamento.nome,
+                    ganhoPeso: medicamento.ganhoPeso,
+                    sedacao: medicamento.sedacao,
+                    sexual: medicamento.sexual,
+                    qt: medicamento.qt,
+                  },
+                ]}
+                size={220}
+              />
+            </div>
 
-            <InfoCard
-              titulo="Sedação"
-              valor={<Rating value={medicamento.sedacao} />}
-            />
+            <div className="grid gap-5 md:grid-cols-2">
+              <InfoCard
+                titulo="Ganho de peso"
+                valor={<Rating value={medicamento.ganhoPeso} />}
+              />
 
-            <InfoCard
-              titulo="Disfunção sexual"
-              valor={<Rating value={medicamento.sexual} />}
-            />
+              <InfoCard
+                titulo="Sedação"
+                valor={<Rating value={medicamento.sedacao} />}
+              />
 
-            <InfoCard
-              titulo="Prolongamento do QT"
-              valor={<Rating value={medicamento.qt} />}
-            />
+              <InfoCard
+                titulo="Disfunção sexual"
+                valor={<Rating value={medicamento.sexual} />}
+              />
+
+              <InfoCard
+                titulo="Prolongamento do QT"
+                valor={<Rating value={medicamento.qt} />}
+              />
+            </div>
           </div>
         </Section>
       </div>

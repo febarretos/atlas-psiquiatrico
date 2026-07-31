@@ -18,6 +18,38 @@ import { nortriptilina } from "./antidepressivos/nortriptilina";
 import { clomipramina } from "./antidepressivos/clomipramina";
 import { imipramina } from "./antidepressivos/imipramina";
 
+import { risperidona } from "./antipsicoticos/risperidona";
+import { olanzapina } from "./antipsicoticos/olanzapina";
+import { quetiapina } from "./antipsicoticos/quetiapina";
+import { aripiprazol } from "./antipsicoticos/aripiprazol";
+import { clozapina } from "./antipsicoticos/clozapina";
+import { haloperidol } from "./antipsicoticos/haloperidol";
+import { brexpiprazol } from "./antipsicoticos/brexpiprazol";
+import { lurasidona } from "./antipsicoticos/lurasidona";
+import { ziprasidona } from "./antipsicoticos/ziprasidona";
+import { paliperidona } from "./antipsicoticos/paliperidona";
+
+import { litio } from "./estabilizadores-humor/litio";
+import { valproato } from "./estabilizadores-humor/valproato";
+import { carbamazepina } from "./estabilizadores-humor/carbamazepina";
+import { lamotrigina } from "./estabilizadores-humor/lamotrigina";
+
+import { clonazepam } from "./benzodiazepinicos/clonazepam";
+import { diazepam } from "./benzodiazepinicos/diazepam";
+import { alprazolam } from "./benzodiazepinicos/alprazolam";
+import { lorazepam } from "./benzodiazepinicos/lorazepam";
+
+import { metilfenidato } from "./estimulantes/metilfenidato";
+import { lisdexanfetamina } from "./estimulantes/lisdexanfetamina";
+import { atomoxetina } from "./estimulantes/atomoxetina";
+
+import { biperideno } from "./anticolinergicos/biperideno";
+
+import { gabapentina } from "./outros-adjuvantes/gabapentina";
+import { pregabalina } from "./outros-adjuvantes/pregabalina";
+import { propranolol } from "./outros-adjuvantes/propranolol";
+import { zolpidem } from "./outros-adjuvantes/zolpidem";
+
 export const medicamentos = [
   sertralina,
   escitalopram,
@@ -38,4 +70,36 @@ export const medicamentos = [
   nortriptilina,
   clomipramina,
   imipramina,
+
+  risperidona,
+  olanzapina,
+  quetiapina,
+  aripiprazol,
+  clozapina,
+  haloperidol,
+  brexpiprazol,
+  lurasidona,
+  ziprasidona,
+  paliperidona,
+
+  litio,
+  valproato,
+  carbamazepina,
+  lamotrigina,
+
+  clonazepam,
+  diazepam,
+  alprazolam,
+  lorazepam,
+
+  metilfenidato,
+  lisdexanfetamina,
+  atomoxetina,
+
+  biperideno,
+
+  gabapentina,
+  pregabalina,
+  propranolol,
+  zolpidem,
 ];

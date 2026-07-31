@@ -2,6 +2,16 @@ import Card from "../components/Card";
 
 const modulos = [
   {
+    titulo: "🧭 Assistente de Avaliação",
+    descricao: "Sintomas → diagnósticos prováveis → perfil de medicamento",
+    href: "/assistente",
+  },
+  {
+    titulo: "🚨 Emergências",
+    descricao: "Reconhecimento e conduta em quadros agudos com risco de vida",
+    href: "/emergencias",
+  },
+  {
     titulo: "💊 Medicamentos",
     descricao: "Biblioteca completa de psicofármacos",
     href: "/medicamentos",

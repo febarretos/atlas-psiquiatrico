@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import ComparisonTable from "../../components/ComparisonTable";
+import EffectRadarChart from "../../components/EffectRadarChart";
 import MedicamentoSelect from "../../components/MedicamentoSelect";
 
 import { medicamentos } from "../../data/medicamentos";
@@ -45,7 +46,22 @@ export default function ComparadorPage() {
       </div>
 
       {selecionados.length >= 2 ? (
-        <ComparisonTable medicamentos={selecionados} />
+        <div className="space-y-8">
+          <div className="flex justify-center rounded-2xl border border-slate-800 bg-slate-900 p-6">
+            <EffectRadarChart
+              perfis={selecionados.map((m) => ({
+                nome: m.nome,
+                ganhoPeso: m.ganhoPeso,
+                sedacao: m.sedacao,
+                sexual: m.sexual,
+                qt: m.qt,
+              }))}
+              size={320}
+            />
+          </div>
+
+          <ComparisonTable medicamentos={selecionados} />
+        </div>
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900 p-12 text-center text-slate-400">
           Selecione pelo menos dois medicamentos para comparar.

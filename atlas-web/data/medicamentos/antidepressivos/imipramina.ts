@@ -6,7 +6,10 @@ export const imipramina: Medicamento = {
   nome: "Imipramina",
 
   nomeComercial: [
-    "Tofranil",
+    "Imipra",
+    "Depramina",
+    "Praminan",
+    "Uni Imiprax",
   ],
 
   classe: "Antidepressivo",
@@ -22,24 +25,28 @@ export const imipramina: Medicamento = {
       doseInicial: "25–50 mg/dia",
       doseUsual: "75–150 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 3,
     },
     {
       indicacao: "Transtorno do Pânico",
       doseInicial: "10–25 mg/dia",
       doseUsual: "75–150 mg/dia",
       doseMaxima: "200 mg/dia",
+      nivelEvidencia: 3,
     },
     {
       indicacao: "Transtorno de Ansiedade Generalizada (off-label)",
       doseInicial: "25 mg/dia",
       doseUsual: "75–150 mg/dia",
       doseMaxima: "200 mg/dia",
+      nivelEvidencia: 2,
     },
     {
       indicacao: "Enurese noturna (crianças >6 anos)",
       doseInicial: "10–25 mg à noite",
       doseUsual: "25–50 mg/noite",
       doseMaxima: "75 mg/noite",
+      nivelEvidencia: 4,
     },
   ],
 
@@ -110,17 +117,30 @@ export const imipramina: Medicamento = {
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica relativamente extensa durante a gestação.",
 
+  gravidezCategoria: "cautela",
+
   lactacao:
     "Pequenas quantidades são excretadas no leite materno. Geralmente compatível com a amamentação, mediante acompanhamento clínico.",
 
+  lactacaoCategoria: "compativel",
+
   renal:
     "Geralmente não necessita ajuste de dose.",
+
+  ajusteRenalNecessario: false,
 
   hepatica:
     "Iniciar com doses menores e titular lentamente em pacientes com insuficiência hepática.",
 
   observacoes:
     "A imipramina foi o primeiro antidepressivo tricíclico introduzido na prática clínica e permanece como uma medicação altamente eficaz para depressão maior. Atualmente é utilizada principalmente em casos resistentes, transtorno do pânico e enurese noturna. Seu perfil de efeitos adversos limita o uso como tratamento de primeira linha, especialmente devido aos efeitos anticolinérgicos, risco cardiovascular e toxicidade em overdose. Recomenda-se cautela em idosos e considerar realização de ECG antes do início do tratamento em pacientes com fatores de risco cardiovasculares.",
+
+  perolasClinicas: [
+    "Na enurese noturna, o efeito costuma aparecer já na primeira semana (diferente da latência antidepressiva de semanas) — se não houver resposta em 2 semanas na dose adequada, é pouco provável que doses maiores ajudem, e deve-se reconsiderar o diagnóstico ou terapia alternativa (alarme, desmopressina).",
+    "Em crianças, a margem terapêutica é estreita e a cardiotoxicidade em superdosagem é particularmente perigosa — combinado ao risco de ingestão acidental por irmãos menores, a quantidade prescrita/dispensada deve ser rigorosamente controlada.",
+    "Como um dos poucos tricíclicos com evidência histórica robusta em transtorno do pânico, pode ser considerada em pacientes que falharam múltiplos ISRS/IRSN e não toleram ou não respondem a benzodiazepínicos de manutenção.",
+    "Níveis séricos combinados de imipramina + desipramina (metabólito ativo) podem ser dosados e são úteis para checar adesão ou investigar resposta inadequada, sendo um dos poucos antidepressivos com monitorização terapêutica de nível sérico bem estabelecida.",
+  ],
 
   referencias: [
     "CANMAT 2023",

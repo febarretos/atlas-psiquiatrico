@@ -7,6 +7,7 @@ export const amitriptilina: Medicamento = {
 
   nomeComercial: [
     "Tryptanol",
+    "Amytril",
   ],
 
   classe: "Antidepressivo",
@@ -22,30 +23,35 @@ export const amitriptilina: Medicamento = {
       doseInicial: "25–50 mg/dia",
       doseUsual: "75–150 mg/dia",
       doseMaxima: "300 mg/dia",
+      nivelEvidencia: 3,
     },
     {
       indicacao: "Dor neuropática",
       doseInicial: "10–25 mg à noite",
       doseUsual: "25–75 mg/dia",
       doseMaxima: "150 mg/dia",
+      nivelEvidencia: 5,
     },
     {
       indicacao: "Fibromialgia",
       doseInicial: "10–25 mg à noite",
       doseUsual: "25–50 mg/dia",
       doseMaxima: "75 mg/dia",
+      nivelEvidencia: 3,
     },
     {
       indicacao: "Profilaxia da enxaqueca",
       doseInicial: "10–25 mg à noite",
       doseUsual: "25–75 mg/dia",
       doseMaxima: "150 mg/dia",
+      nivelEvidencia: 4,
     },
     {
       indicacao: "Insônia (off-label)",
       doseInicial: "10–25 mg à noite",
       doseUsual: "25–50 mg/dia",
       doseMaxima: "75 mg/dia",
+      nivelEvidencia: 2,
     },
   ],
 
@@ -118,17 +124,31 @@ export const amitriptilina: Medicamento = {
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica relativamente extensa.",
 
+  gravidezCategoria: "cautela",
+
   lactacao:
     "Pequenas quantidades são excretadas no leite. Geralmente considerada compatível com a amamentação, mediante acompanhamento clínico.",
 
+  lactacaoCategoria: "compativel",
+
   renal:
     "Geralmente não necessita ajuste de dose.",
+
+  ajusteRenalNecessario: false,
 
   hepatica:
     "Iniciar com doses menores e titular lentamente em pacientes com insuficiência hepática.",
 
   observacoes:
     "A amitriptilina permanece como uma das medicações mais eficazes para dor neuropática, fibromialgia e profilaxia da enxaqueca, frequentemente em doses inferiores às utilizadas para depressão. Em psiquiatria, atualmente costuma ser reservada para casos resistentes ou pacientes com depressão acompanhada de insônia importante e dor crônica. Deve ser utilizada com cautela em idosos devido ao elevado potencial anticolinérgico, risco de quedas e comprometimento cognitivo. Também apresenta maior cardiotoxicidade e risco em overdose quando comparada aos antidepressivos modernos.",
+
+  perolasClinicas: [
+    "Ao prescrever para dor crônica/insônia, deixar claro para o paciente (e para outros prescritores) que a dose usada (10-75mg) não é dose antidepressiva plena — evita confusão quando o paciente é reavaliado por outro profissional que pode interpretar a dose baixa como 'tratamento de depressão subdosado'.",
+    "Antes de prescrever, considerar ECG basal em pacientes acima de 40-50 anos ou com fatores de risco cardiovascular, pela possibilidade de prolongamento de PR, QRS e QTc — especialmente relevante se houver associação com outros medicamentos que prolongam QT.",
+    "Em caso de intenção suicida ou histórico de tentativas, avaliar cuidadosamente a quantidade de comprimidos dispensada por receita — a amitriptilina está entre os antidepressivos mais letais em overdose devido à cardiotoxicidade (arritmias por bloqueio de canais de sódio).",
+    "A nortriptilina (seu metabólito ativo) tem perfil de efeitos colaterais mais tolerável; ao trocar de amitriptilina para nortriptilina por intolerância, considerar dose equivalente em torno de 1:1 a 1:1,5.",
+    "Boca seca e constipação costumam ser dose-limitantes antes que ocorra efeito analgésico pleno — orientar sobre laxantes profiláticos e higiene do sono desde o início da titulação.",
+  ],
 
   referencias: [
     "CANMAT 2023",
