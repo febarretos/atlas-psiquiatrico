@@ -8,6 +8,7 @@ const menu = [
   { nome: "Assistente", href: "/assistente", icone: "🧭" },
   { nome: "Emergências", href: "/emergencias", icone: "🚨" },
   { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
+  { nome: "Seletor Transdiagnóstico", href: "/seletor-transdiagnostico", icone: "🎯" },
   { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
   { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },

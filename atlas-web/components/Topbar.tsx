@@ -8,6 +8,7 @@ import { diagnosticos } from "../data/diagnosticos";
 import { escalas } from "../data/escalas";
 import { emergencias } from "../data/emergencias";
 import { fluxogramas } from "../data/fluxogramas";
+import { dominiosPsicopatologicos } from "../data/psicopatologia";
 
 interface Resultado {
   tipo: string;
@@ -60,6 +61,20 @@ export default function Topbar({ onAbrirMenu }: Props) {
         sub: f.categoria,
         href: `/fluxogramas/${f.id}`,
       })),
+      ...dominiosPsicopatologicos.map((d) => ({
+        tipo: "Psicopatologia",
+        nome: d.nome,
+        sub: `${d.achados.length} achado(s)`,
+        href: `/psicopatologia/${d.id}`,
+      })),
+      ...dominiosPsicopatologicos.flatMap((d) =>
+        d.achados.map((a) => ({
+          tipo: "Achado psicopatológico",
+          nome: a.nome,
+          sub: d.nome,
+          href: `/psicopatologia/${d.id}`,
+        }))
+      ),
     ];
 
     return itens

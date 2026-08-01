@@ -13,6 +13,7 @@ export function GET() {
     "/medicamentos",
     "/diagnosticos",
     "/psicopatologia",
+    "/seletor-transdiagnostico",
     "/escalas",
     "/fluxogramas",
     "/emergencias",

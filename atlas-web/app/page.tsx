@@ -17,6 +17,11 @@ const modulos = [
     href: "/medicamentos",
   },
   {
+    titulo: "🎯 Seletor Transdiagnóstico",
+    descricao: "Escolha de medicamento por perfil do paciente, cruzando múltiplos alvos",
+    href: "/seletor-transdiagnostico",
+  },
+  {
     titulo: "🧠 Diagnósticos",
     descricao: "DSM-5-TR, CID-11 e diferenciais",
     href: "/diagnosticos",
