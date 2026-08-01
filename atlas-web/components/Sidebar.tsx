@@ -9,6 +9,7 @@ const menu = [
   { nome: "Emergências", href: "/emergencias", icone: "🚨" },
   { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
   { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
+  { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },
   { nome: "Calculadoras", href: "/calculadoras", icone: "🧮" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },

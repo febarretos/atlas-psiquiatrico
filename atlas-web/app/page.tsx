@@ -22,6 +22,11 @@ const modulos = [
     href: "/diagnosticos",
   },
   {
+    titulo: "🧩 Psicopatologia",
+    descricao: "Semiologia psiquiátrica, com diferenciação fina entre achados",
+    href: "/psicopatologia",
+  },
+  {
     titulo: "📋 Escalas",
     descricao: "Escalas com cálculo automático",
     href: "/escalas",

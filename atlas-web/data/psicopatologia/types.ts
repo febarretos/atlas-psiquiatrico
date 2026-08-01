@@ -1,0 +1,42 @@
+export interface DiferencialFino {
+  // Termo/achado com o qual este é frequentemente confundido.
+  comparadoCom: string;
+
+  // A distinção prática entre os dois — o que de fato diferencia um do
+  // outro na entrevista clínica, não apenas a definição de cada um isolada.
+  distincao: string;
+}
+
+export interface AchadoPsicopatologico {
+  id: string;
+
+  nome: string;
+
+  sinonimos?: string[];
+
+  definicao: string;
+
+  caracteristicas: string[];
+
+  // Vinheta clínica curta ilustrando o achado em contexto (fala do
+  // paciente, comportamento observado), não apenas reafirmar a definição.
+  exemploClinico: string;
+
+  // Diferenciação fina com achados semelhantes/frequentemente confundidos —
+  // o principal valor pedagógico do módulo para público avançado.
+  diferencialFino?: DiferencialFino[];
+
+  transtornosAssociados: string[];
+}
+
+export interface DominioPsicopatologico {
+  id: string;
+
+  nome: string;
+
+  descricao: string;
+
+  achados: AchadoPsicopatologico[];
+
+  referencias?: string[];
+}
