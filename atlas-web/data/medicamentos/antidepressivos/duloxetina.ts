@@ -119,7 +119,7 @@ export const duloxetina: Medicamento = {
     "Triptanos (risco de síndrome serotoninérgica)",
   ],
 
-  ganhoPeso: "Baixo",
+  ganhoPeso: "Moderado",
 
   sedacao: "Baixa",
 

@@ -120,7 +120,7 @@ export const citalopram: Medicamento = {
 
   sedacao: "Baixa",
 
-  sexual: "Moderada",
+  sexual: "Alta",
 
   qt: "Alto",
 

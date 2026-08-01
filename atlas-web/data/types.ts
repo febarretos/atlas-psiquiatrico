@@ -46,19 +46,17 @@ export interface Medicamento {
   interacoes?: string[];
 
   // Atividade serotoninérgica clinicamente relevante (inibição de
-  // recaptação ou liberação de serotonina) — usado para alertar risco de
-  // síndrome serotoninérgica em combinações no Verificador de Interações,
-  // SEM depender de `classe` como proxy (ex.: bupropiona é "Antidepressivo"
-  // mas não é serotoninérgica; agomelatina idem). Omitir/false quando o
-  // fármaco não tem esse mecanismo.
+  // recaptação ou liberação de serotonina) — risco de síndrome
+  // serotoninérgica em combinações, independente de `classe` (ex.:
+  // bupropiona é "Antidepressivo" mas não é serotoninérgica; agomelatina
+  // idem). Omitir/false quando o fármaco não tem esse mecanismo.
   serotoninergico?: boolean;
 
-  // Carga anticolinérgica clínica do fármaco (independente da classe) —
-  // usado para alertar risco cumulativo (confusão/delirium em idosos,
-  // retenção urinária, constipação, boca seca) em combinações no
-  // Verificador de Interações, SEM depender de `classe === "Anticolinérgico"`
-  // como proxy (ex.: tricíclicos e antipsicóticos sedativos têm carga
-  // anticolinérgica relevante mesmo não sendo dessa classe).
+  // Carga anticolinérgica clínica do fármaco, independente da classe —
+  // risco cumulativo (confusão/delirium em idosos, retenção urinária,
+  // constipação, boca seca) em combinações (ex.: tricíclicos e
+  // antipsicóticos sedativos têm carga anticolinérgica relevante mesmo não
+  // sendo da classe "Anticolinérgico").
   cargaAnticolinergica?: "Nenhuma" | "Baixa" | "Moderada" | "Alta";
 
   ganhoPeso: string;

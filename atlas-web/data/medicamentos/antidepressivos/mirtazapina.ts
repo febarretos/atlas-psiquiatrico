@@ -117,7 +117,7 @@ export const mirtazapina: Medicamento = {
 
   sedacao: "Alta",
 
-  sexual: "Baixa",
+  sexual: "Muito baixa",
 
   qt: "Baixo",
 

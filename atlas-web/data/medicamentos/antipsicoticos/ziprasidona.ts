@@ -98,7 +98,7 @@ export const ziprasidona: Medicamento = {
 
   ganhoPeso: "Muito baixo",
 
-  sedacao: "Moderada",
+  sedacao: "Alta",
 
   sexual: "Baixa",
 

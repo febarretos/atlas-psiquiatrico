@@ -4,7 +4,6 @@ import ClearanceCreatinina from "../../components/calculadoras/ClearanceCreatini
 import CalculadoraQTc from "../../components/calculadoras/CalculadoraQTc";
 import EquivalenciaBenzodiazepinicos from "../../components/calculadoras/EquivalenciaBenzodiazepinicos";
 import CalculadoraIMC from "../../components/calculadoras/CalculadoraIMC";
-import VerificadorInteracoes from "../../components/calculadoras/VerificadorInteracoes";
 import EquivalenciaAntidepressivos from "../../components/calculadoras/EquivalenciaAntidepressivos";
 import DesmameBenzodiazepinicos from "../../components/calculadoras/DesmameBenzodiazepinicos";
 import EquivalenciaClorpromazina from "../../components/calculadoras/EquivalenciaClorpromazina";
@@ -38,10 +37,6 @@ export default function Calculadoras() {
 
         <Section titulo="⚖️ Índice de Massa Corporal">
           <CalculadoraIMC />
-        </Section>
-
-        <Section titulo="🔄 Verificador de Interações">
-          <VerificadorInteracoes />
         </Section>
 
         <Section titulo="💊 Equivalência de Antidepressivos">

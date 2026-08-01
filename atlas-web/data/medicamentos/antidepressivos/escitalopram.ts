@@ -117,7 +117,7 @@ export const escitalopram: Medicamento = {
     "Varfarina e outros anticoagulantes (aumentam o risco de sangramento)",
   ],
 
-  ganhoPeso: "Baixo",
+  ganhoPeso: "Moderado",
 
   sedacao: "Baixa",
 

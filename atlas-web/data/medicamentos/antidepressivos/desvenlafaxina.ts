@@ -111,7 +111,7 @@ export const desvenlafaxina: Medicamento = {
 
   sedacao: "Baixa",
 
-  sexual: "Alta",
+  sexual: "Moderada",
 
   qt: "Baixo",
 

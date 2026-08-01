@@ -85,7 +85,7 @@ export const brexpiprazol: Medicamento = {
     "Antiparkinsonianos/agonistas dopaminérgicos — levodopa (pode reduzir a eficácia do levodopa por antagonismo parcial da via dopaminérgica)",
   ],
 
-  ganhoPeso: "Moderado",
+  ganhoPeso: "Baixo",
 
   sedacao: "Baixa",
 

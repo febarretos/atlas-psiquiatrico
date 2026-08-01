@@ -109,7 +109,7 @@ export const haloperidol: Medicamento = {
 
   sedacao: "Moderada",
 
-  sexual: "Moderada",
+  sexual: "Alta",
 
   qt: "Alto",
 

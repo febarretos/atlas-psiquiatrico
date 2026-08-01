@@ -102,7 +102,7 @@ export const paliperidona: Medicamento = {
 
   ganhoPeso: "Moderado",
 
-  sedacao: "Moderada",
+  sedacao: "Baixa",
 
   sexual: "Alta",
 

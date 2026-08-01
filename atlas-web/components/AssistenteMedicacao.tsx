@@ -543,8 +543,9 @@ export default function AssistenteMedicacao() {
             Lista de candidatos a partir do modo de entrada escolhido acima —
             não substitui avaliação de comorbidades, interações com outros
             medicamentos em uso, custo, disponibilidade e preferência do
-            paciente. Use o Verificador de Interações (em Calculadoras) antes
-            de associar a outros medicamentos já em uso.
+            paciente. Verificar interações medicamentosas em fonte
+            especializada (ex.: bula, Micromedex, Stockley&apos;s, UpToDate)
+            antes de associar a outros medicamentos já em uso.
           </p>
 
           <div>

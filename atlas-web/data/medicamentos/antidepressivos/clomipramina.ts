@@ -123,7 +123,7 @@ export const clomipramina: Medicamento = {
 
   sedacao: "Alta",
 
-  sexual: "Alta",
+  sexual: "Muito alta",
 
   qt: "Alto",
 
