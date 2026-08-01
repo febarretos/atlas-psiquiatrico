@@ -6,6 +6,7 @@ import { escalas } from "../../data/escalas";
 import { fluxogramas } from "../../data/fluxogramas";
 import { emergencias } from "../../data/emergencias";
 import { dominiosPsicopatologicos } from "../../data/psicopatologia";
+import { casosClinicos } from "../../data/casos-clinicos";
 
 export function GET() {
   const urls = [
@@ -13,6 +14,7 @@ export function GET() {
     "/medicamentos",
     "/diagnosticos",
     "/psicopatologia",
+    "/casos-clinicos",
     "/seletor-transdiagnostico",
     "/escalas",
     "/fluxogramas",
@@ -26,6 +28,7 @@ export function GET() {
     ...fluxogramas.map((f) => `/fluxogramas/${encodeURIComponent(f.id)}`),
     ...emergencias.map((e) => `/emergencias/${encodeURIComponent(e.id)}`),
     ...dominiosPsicopatologicos.map((d) => `/psicopatologia/${encodeURIComponent(d.id)}`),
+    ...casosClinicos.map((c) => `/casos-clinicos/${encodeURIComponent(c.id)}`),
   ];
 
   return NextResponse.json(urls);

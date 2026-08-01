@@ -32,6 +32,11 @@ const modulos = [
     href: "/psicopatologia",
   },
   {
+    titulo: "🩺 Casos Clínicos",
+    descricao: "Vinhetas interativas — raciocínio diagnóstico passo a passo",
+    href: "/casos-clinicos",
+  },
+  {
     titulo: "📋 Escalas",
     descricao: "Escalas com cálculo automático",
     href: "/escalas",

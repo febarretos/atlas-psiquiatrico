@@ -11,6 +11,7 @@ const menu = [
   { nome: "Seletor Transdiagnóstico", href: "/seletor-transdiagnostico", icone: "🎯" },
   { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
   { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
+  { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },
   { nome: "Calculadoras", href: "/calculadoras", icone: "🧮" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },

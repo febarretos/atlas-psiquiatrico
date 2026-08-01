@@ -9,6 +9,7 @@ import { escalas } from "../data/escalas";
 import { emergencias } from "../data/emergencias";
 import { fluxogramas } from "../data/fluxogramas";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
+import { casosClinicos } from "../data/casos-clinicos";
 
 interface Resultado {
   tipo: string;
@@ -75,6 +76,12 @@ export default function Topbar({ onAbrirMenu }: Props) {
           href: `/psicopatologia/${d.id}`,
         }))
       ),
+      ...casosClinicos.map((c) => ({
+        tipo: "Caso clínico",
+        nome: c.titulo,
+        sub: c.categoria,
+        href: `/casos-clinicos/${c.id}`,
+      })),
     ];
 
     return itens
