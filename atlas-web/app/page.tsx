@@ -37,11 +37,6 @@ const modulos = [
     href: "/escalas",
   },
   {
-    titulo: "🧮 Calculadoras",
-    descricao: "Ferramentas clínicas",
-    href: "/calculadoras",
-  },
-  {
     titulo: "🌳 Fluxogramas",
     descricao: "Algoritmos diagnósticos e terapêuticos",
     href: "/fluxogramas",

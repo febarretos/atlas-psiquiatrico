@@ -12,7 +12,6 @@ const menu = [
   { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
   { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },
-  { nome: "Calculadoras", href: "/calculadoras", icone: "🧮" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
 ];
 

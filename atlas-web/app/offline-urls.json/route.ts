@@ -18,7 +18,6 @@ export function GET() {
     "/escalas",
     "/fluxogramas",
     "/emergencias",
-    "/calculadoras",
     "/assistente",
     ...medicamentos.map((m) => `/medicamentos/${encodeURIComponent(m.nome)}`),
     ...diagnosticos.map((d) => `/diagnosticos/${encodeURIComponent(d.id)}`),
