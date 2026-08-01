@@ -84,11 +84,17 @@ export const biperideno: Medicamento = {
     "Euforia leve",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Alta",
+
   interacoes: [
     "Outros anticolinérgicos (efeito anticolinérgico cumulativo/toxicidade)",
     "Antidepressivos tricíclicos (potencialização de efeitos anticolinérgicos)",
     "Antipsicóticos de baixa potência com efeito anticolinérgico próprio (clorpromazina, olanzapina, clozapina)",
     "Álcool (potencialização de efeitos sedativos/cognitivos)",
+    "Inibidores da colinesterase (donepezila, rivastigmina, galantamina) — antagonismo mútuo, pode reduzir a eficácia de ambos e agravar declínio cognitivo em pacientes com demência",
+    "Digoxina (anticolinérgicos podem aumentar a absorção gastrointestinal da digoxina pela redução da motilidade intestinal, elevando o risco de toxicidade digitálica)",
   ],
 
   ganhoPeso: "Muito baixo",

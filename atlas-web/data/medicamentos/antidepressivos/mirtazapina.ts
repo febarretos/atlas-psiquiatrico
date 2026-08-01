@@ -97,6 +97,10 @@ export const mirtazapina: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "IMAO",
     "Álcool",
@@ -104,6 +108,9 @@ export const mirtazapina: Medicamento = {
     "Outros depressores do SNC",
     "Tramadol",
     "Linezolida",
+    "Inibidores potentes da CYP3A4 (cetoconazol, itraconazol, inibidores de protease, eritromicina — aumentam os níveis séricos de mirtazapina)",
+    "Indutores potentes da CYP3A4 (carbamazepina, fenitoína, rifampicina — reduzem os níveis séricos de mirtazapina)",
+    "Varfarina (pode potencializar o efeito hipoprotrombinêmico, aumentando o INR e o risco de sangramento)",
   ],
 
   ganhoPeso: "Alto",

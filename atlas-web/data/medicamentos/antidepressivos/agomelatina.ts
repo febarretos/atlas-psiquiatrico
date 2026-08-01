@@ -67,10 +67,17 @@ export const agomelatina: Medicamento = {
     "Elevação de transaminases",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
-    "Fluvoxamina",
-    "Ciprofloxacino",
-    "Outros inibidores potentes da CYP1A2",
+    "Fluvoxamina (inibidor potente da CYP1A2 — aumenta a exposição à agomelatina em até 60 vezes; associação contraindicada)",
+    "Ciprofloxacino (inibidor potente da CYP1A2; associação contraindicada)",
+    "Outros inibidores potentes da CYP1A2 (ex. enoxacino) — associação contraindicada",
+    "Propranolol (inibidor moderado da CYP1A2 — aumenta a exposição à agomelatina; usar com cautela)",
+    "Estrogênios/anticoncepcionais orais (inibidores moderados da CYP1A2 — podem aumentar a exposição à agomelatina em várias vezes)",
+    "Álcool em quantidade significativa (potencializa o risco de hepatotoxicidade)",
   ],
 
   ganhoPeso: "Baixo",

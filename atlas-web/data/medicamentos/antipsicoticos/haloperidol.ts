@@ -91,12 +91,18 @@ export const haloperidol: Medicamento = {
     "Síndrome neuroléptica maligna (rara, porém grave)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Outros agentes que prolongam QT (risco de arritmias graves, incluindo torsades de pointes)",
     "Depressores do SNC e álcool (potencialização de sedação)",
     "Carbamazepina e outros indutores enzimáticos (reduzem níveis séricos)",
     "Anticolinérgicos (uso combinado para tratar sintomas extrapiramidais, mas risco de efeitos aditivos)",
     "Lítio (raro relato de neurotoxicidade com uso combinado)",
+    "Inibidores da CYP3A4/CYP2D6 (cetoconazol, quinidina, fluoxetina, paroxetina) — aumentam a concentração plasmática e o risco de efeitos adversos, incluindo prolongamento de QT",
+    "Rifampicina (indutor enzimático potente, reduz significativamente os níveis séricos)",
   ],
 
   ganhoPeso: "Baixo",

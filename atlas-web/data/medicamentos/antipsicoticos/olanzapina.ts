@@ -89,12 +89,18 @@ export const olanzapina: Medicamento = {
     "Elevação de transaminases hepáticas",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Moderada",
+
   interacoes: [
     "Tabagismo (indução da CYP1A2, reduz níveis séricos)",
     "Fluvoxamina (inibidor potente da CYP1A2, aumenta níveis séricos)",
     "Carbamazepina (indução enzimática, reduz níveis séricos)",
     "Depressores do SNC (potencialização de sedação)",
     "Álcool (potencialização de efeitos sedativos e hepatotoxicidade)",
+    "Ciprofloxacino (inibidor potente da CYP1A2, pode aumentar níveis séricos de olanzapina — considerar redução de dose)",
+    "Carvão ativado (reduz significativamente a absorção oral da olanzapina — relevante no manejo de intoxicação aguda)",
   ],
 
   ganhoPeso: "Muito alto",

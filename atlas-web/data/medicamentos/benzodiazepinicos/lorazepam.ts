@@ -102,12 +102,18 @@ export const lorazepam: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Álcool",
-    "Opioides",
+    "Opioides (risco de sedação profunda, depressão respiratória e óbito — alerta de tarja preta da FDA para o uso concomitante de benzodiazepínicos e opioides)",
     "Outros depressores do SNC",
-    "Ácido valproico (pode aumentar níveis de lorazepam)",
+    "Ácido valproico (pode aumentar níveis de lorazepam por inibição da glicuronidação)",
     "Probenecida (reduz clearance do lorazepam)",
+    "Clozapina (relatos de sedação intensa, hipersalivação, hipotensão, ataxia, delirium e parada respiratória — associação a evitar, especialmente por via parenteral)",
+    "Teofilina/aminofilina (podem reduzir o efeito ansiolítico/sedativo do lorazepam)",
   ],
 
   ganhoPeso: "Muito baixo",

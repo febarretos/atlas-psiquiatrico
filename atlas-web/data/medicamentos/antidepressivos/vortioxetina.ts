@@ -72,12 +72,20 @@ export const vortioxetina: Medicamento = {
     "Vômitos",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
     "Tramadol",
     "Rifampicina",
     "Bupropiona (aumenta níveis da vortioxetina)",
+    "Outros inibidores potentes da CYP2D6, como quinidina, fluoxetina e paroxetina (mesmo mecanismo da bupropiona — aumentam níveis séricos; considerar redução de dose)",
+    "Anticoagulantes e antiagregantes plaquetários (risco aumentado de sangramento por interação farmacodinâmica)",
+    "AINEs, incluindo AAS (risco aumentado de sangramento gastrointestinal)",
+    "Outros agentes serotoninérgicos, como ISRS, IRSN, triptanos, lítio e erva-de-são-joão (risco de síndrome serotoninérgica)",
   ],
 
   ganhoPeso: "Muito baixo",

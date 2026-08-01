@@ -97,6 +97,10 @@ export const imipramina: Medicamento = {
     "Sudorese",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Alta",
+
   interacoes: [
     "IMAO",
     "Fluoxetina",
@@ -104,6 +108,11 @@ export const imipramina: Medicamento = {
     "Álcool",
     "Benzodiazepínicos",
     "Outros medicamentos que prolongam QT",
+    "Cimetidina, quinidina, terbinafina e bupropiona (inibidores potentes da CYP2D6 — aumentam níveis séricos e risco de toxicidade/cardiotoxicidade)",
+    "Clonidina (a imipramina pode reduzir/reverter seu efeito anti-hipertensivo)",
+    "Varfarina (pode aumentar os níveis do anticoagulante e o risco de sangramento)",
+    "Simpatomiméticos, incluindo anestésicos locais com vasoconstritor — adrenalina/noradrenalina (risco de efeitos cardiovasculares exagerados/arritmias)",
+    "Antipsicóticos e outros anticolinérgicos (efeito aditivo anticolinérgico, sedativo e de prolongamento de QT)",
   ],
 
   ganhoPeso: "Alto",

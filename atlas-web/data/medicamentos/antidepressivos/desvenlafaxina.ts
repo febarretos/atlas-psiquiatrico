@@ -91,6 +91,10 @@ export const desvenlafaxina: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
@@ -98,6 +102,9 @@ export const desvenlafaxina: Medicamento = {
     "Lítio",
     "Anticoagulantes",
     "Outros medicamentos serotoninérgicos",
+    "Inibidores potentes da CYP3A4 (ex. cetoconazol) — podem aumentar discretamente a exposição à desvenlafaxina, com maior relevância se houver insuficiência renal ou hepática associada",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Triptanos (risco de síndrome serotoninérgica)",
   ],
 
   ganhoPeso: "Baixo",

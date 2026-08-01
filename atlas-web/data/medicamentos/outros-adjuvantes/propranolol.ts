@@ -88,11 +88,19 @@ export const propranolol: Medicamento = {
     "Distúrbios do sono e pesadelos (uso regular)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Outros anti-hipertensivos e bradicardizantes (verapamil, diltiazem, digoxina) — risco aditivo de bradicardia/hipotensão",
     "Insulina e hipoglicemiantes orais (pode mascarar sintomas de hipoglicemia)",
     "Antidepressivos e antipsicóticos com efeito hipotensor (efeito aditivo)",
     "Inibidores da CYP2D6 (fluoxetina, paroxetina) podem aumentar níveis séricos de propranolol",
+    "Broncodilatadores beta-agonistas (antagonismo mútuo — risco de broncoespasmo em asma/DPOC)",
+    "Clonidina (risco de hipertensão rebote grave se a clonidina for descontinuada abruptamente durante uso concomitante)",
+    "AINEs de uso crônico (podem reduzir o efeito anti-hipertensivo)",
+    "Lidocaína e teofilina (propranolol reduz o clearance hepático de ambas, aumentando o risco de toxicidade)",
   ],
 
   ganhoPeso: "Muito baixo",

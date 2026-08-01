@@ -84,11 +84,16 @@ export const ziprasidona: Medicamento = {
     "Prolongamento do intervalo QT",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Fármacos que prolongam o intervalo QT (antiarrítmicos, alguns macrolídeos, antifúngicos azólicos, outros antipsicóticos) — risco aditivo",
     "Carbamazepina (indutor da CYP3A4, pode reduzir níveis séricos)",
     "Cetoconazol e outros inibidores potentes da CYP3A4 (aumentam níveis séricos)",
     "Diuréticos que causam hipocalemia/hipomagnesemia (aumentam risco de arritmia)",
+    "Álcool e outros depressores do SNC (potencialização de sedação)",
   ],
 
   ganhoPeso: "Muito baixo",

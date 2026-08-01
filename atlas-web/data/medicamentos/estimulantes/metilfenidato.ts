@@ -88,12 +88,19 @@ export const metilfenidato: Medicamento = {
     "Efeito rebote (irritabilidade/piora dos sintomas) ao término do efeito da dose",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO (risco de crise hipertensiva)",
     "Anti-hipertensivos (pode reduzir eficácia)",
     "Anticoagulantes cumarínicos (pode potencializar efeito)",
     "Álcool",
     "Outros agentes simpaticomiméticos",
+    "Agentes serotoninérgicos (risco de síndrome serotoninérgica)",
+    "Anestésicos halogenados (risco de crise hipertensiva intraoperatória — suspender no dia da cirurgia)",
+    "Alfa-2 agonistas (clonidina, guanfacina) — monitorar sedação aditiva e alterações paradoxais da pressão arterial",
   ],
 
   ganhoPeso: "Muito baixo",

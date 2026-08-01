@@ -77,6 +77,10 @@ export const vilazodona: Medicamento = {
     "Boca seca",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
@@ -86,6 +90,7 @@ export const vilazodona: Medicamento = {
     "Indutores potentes da CYP3A4 (rifampicina, carbamazepina, fenitoína)",
     "Anticoagulantes e antiagregantes plaquetários",
     "AINEs (aumento do risco de sangramento gastrointestinal)",
+    "Suco de toranja/grapefruit (inibidor potente da CYP3A4 — pode elevar significativamente os níveis de vilazodona; se o uso concomitante não puder ser evitado, a dose não deve exceder 20 mg/dia)",
   ],
 
   ganhoPeso: "Muito baixo",

@@ -114,6 +114,10 @@ export const fluoxetina: Medicamento = {
     "Cefaleia",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
@@ -122,6 +126,12 @@ export const fluoxetina: Medicamento = {
     "Antidepressivos tricíclicos",
     "Lítio",
     "Anticoagulantes",
+    "Tioridazina e pimozida (contraindicadas — risco de arritmias fatais por prolongamento do QT associado à inibição da CYP2D6)",
+    "Codeína (inibe a conversão em morfina pela CYP2D6, reduzindo a analgesia)",
+    "Antipsicóticos substratos da CYP2D6 (ex. risperidona, aumento de até 4x nos níveis plasmáticos)",
+    "Carbamazepina e fenitoína (fluoxetina pode elevar seus níveis séricos, com risco de toxicidade)",
+    "Benzodiazepínicos metabolizados por CYP2C19/CYP3A4 (ex. diazepam, alprazolam) — aumento de níveis e sedação",
+    "AINEs e AAS (aumentam o risco de sangramento)",
   ],
 
   ganhoPeso: "Baixo",

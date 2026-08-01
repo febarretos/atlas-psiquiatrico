@@ -94,6 +94,10 @@ export const valproato: Medicamento = {
     "Hiperamonemia",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Lamotrigina (aumenta significativamente seus níveis séricos, com risco de rash cutâneo grave)",
     "Carbamazepina (interação bidirecional, com redução mútua de níveis séricos)",
@@ -101,6 +105,9 @@ export const valproato: Medicamento = {
     "Contraceptivos orais (potencial interação bidirecional)",
     "Varfarina e outros fármacos com alta ligação a proteínas plasmáticas",
     "Álcool (potencializa a hepatotoxicidade)",
+    "Antibióticos carbapenêmicos (ex: meropenem, imipenem, ertapenem — reduzem drasticamente os níveis séricos de valproato, em até 50–80%, com risco de perda de controle de crises; combinação geralmente a evitar)",
+    "Ácido acetilsalicílico/AAS (desloca o valproato da ligação a proteínas plasmáticas, aumentando a fração livre e o risco de sangramento e toxicidade)",
+    "Topiramato (risco aumentado de hiperamonemia e encefalopatia hiperamonêmica quando associados)",
   ],
 
   ganhoPeso: "Alto",

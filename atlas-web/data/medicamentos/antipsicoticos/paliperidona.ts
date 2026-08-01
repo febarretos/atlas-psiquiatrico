@@ -87,11 +87,17 @@ export const paliperidona: Medicamento = {
     "Ganho de peso moderado",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Fármacos que prolongam o intervalo QT (efeito aditivo, ainda que menos pronunciado que a ziprasidona)",
     "Agonistas dopaminérgicos (levodopa) — antagonismo de efeito",
     "Anti-hipertensivos (risco de hipotensão ortostática, especialmente por efeito alfa-1 antagonista)",
     "Carbamazepina (indutor enzimático, pode reduzir níveis séricos por aumento do clearance)",
+    "Indutores potentes da CYP3A4/glicoproteína-P (rifampicina, erva-de-são-joão) — reduzem níveis séricos; evitar especialmente durante o intervalo de dose das formulações injetáveis de ação prolongada",
+    "Depressores do SNC e álcool (potencialização de sedação)",
   ],
 
   ganhoPeso: "Moderado",

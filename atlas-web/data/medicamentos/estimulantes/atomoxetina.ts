@@ -83,11 +83,17 @@ export const atomoxetina: Medicamento = {
     "Disfunção sexual e problemas de ejaculação (em adultos)",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO (contraindicado — risco de crise hipertensiva/síndrome serotoninérgica)",
     "Inibidores potentes da CYP2D6 (paroxetina, fluoxetina, bupropiona) aumentam significativamente os níveis séricos",
     "Agentes que aumentam a pressão arterial ou frequência cardíaca (efeito aditivo)",
     "Salbutamol e outros beta-agonistas (potencialização de efeitos cardiovasculares)",
+    "Agentes serotoninérgicos (ISRS, ISRSN, triptanos) — risco de síndrome serotoninérgica, especialmente se associados a fármacos que também prolongam o QT",
+    "Outros fármacos que prolongam o intervalo QT (risco aditivo de arritmia ventricular)",
   ],
 
   ganhoPeso: "Muito baixo",

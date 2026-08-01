@@ -100,13 +100,21 @@ export const carbamazepina: Medicamento = {
     "Leucopenia leve e transitória",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Contraceptivos hormonais (redução da eficácia)",
-    "Varfarina",
+    "Varfarina (indução do metabolismo, com redução do efeito anticoagulante — risco de subanticoagulação)",
     "Outros anticonvulsivantes",
     "Antipsicóticos e antidepressivos (redução de níveis séricos)",
     "IMAO (uso contraindicado)",
     "Inibidores da protease e outros substratos ou inibidores do CYP3A4",
+    "Macrolídeos (eritromicina e claritromicina — inibem a CYP3A4, podendo causar toxicidade por carbamazepina, com náusea, diplopia, tontura e ataxia)",
+    "Clozapina (associação considerada contraindicada pelo risco aditivo de agranulocitose/supressão de medula óssea)",
+    "Diuréticos tiazídicos e outros fármacos associados a hiponatremia (ex: ISRS — risco aditivo de hiponatremia/SIADH)",
+    "Inibidores da CYP3A4 (ex: verapamil, diltiazem, cetoconazol, suco de toranja — aumentam os níveis de carbamazepina e o risco de toxicidade)",
   ],
 
   ganhoPeso: "Baixo",

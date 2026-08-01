@@ -109,6 +109,10 @@ export const paroxetina: Medicamento = {
     "Ganho de peso",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Moderada",
+
   interacoes: [
     "IMAO",
     "Linezolida",
@@ -117,6 +121,11 @@ export const paroxetina: Medicamento = {
     "Antidepressivos tricíclicos",
     "Metoprolol",
     "Lítio",
+    "Tioridazina e pimozida (contraindicadas — risco de arritmias fatais por prolongamento do QT)",
+    "Risperidona (substrato da CYP2D6 — aumento de até 4x nos níveis plasmáticos)",
+    "Atomoxetina (substrato da CYP2D6 — aumento de 6 a 8x na exposição)",
+    "Varfarina e outros anticoagulantes (aumentam o risco de sangramento)",
+    "AINEs e AAS (aumentam o risco de sangramento)",
   ],
 
   ganhoPeso: "Moderado",

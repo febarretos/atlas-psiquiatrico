@@ -97,11 +97,18 @@ export const aripiprazol: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Inibidores da CYP2D6 (fluoxetina, paroxetina) aumentam níveis séricos — requer redução de dose",
     "Inibidores da CYP3A4 (cetoconazol) aumentam níveis séricos",
     "Indutores da CYP3A4 (carbamazepina, rifampicina) reduzem níveis séricos significativamente",
     "Anti-hipertensivos (risco de hipotensão, embora menos comum que outros antipsicóticos)",
+    "Quinidina (inibidor potente da CYP2D6, aumenta níveis séricos — requer redução de dose)",
+    "Benzodiazepínicos e álcool (potencialização de sedação, tontura e hipotensão)",
+    "Antiparkinsonianos/agonistas dopaminérgicos — levodopa (antagonismo mútuo do efeito, mesmo sendo agonista parcial D2; pode piorar parkinsonismo ou reduzir a eficácia do levodopa)",
   ],
 
   ganhoPeso: "Muito baixo",

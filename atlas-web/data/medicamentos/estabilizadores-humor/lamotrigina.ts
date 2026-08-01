@@ -82,11 +82,17 @@ export const lamotrigina: Medicamento = {
     "Diplopia",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Valproato (aumenta significativamente os níveis de lamotrigina, exigindo redução de dose)",
     "Carbamazepina e outros indutores enzimáticos (reduzem os níveis de lamotrigina)",
     "Contraceptivos orais estrogênicos (podem reduzir os níveis de lamotrigina)",
     "Outros anticonvulsivantes",
+    "Rifampicina e inibidores da protease do HIV (ex: lopinavir/ritonavir — induzem a glicuronidação, podendo reduzir os níveis de lamotrigina em até 50%)",
+    "Paracetamol/acetaminofeno (uso regular/crônico pode induzir a glicuronidação e reduzir os níveis séricos de lamotrigina)",
   ],
 
   ganhoPeso: "Muito baixo",

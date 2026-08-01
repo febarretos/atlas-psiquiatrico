@@ -88,12 +88,20 @@ export const clozapina: Medicamento = {
     "Miocardite (principalmente nas primeiras 6-8 semanas)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Alta",
+
   interacoes: [
     "Fármacos mielossupressores (aumentam risco de agranulocitose, ex.: carbamazepina)",
     "Tabagismo (indução da CYP1A2, reduz níveis séricos; cessação do tabagismo pode elevar níveis abruptamente)",
-    "Inibidores da CYP1A2 (fluvoxamina, ciprofloxacino) aumentam níveis séricos significativamente",
+    "Inibidores da CYP1A2 (fluvoxamina, ciprofloxacino) aumentam níveis séricos significativamente (redução de até 1/3 da dose costuma ser necessária)",
     "Benzodiazepínicos (risco de sedação excessiva, depressão respiratória e colapso cardiorrespiratório, especialmente na titulação inicial)",
     "Outros agentes que reduzem o limiar convulsivo",
+    "Opioides e outros depressores respiratórios do SNC (risco aditivo de depressão respiratória e do SNC)",
+    "Outros fármacos que prolongam o QT e distúrbios eletrolíticos — hipocalemia/hipomagnesemia (monitorar eletrólitos periodicamente)",
+    "Anticolinérgicos (efeito aditivo — risco aumentado de retenção urinária, glaucoma de ângulo fechado e íleo paralítico)",
+    "Omeprazol (indutor da CYP1A2, pode reduzir níveis séricos de clozapina)",
   ],
 
   ganhoPeso: "Muito alto",

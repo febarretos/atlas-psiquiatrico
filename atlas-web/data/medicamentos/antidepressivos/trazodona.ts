@@ -91,6 +91,10 @@ export const trazodona: Medicamento = {
     "Priapismo (raro)",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "IMAO",
     "Álcool",
@@ -99,6 +103,10 @@ export const trazodona: Medicamento = {
     "Inibidores da CYP3A4",
     "Tramadol",
     "Linezolida",
+    "Indutores da CYP3A4, como carbamazepina, fenitoína e rifampicina (reduzem substancialmente os níveis séricos de trazodona)",
+    "Digoxina (a trazodona pode aumentar os níveis séricos de digoxina)",
+    "Fenitoína (relatos de aumento dos níveis séricos de fenitoína com uso concomitante)",
+    "Varfarina (monitorar tempo de protrombina/INR, que pode se alterar para mais ou para menos)",
   ],
 
   ganhoPeso: "Baixo",

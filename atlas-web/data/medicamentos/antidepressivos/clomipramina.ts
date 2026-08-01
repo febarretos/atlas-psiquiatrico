@@ -99,6 +99,10 @@ export const clomipramina: Medicamento = {
     "Ganho de peso",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Alta",
+
   interacoes: [
     "IMAO",
     "Fluoxetina",
@@ -107,6 +111,12 @@ export const clomipramina: Medicamento = {
     "Linezolida",
     "Álcool",
     "Outros medicamentos que prolongam QT",
+    "Cimetidina (inibe o metabolismo hepático da clomipramina, aumentando seus níveis séricos)",
+    "Simpatomiméticos, incluindo anestésicos locais com vasoconstritor — adrenalina/noradrenalina (risco de efeitos cardiovasculares exagerados)",
+    "Hormônio tireoidiano (pode aumentar o risco de arritmias)",
+    "Clonidina (a clomipramina pode reduzir/reverter seu efeito anti-hipertensivo)",
+    "Varfarina (pode aumentar o risco de sangramento)",
+    "Triptanos e outros agentes serotoninérgicos (risco de síndrome serotoninérgica)",
   ],
 
   ganhoPeso: "Alto",

@@ -75,11 +75,16 @@ export const zolpidem: Medicamento = {
     "Alterações de percepção em doses altas",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Álcool e outros depressores do sistema nervoso central (potencialização de sedação e risco de depressão respiratória)",
     "Opioides (risco aumentado de sedação profunda e depressão respiratória)",
     "Inibidores da CYP3A4 (cetoconazol, itraconazol) aumentam níveis séricos e efeito sedativo",
     "Indutores da CYP3A4 (rifampicina, carbamazepina) reduzem a eficácia",
+    "Sertralina (aumenta a Cmax do zolpidem em cerca de 43%, podendo potencializar o efeito sedativo)",
   ],
 
   ganhoPeso: "Muito baixo",

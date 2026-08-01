@@ -111,12 +111,19 @@ export const clonazepam: Medicamento = {
     "Alterações de humor (irritabilidade, desinibição paradoxal)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Álcool",
-    "Opioides",
+    "Opioides (risco de sedação profunda, depressão respiratória e óbito — alerta de tarja preta da FDA para o uso concomitante de benzodiazepínicos e opioides)",
     "Outros depressores do SNC",
     "Inibidores potentes da CYP3A4 (ex: cetoconazol, ritonavir)",
     "Relaxantes musculares",
+    "Clozapina (relatos de sedação marcante, hipotensão, delirium e depressão/parada respiratória — reservar para quando não houver alternativa, com monitorização estreita)",
+    "Fluconazol (inibidor da CYP3A4 — caso relatado de depressão respiratória grave com essa combinação)",
+    "Indutores da CYP3A4 (ex: carbamazepina, fenitoína, rifampicina — reduzem os níveis séricos de clonazepam)",
   ],
 
   ganhoPeso: "Muito baixo",

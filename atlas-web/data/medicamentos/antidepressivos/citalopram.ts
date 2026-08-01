@@ -100,12 +100,20 @@ export const citalopram: Medicamento = {
     "Tremor",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
     "Tramadol",
     "Outros medicamentos que prolongam o QT",
     "Lítio",
+    "Pimozida (contraindicada — risco aditivo de prolongamento do QT)",
+    "Omeprazol e outros inibidores da CYP2C19 (ex. cimetidina) — aumentam os níveis séricos de citalopram e o risco de prolongamento do QT; limitar a dose a 20 mg/dia em uso concomitante",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Varfarina e outros anticoagulantes (aumentam o risco de sangramento)",
   ],
 
   ganhoPeso: "Baixo",

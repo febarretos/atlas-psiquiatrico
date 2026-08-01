@@ -101,6 +101,10 @@ export const venlafaxina: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
@@ -108,6 +112,9 @@ export const venlafaxina: Medicamento = {
     "Lítio",
     "Anticoagulantes",
     "Outros medicamentos serotoninérgicos",
+    "Inibidores potentes da CYP2D6 (ex. paroxetina, fluoxetina, bupropiona, quinidina) — reduzem a conversão para o metabólito ativo (ODV) e aumentam os níveis de venlafaxina",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Triptanos (risco de síndrome serotoninérgica)",
   ],
 
   ganhoPeso: "Baixo",

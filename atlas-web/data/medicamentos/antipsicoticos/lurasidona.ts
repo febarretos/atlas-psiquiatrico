@@ -73,11 +73,17 @@ export const lurasidona: Medicamento = {
     "Aumento leve de prolactina (menos que risperidona)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Inibidores fortes da CYP3A4 (cetoconazol, ritonavir, claritromicina) — contraindicados",
     "Indutores fortes da CYP3A4 (rifampicina, carbamazepina, fenitoína, erva-de-são-joão) — contraindicados",
     "Inibidores/indutores moderados da CYP3A4 requerem ajuste de dose",
     "Anti-hipertensivos (risco de hipotensão ortostática, incomum)",
+    "Suco de toranja/grapefruit (inibe a CYP3A4 e pode aumentar níveis séricos; efeito persiste por até 72h após o consumo)",
+    "Diltiazem e outros inibidores moderados da CYP3A4 (verapamil, eritromicina, fluconazol, atazanavir) — requer redução da dose pela metade",
   ],
 
   ganhoPeso: "Muito baixo",

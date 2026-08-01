@@ -98,11 +98,18 @@ export const quetiapina: Medicamento = {
     "Dislipidemia e hiperglicemia",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Moderada",
+
   interacoes: [
     "Inibidores potentes da CYP3A4 (cetoconazol, itraconazol, ritonavir) aumentam níveis séricos",
     "Indutores da CYP3A4 (carbamazepina, fenitoína, rifampicina) reduzem níveis séricos significativamente",
     "Depressores do SNC e álcool (potencialização de sedação)",
     "Anti-hipertensivos (risco de hipotensão aditiva)",
+    "Tioridazina (aumenta o clearance oral da quetiapina em cerca de 65%, reduzindo seus níveis séricos)",
+    "Lorazepam (quetiapina reduz o clearance do lorazepam em cerca de 20%, potencializando sua sedação)",
+    "Divalproato/ácido valproico (interação farmacocinética leve e recíproca; monitorar em uso combinado)",
   ],
 
   ganhoPeso: "Moderado",

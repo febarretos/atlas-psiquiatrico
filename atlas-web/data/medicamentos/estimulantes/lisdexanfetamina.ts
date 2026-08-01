@@ -88,12 +88,18 @@ export const lisdexanfetamina: Medicamento = {
     "Ansiedade",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO (risco de crise hipertensiva)",
     "Anti-hipertensivos (pode reduzir eficácia)",
     "Alcalinizantes urinários (podem aumentar níveis de anfetamina)",
     "Álcool",
     "Outros agentes simpaticomiméticos",
+    "Agentes serotoninérgicos (ISRS, ISRSN, triptanos) — risco de síndrome serotoninérgica",
+    "Acidificantes urinários (ácido ascórbico, cloreto de amônio) — reduzem os níveis séricos de dextroanfetamina (efeito oposto aos alcalinizantes)",
   ],
 
   ganhoPeso: "Muito baixo",

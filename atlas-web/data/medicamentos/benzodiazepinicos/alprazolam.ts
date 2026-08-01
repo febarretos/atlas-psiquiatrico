@@ -85,12 +85,21 @@ export const alprazolam: Medicamento = {
     "Desinibição paradoxal",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Álcool",
-    "Opioides",
+    "Opioides (risco de sedação profunda, depressão respiratória e óbito — alerta de tarja preta da FDA para o uso concomitante de benzodiazepínicos e opioides)",
     "Outros depressores do SNC",
     "Inibidores potentes da CYP3A4 (ex: cetoconazol, claritromicina, ritonavir)",
     "Carbamazepina (redução dos níveis de alprazolam)",
+    "Fluvoxamina (inibidor potente da CYP3A4 — pode aproximadamente dobrar os níveis plasmáticos de alprazolam)",
+    "Fluoxetina (inibe a CYP3A4, aumentando a concentração plasmática e a meia-vida do alprazolam)",
+    "Suco de toranja/grapefruit (inibe a CYP3A4 intestinal, podendo aumentar os níveis de alprazolam)",
+    "Digoxina (alprazolam pode aumentar a digoxinemia, com maior risco em idosos)",
+    "Clozapina (relatos de sedação intensa, hipotensão e depressão/parada respiratória com a combinação — usar com extrema cautela)",
   ],
 
   ganhoPeso: "Muito baixo",

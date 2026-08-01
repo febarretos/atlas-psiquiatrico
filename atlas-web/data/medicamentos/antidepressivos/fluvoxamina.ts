@@ -99,17 +99,22 @@ export const fluvoxamina: Medicamento = {
     "Disfunção sexual",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
-    "Tizanidina",
+    "Tizanidina (risco de hipotensão profunda e sedação por elevação de até 10x nos níveis de tizanidina)",
     "Ramelteona",
-    "Clozapina",
-    "Olanzapina",
-    "Cafeína",
-    "Teofilina",
-    "Tizanidina",
-    "Varfarina",
+    "Clozapina (inibição da CYP1A2, CYP2C19 e CYP3A4 — aumento de 5 a 10x nos níveis de clozapina, com risco de sedação, hipotensão e convulsões)",
+    "Olanzapina (inibição da CYP1A2 — aumento relevante da AUC, mais pronunciado em fumantes)",
+    "Cafeína (inibição da CYP1A2 — redução do clearance e potencialização de efeitos estimulantes)",
+    "Teofilina (inibição da CYP1A2 — aumento de até 3x nos níveis, com risco de convulsões e arritmias)",
+    "Varfarina (inibição do metabolismo — aumento do efeito anticoagulante, monitorar INR)",
     "Tramadol",
+    "Alprazolam e outros substratos da CYP3A4 (ex. midazolam) — redução do clearance, com aumento de sedação",
+    "Propranolol (substrato da CYP1A2 — fluvoxamina pode aumentar seus níveis séricos)",
   ],
 
   ganhoPeso: "Baixo",

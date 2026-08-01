@@ -87,12 +87,20 @@ export const litio: Medicamento = {
     "Leucocitose benigna",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Diuréticos tiazídicos (aumentam a litemia)",
     "IECA e antagonistas da angiotensina II (aumentam a litemia)",
     "AINEs, exceto AAS em baixas doses (aumentam a litemia)",
     "Diuréticos poupadores de potássio",
     "Metronidazol",
+    "ISRS (risco de síndrome serotoninérgica; associação exige monitorização mais próxima da litemia e de sinais de toxicidade serotoninérgica)",
+    "Antipsicóticos, especialmente haloperidol (relatos de síndrome encefalopática com sinais neurológicos por vezes irreversíveis; risco de síndrome neuroléptica maligna também descrito com antipsicóticos atípicos, como risperidona)",
+    "Cafeína (a retirada abrupta do consumo habitual pode elevar a litemia; manter ingestão estável)",
+    "Verapamil e diltiazem (bloqueadores de canal de cálcio — risco de neurotoxicidade por sinergismo, além de possível alteração do clearance renal do lítio)",
   ],
 
   ganhoPeso: "Moderado",

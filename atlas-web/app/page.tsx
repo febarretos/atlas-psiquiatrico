@@ -2,8 +2,8 @@ import Card from "../components/Card";
 
 const modulos = [
   {
-    titulo: "🧭 Assistente de Avaliação",
-    descricao: "Sintomas → diagnósticos prováveis → perfil de medicamento",
+    titulo: "🧭 Assistente de Medicação",
+    descricao: "Por sintomas, por condições-alvo ou comparação manual — escolha de medicamento",
     href: "/assistente",
   },
   {
@@ -15,11 +15,6 @@ const modulos = [
     titulo: "💊 Medicamentos",
     descricao: "Biblioteca completa de psicofármacos",
     href: "/medicamentos",
-  },
-  {
-    titulo: "🎯 Seletor Transdiagnóstico",
-    descricao: "Escolha de medicamento por perfil do paciente, cruzando múltiplos alvos",
-    href: "/seletor-transdiagnostico",
   },
   {
     titulo: "🧠 Diagnósticos",

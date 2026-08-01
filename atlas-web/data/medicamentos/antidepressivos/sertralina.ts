@@ -116,12 +116,19 @@ export const sertralina: Medicamento = {
     "Sudorese",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
     "Tramadol",
     "Lítio",
-    "Anticoagulantes",
+    "Anticoagulantes (ex. varfarina — risco de sangramento aumentado por inibição plaquetária e discreta inibição da CYP2C9)",
+    "Pimozida (contraindicada — aumento dos níveis de pimozida com risco de prolongamento do QT)",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Substratos da CYP2D6 (inibição leve a moderada pela sertralina, mais relevante em doses mais altas)",
   ],
 
   ganhoPeso: "Baixo",

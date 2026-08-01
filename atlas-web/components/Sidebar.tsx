@@ -5,10 +5,9 @@ import { usePathname } from "next/navigation";
 
 const menu = [
   { nome: "Início", href: "/", icone: "🏠" },
-  { nome: "Assistente", href: "/assistente", icone: "🧭" },
+  { nome: "Assistente de Medicação", href: "/assistente", icone: "🧭" },
   { nome: "Emergências", href: "/emergencias", icone: "🚨" },
   { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
-  { nome: "Seletor Transdiagnóstico", href: "/seletor-transdiagnostico", icone: "🎯" },
   { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
   { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
   { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },

@@ -105,12 +105,19 @@ export const diazepam: Medicamento = {
     "Confusão mental em idosos",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Álcool",
-    "Opioides",
+    "Opioides (risco de sedação profunda, depressão respiratória e óbito — alerta de tarja preta da FDA para o uso concomitante de benzodiazepínicos e opioides)",
     "Outros depressores do SNC",
     "Inibidores da CYP2C19/CYP3A4 (ex: fluvoxamina, cimetidina)",
     "Antiácidos (podem alterar a absorção)",
+    "Omeprazol (inibidor da CYP2C19 — reduz o clearance do diazepam em cerca de 25–50%, prolongando sua ação)",
+    "Fluoxetina (inibe CYP2C19/CYP3A4, aumentando níveis séricos e sedação)",
+    "Indutores enzimáticos (ex: rifampicina, carbamazepina — reduzem os níveis de diazepam e do metabólito ativo desmetildiazepam)",
   ],
 
   ganhoPeso: "Muito baixo",

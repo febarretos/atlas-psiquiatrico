@@ -101,12 +101,20 @@ export const escitalopram: Medicamento = {
     "Tontura",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
     "Tramadol",
     "Lítio",
     "Outros medicamentos que prolongam o intervalo QT",
+    "Pimozida (contraindicada — risco aditivo de prolongamento do QT)",
+    "Omeprazol e outros inibidores da CYP2C19 — aumentam os níveis séricos de escitalopram; considerar não exceder 10 mg/dia em uso concomitante",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Varfarina e outros anticoagulantes (aumentam o risco de sangramento)",
   ],
 
   ganhoPeso: "Baixo",

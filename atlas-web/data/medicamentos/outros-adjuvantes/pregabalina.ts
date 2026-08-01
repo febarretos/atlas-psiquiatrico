@@ -81,10 +81,16 @@ export const pregabalina: Medicamento = {
     "Visão turva",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "Opioides (potencialização de sedação e depressão respiratória — combinação de risco reconhecido)",
     "Álcool e outros depressores do sistema nervoso central (efeito aditivo)",
     "Benzodiazepínicos (potencialização de sedação)",
+    "Tiazolidinedionas (pioglitazona, rosiglitazona) — risco aumentado de edema periférico e ganho de peso (efeito aditivo)",
+    "Inibidores da ECA (IECA) — risco aumentado de angioedema",
   ],
 
   ganhoPeso: "Moderado",

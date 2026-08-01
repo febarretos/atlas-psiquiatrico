@@ -71,11 +71,18 @@ export const brexpiprazol: Medicamento = {
     "Aumento do apetite",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Inibidores da CYP2D6 (fluoxetina, paroxetina) aumentam níveis séricos — requer redução de dose",
     "Inibidores da CYP3A4 (cetoconazol) aumentam níveis séricos — requer redução de dose",
     "Indutores da CYP3A4 (carbamazepina, rifampicina) reduzem níveis séricos significativamente",
     "Anti-hipertensivos (risco de hipotensão, incomum)",
+    "Quinidina (inibidor potente da CYP2D6 — reduzir a dose em 50%, conforme bula)",
+    "Benzodiazepínicos e álcool (potencialização de sedação, hipotensão e tontura)",
+    "Antiparkinsonianos/agonistas dopaminérgicos — levodopa (pode reduzir a eficácia do levodopa por antagonismo parcial da via dopaminérgica)",
   ],
 
   ganhoPeso: "Moderado",

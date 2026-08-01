@@ -101,14 +101,22 @@ export const duloxetina: Medicamento = {
     "Redução do apetite",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Linezolida",
     "Tramadol",
     "Lítio",
     "Anticoagulantes",
-    "Fluvoxamina",
-    "Ciprofloxacino",
+    "Fluvoxamina (inibidor potente da CYP1A2 — aumenta a AUC da duloxetina em cerca de 460%; associação a evitar)",
+    "Ciprofloxacino (inibidor potente da CYP1A2 — pode aumentar significativamente os níveis de duloxetina; associação a evitar)",
+    "Outros inibidores potentes da CYP1A2 (ex. enoxacino)",
+    "AINEs e AAS (aumentam o risco de sangramento)",
+    "Substratos da CYP2D6 (ex. tamoxifeno, antidepressivos tricíclicos, alguns antipsicóticos, metoprolol) — duloxetina é inibidora moderada da CYP2D6",
+    "Triptanos (risco de síndrome serotoninérgica)",
   ],
 
   ganhoPeso: "Baixo",

@@ -94,6 +94,10 @@ export const nortriptilina: Medicamento = {
     "Sudorese",
   ],
 
+  serotoninergico: true,
+
+  cargaAnticolinergica: "Moderada",
+
   interacoes: [
     "IMAO",
     "Fluoxetina",
@@ -101,6 +105,10 @@ export const nortriptilina: Medicamento = {
     "Quinidina",
     "Álcool",
     "Outros medicamentos que prolongam QT",
+    "Cimetidina, terbinafina e bupropiona (outros inibidores potentes da CYP2D6 — aumentam níveis séricos e risco de toxicidade)",
+    "Clonidina (a nortriptilina pode reduzir/reverter seu efeito anti-hipertensivo)",
+    "Varfarina (pode aumentar os níveis do anticoagulante e o risco de sangramento)",
+    "Simpatomiméticos, incluindo anestésicos locais com vasoconstritor — adrenalina/noradrenalina (risco de efeitos cardiovasculares exagerados/arritmias)",
   ],
 
   ganhoPeso: "Moderado",

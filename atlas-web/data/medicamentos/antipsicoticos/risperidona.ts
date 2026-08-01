@@ -87,12 +87,18 @@ export const risperidona: Medicamento = {
     "Aumento do intervalo QT (dose-dependente)",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Baixa",
+
   interacoes: [
     "Inibidores da CYP2D6 (fluoxetina, paroxetina) aumentam níveis séricos",
     "Carbamazepina reduz níveis séricos (indução enzimática)",
     "Outros agentes que prolongam QT",
     "Depressores do SNC (potencialização de sedação)",
     "Anti-hipertensivos (risco de hipotensão aditiva)",
+    "Antiparkinsonianos/agonistas dopaminérgicos — levodopa (antagonismo do efeito antiparkinsoniano)",
+    "Distúrbios eletrolíticos por diuréticos (hipocalemia/hipomagnesemia) — corrigir antes de iniciar, pois potencializam o risco de prolongamento de QT e torsades de pointes",
   ],
 
   ganhoPeso: "Moderado",

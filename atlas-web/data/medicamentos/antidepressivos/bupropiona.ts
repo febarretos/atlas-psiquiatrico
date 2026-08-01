@@ -97,13 +97,21 @@ export const bupropiona: Medicamento = {
     "Náusea",
   ],
 
+  serotoninergico: false,
+
+  cargaAnticolinergica: "Nenhuma",
+
   interacoes: [
     "IMAO",
     "Tramadol",
     "Antipsicóticos que reduzem limiar convulsivo",
     "Teofilina",
     "Corticosteroides sistêmicos",
-    "Tamoxifeno",
+    "Tamoxifeno (a bupropiona inibe a CYP2D6, reduzindo a formação do metabólito ativo do tamoxifeno e podendo comprometer sua eficácia)",
+    "Álcool (a bupropiona reduz o limiar convulsivo; consumo excessivo ou abstinência abrupta de álcool aumenta o risco de convulsão)",
+    "Outros substratos da CYP2D6, como metoprolol e antidepressivos tricíclicos (a bupropiona é inibidora potente da CYP2D6 e pode aumentar seus níveis séricos)",
+    "Digoxina (a bupropiona pode reduzir os níveis séricos de digoxina)",
+    "Inibidores da CYP2B6, como ticlopidina e clopidogrel (podem aumentar os níveis séricos de bupropiona e o risco de toxicidade/convulsão)",
   ],
 
   ganhoPeso: "Muito baixo",
