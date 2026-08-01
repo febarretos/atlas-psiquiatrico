@@ -8,6 +8,9 @@ export const memoria: DominioPsicopatologico = {
   descricao:
     "Alterações qualitativas e quantitativas do registro, retenção e evocação de informações. A caracterização precisa do padrão temporal (o que é esquecido, em relação a qual marco temporal) é o que orienta a hipótese etiológica — diferenciando, por exemplo, um quadro demencial de uma amnésia dissociativa ou de uma síndrome amnéstica focal.",
 
+  normalidade:
+    "A memória normal permite registrar, reter e evocar informações em quantidade suficiente para as demandas da vida cotidiana, com eficiência que varia conforme atenção, interesse, estado emocional e, de forma esperada, a idade. Esquecimentos ocasionais e benignos — não lembrar o nome de um conhecido casual, esquecer onde deixou as chaves, redescobrir um compromisso ao ser lembrado — fazem parte da experiência normal e tendem a aumentar discretamente com o envelhecimento, no que a literatura descreve como esquecimento benigno da senescência: lapsos pontuais, sem prejuízo funcional relevante e sem progressão. Cheniaux distingue esse padrão do declínio cognitivo patológico pela ausência de impacto nas atividades de vida diária e pela preservação da capacidade de aprender informação nova quando dada atenção e repetição adequadas. Dalgalarrondo reforça que a linha para a patologia é cruzada quando o esquecimento se torna frequente, progressivo, envolve informações relevantes/recentes de forma desproporcional, e começa a comprometer a autonomia do indivíduo.",
+
   achados: [
     {
       id: "amnesia-anterograda-retrograda",
@@ -121,6 +124,7 @@ export const memoria: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
   ],
 };

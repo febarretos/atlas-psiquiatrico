@@ -8,6 +8,9 @@ export const consciencia: DominioPsicopatologico = {
   descricao:
     "Alterações do nível de vigília e da clareza do sensório — o pano de fundo sobre o qual todas as demais funções psíquicas (atenção, pensamento, sensopercepção) se organizam. Diferem dos transtornos do conteúdo da consciência (psicoses funcionais), nos quais o nível de vigília está preservado.",
 
+  normalidade:
+    "A consciência normal é o campo amplo e claro dentro do qual todas as demais funções psíquicas se organizam e se tornam conhecidas pelo próprio indivíduo. Dalgalarrondo a descreve como a capacidade de estar desperto e de integrar, num só momento, as informações do ambiente e do próprio corpo em uma experiência unificada. Há variação fisiológica normal e esperada — sonolência ao entardecer, relaxamento da vigília durante a meditação ou momentos de devaneio, a transição natural para o sono — que se distingue do rebaixamento patológico por ser reversível espontaneamente, apropriada ao horário/contexto, e por não vir acompanhada de desorientação ou confusão quando a pessoa é ativamente estimulada. Cheniaux reforça que o critério central não é a presença de sonolência em si, mas a resposta ao estímulo e a reversibilidade: uma pessoa sonolenta ao fim de um plantão longo desperta rápido e lucidamente ao ser chamada; um paciente com rebaixamento patológico do sensório, mesmo desperto brevemente, permanece impreciso e lentificado.",
+
   achados: [
     {
       id: "obnubilacao-consciencia",
@@ -153,6 +156,7 @@ export const consciencia: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
     "Fish F. Fish's Clinical Psychopathology.",
   ],

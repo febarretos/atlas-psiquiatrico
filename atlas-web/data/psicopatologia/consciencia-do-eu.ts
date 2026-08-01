@@ -8,6 +8,9 @@ export const conscienciaDoEu: DominioPsicopatologico = {
   descricao:
     "Alterações da experiência básica de ser um eu unificado, contínuo no tempo, delimitado (com fronteira clara entre o eu e o mundo externo) e agente de seus próprios pensamentos e ações. Descrito classicamente por Jaspers como as características fundamentais da consciência do eu; sua ruptura — os chamados fenômenos de passividade — tem alto valor semiológico para esquizofrenia quando presentes em sua forma plena.",
 
+  normalidade:
+    "O sentido normal de identidade pessoal é estável ao longo do tempo (a pessoa se reconhece como a mesma, com uma história contínua), delimitado (há uma fronteira clara entre o que é 'eu' e o que é o mundo externo/os outros) e ativo (a pessoa se sente autora de seus próprios pensamentos, sentimentos e ações). Jaspers descreveu essas características — atividade, unidade, identidade e demarcação do eu frente ao mundo — como os pilares da consciência normal do eu. Estados transitórios e leves de estranhamento consigo mesmo podem ocorrer em pessoas saudáveis sob privação extrema de sono, jet lag intenso, intoxicação leve por álcool ou momentos de fadiga/estresse extremos, sem configurar patologia, desde que sejam breves, autolimitados e não causem sofrimento significativo ou prejuízo funcional. Dalgalarrondo e Cheniaux convergem em apontar que o critério que separa esses episódios transitórios de um Transtorno de Despersonalização/Desrealização (ou de fenômenos psicóticos mais graves) é a persistência, a intensidade, o sofrimento associado e, crucialmente, a preservação do juízo de realidade sobre a própria experiência.",
+
   achados: [
     {
       id: "despersonalizacao",
@@ -150,6 +153,7 @@ export const conscienciaDoEu: DominioPsicopatologico = {
     "Jaspers K. Psicopatologia Geral.",
     "Schneider K. Clinical Psychopathology — sintomas de primeira ordem.",
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
   ],
 };

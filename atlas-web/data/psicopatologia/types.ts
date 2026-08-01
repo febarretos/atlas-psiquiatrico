@@ -36,6 +36,14 @@ export interface DominioPsicopatologico {
 
   descricao: string;
 
+  // Descrição educativa da função psíquica dentro da normalidade — o que
+  // caracteriza o funcionamento saudável dessa função, sua variação
+  // fisiológica esperada (fadiga, contexto, diferenças individuais) e onde
+  // termina o normal e começa o patológico. Segue a estrutura clássica dos
+  // manuais de psicopatologia brasileiros (Dalgalarrondo, Cheniaux), que
+  // sempre descrevem a função normal antes de suas alterações.
+  normalidade: string;
+
   achados: AchadoPsicopatologico[];
 
   referencias?: string[];

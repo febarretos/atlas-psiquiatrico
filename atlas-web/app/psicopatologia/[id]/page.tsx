@@ -45,6 +45,14 @@ export default async function DominioPsicopatologicoDetalhe({
           </p>
         </div>
 
+        <Section titulo="✅ A Normalidade">
+          <div className="rounded-xl border border-green-900/40 bg-green-500/5 p-6">
+            <p className="leading-7 text-slate-200">
+              {dominio.normalidade}
+            </p>
+          </div>
+        </Section>
+
         <Section titulo="🔎 Achados">
           <div className="space-y-6">
             {dominio.achados.map((achado) => (

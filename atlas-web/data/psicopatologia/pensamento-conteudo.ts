@@ -8,6 +8,9 @@ export const pensamentoConteudo: DominioPsicopatologico = {
   descricao:
     "O conteúdo do pensamento refere-se àquilo que é pensado — em contraste com o curso e a forma (como o pensamento flui e se estrutura). O delírio, alteração central deste domínio, é classicamente definido pelos critérios de Jaspers: crença falsa, mantida com convicção inabalável, incorrigível por argumentação lógica ou evidência contrária, e incompatível com o contexto sociocultural do indivíduo.",
 
+  normalidade:
+    "O juízo normal sobre a realidade é permeável à evidência e ao diálogo: mesmo crenças fortemente sustentadas (religiosas, políticas, existenciais) mantêm, em condições normais, alguma abertura a serem discutidas ou reconsideradas, ou ao menos toleram a divergência alheia sem ruptura completa com a realidade compartilhada. Preocupações intensas — com a saúde, o futuro profissional, um relacionamento — são parte normal da vida psíquica e só se tornam patológicas quando adquirem a rigidez, a incorrigibilidade e a incompatibilidade com o contexto sociocultural que caracterizam o delírio. Dalgalarrondo enfatiza que uma crença compartilhada por um grupo cultural ou religioso específico não deve ser tomada como delirante apenas por parecer estranha a um observador de fora — o critério não é o conteúdo em si, mas a forma como a crença é sustentada (rigidez, isolamento social da crença, ausência de qualquer permeabilidade à argumentação) e sua compatibilidade com o contexto do próprio indivíduo. Cheniaux reforça a importância de investigar se a crença surgiu de forma compreensível a partir da história e do estado afetivo da pessoa (o que aponta para normalidade ou, no máximo, ideia sobrevalorizada) ou de forma abrupta e sem qualquer conexão compreensível (mais sugestivo de fenômeno primário/delirante).",
+
   achados: [
     {
       id: "delirio-definicao-geral",
@@ -184,6 +187,7 @@ export const pensamentoConteudo: DominioPsicopatologico = {
   referencias: [
     "Jaspers K. Psicopatologia Geral.",
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
     "American Psychiatric Association (APA). DSM-5-TR.",
   ],

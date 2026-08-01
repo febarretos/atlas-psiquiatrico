@@ -8,6 +8,9 @@ export const sensopercepcao: DominioPsicopatologico = {
   descricao:
     "Alterações na formação da percepção — o processo pelo qual estímulos sensoriais são organizados e interpretados como objetos dotados de significado. Um dos capítulos com maior risco de confusão terminológica na prática clínica; a distinção precisa entre ilusão, alucinação, alucinose e pseudoalucinação tem implicações diagnósticas diretas.",
 
+  normalidade:
+    "A percepção normal integra estímulos sensoriais reais em objetos dotados de significado, de forma fiel à realidade externa. Isso não significa ausência total de distorções ocasionais: ilusões banais sob condições de baixa acuidade sensorial (penumbra, ruído ambiente, sonolência) fazem parte da experiência humana comum e são corrigidas prontamente quando a pessoa presta atenção deliberada ao estímulo — muito diferentes das ilusões clinicamente relevantes, que persistem e se associam a um estado mental alterado de base. Também são fenômenos normais, segundo Dalgalarrondo e Cheniaux, as imagens hipnagógicas e hipnopômpicas (percepções vívidas, quase alucinatórias, na transição entre vigília e sono) e a imaginação eidética intensa, sobretudo em crianças — situações em que o próprio indivíduo, ao ser questionado, geralmente reconhece a natureza não real da experiência, ou esta ocorre em contexto fisiológico bem delimitado (o momento de adormecer ou despertar). O que distingue esses fenômenos de uma alucinação patológica não é apenas a vividez, mas o contexto de ocorrência, a ausência de sofrimento/desorganização associados e a reversibilidade completa.",
+
   achados: [
     {
       id: "ilusao",
@@ -171,6 +174,7 @@ export const sensopercepcao: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
     "Jaspers K. Psicopatologia Geral.",
   ],

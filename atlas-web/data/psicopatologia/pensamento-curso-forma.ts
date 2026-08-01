@@ -8,6 +8,9 @@ export const pensamentoCursoForma: DominioPsicopatologico = {
   descricao:
     "O curso do pensamento refere-se à velocidade e à fluidez com que as ideias se sucedem; a forma refere-se à maneira como essas ideias se associam e se estruturam logicamente. Distintos do conteúdo do pensamento (o que é pensado — delírios), aqui o foco é como o pensamento se organiza e progride, avaliado principalmente pela análise do discurso espontâneo do paciente.",
 
+  normalidade:
+    "O pensamento normal é diretivo: parte de uma pergunta ou objetivo, percorre associações organizadas e chega a uma conclusão coerente, no tempo adequado ao contexto e ao interlocutor. Variações de velocidade fazem parte da normalidade — pensar mais devagar quando cansado ou sob privação de sono, ou mais rápido quando entusiasmado ou sob pressão de tempo — sem que isso comprometa a lógica interna do raciocínio nem a capacidade de retomar o fio condutor após uma digressão breve. Dalgalarrondo descreve o pensamento saudável como aquele que mantém a diretividade (chega a algum lugar) mesmo quando ocasionalmente se dispersa. Cheniaux acrescenta que pequenas digressões, trocadilhos ocasionais ou mudanças de assunto por associação de ideias em uma conversa informal e descontraída não têm o mesmo significado clínico da fuga de ideias ou do afrouxamento de associações — o critério diferenciador é a capacidade de retomar o objetivo original quando solicitado, e a manutenção de uma estrutura compreensível para o interlocutor.",
+
   achados: [
     {
       id: "fuga-de-ideias",
@@ -206,6 +209,7 @@ export const pensamentoCursoForma: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
     "American Psychiatric Association (APA). DSM-5-TR — Glossário de Termos Técnicos.",
   ],

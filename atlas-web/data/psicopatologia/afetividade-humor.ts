@@ -8,6 +8,9 @@ export const afetividadeHumor: DominioPsicopatologico = {
   descricao:
     "O humor é o tom afetivo basal, sustentado e relativamente estável, que colore a experiência subjetiva do indivíduo ao longo do tempo (o 'clima' emocional); o afeto é a expressão externa, momentânea e observável do estado emocional (o 'tempo', em contraste com o clima). Essa distinção conceitual — sustentada no tempo e subjetiva (humor) versus observável e flutuante momento a momento (afeto) — é a base para descrever com precisão as alterações desse domínio.",
 
+  normalidade:
+    "O humor normal (eutimia) oscila dentro de uma faixa esperada, com reatividade emocional proporcional aos acontecimentos da vida — tristeza diante de perdas, alegria diante de conquistas, irritação diante de contrariedades — e capacidade de regular e expressar essas emoções de forma socialmente adequada. O luto normal após a perda de alguém querido pode incluir tristeza profunda, choro, retração social temporária e até questionamentos existenciais, sem que isso configure, por si só, um episódio depressivo — a diferença está na proporcionalidade, no curso temporal esperado e na preservação da capacidade de experimentar prazer/conexão em outros momentos, mesmo durante o luto. Dalgalarrondo distingue tristeza normal de depressão justamente pela desproporcionalidade, pela autonomia (persistência independente de mudanças no contexto) e pela pervasividade desta última. Cheniaux acrescenta que variações de humor ao longo do dia — irritabilidade leve por privação de sono, exaltação transitória em uma comemoração — só adquirem relevância clínica quando fogem à faixa habitual do indivíduo de forma sustentada e passam a comprometer o funcionamento.",
+
   achados: [
     {
       id: "embotamento-afetivo",
@@ -159,6 +162,7 @@ export const afetividadeHumor: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Sims A. Symptoms in the Mind: An Introduction to Descriptive Psychopathology.",
     "American Psychiatric Association (APA). DSM-5-TR.",
   ],

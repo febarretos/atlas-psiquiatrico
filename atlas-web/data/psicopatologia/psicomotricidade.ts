@@ -8,6 +8,9 @@ export const psicomotricidade: DominioPsicopatologico = {
   descricao:
     "Alterações da expressão motora do estado psíquico — desde a simples aceleração ou lentificação global até os fenômenos motores complexos e específicos da síndrome catatônica, que constitui um capítulo à parte por sua importância diagnóstica (transversal a múltiplas etiologias) e suas implicações terapêuticas e de urgência.",
 
+  normalidade:
+    "A atividade motora normal é adequada ao contexto e à intenção do indivíduo — gestos que acompanham e enfatizam o discurso, postura que reflete o estado emocional sem ser exagerada, capacidade de permanecer parado quando apropriado e de se movimentar livremente quando necessário. Há ampla variação individual e cultural na expressividade motora e gestual — pessoas naturalmente mais ou menos expressivas por temperamento, diferenças culturais na proximidade física e na gesticulação — que não deve ser patologizada. Dalgalarrondo descreve a psicomotricidade normal como a tradução corporal fluida da vida psíquica, sem a rigidez, a lentificação extrema ou a agitação desorganizada que caracterizam os quadros patológicos. Cheniaux destaca que inquietação leve em situações de ansiedade cotidiana (esperar um resultado de exame, uma entrevista de emprego) é esperada e não deve ser confundida com agitação psicomotora patológica, que é mais intensa, sustentada e geralmente acompanhada de outros sinais de desorganização do estado mental.",
+
   achados: [
     {
       id: "agitacao-psicomotora",
@@ -161,6 +164,7 @@ export const psicomotricidade: DominioPsicopatologico = {
 
   referencias: [
     "Dalgalarrondo P. Psicopatologia e Semiologia dos Transtornos Mentais.",
+    "Cheniaux E. Manual de Psicopatologia.",
     "Bush G, et al. Catatonia Rating Scale and Catatonia Screening Instrument — critérios semiológicos de catatonia.",
     "American Psychiatric Association (APA). DSM-5-TR — critérios de catatonia.",
   ],
