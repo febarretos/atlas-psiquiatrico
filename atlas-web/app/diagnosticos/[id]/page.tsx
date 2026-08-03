@@ -2,6 +2,7 @@ import { diagnosticos } from "../../../data/diagnosticos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import CriteriosChecklist from "../../../components/CriteriosChecklist";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
 import Section from "../../../components/Section";
@@ -57,7 +58,7 @@ export default async function DiagnosticoDetalhe({
         </div>
 
         <Section titulo="📋 Critérios Diagnósticos (DSM-5-TR)">
-          <Lista itens={diagnostico.criteriosDiagnosticos} />
+          <CriteriosChecklist itens={diagnostico.criteriosDiagnosticos} />
         </Section>
 
         {diagnostico.especificadores && diagnostico.especificadores.length > 0 && (

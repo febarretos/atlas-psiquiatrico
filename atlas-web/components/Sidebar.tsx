@@ -13,6 +13,7 @@ const menu = [
   { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
+  { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
 ];
 
 interface Props {

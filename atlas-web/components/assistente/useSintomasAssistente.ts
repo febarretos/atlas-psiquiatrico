@@ -81,7 +81,13 @@ export function useSintomasAssistente() {
       .filter((m): m is Medicamento => Boolean(m))
       .map((m) => ({
         medicamento: m,
-        badgePrincipal: `Primeira linha — ${diagnosticoEscolhido.nome}`,
+        // O campo medicamentosPrimeiraLinha é documentado (types.ts) como
+        // "primeira OU segunda linha" — inclui casos como clozapina em
+        // esquizofrenia, reservada para refratariedade, não intercambiável
+        // com os agentes realmente de primeira linha. "Tratamento
+        // indicado" evita a badge sugerir equivalência que o texto do
+        // próprio diagnóstico contradiz.
+        badgePrincipal: `Tratamento indicado — ${diagnosticoEscolhido.nome}`,
       }));
   }, [diagnosticoEscolhido]);
 
