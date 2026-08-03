@@ -135,6 +135,7 @@ export const alprazolam: Medicamento = {
     "É o benzodiazepínico com maior potencial de dependência/abuso reconhecido da classe — considerar clonazepam como alternativa de meia-vida mais longa quando tratamento continuado for necessário, mesmo que a dose inicial pareça 'mais fraca'.",
     "Ao trocar por outro benzodiazepínico, converter pela tabela de equivalência (não pelo número de comprimidos) — a alta potência do alprazolam faz com que doses aparentemente pequenas correspondam a doses relevantes de outros agentes.",
     "Ansiedade de rebote entre as doses é frequentemente confundida pelo paciente e pelo médico com 'piora da ansiedade de base', levando a escalonamento inadequado da dose — considerar trocar para formulação de liberação prolongada ou para agente de meia-vida mais longa antes de aumentar a dose.",
+    "Equivalência aproximada tendo o diazepam como referência: alprazolam 0,5–1 mg ≈ diazepam 10 mg (Ashton Manual; Maudsley Prescribing Guidelines cita valores da mesma ordem de grandeza, com variação entre fontes). Útil sobretudo para orientar a troca por um benzodiazepínico de meia-vida mais longa no desmame — não é uma conversão mg-a-mg automática: a alta potência e a farmacocinética distinta do alprazolam exigem ajuste clínico gradual, com margem de segurança.",
   ],
 
   referencias: [

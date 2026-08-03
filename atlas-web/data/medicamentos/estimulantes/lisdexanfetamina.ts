@@ -135,6 +135,7 @@ export const lisdexanfetamina: Medicamento = {
     "Ao contrário do que muitos pacientes assumem, dissolver a cápsula em água (opção de bula para quem tem dificuldade de deglutir) não altera a farmacocinética nem 'acelera' o efeito — a ativação continua dependendo da hidrólise enzimática gradual, não da forma de administração.",
     "É uma boa opção de troca quando o metilfenidato causa irritabilidade de rebote acentuada no fim do dia, pela curva de liberação mais suave e gradual da dextroanfetamina liberada.",
     "A indicação para Transtorno de Compulsão Alimentar Periódica costuma exigir doses na faixa mais alta (50-70mg) comparado ao TDAH — não assumir que a dose eficaz para uma indicação será a mesma para a outra no mesmo paciente.",
+    "Ao trocar entre lisdexanfetamina e um IMAO, em qualquer direção, respeitar um intervalo mínimo de 14 dias sem tratamento — iniciar um logo após suspender o outro é um erro de prescrição evitável, com risco real de crise hipertensiva.",
   ],
 
   referencias: [

@@ -159,6 +159,7 @@ export const clonazepam: Medicamento = {
     "É o benzodiazepínico de escolha para acatisia induzida por antipsicótico quando o anticolinérgico (biperideno) não é indicado ou não resolve — muitas vezes mais eficaz que o anticolinérgico nesse efeito adverso específico.",
     "Por ser altamente potente (equivalência ~0,5mg = 10mg de diazepam), erros de prescrição ao trocar de outro benzodiazepínico são comuns — sempre recalcular pela tabela de equivalência, não por 'número de comprimidos'.",
     "Em uso crônico como coadjuvante de ansiedade, reavaliar periodicamente se ainda é necessário — é frequentemente 'esquecido' na receita por anos sem reavaliação da indicação original.",
+    "Equivalência aproximada tendo o diazepam como referência: clonazepam 0,5–1 mg ≈ diazepam 10 mg (Ashton Manual; Maudsley Prescribing Guidelines relata a mesma ordem de grandeza, com variação entre fontes). Serve como orientação qualitativa, não conversão exata — a meia-vida mais longa do clonazepam e a tolerância cruzada incompleta entre benzodiazepínicos exigem ajuste clínico gradual ao trocar de agente, nunca troca automática mg-a-mg.",
   ],
 
   referencias: [

@@ -118,6 +118,7 @@ export const brexpiprazol: Medicamento = {
     "É uma opção a considerar quando um paciente já respondeu bem ao aripiprazol mas não tolerou a acatisia/inquietação — o mecanismo é análogo, mas a menor atividade intrínseca em D2 costuma reduzir esse efeito adverso específico.",
     "Como potencializador em depressão resistente, a dose eficaz (2 mg/dia) é bem menor que a dose antipsicótica plena — não titular para além disso apenas por falta de resposta inicial sem antes reavaliar o diagnóstico e a adequação do antidepressivo de base.",
     "A meia-vida muito longa (91h) significa que o estado de equilíbrio só é atingido após 10-12 dias — não julgar falha terapêutica antes desse prazo mesmo em dose estável.",
+    "Reduzir a dose pela metade quando associado a inibidor moderado/forte de CYP2D6 ou CYP3A4 (ex.: fluoxetina, paroxetina, cetoconazol), e aplicar o mesmo ajuste em metabolizadores lentos de CYP2D6 conhecidos — a combinação de ambos os fatores (metabolizador lento + inibidor) exige redução ainda maior, conforme a bula.",
   ],
 
   referencias: [

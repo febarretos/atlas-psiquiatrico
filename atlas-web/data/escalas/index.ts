@@ -2,6 +2,7 @@ import { phq9 } from "./phq9";
 import { gad7 } from "./gad7";
 import { ymrs } from "./ymrs";
 import { audit } from "./audit";
+import { ciwaAr } from "./ciwa-ar";
 import { mdq } from "./mdq";
 import { asrs6 } from "./asrs6";
 import { asrs18 } from "./asrs18";
@@ -14,6 +15,8 @@ import { barnes } from "./barnes";
 import { aims } from "./aims";
 import { scoff } from "./scoff";
 import { msiBpd } from "./msi-bpd";
+import { epds } from "./epds";
+import { isi } from "./isi";
 
 export const escalas = [
   cssrs,
@@ -21,6 +24,7 @@ export const escalas = [
   gad7,
   ymrs,
   audit,
+  ciwaAr,
   mdq,
   asrs6,
   asrs18,
@@ -32,6 +36,8 @@ export const escalas = [
   barnes,
   aims,
   scoff,
+  epds,
+  isi,
 ];
 
 export * from "./types";

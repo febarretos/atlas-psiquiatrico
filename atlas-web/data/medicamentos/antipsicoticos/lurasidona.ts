@@ -119,6 +119,7 @@ export const lurasidona: Medicamento = {
     "Orientar explicitamente o paciente a tomar SEMPRE com alimento (mínimo 350 kcal, não precisa ser refeição completa — um lanche já basta) — tomar em jejum pode reduzir a exposição sistêmica em até 2 vezes, levando a 'falha terapêutica' que na verdade é falha de absorção.",
     "É uma das melhores opções entre os antipsicóticos para pacientes com Transtorno Bipolar tipo II ou depressão bipolar recorrente que já têm sobrepeso/resistência insulínica, pelo perfil metabólico praticamente neutro.",
     "Evitar associação com sumo/suco de toranja (grapefruit) — inibidor de CYP3A4 que pode elevar níveis séricos de forma relevante, mesmo sendo um alimento e não um medicamento.",
+    "Se o paciente precisar de um inibidor forte da CYP3A4 por tempo limitado (ex.: antifúngico azólico sistêmico, claritromicina), a conduta correta é suspender temporariamente a lurasidona e fazer ponte com outro antipsicótico — a interação com inibidores fortes é contraindicação absoluta, não um ajuste de dose.",
   ],
 
   referencias: [

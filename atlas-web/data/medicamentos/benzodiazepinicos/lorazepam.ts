@@ -149,6 +149,7 @@ export const lorazepam: Medicamento = {
     "O 'teste do lorazepam' na catatonia (1-2mg IV/IM, observando resposta em 5-10 minutos) é ao mesmo tempo diagnóstico e terapêutico — resposta positiva confirma catatonia e frequentemente já melhora o quadro, sendo o primeiro passo antes de considerar ECT.",
     "É o benzodiazepínico preferido em hepatopatas graves justamente pelo mesmo motivo que o torna ideal em catatonia/emergências: metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas na insuficiência hepática.",
     "Doses repetidas ou altas em catatonia (até 24mg/dia) são seguras e esperadas — não confundir a dose necessária para catatonia com a dose ansiolítica habitual, muito menor.",
+    "Equivalência aproximada tendo o diazepam como referência: lorazepam 1–2 mg ≈ diazepam 10 mg (Ashton Manual; Maudsley Prescribing Guidelines cita valores na mesma faixa, com variação entre fontes). Serve como orientação qualitativa para troca de benzodiazepínico (ex.: ao converter para lorazepam em hepatopatas, pela metabolização mais simples) — não é uma conversão farmacocinética exata; ajustar clinicamente considerando meia-vida, tolerância cruzada incompleta e resposta individual.",
   ],
 
   referencias: [

@@ -139,6 +139,7 @@ export const clozapina: Medicamento = {
     "Retomar a clozapina após interrupção de mais de 48 horas exige reiniciar a titulação do zero (não retomar na última dose usada) pelo risco de hipotensão grave e síncope com a reintrodução em dose plena.",
     "A sialorreia noturna pode ser manejada com atropina colírio 1% aplicada por via sublingual (uso off-label) antes de considerar reduzir a dose do antipsicótico.",
     "Interromper o tabagismo durante o tratamento eleva os níveis séricos de clozapina de forma abrupta (a fumaça, não a nicotina, induz a CYP1A2) — pacientes que pararam de fumar recentemente (ex: durante internação) têm risco aumentado de toxicidade se a dose não for ajustada.",
+    "Escada de titulação padrão (não emergencial): iniciar com 12,5 mg 1–2x/dia, aumentando em incrementos de 25–50 mg/dia conforme tolerabilidade, até atingir a faixa-alvo de 300–450 mg/dia — em geral ao longo de 2–3 semanas (Maudsley Prescribing Guidelines; bula de referência ANVISA/FDA). Monitorizar pressão arterial e frequência cardíaca a cada incremento nas primeiras semanas, pelo risco de hipotensão ortostática e de miocardite. Em idosos e na reintrodução após interrupção (ver acima), usar incrementos menores e mais espaçados do que o esquema padrão.",
   ],
 
   referencias: [

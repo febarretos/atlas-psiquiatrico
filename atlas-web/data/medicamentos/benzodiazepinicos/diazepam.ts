@@ -153,6 +153,7 @@ export const diazepam: Medicamento = {
     "O efeito de 'autoafilamento' (self-tapering) pelos metabólitos ativos de meia-vida longa é uma vantagem específica na abstinência alcoólica — a própria farmacocinética faz uma retirada gradual mesmo sem redução ativa da dose, reduzindo risco de rebote abrupto.",
     "Via retal é uma alternativa útil e pouco lembrada para controle de crises convulsivas fora do ambiente hospitalar (ex: crise febril prolongada em criança, indisponibilidade de acesso venoso).",
     "Evitar em idosos para uso ansiolítico crônico — a meia-vida efetiva pode ultrapassar 100 horas nessa população pela redução do metabolismo hepático, levando a acúmulo silencioso e quedas.",
+    "Tabela de equivalência aproximada de benzodiazepínicos, tendo o diazepam como referência (10 mg): diazepam 10 mg ≈ alprazolam 0,5–1 mg ≈ clonazepam 0,5–1 mg ≈ lorazepam 1–2 mg (valores amplamente citados, com variação entre fontes, como Ashton Manual e Maudsley Prescribing Guidelines). É uma ferramenta orientadora para troca de benzodiazepínico ou planejamento de desmame, não uma conversão farmacocinética exata — a variação individual é significativa, as meias-vidas diferem bastante entre os agentes e a tolerância cruzada é incompleta; o ajuste final deve ser sempre clínico e gradual, nunca uma troca automática mg-a-mg.",
   ],
 
   referencias: [

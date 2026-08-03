@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { medicamentos } from "../../../data/medicamentos";
 import { notFound } from "next/navigation";
 
@@ -8,36 +9,20 @@ import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
 import Rating from "../../../components/Rating";
 import Section from "../../../components/Section";
+import {
+  corCargaAnticolinergica,
+  corGravidez,
+  corLactacao,
+  rotuloGravidez,
+  rotuloLactacao,
+} from "../../../lib/populacoesEspeciais";
+import { normalizeEffectKey } from "../../../lib/effectScale";
 
 interface Props {
   params: Promise<{
     nome: string;
   }>;
 }
-
-const corGravidez = {
-  preferencial: "green" as const,
-  cautela: "yellow" as const,
-  evitar: "red" as const,
-};
-
-const rotuloGravidez = {
-  preferencial: "Opção preferencial",
-  cautela: "Usar com cautela",
-  evitar: "Evitar quando possível",
-};
-
-const corLactacao = {
-  compativel: "green" as const,
-  cautela: "yellow" as const,
-  evitar: "red" as const,
-};
-
-const rotuloLactacao = {
-  compativel: "Geralmente compatível",
-  cautela: "Usar com cautela",
-  evitar: "Geralmente evitar",
-};
 
 export default async function Medicamento({
   params,
@@ -51,6 +36,9 @@ export default async function Medicamento({
   if (!medicamento) {
     notFound();
   }
+
+  const qtKey = normalizeEffectKey(medicamento.qt);
+  const qtAlto = qtKey === "alto" || qtKey === "muitoalto";
 
   return (
     <main className="text-white">
@@ -282,6 +270,55 @@ export default async function Medicamento({
             </div>
           </div>
         </Section>
+
+        {(medicamento.serotoninergico !== undefined || medicamento.cargaAnticolinergica) && (
+          <Section titulo="🧩 Atenção Estrutural em Combinações">
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+              <div className="flex flex-wrap gap-3">
+                {medicamento.serotoninergico !== undefined && (
+                  <Badge color={medicamento.serotoninergico ? "yellow" : "gray"}>
+                    {medicamento.serotoninergico ? "Serotoninérgico" : "Não serotoninérgico"}
+                  </Badge>
+                )}
+
+                {medicamento.cargaAnticolinergica && (
+                  <Badge color={corCargaAnticolinergica[medicamento.cargaAnticolinergica]}>
+                    Carga anticolinérgica: {medicamento.cargaAnticolinergica}
+                  </Badge>
+                )}
+              </div>
+
+              <p className="mt-4 text-xs leading-5 text-slate-500">
+                Atributos factuais e estáticos do fármaco — não são uma
+                checagem automática de interações. Ao associar a outros
+                medicamentos, verificar interações em fonte especializada
+                (bula, Micromedex, Stockley&apos;s, UpToDate).
+              </p>
+
+              {(medicamento.serotoninergico || qtAlto) && (
+                <div className="mt-4 flex flex-wrap gap-4">
+                  {medicamento.serotoninergico && (
+                    <Link
+                      href="/emergencias/sindrome-serotoninergica"
+                      className="text-sm font-medium text-blue-400 hover:text-blue-300"
+                    >
+                      Ver: Síndrome Serotoninérgica →
+                    </Link>
+                  )}
+
+                  {qtAlto && (
+                    <Link
+                      href="/emergencias/torsades-de-pointes"
+                      className="text-sm font-medium text-blue-400 hover:text-blue-300"
+                    >
+                      Ver: Torsades de Pointes / Prolongamento do QT →
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
+          </Section>
+        )}
       </div>
     </main>
   );

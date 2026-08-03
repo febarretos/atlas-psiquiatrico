@@ -129,6 +129,7 @@ export const ziprasidona: Medicamento = {
     "É provavelmente o antipsicótico mais subutilizado por dificuldade prática de administração — muitos pacientes internados ou pouco aderentes simplesmente não fazem a refeição de 500 kcal exigida, comprometendo silenciosamente a eficácia sem que isso seja percebido como problema de adesão alimentar.",
     "Corrigir distúrbios eletrolíticos (potássio, magnésio) antes de iniciar é mais importante aqui do que na maioria dos outros antipsicóticos, dado o maior risco intrínseco de prolongamento de QT.",
     "É uma boa opção de troca quando o objetivo principal é reduzir risco metabólico em paciente já estável psiquiatricamente, mas exige reforçar adesão à exigência alimentar antes de considerar 'falha terapêutica'.",
+    "Por depender predominantemente de uma via metabólica não-CYP (aldeído oxidase), tem menos interações farmacocinéticas por indução/inibição enzimática do que a maioria dos demais antipsicóticos atípicos — a interação clinicamente relevante a vigiar aqui é farmacodinâmica (risco aditivo de prolongamento de QT), não metabólica.",
   ],
 
   referencias: [
