@@ -189,6 +189,12 @@ export interface CoberturaAlvo {
   condicaoNome: string;
   indicacaoEncontrada: string;
   nivelEvidencia?: 1 | 2 | 3 | 4 | 5;
+  // nivelEvidencia === 5 já significa, por convenção documentada no tipo
+  // Posologia (data/types.ts), "primeira linha, aprovação regulatória e
+  // forte recomendação em diretrizes" — badgear isso separado do número
+  // de estrelas evita que um prescritor apressado leia "5 estrelas" como
+  // sinônimo de "bem estudado" quando na verdade é o uso padrão-ouro.
+  primeiraLinha: boolean;
 }
 
 export interface ResultadoTransdiagnostico {
@@ -218,6 +224,7 @@ export function buscarMedicamentosTransdiagnostico(
             condicaoNome: condicao.nome,
             indicacaoEncontrada: posologia.indicacao,
             nivelEvidencia: posologia.nivelEvidencia,
+            primeiraLinha: posologia.nivelEvidencia === 5,
           });
         }
       }
