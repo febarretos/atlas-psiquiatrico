@@ -67,6 +67,48 @@ export interface Medicamento {
 
   qt: string;
 
+  // Os 6 campos abaixo seguem a mesma escala categórica de ganhoPeso/
+  // sedacao/sexual/qt ("Muito baixo" a "Muito alto"). Todos opcionais:
+  // omitir quando o eixo não se aplica à classe do fármaco (ex.: EPS e
+  // hiperprolactinemia não se aplicam a um ISRS) ou quando não há base
+  // comparativa confiável na literatura para classificar com confiança —
+  // mesma convenção de omissão já usada em Posologia.nivelEvidencia.
+
+  // Sintomas extrapiramidais agudos (distonia, acatisia, parkinsonismo)
+  // por bloqueio D2 — eixo central para diferenciar antipsicóticos entre
+  // si (ex.: haloperidol alto vs. quetiapina/clozapina muito baixo).
+  sintomasExtrapiramidais?: string;
+
+  // Risco de hiperprolactinemia clinicamente relevante (galactorreia,
+  // amenorreia, disfunção sexual mediada por prolactina, densidade óssea
+  // a longo prazo) — desproporcional entre antipsicóticos com bloqueio D2
+  // semelhante (ex.: risperidona/paliperidona alto vs. aripiprazol muito
+  // baixo/nenhum, por agonismo parcial).
+  hiperprolactinemia?: string;
+
+  // Risco metabólico (dislipidemia, resistência insulínica/diabetes) —
+  // distinto de ganho de peso simples: alguns fármacos (ex.: olanzapina,
+  // clozapina) têm risco metabólico desproporcional ao peso ganho.
+  riscoMetabolico?: string;
+
+  // Hipotensão ortostática clinicamente relevante, sobretudo por bloqueio
+  // alfa-1 adrenérgico — relevante para antipsicóticos, tricíclicos e
+  // trazodona, com impacto direto em risco de queda em idosos.
+  hipotensaoOrtostatica?: string;
+
+  // Redução do limiar convulsivo / risco de convulsão em dose
+  // terapêutica — relevante sobretudo para bupropiona, clozapina e
+  // antidepressivos tricíclicos; não se aplica a anticonvulsivantes
+  // usados como estabilizadores de humor (efeito oposto).
+  riscoConvulsivo?: string;
+
+  // Intensidade esperada da síndrome de descontinuação ao suspender
+  // abruptamente após uso continuado — relevante sobretudo para
+  // antidepressivos (ex.: paroxetina/venlafaxina alto vs. fluoxetina
+  // muito baixo, pela meia-vida longa) e alguns outros fármacos de meia-
+  // vida curta.
+  sintomasDescontinuacao?: string;
+
   gravidez: string;
 
   // Classificação resumida do texto de `gravidez`, usada para permitir

@@ -113,6 +113,16 @@ export const haloperidol: Medicamento = {
 
   qt: "Alto",
 
+  sintomasExtrapiramidais: "Muito alto",
+
+  hiperprolactinemia: "Alto",
+
+  riscoMetabolico: "Baixo",
+
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Uso possível quando o benefício supera o risco, especialmente em quadros agudos; monitorar sintomas extrapiramidais e de abstinência no recém-nascido.",
 

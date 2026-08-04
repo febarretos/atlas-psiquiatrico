@@ -123,6 +123,12 @@ export const imipramina: Medicamento = {
 
   qt: "Alto",
 
+  hipotensaoOrtostatica: "Alto",
+
+  riscoConvulsivo: "Alto",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica relativamente extensa durante a gestação.",
 

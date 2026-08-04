@@ -109,6 +109,16 @@ export const risperidona: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Moderado",
+
+  hiperprolactinemia: "Muito alto",
+
+  riscoMetabolico: "Moderado",
+
+  hipotensaoOrtostatica: "Moderado",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados limitados; uso durante o terceiro trimestre pode associar-se a sintomas extrapiramidais e de abstinência no recém-nascido. Utilizar apenas se o benefício justificar o risco.",
 

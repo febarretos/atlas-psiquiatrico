@@ -136,6 +136,12 @@ export const paroxetina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Muito alto",
+
   gravidez:
     "Evitar quando possível, especialmente no primeiro trimestre, devido à associação com aumento do risco de malformações cardíacas fetais observada em alguns estudos.",
 

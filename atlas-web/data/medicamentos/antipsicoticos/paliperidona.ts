@@ -108,6 +108,16 @@ export const paliperidona: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Moderado",
+
+  hiperprolactinemia: "Muito alto",
+
+  riscoMetabolico: "Moderado",
+
+  hipotensaoOrtostatica: "Moderado",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados limitados; uso possível quando o benefício justificar o risco, com monitorização de sintomas extrapiramidais e de abstinência no recém-nascido.",
 

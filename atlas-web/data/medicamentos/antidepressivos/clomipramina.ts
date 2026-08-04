@@ -127,6 +127,12 @@ export const clomipramina: Medicamento = {
 
   qt: "Alto",
 
+  hipotensaoOrtostatica: "Alto",
+
+  riscoConvulsivo: "Alto",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica durante a gestação, embora ISRS sejam geralmente preferidos.",
 

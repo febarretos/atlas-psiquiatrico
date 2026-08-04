@@ -96,6 +96,12 @@ export const vortioxetina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Baixo",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. Dados ainda são mais limitados que para os ISRS clássicos.",
 

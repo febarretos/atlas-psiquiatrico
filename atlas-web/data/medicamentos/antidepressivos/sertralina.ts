@@ -139,6 +139,12 @@ export const sertralina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. Uma das opções mais estudadas durante a gestação.",
 

@@ -111,6 +111,10 @@ export const propranolol: Medicamento = {
 
   qt: "Muito baixo",
 
+  hipotensaoOrtostatica: "Moderado",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Atravessa a placenta; uso possível quando o benefício justificar o risco, com monitorização de crescimento fetal, frequência cardíaca fetal e glicemia neonatal.",
 

@@ -130,6 +130,12 @@ export const amitriptilina: Medicamento = {
 
   qt: "Alto",
 
+  hipotensaoOrtostatica: "Muito alto",
+
+  riscoConvulsivo: "Alto",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica relativamente extensa.",
 

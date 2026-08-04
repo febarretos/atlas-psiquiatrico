@@ -120,6 +120,16 @@ export const quetiapina: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Muito baixo",
+
+  hiperprolactinemia: "Muito baixo",
+
+  riscoMetabolico: "Alto",
+
+  hipotensaoOrtostatica: "Alto",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados relativamente mais numerosos entre os atípicos; uso possível quando o benefício supera o risco, com monitorização metabólica materna.",
 

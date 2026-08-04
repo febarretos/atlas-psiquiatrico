@@ -110,6 +110,8 @@ export const alprazolam: Medicamento = {
 
   qt: "Muito baixo",
 
+  sintomasDescontinuacao: "Muito alto",
+
   gravidez:
     "Evitar, especialmente no primeiro trimestre (associação a fenda palatina) e no periparto (risco de floppy infant syndrome e síndrome de abstinência neonatal). Uso apenas quando estritamente necessário.",
 

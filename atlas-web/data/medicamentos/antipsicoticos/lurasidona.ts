@@ -94,6 +94,16 @@ export const lurasidona: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Moderado",
+
+  hiperprolactinemia: "Baixo",
+
+  riscoMetabolico: "Muito baixo",
+
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados limitados; uso possível quando o benefício justifica o risco, com monitorização de sintomas extrapiramidais e de abstinência no recém-nascido.",
 

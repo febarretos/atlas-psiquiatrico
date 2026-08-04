@@ -5,6 +5,12 @@ export interface FiltrosPerfil {
   evitarSedacao: boolean;
   evitarDisfuncaoSexual: boolean;
   evitarQt: boolean;
+  evitarEps: boolean;
+  evitarProlactina: boolean;
+  evitarRiscoMetabolico: boolean;
+  evitarHipotensao: boolean;
+  evitarRiscoConvulsivo: boolean;
+  evitarDescontinuacao: boolean;
   gestante: boolean;
   lactante: boolean;
   evitarAjusteRenal: boolean;
@@ -15,6 +21,12 @@ export const filtrosPerfilIniciais: FiltrosPerfil = {
   evitarSedacao: false,
   evitarDisfuncaoSexual: false,
   evitarQt: false,
+  evitarEps: false,
+  evitarProlactina: false,
+  evitarRiscoMetabolico: false,
+  evitarHipotensao: false,
+  evitarRiscoConvulsivo: false,
+  evitarDescontinuacao: false,
   gestante: false,
   lactante: false,
   evitarAjusteRenal: false,
@@ -25,6 +37,12 @@ export const filtrosPerfilDisponiveis: { chave: keyof FiltrosPerfil; rotulo: str
   { chave: "evitarSedacao", rotulo: "Evitar sedação" },
   { chave: "evitarDisfuncaoSexual", rotulo: "Evitar disfunção sexual" },
   { chave: "evitarQt", rotulo: "Evitar prolongamento de QT" },
+  { chave: "evitarEps", rotulo: "Evitar sintomas extrapiramidais" },
+  { chave: "evitarProlactina", rotulo: "Evitar hiperprolactinemia" },
+  { chave: "evitarRiscoMetabolico", rotulo: "Evitar risco metabólico" },
+  { chave: "evitarHipotensao", rotulo: "Evitar hipotensão ortostática" },
+  { chave: "evitarRiscoConvulsivo", rotulo: "Evitar risco convulsivo" },
+  { chave: "evitarDescontinuacao", rotulo: "Evitar sintomas de descontinuação" },
   { chave: "gestante", rotulo: "Paciente gestante" },
   { chave: "lactante", rotulo: "Paciente lactante" },
   { chave: "evitarAjusteRenal", rotulo: "Insuficiência renal" },
@@ -68,6 +86,36 @@ export function avaliarMedicamento(m: Medicamento, f: FiltrosPerfil): Medicament
   if (f.evitarQt) {
     if (baixo(m.qt)) { pontos++; positivos.push("Baixo risco de prolongamento de QT"); }
     else if (alto(m.qt)) { pontos--; alertas.push(`Prolongamento de QT: ${m.qt.toLowerCase()}`); }
+  }
+
+  if (f.evitarEps && m.sintomasExtrapiramidais) {
+    if (baixo(m.sintomasExtrapiramidais)) { pontos++; positivos.push("Baixo risco de sintomas extrapiramidais"); }
+    else if (alto(m.sintomasExtrapiramidais)) { pontos--; alertas.push(`Sintomas extrapiramidais: ${m.sintomasExtrapiramidais.toLowerCase()}`); }
+  }
+
+  if (f.evitarProlactina && m.hiperprolactinemia) {
+    if (baixo(m.hiperprolactinemia)) { pontos++; positivos.push("Baixo risco de hiperprolactinemia"); }
+    else if (alto(m.hiperprolactinemia)) { pontos--; alertas.push(`Hiperprolactinemia: ${m.hiperprolactinemia.toLowerCase()}`); }
+  }
+
+  if (f.evitarRiscoMetabolico && m.riscoMetabolico) {
+    if (baixo(m.riscoMetabolico)) { pontos++; positivos.push("Baixo risco metabólico"); }
+    else if (alto(m.riscoMetabolico)) { pontos--; alertas.push(`Risco metabólico: ${m.riscoMetabolico.toLowerCase()}`); }
+  }
+
+  if (f.evitarHipotensao && m.hipotensaoOrtostatica) {
+    if (baixo(m.hipotensaoOrtostatica)) { pontos++; positivos.push("Baixo risco de hipotensão ortostática"); }
+    else if (alto(m.hipotensaoOrtostatica)) { pontos--; alertas.push(`Hipotensão ortostática: ${m.hipotensaoOrtostatica.toLowerCase()}`); }
+  }
+
+  if (f.evitarRiscoConvulsivo && m.riscoConvulsivo) {
+    if (baixo(m.riscoConvulsivo)) { pontos++; positivos.push("Baixo risco convulsivo"); }
+    else if (alto(m.riscoConvulsivo)) { pontos--; alertas.push(`Risco convulsivo: ${m.riscoConvulsivo.toLowerCase()}`); }
+  }
+
+  if (f.evitarDescontinuacao && m.sintomasDescontinuacao) {
+    if (baixo(m.sintomasDescontinuacao)) { pontos++; positivos.push("Baixos sintomas de descontinuação"); }
+    else if (alto(m.sintomasDescontinuacao)) { pontos--; alertas.push(`Sintomas de descontinuação: ${m.sintomasDescontinuacao.toLowerCase()}`); }
   }
 
   if (f.gestante) {

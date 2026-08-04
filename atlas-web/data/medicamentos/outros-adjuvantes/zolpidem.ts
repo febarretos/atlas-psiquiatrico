@@ -95,6 +95,8 @@ export const zolpidem: Medicamento = {
 
   qt: "Muito baixo",
 
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Dados limitados; associação com possível risco de baixo peso ao nascer e parto prematuro relatada em alguns estudos observacionais. Evitar quando possível, especialmente próximo ao parto.",
 

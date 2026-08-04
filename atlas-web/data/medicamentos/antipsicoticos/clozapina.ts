@@ -112,6 +112,16 @@ export const clozapina: Medicamento = {
 
   qt: "Moderado",
 
+  sintomasExtrapiramidais: "Muito baixo",
+
+  hiperprolactinemia: "Muito baixo",
+
+  riscoMetabolico: "Muito alto",
+
+  hipotensaoOrtostatica: "Alto",
+
+  riscoConvulsivo: "Alto",
+
   gravidez:
     "Uso restrito a casos em que os benefícios superam claramente os riscos, dada a gravidade da esquizofrenia refratária; requer monitorização hematológica também do recém-nascido.",
 

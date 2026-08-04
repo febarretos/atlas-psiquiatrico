@@ -134,6 +134,8 @@ export const clonazepam: Medicamento = {
 
   qt: "Muito baixo",
 
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Evitar, especialmente no primeiro trimestre (associação a fenda palatina) e no periparto (risco de floppy infant syndrome e síndrome de abstinência neonatal). Uso apenas quando estritamente necessário e por menor tempo possível.",
 

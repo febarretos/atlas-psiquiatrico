@@ -118,6 +118,8 @@ export const valproato: Medicamento = {
 
   qt: "Baixo",
 
+  riscoMetabolico: "Moderado",
+
   gravidez:
     "Alto risco teratogênico, associado a defeitos do tubo neural, malformações cardíacas e craniofaciais, além de risco de comprometimento do neurodesenvolvimento infantil (redução de QI). Contraindicado em mulheres em idade fértil e na gestação, exceto em situações excepcionais sem alternativa terapêutica adequada, sempre com contracepção eficaz obrigatória durante o uso.",
 

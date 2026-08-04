@@ -104,6 +104,16 @@ export const ziprasidona: Medicamento = {
 
   qt: "Alto",
 
+  sintomasExtrapiramidais: "Baixo",
+
+  hiperprolactinemia: "Baixo",
+
+  riscoMetabolico: "Muito baixo",
+
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados limitados em humanos; usar apenas quando o benefício justificar claramente o risco, com monitorização de sintomas extrapiramidais e de abstinência no recém-nascido.",
 

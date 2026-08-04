@@ -72,6 +72,60 @@ export default function ComparisonTable({
       ),
     },
     {
+      titulo: "Sintomas extrapiramidais",
+      render: (m: Medicamento) =>
+        m.sintomasExtrapiramidais ? (
+          <Rating value={m.sintomasExtrapiramidais} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
+      titulo: "Hiperprolactinemia",
+      render: (m: Medicamento) =>
+        m.hiperprolactinemia ? (
+          <Rating value={m.hiperprolactinemia} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
+      titulo: "Risco metabólico",
+      render: (m: Medicamento) =>
+        m.riscoMetabolico ? (
+          <Rating value={m.riscoMetabolico} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
+      titulo: "Hipotensão ortostática",
+      render: (m: Medicamento) =>
+        m.hipotensaoOrtostatica ? (
+          <Rating value={m.hipotensaoOrtostatica} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
+      titulo: "Risco convulsivo",
+      render: (m: Medicamento) =>
+        m.riscoConvulsivo ? (
+          <Rating value={m.riscoConvulsivo} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
+      titulo: "Sintomas de descontinuação",
+      render: (m: Medicamento) =>
+        m.sintomasDescontinuacao ? (
+          <Rating value={m.sintomasDescontinuacao} />
+        ) : (
+          <span className="text-slate-600">—</span>
+        ),
+    },
+    {
       titulo: "Atividade serotoninérgica",
       render: (m: Medicamento) =>
         m.serotoninergico === undefined ? (

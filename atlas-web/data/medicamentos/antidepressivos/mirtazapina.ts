@@ -121,6 +121,12 @@ export const mirtazapina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Baixo",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 

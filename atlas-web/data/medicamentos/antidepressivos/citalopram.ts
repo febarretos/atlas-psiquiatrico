@@ -124,6 +124,12 @@ export const citalopram: Medicamento = {
 
   qt: "Alto",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizado durante a gestação quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 

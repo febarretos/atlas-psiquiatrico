@@ -122,6 +122,12 @@ export const bupropiona: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Alto",
+
+  sintomasDescontinuacao: "Baixo",
+
   gravidez:
     "Utilizar quando os benefícios superarem os riscos. A decisão deve ser individualizada.",
 

@@ -101,6 +101,12 @@ export const vilazodona: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Dados ainda limitados em gestantes. Utilizar apenas quando os benefícios esperados superarem os riscos potenciais.",
 

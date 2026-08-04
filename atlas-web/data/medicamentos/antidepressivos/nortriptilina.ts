@@ -119,6 +119,12 @@ export const nortriptilina: Medicamento = {
 
   qt: "Moderado",
 
+  hipotensaoOrtostatica: "Moderado",
+
+  riscoConvulsivo: "Moderado",
+
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superarem os riscos. Existe experiência clínica relativamente extensa com tricíclicos durante a gestação.",
 

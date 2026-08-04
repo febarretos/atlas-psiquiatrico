@@ -88,6 +88,12 @@ export const agomelatina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Muito baixo",
+
   gravidez:
     "Dados insuficientes para recomendar seu uso rotineiro durante a gestação.",
 

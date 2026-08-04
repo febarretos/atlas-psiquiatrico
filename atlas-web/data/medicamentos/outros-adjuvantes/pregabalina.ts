@@ -101,6 +101,8 @@ export const pregabalina: Medicamento = {
 
   qt: "Muito baixo",
 
+  sintomasDescontinuacao: "Moderado",
+
   gravidez:
     "Dados limitados em humanos; usar apenas quando o benefício justificar claramente o risco.",
 

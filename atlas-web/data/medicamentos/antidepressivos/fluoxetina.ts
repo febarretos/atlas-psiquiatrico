@@ -142,6 +142,12 @@ export const fluoxetina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Muito baixo",
+
   gravidez:
     "Pode ser utilizada durante a gestação quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 

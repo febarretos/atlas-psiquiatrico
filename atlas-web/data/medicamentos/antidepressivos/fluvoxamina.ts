@@ -125,6 +125,12 @@ export const fluvoxamina: Medicamento = {
 
   qt: "Baixo",
 
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
+  sintomasDescontinuacao: "Alto",
+
   gravidez:
     "Pode ser utilizada quando os benefícios superam os riscos. A decisão deve ser individualizada.",
 

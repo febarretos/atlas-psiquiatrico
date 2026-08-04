@@ -124,6 +124,8 @@ export const lorazepam: Medicamento = {
 
   qt: "Muito baixo",
 
+  sintomasDescontinuacao: "Alto",
+
   gravidez:
     "Evitar, especialmente no primeiro trimestre (associação a fenda palatina) e no periparto (risco de floppy infant syndrome e síndrome de abstinência neonatal). Reservar para situações de urgência, como status epilepticus ou catatonia grave.",
 

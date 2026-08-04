@@ -111,6 +111,16 @@ export const olanzapina: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Baixo",
+
+  hiperprolactinemia: "Baixo",
+
+  riscoMetabolico: "Muito alto",
+
+  hipotensaoOrtostatica: "Moderado",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Uso possível quando o benefício supera o risco; monitorar peso e glicemia materna, com risco de complicações metabólicas neonatais associadas ao uso no terceiro trimestre.",
 

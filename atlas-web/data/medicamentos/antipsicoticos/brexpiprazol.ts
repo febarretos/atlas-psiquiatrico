@@ -93,6 +93,16 @@ export const brexpiprazol: Medicamento = {
 
   qt: "Baixo",
 
+  sintomasExtrapiramidais: "Baixo",
+
+  hiperprolactinemia: "Baixo",
+
+  riscoMetabolico: "Moderado",
+
+  hipotensaoOrtostatica: "Baixo",
+
+  riscoConvulsivo: "Baixo",
+
   gravidez:
     "Dados limitados; uso possível quando o benefício justifica o risco, com monitorização de sintomas extrapiramidais e de abstinência no recém-nascido, como para os demais antipsicóticos atípicos.",
 
