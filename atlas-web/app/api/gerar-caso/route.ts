@@ -4,57 +4,59 @@ import { diagnosticos } from "../../../data/diagnosticos";
 import { medicamentos } from "../../../data/medicamentos";
 import { dominiosPsicopatologicos } from "../../../data/psicopatologia";
 import { casoGeradoSchema, type CasoGerado } from "../../../lib/casoGeradoSchema";
+import { casoGeradoJsonSchema } from "../../../lib/casoGeradoJsonSchema";
 import { montarPrompt, type Dificuldade } from "../../../lib/gerarCasoPrompt";
 
-const MODELO = "claude-sonnet-5";
-const MAX_TOKENS = 4096;
+const MODELO = "gemini-2.5-flash";
+const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
 
 interface CorpoRequisicao {
   diagnosticoId?: string;
   dificuldade?: Dificuldade;
-  // Quando true, devolve o prompt montado sem chamar a Anthropic API —
-  // útil para revisar o prompt antes de gastar uma chamada de verdade.
+  // Quando true, devolve o prompt e o responseSchema montados sem chamar
+  // o Gemini — útil para revisar antes de gastar uma chamada de verdade.
   preview?: boolean;
 }
 
-async function chamarAnthropic(prompt: string): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+async function chamarGemini(prompt: string): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY não configurada no servidor.");
+    throw new Error("GEMINI_API_KEY não configurada no servidor.");
   }
 
-  const resposta = await fetch("https://api.anthropic.com/v1/messages", {
+  const resposta = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
+      "x-goog-api-key": apiKey,
     },
     body: JSON.stringify({
-      model: MODELO,
-      max_tokens: MAX_TOKENS,
-      messages: [{ role: "user", content: prompt }],
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: casoGeradoJsonSchema,
+      },
     }),
   });
 
   if (!resposta.ok) {
     const corpo = await resposta.text().catch(() => "");
-    throw new Error(`Anthropic API retornou ${resposta.status}: ${corpo.slice(0, 500)}`);
+    throw new Error(`Gemini API retornou ${resposta.status}: ${corpo.slice(0, 500)}`);
   }
 
   const dados = await resposta.json();
-  const texto = dados?.content?.[0]?.text;
+  const texto = dados?.candidates?.[0]?.content?.parts?.[0]?.text;
 
   if (typeof texto !== "string") {
-    throw new Error("Resposta da Anthropic API não contém texto esperado.");
+    throw new Error("Resposta da Gemini API não contém texto esperado.");
   }
 
   return texto;
 }
 
 function extrairJson(texto: string): unknown {
-  // O prompt pede JSON puro, mas trata o caso do modelo envolver em
-  // ```json de qualquer forma, por robustez.
+  // responseMimeType já pede JSON puro, mas trata o caso de vir envolvido
+  // em ```json de qualquer forma, por robustez.
   const limpo = texto
     .trim()
     .replace(/^```(?:json)?\s*/i, "")
@@ -95,7 +97,7 @@ function limparReferenciasInvalidas(caso: CasoGerado): CasoGerado {
 }
 
 async function gerarUmaVez(prompt: string): Promise<CasoGerado> {
-  const texto = await chamarAnthropic(prompt);
+  const texto = await chamarGemini(prompt);
   const bruto = extrairJson(texto);
   const validado = casoGeradoSchema.parse(bruto);
   return limparReferenciasInvalidas(validado);
@@ -115,7 +117,12 @@ export async function POST(request: NextRequest) {
   );
 
   if (corpo.preview) {
-    return NextResponse.json({ prompt, diagnosticoId, dificuldade });
+    return NextResponse.json({
+      prompt,
+      diagnosticoId,
+      dificuldade,
+      responseSchema: casoGeradoJsonSchema,
+    });
   }
 
   try {

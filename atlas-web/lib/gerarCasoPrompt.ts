@@ -5,43 +5,6 @@ import { depressaoPsicoticaCotard } from "../data/casos-clinicos/depressao-psico
 
 export type Dificuldade = "classico" | "atipico" | "diferencial-dificil";
 
-// Mantido em sincronia manualmente com data/casos-clinicos/types.ts —
-// é texto para o prompt, não um import de tipo (o LLM não lê TypeScript
-// de verdade, precisa do formato explicado em prosa/JSON).
-const SCHEMA_TEXTO = `interface OpcaoCaso {
-  texto: string;
-  correta: boolean;
-  // Mostrada após a escolha, seja ela certa ou errada — explique por que
-  // cada alternativa (inclusive as erradas) é ou não compatível com o
-  // quadro, não repita só a definição do termo certo.
-  explicacao: string;
-}
-
-interface EtapaCaso {
-  id: string; // ex: "etapa-1", "etapa-2"...
-  narrativaAdicional?: string; // informação nova revelada nesta etapa (exame do estado mental, evolução, exames) — omitir se a etapa for só uma pergunta sobre o que já foi apresentado
-  pergunta: string;
-  opcoes: OpcaoCaso[]; // 4 opções, EXATAMENTE UMA com correta:true
-}
-
-interface AchadoReferenciado {
-  dominioId: string; // deve ser um dos ids de domínio da lista abaixo
-  achadoId: string; // deve ser um dos ids de achado DENTRO desse domínio
-}
-
-interface CasoClinico {
-  id: string; // kebab-case, curto, descritivo
-  titulo: string; // frase curta e evocativa, não o nome do diagnóstico (ex: "Ela diz que já está morta", não "Depressão Psicótica")
-  categoria: string; // categoria diagnóstica ampla, ex: "Transtornos do Humor"
-  apresentacaoInicial: string; // vinheta inicial: idade, sexo, contexto, motivo da consulta, sinais/sintomas — sem revelar o diagnóstico
-  etapas: EtapaCaso[]; // 4 a 5 etapas, dificuldade crescente, terminando na conduta terapêutica
-  diagnosticoFinal: string; // frase completa com o diagnóstico e especificadores relevantes
-  diagnosticoId?: string; // se houver um diagnóstico correspondente na lista de ids válidos abaixo
-  medicamentosRelacionados?: string[]; // ids da lista de medicamentos válidos abaixo
-  achadosPsicopatologicos?: AchadoReferenciado[]; // achados de psicopatologia ilustrados pelo caso
-  pontosDeEnsino: string[]; // 3 a 5 lições didáticas do caso, além do diagnóstico em si
-}`;
-
 const DIFICULDADE_INSTRUCAO: Record<Dificuldade, string> = {
   classico:
     "Apresentação CLÁSSICA e prototípica do diagnóstico — sintomas nucleares bem demarcados, poucos elementos que confundem. Adequado para quem está aprendendo o quadro pela primeira vez.",
@@ -56,6 +19,14 @@ function escolherDiagnosticoAleatorio(): string {
   return diagnosticos[idx].id;
 }
 
+// Não inclui mais o schema como texto (TypeScript/JSON-Schema) — isso agora
+// é aplicado mecanicamente pelo responseSchema do Gemini (ver
+// lib/casoGeradoJsonSchema.ts), que já traz a semântica de cada campo nos
+// próprios `description`. O prompt só precisa do contexto que o schema não
+// consegue expressar: quais ids são válidos, o exemplo de estilo, e a regra
+// "exatamente uma opção correta por etapa" (uma restrição entre campos que
+// nenhum JSON Schema consegue garantir sozinho — por isso a validação zod
+// em lib/casoGeradoSchema.ts continua sendo a segunda camada obrigatória).
 export function montarPrompt(
   diagnosticoIdEntrada: string | undefined,
   dificuldadeEntrada: Dificuldade | undefined
@@ -90,9 +61,7 @@ export function montarPrompt(
 
   const prompt = `Você é um psiquiatra experiente escrevendo um caso clínico interativo para o Atlas Psiquiátrico, uma ferramenta de ensino para psiquiatras e residentes.
 
-## Formato exigido (TypeScript, para você entender a estrutura — a resposta deve ser JSON, não TypeScript)
-
-${SCHEMA_TEXTO}
+Sua resposta será validada automaticamente contra um schema JSON — respeite os tipos e a estrutura, mas o que este texto pede é o que o schema sozinho não consegue garantir: conteúdo clínico de qualidade e ids válidos.
 
 ## Diagnóstico-alvo deste caso
 
@@ -118,9 +87,8 @@ ${listaAchados}
 ${exemploJson}
 
 ## Instruções finais
-- Responda APENAS com um objeto JSON válido no formato CasoClinico acima — sem markdown, sem \`\`\`json, sem texto antes ou depois do JSON.
 - NÃO preencha um campo "referencias" — um caso sintético não deve citar fontes bibliográficas reais que não foram checadas por ninguém.
-- Cada etapa deve ter exatamente 4 opções, com exatamente uma marcada correta:true.
+- Cada etapa deve ter exatamente 4 opções, com EXATAMENTE UMA marcada correta:true — essa contagem não é garantida pelo schema, verifique você mesmo antes de responder.
 - Toda alternativa (certa e erradas) precisa de uma explicação didática específica — por que ela é ou não compatível com o quadro apresentado, não apenas repetir a definição do termo.
 - 4 a 5 etapas, dificuldade crescente, terminando numa pergunta sobre conduta terapêutica.`;
 
