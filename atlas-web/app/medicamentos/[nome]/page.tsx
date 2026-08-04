@@ -3,6 +3,7 @@ import { medicamentos } from "../../../data/medicamentos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import BotaoCopiarProntuario from "../../../components/BotaoCopiarProntuario";
 import EffectRadarChart from "../../../components/EffectRadarChart";
 import EvidenciaStars from "../../../components/EvidenciaStars";
 import InfoCard from "../../../components/InfoCard";
@@ -17,6 +18,7 @@ import {
   rotuloLactacao,
 } from "../../../lib/populacoesEspeciais";
 import { normalizeEffectKey } from "../../../lib/effectScale";
+import { gerarTextoMedicamento } from "../../../lib/gerarTextoProntuario";
 
 interface Props {
   params: Promise<{
@@ -66,6 +68,10 @@ export default async function Medicamento({
               {medicamento.nomeComercial.join(", ")}
             </p>
           )}
+
+          <div className="mt-6">
+            <BotaoCopiarProntuario texto={gerarTextoMedicamento(medicamento)} />
+          </div>
         </div>
 
         <Section titulo="💊 Posologia">

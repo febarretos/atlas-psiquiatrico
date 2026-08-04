@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
 import CriteriosChecklist from "../../../components/CriteriosChecklist";
+import DiagnosticoProntuarioPanel from "../../../components/DiagnosticoProntuarioPanel";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
 import Section from "../../../components/Section";
@@ -55,6 +56,10 @@ export default async function DiagnosticoDetalhe({
           <p className="mt-6 text-slate-400">
             {diagnostico.descricao}
           </p>
+
+          <div className="mt-6">
+            <DiagnosticoProntuarioPanel diagnostico={diagnostico} />
+          </div>
         </div>
 
         <Section titulo="📋 Critérios Diagnósticos (DSM-5-TR)">

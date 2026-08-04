@@ -3,11 +3,13 @@
 import { useMemo, useState } from "react";
 
 import Badge from "../Badge";
+import BotaoCopiarProntuario from "../BotaoCopiarProntuario";
 import InfoCard from "../InfoCard";
 import HistoricoEscala from "./HistoricoEscala";
 
 import { Escala } from "../../data/escalas/types";
 import { salvarEntrada } from "../../lib/historicoEscalas";
+import { gerarTextoEscala } from "../../lib/gerarTextoProntuario";
 
 interface Props {
   escala: Escala;
@@ -171,6 +173,17 @@ export default function EscalaForm({ escala }: Props) {
           <h3 className="text-xl font-bold text-white">Resultado</h3>
 
           <div className="flex items-center gap-2">
+            {completo && faixa && (
+              <BotaoCopiarProntuario
+                texto={gerarTextoEscala(
+                  escala,
+                  escala.itens.map((item) => item.opcoes[respostas[item.id]]?.valor ?? 0),
+                  pontuacao,
+                  faixa
+                )}
+              />
+            )}
+
             {completo && (
               <button
                 type="button"

@@ -5,6 +5,8 @@ import { useMemo, useState } from "react";
 import { Fluxograma, FluxogramaNode } from "../../data/fluxogramas/types";
 import { medicamentos } from "../../data/medicamentos";
 import MedicamentoMiniCard from "./MedicamentoMiniCard";
+import CondutaProntuarioPanel from "./CondutaProntuarioPanel";
+import { limparRotuloParaTrilha } from "../../lib/gerarTextoProntuario";
 
 interface FluxogramaViewerProps {
   fluxograma: Fluxograma;
@@ -97,6 +99,11 @@ export default function FluxogramaViewer({
   const medicamentosDoNode = (nodeAtual.medicamentosRelacionados ?? [])
     .map((id) => medicamentos.find((m) => m.id === id))
     .filter((m): m is NonNullable<typeof m> => Boolean(m));
+
+  const trilhaDeDecisoes = caminhoPercorrido
+    .map((passo) => passo.opcaoEscolhida)
+    .filter((opcao): opcao is string => Boolean(opcao))
+    .map(limparRotuloParaTrilha);
 
   return (
     <div>
@@ -192,6 +199,14 @@ export default function FluxogramaViewer({
               ))}
             </div>
           )}
+
+          <div className="mt-5">
+            <CondutaProntuarioPanel
+              key={nodeAtual.id}
+              node={nodeAtual}
+              trilhaDeDecisoes={trilhaDeDecisoes}
+            />
+          </div>
 
           {nodeAtual.opcoes && nodeAtual.opcoes.length > 0 && (
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
