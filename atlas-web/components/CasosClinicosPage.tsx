@@ -5,9 +5,11 @@ import Link from "next/link";
 
 import Badge from "./Badge";
 import CasoClinicoPlayer from "./CasoClinicoPlayer";
+import CasoLivrePlayer from "./CasoLivrePlayer";
 import SearchBar from "./SearchBar";
 
 import { CasoClinico } from "../data/casos-clinicos/types";
+import type { CasoLivre } from "../lib/casoLivreSchema";
 import { diagnosticos } from "../data/diagnosticos";
 import type { Dificuldade } from "../lib/gerarCasoPrompt";
 
@@ -19,6 +21,8 @@ interface FonteInspiracao {
   titulo: string;
   url: string;
 }
+
+type ModoGeracao = "multipla-escolha" | "resposta-livre";
 
 // Ligado — usa a API gratuita do Gemini (GEMINI_API_KEY). Se a variável
 // não estiver configurada em produção, a rota retorna erro amigável em vez
@@ -39,13 +43,14 @@ export default function CasosClinicosPage({
   const [painelAberto, setPainelAberto] = useState(false);
   const [diagnosticoEscolhido, setDiagnosticoEscolhido] = useState("");
   const [dificuldade, setDificuldade] = useState<Dificuldade>("classico");
-  const [carregando, setCarregando] = useState(false);
+  const [carregandoModo, setCarregandoModo] = useState<ModoGeracao | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [casoGerado, setCasoGerado] = useState<CasoClinico | null>(null);
+  const [casoLivreGerado, setCasoLivreGerado] = useState<CasoLivre | null>(null);
   const [fontes, setFontes] = useState<FonteInspiracao[]>([]);
 
-  async function gerarCaso() {
-    setCarregando(true);
+  async function gerarCaso(modo: ModoGeracao) {
+    setCarregandoModo(modo);
     setErro(null);
 
     try {
@@ -55,6 +60,7 @@ export default function CasosClinicosPage({
         body: JSON.stringify({
           diagnosticoId: diagnosticoEscolhido || undefined,
           dificuldade,
+          modo,
         }),
       });
 
@@ -64,12 +70,18 @@ export default function CasosClinicosPage({
         throw new Error(dados?.erro ?? `Erro ${resposta.status}`);
       }
 
-      setCasoGerado(dados.caso as CasoClinico);
+      if (modo === "resposta-livre") {
+        setCasoLivreGerado(dados.casoLivre as CasoLivre);
+        setCasoGerado(null);
+      } else {
+        setCasoGerado(dados.caso as CasoClinico);
+        setCasoLivreGerado(null);
+      }
       setFontes((dados.inspiracao as FonteInspiracao[]) ?? []);
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao gerar o caso.");
     } finally {
-      setCarregando(false);
+      setCarregandoModo(null);
     }
   }
 
@@ -97,7 +109,7 @@ export default function CasosClinicosPage({
         </p>
       </div>
 
-      {casoGerado ? (
+      {casoGerado || casoLivreGerado ? (
         <div className="mb-8">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-900/50 bg-red-500/10 p-4">
             <div>
@@ -132,6 +144,7 @@ export default function CasosClinicosPage({
               type="button"
               onClick={() => {
                 setCasoGerado(null);
+                setCasoLivreGerado(null);
                 setFontes([]);
               }}
               className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
@@ -140,7 +153,11 @@ export default function CasosClinicosPage({
             </button>
           </div>
 
-          <CasoClinicoPlayer caso={casoGerado} />
+          {casoGerado ? (
+            <CasoClinicoPlayer caso={casoGerado} />
+          ) : casoLivreGerado ? (
+            <CasoLivrePlayer caso={casoLivreGerado} />
+          ) : null}
         </div>
       ) : (
         <>
@@ -208,14 +225,29 @@ export default function CasosClinicosPage({
                   </div>
                 )}
 
-                <button
-                  type="button"
-                  onClick={gerarCaso}
-                  disabled={carregando}
-                  className="self-start rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {carregando ? "Gerando…" : "Gerar caso"}
-                </button>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => gerarCaso("multipla-escolha")}
+                    disabled={carregandoModo !== null}
+                    className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {carregandoModo === "multipla-escolha"
+                      ? "Gerando…"
+                      : "🎯 Múltipla escolha (2 etapas)"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => gerarCaso("resposta-livre")}
+                    disabled={carregandoModo !== null}
+                    className="rounded-xl border border-blue-500 px-5 py-3 text-sm font-semibold text-blue-300 transition-colors hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {carregandoModo === "resposta-livre"
+                      ? "Gerando…"
+                      : "✍️ Resposta livre (modo difícil)"}
+                  </button>
+                </div>
               </div>
             )}
           </div>
