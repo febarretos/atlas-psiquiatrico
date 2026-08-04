@@ -104,6 +104,18 @@ ${listaAchados}
 
 ${exemploJson}
 ${montarBlocoInspiracao(inspiracao)}
+## Regras para as alternativas (opcoes) de cada etapa — evitar alternativas óbvias demais
+
+1. PARIDADE DE TAMANHO: as 4 alternativas devem ter comprimento similar (dentro de ~20% de variação entre a maior e a menor). Nunca deixe a alternativa correta visivelmente mais longa ou mais detalhada que as erradas.
+
+2. DISTRATORES DEVEM SER ERROS REAIS DA PRÁTICA CLÍNICA, não invenções absurdas. Cada alternativa errada deve representar um erro que um residente cometeria de verdade: um diagnóstico diferencial próximo mas descartável por 1-2 critérios específicos, uma conduta que já foi correta em diretriz antiga, ou uma confusão comum entre conceitos parecidos (ex.: ideia sobrevalorizada vs. delírio, transtorno esquizoafetivo vs. transtorno do humor com sintomas psicóticos).
+
+3. SEM PISTAS LINGUÍSTICAS: evite qualificadores absolutos nas alternativas erradas ("nunca", "sempre", "é impossível") que sinalizem erro só pela linguagem. Evite hedging na alternativa correta ("pode ser considerado", "é possível que") que sinalize acerto pela linguagem. Todas as opções devem soar igualmente confiantes e afirmativas.
+
+4. ORDEM ALEATÓRIA: a posição da alternativa correta deve variar entre as etapas — não deixe a correta sempre na mesma posição (tipicamente a primeira).
+
+5. TESTE MENTAL OBRIGATÓRIO antes de finalizar cada etapa: "um residente de segundo ano, sem ver a resposta, teria pelo menos 40-50% de chance de errar essa questão pela plausibilidade dos distratores?" Se a resposta for não, reescreva as alternativas erradas para ficarem mais próximas/tentadoras.
+
 ## Instruções finais
 - NÃO preencha um campo "referencias" — um caso sintético não deve citar fontes bibliográficas reais que não foram checadas por ninguém.
 - Cada etapa deve ter exatamente 4 opções, com EXATAMENTE UMA marcada correta:true — essa contagem não é garantida pelo schema, verifique você mesmo antes de responder.
