@@ -1,21 +1,56 @@
 // Cliente HTTP compartilhado pra API do Gemini — usado por
 // app/api/gerar-caso e app/api/avaliar-resposta-livre. Centralizado aqui
-// pra manter o nome do modelo e o tratamento de erro 429 (quota)
+// pra manter a lista de modelos e o tratamento de erro 429 (quota)
 // consistentes nas duas rotas.
 
-// gemini-2.5-flash foi descontinuado para novas chaves de API (erro 404) —
-// gemini-3.6-flash é o modelo estável recomendado atualmente para uso
-// geral (ai.google.dev/gemini-api/docs/models, checado em ago/2026).
-// Dá pra trocar por uma variante "-flash-lite" (menor custo, geralmente
-// limite de requisições mais alto no tier gratuito) via variável de
-// ambiente GEMINI_MODEL, sem mexer em código — confira em
-// aistudio.google.com/rate-limit quais modelos sua chave realmente tem
-// acesso antes de trocar, pra não repetir o 404 que o 2.5-flash deu.
-const MODELO = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+// Cada modelo do Gemini tem sua PRÓPRIA cota gratuita — se um está com
+// quota excedida (429) ou indisponível pra essa chave (404, comum em
+// modelos descontinuados como o gemini-2.5-flash foi pra chaves novas),
+// tentar o próximo da lista costuma resolver na hora, sem precisar
+// esperar nada. Ordem: o mais atual primeiro, depois variantes mais
+// baratas/antigas como rede de segurança.
+// Configurável via variável de ambiente, sem mexer em código:
+//   GEMINI_MODELS=modelo-a,modelo-b,modelo-c  (lista, nessa ordem)
+//   GEMINI_MODEL=um-modelo-só                 (mantido por compatibilidade;
+//                                               vira o primeiro da lista,
+//                                               o resto do padrão continua
+//                                               como rede de segurança)
+// Confira em aistudio.google.com/rate-limit quais modelos sua chave
+// realmente tem acesso (ai.google.dev/gemini-api/docs/models, checado em
+// ago/2026).
+const MODELOS_PADRAO = [
+  "gemini-3.6-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+];
 
-function endpointDoModelo(): string {
-  return `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
+function listaDeModelos(): string[] {
+  const varios = process.env.GEMINI_MODELS;
+  if (varios) {
+    return varios
+      .split(",")
+      .map((m) => m.trim())
+      .filter(Boolean);
+  }
+
+  const unico = process.env.GEMINI_MODEL;
+  if (unico) {
+    return [unico, ...MODELOS_PADRAO.filter((m) => m !== unico)];
+  }
+
+  return MODELOS_PADRAO;
 }
+
+function endpointDoModelo(modelo: string): string {
+  return `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent`;
+}
+
+// Status em que vale a pena tentar o próximo modelo da lista em vez de
+// desistir na hora: 404 (sem acesso a esse modelo específico com essa
+// chave) e 5xx (o backend desse modelo em particular está com problema).
+// 429 tem tratamento à parte, porque carrega o tempo de espera sugerido.
+const STATUS_TENTAR_PROXIMO_MODELO = new Set([404, 500, 502, 503, 504]);
 
 // Erro específico pra 429 (RESOURCE_EXHAUSTED) — carrega o tempo de
 // espera sugerido pela própria API do Gemini. As rotas devolvem isso
@@ -59,13 +94,19 @@ function extrairRetryDelaySegundos(corpoTexto: string): number | null {
   return match ? parseFloat(match[1]) : null;
 }
 
-export async function chamarGemini(prompt: string, schema: unknown): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY não configurada no servidor.");
-  }
+type ResultadoModelo =
+  | { ok: true; texto: string }
+  | { ok: false; tipo: "quota"; retryDelaySegundos: number; detalhe: string }
+  | { ok: false; tipo: "tentar-proximo"; detalhe: string }
+  | { ok: false; tipo: "erro"; detalhe: string };
 
-  const resposta = await fetch(endpointDoModelo(), {
+async function chamarModelo(
+  modelo: string,
+  prompt: string,
+  schema: unknown,
+  apiKey: string
+): Promise<ResultadoModelo> {
+  const resposta = await fetch(endpointDoModelo(modelo), {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -80,28 +121,85 @@ export async function chamarGemini(prompt: string, schema: unknown): Promise<str
     }),
   });
 
-  if (!resposta.ok) {
-    const corpo = await resposta.text().catch(() => "");
+  if (resposta.ok) {
+    const dados = await resposta.json();
+    const texto = dados?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    if (resposta.status === 429) {
-      const delay = extrairRetryDelaySegundos(corpo) ?? RETRY_DELAY_PADRAO_SEGUNDOS;
-      throw new GeminiQuotaError(
-        `Gemini API retornou 429 (quota excedida): ${corpo.slice(0, 300)}`,
-        delay + MARGEM_SEGUNDOS
-      );
+    if (typeof texto !== "string") {
+      return { ok: false, tipo: "erro", detalhe: "resposta não contém texto esperado" };
     }
 
-    throw new Error(`Gemini API retornou ${resposta.status}: ${corpo.slice(0, 500)}`);
+    return { ok: true, texto };
   }
 
-  const dados = await resposta.json();
-  const texto = dados?.candidates?.[0]?.content?.parts?.[0]?.text;
+  const corpo = await resposta.text().catch(() => "");
 
-  if (typeof texto !== "string") {
-    throw new Error("Resposta da Gemini API não contém texto esperado.");
+  if (resposta.status === 429) {
+    const delay = extrairRetryDelaySegundos(corpo) ?? RETRY_DELAY_PADRAO_SEGUNDOS;
+    return {
+      ok: false,
+      tipo: "quota",
+      retryDelaySegundos: delay + MARGEM_SEGUNDOS,
+      detalhe: corpo.slice(0, 300),
+    };
   }
 
-  return texto;
+  if (STATUS_TENTAR_PROXIMO_MODELO.has(resposta.status)) {
+    return { ok: false, tipo: "tentar-proximo", detalhe: `${resposta.status}: ${corpo.slice(0, 300)}` };
+  }
+
+  return { ok: false, tipo: "erro", detalhe: `${resposta.status}: ${corpo.slice(0, 500)}` };
+}
+
+// Tenta cada modelo da lista (GEMINI_MODELS / GEMINI_MODEL / padrão), na
+// ordem, até um responder com sucesso. Pula pro próximo automaticamente
+// se o atual estiver sem quota ou indisponível — só propaga
+// GeminiQuotaError (pra esperar e tentar de novo) se TODOS os modelos da
+// lista estiverem com quota excedida; qualquer outro erro "de verdade"
+// (não é sobre disponibilidade do modelo) propaga na hora, sem percorrer
+// o resto da lista à toa.
+export async function chamarGemini(prompt: string, schema: unknown): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY não configurada no servidor.");
+  }
+
+  const modelos = listaDeModelos();
+  let menorRetryDelay: number | null = null;
+  const falhas: string[] = [];
+
+  for (const modelo of modelos) {
+    const resultado = await chamarModelo(modelo, prompt, schema, apiKey);
+
+    if (resultado.ok) return resultado.texto;
+
+    if (resultado.tipo === "quota") {
+      falhas.push(`${modelo}: quota excedida (${resultado.detalhe})`);
+      menorRetryDelay =
+        menorRetryDelay === null
+          ? resultado.retryDelaySegundos
+          : Math.min(menorRetryDelay, resultado.retryDelaySegundos);
+      continue;
+    }
+
+    if (resultado.tipo === "tentar-proximo") {
+      falhas.push(`${modelo}: indisponível (${resultado.detalhe})`);
+      continue;
+    }
+
+    throw new Error(`Gemini API (modelo ${modelo}) retornou erro: ${resultado.detalhe}`);
+  }
+
+  if (menorRetryDelay !== null) {
+    throw new GeminiQuotaError(
+      `Todos os modelos configurados (${modelos.join(", ")}) estão com quota excedida — ${falhas.join("; ")}`,
+      menorRetryDelay
+    );
+  }
+
+  throw new Error(
+    `Nenhum dos modelos configurados (${modelos.join(", ")}) respondeu com sucesso — ${falhas.join("; ")}`
+  );
 }
 
 export function extrairJson(texto: string): unknown {

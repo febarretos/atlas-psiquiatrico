@@ -103,3 +103,94 @@ test("comUmaRetentativa tenta mais uma vez pra erros que não são de quota", as
   assert.equal(resultado.ok, true);
   if (resultado.ok) assert.equal(resultado.valor, "ok");
 });
+
+test("chamarGemini pula pro próximo modelo quando o atual está com quota excedida (cota é por modelo)", async () => {
+  process.env.GEMINI_API_KEY = "chave-de-teste";
+  process.env.GEMINI_MODELS = "modelo-a,modelo-b";
+
+  const originalFetch = global.fetch;
+  global.fetch = (async (input: RequestInfo | URL) => {
+    if (String(input).includes("modelo-a")) {
+      return respostaFalsa(429, "Please retry in 10s.");
+    }
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: "resposta-do-modelo-b" }] } }] }),
+      { status: 200 }
+    );
+  }) as typeof fetch;
+
+  try {
+    const texto = await chamarGemini("prompt", {});
+    assert.equal(texto, "resposta-do-modelo-b");
+  } finally {
+    global.fetch = originalFetch;
+    delete process.env.GEMINI_MODELS;
+  }
+});
+
+test("chamarGemini pula um modelo indisponível (404) e tenta o próximo", async () => {
+  process.env.GEMINI_API_KEY = "chave-de-teste";
+  process.env.GEMINI_MODELS = "modelo-antigo,modelo-novo";
+
+  const originalFetch = global.fetch;
+  global.fetch = (async (input: RequestInfo | URL) => {
+    if (String(input).includes("modelo-antigo")) {
+      return respostaFalsa(404, "model not found");
+    }
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: "ok" }] } }] }),
+      { status: 200 }
+    );
+  }) as typeof fetch;
+
+  try {
+    const texto = await chamarGemini("prompt", {});
+    assert.equal(texto, "ok");
+  } finally {
+    global.fetch = originalFetch;
+    delete process.env.GEMINI_MODELS;
+  }
+});
+
+test("chamarGemini só lança GeminiQuotaError quando TODOS os modelos configurados estão com quota excedida", async () => {
+  process.env.GEMINI_API_KEY = "chave-de-teste";
+  process.env.GEMINI_MODELS = "modelo-a,modelo-b";
+
+  const originalFetch = global.fetch;
+  global.fetch = (async () => respostaFalsa(429, "Please retry in 5s.")) as typeof fetch;
+
+  try {
+    await assert.rejects(
+      () => chamarGemini("prompt", {}),
+      (erro: unknown) => {
+        assert.ok(erro instanceof GeminiQuotaError);
+        return true;
+      }
+    );
+  } finally {
+    global.fetch = originalFetch;
+    delete process.env.GEMINI_MODELS;
+  }
+});
+
+test("chamarGemini lança um erro claro (não GeminiQuotaError) quando nenhum modelo configurado está disponível", async () => {
+  process.env.GEMINI_API_KEY = "chave-de-teste";
+  process.env.GEMINI_MODELS = "modelo-a,modelo-b";
+
+  const originalFetch = global.fetch;
+  global.fetch = (async () => respostaFalsa(404, "model not found")) as typeof fetch;
+
+  try {
+    await assert.rejects(
+      () => chamarGemini("prompt", {}),
+      (erro: unknown) => {
+        assert.ok(!(erro instanceof GeminiQuotaError));
+        assert.match((erro as Error).message, /nenhum dos modelos configurados/i);
+        return true;
+      }
+    );
+  } finally {
+    global.fetch = originalFetch;
+    delete process.env.GEMINI_MODELS;
+  }
+});
