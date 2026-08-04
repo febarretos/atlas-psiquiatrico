@@ -20,6 +20,15 @@ export const avaliacaoRespostaLivreSchema = z.object({
 
 export type AvaliacaoRespostaLivre = z.infer<typeof avaliacaoRespostaLivreSchema>;
 
+// Forma que a rota realmente devolve ao cliente: quando correto é false,
+// inclui o gabaritoInterno original (o mesmo texto recebido na requisição,
+// não algo que o Gemini precisa reproduzir) para a UI sempre poder exibir
+// a resposta esperada diante de um erro — sem isso, feedback socrático
+// pode nunca revelar a resposta certa (ver montarPromptAvaliacao).
+export interface AvaliacaoRespostaLivreResposta extends AvaliacaoRespostaLivre {
+  gabaritoInterno?: string;
+}
+
 interface GeminiSchema {
   type: "STRING" | "NUMBER" | "INTEGER" | "BOOLEAN" | "ARRAY" | "OBJECT";
   description?: string;

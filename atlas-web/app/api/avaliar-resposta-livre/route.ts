@@ -5,6 +5,7 @@ import {
   avaliacaoRespostaLivreSchema,
   avaliacaoRespostaLivreJsonSchema,
   type AvaliacaoRespostaLivre,
+  type AvaliacaoRespostaLivreResposta,
 } from "../../../lib/avaliarRespostaLivreSchema";
 
 // gemini-2.5-flash foi descontinuado para novas chaves de API (erro 404) —
@@ -85,6 +86,18 @@ async function avaliarUmaVez(prompt: string): Promise<AvaliacaoRespostaLivre> {
   return avaliacaoRespostaLivreSchema.parse(extrairJson(texto));
 }
 
+// O gabarito devolvido é o texto original recebido na requisição, não algo
+// que o Gemini precisa reescrever — mais confiável, e garante que a
+// resposta esperada some no cliente sempre que correto for false, mesmo
+// quando o feedback socrático não a revela (ver montarPromptAvaliacao).
+function comGabaritoSeErrado(
+  avaliacao: AvaliacaoRespostaLivre,
+  gabaritoInterno: string
+): AvaliacaoRespostaLivreResposta {
+  if (avaliacao.correto) return avaliacao;
+  return { ...avaliacao, gabaritoInterno };
+}
+
 export async function POST(request: NextRequest) {
   let corpoBruto: unknown;
   try {
@@ -103,11 +116,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const avaliacao = await avaliarUmaVez(prompt);
-    return NextResponse.json(avaliacao);
+    return NextResponse.json(comGabaritoSeErrado(avaliacao, gabaritoInterno));
   } catch (primeiroErro) {
     try {
       const avaliacao = await avaliarUmaVez(prompt);
-      return NextResponse.json(avaliacao);
+      return NextResponse.json(comGabaritoSeErrado(avaliacao, gabaritoInterno));
     } catch (segundoErro) {
       const mensagem =
         segundoErro instanceof Error ? segundoErro.message : "Erro desconhecido";

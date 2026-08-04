@@ -6,7 +6,7 @@ import Link from "next/link";
 import Badge from "./Badge";
 
 import type { CasoLivre } from "../lib/casoLivreSchema";
-import type { AvaliacaoRespostaLivre } from "../lib/avaliarRespostaLivreSchema";
+import type { AvaliacaoRespostaLivreResposta } from "../lib/avaliarRespostaLivreSchema";
 import { medicamentos } from "../data/medicamentos";
 import { diagnosticos } from "../data/diagnosticos";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
@@ -17,12 +17,21 @@ interface Props {
 
 interface Tentativa {
   resposta: string;
-  avaliacao: AvaliacaoRespostaLivre;
+  avaliacao: AvaliacaoRespostaLivreResposta;
+}
+
+interface RespostaIncorreta {
+  etapa: string;
+  perguntaFeita: string;
+  respostaDoUsuario: string;
+  gabaritoInterno: string;
+  feedback: string;
 }
 
 export default function CasoLivrePlayer({ caso }: Props) {
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [tentativas, setTentativas] = useState<Record<number, Tentativa[]>>({});
+  const [respostasIncorretas, setRespostasIncorretas] = useState<RespostaIncorreta[]>([]);
   const [rascunho, setRascunho] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
@@ -54,11 +63,25 @@ export default function CasoLivrePlayer({ caso }: Props) {
         throw new Error(dados?.erro ?? `Erro ${resposta.status}`);
       }
 
-      const avaliacao = dados as AvaliacaoRespostaLivre;
+      const avaliacao = dados as AvaliacaoRespostaLivreResposta;
       setTentativas((prev) => ({
         ...prev,
         [etapaAtual]: [...(prev[etapaAtual] ?? []), { resposta: rascunho, avaliacao }],
       }));
+
+      if (!avaliacao.correto) {
+        setRespostasIncorretas((prev) => [
+          ...prev,
+          {
+            etapa: etapa.etapa,
+            perguntaFeita: etapa.pergunta,
+            respostaDoUsuario: rascunho,
+            gabaritoInterno: avaliacao.gabaritoInterno ?? etapa.gabaritoInterno,
+            feedback: avaliacao.feedback,
+          },
+        ]);
+      }
+
       setRascunho("");
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao avaliar a resposta.");
@@ -78,6 +101,7 @@ export default function CasoLivrePlayer({ caso }: Props) {
   function reiniciar() {
     setEtapaAtual(0);
     setTentativas({});
+    setRespostasIncorretas([]);
     setRascunho("");
     setErro(null);
     setConcluido(false);
@@ -151,6 +175,15 @@ export default function CasoLivrePlayer({ caso }: Props) {
                     </span>
                     {t.avaliacao.feedback}
                   </div>
+
+                  {!t.avaliacao.correto && (
+                    <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 text-slate-300">
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        Resposta esperada
+                      </span>
+                      {t.avaliacao.gabaritoInterno ?? p.gabaritoInterno}
+                    </div>
+                  )}
                 </div>
               ))}
 
@@ -223,6 +256,48 @@ export default function CasoLivrePlayer({ caso }: Props) {
                   <Badge color="gray">🧩 {achado.nome}</Badge>
                 </Link>
               ))}
+            </div>
+          )}
+
+          {respostasIncorretas.length === 0 ? (
+            <div className="mb-5 rounded-xl border border-green-500/40 bg-green-500/10 p-4 text-sm font-medium text-green-200">
+              🎉 Você acertou todas as etapas de primeira — nenhum erro para revisar.
+            </div>
+          ) : (
+            <div className="mb-5">
+              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Revisão dos erros ({respostasIncorretas.length})
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {respostasIncorretas.map((r, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4"
+                  >
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-amber-300">
+                      {r.etapa}
+                    </div>
+
+                    <p className="mb-2 text-sm font-medium text-white">{r.perguntaFeita}</p>
+
+                    <p className="mb-2 text-sm text-slate-400">
+                      <span className="font-semibold text-slate-300">Sua resposta: </span>
+                      {r.respostaDoUsuario}
+                    </p>
+
+                    <p className="mb-2 text-sm text-slate-300">
+                      <span className="font-semibold text-slate-200">Resposta esperada: </span>
+                      {r.gabaritoInterno}
+                    </p>
+
+                    <p className="text-sm leading-6 text-amber-200">
+                      <span className="font-semibold">Feedback: </span>
+                      {r.feedback}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
