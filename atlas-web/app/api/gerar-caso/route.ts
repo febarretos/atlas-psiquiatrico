@@ -7,7 +7,10 @@ import { casoGeradoSchema, type CasoGerado } from "../../../lib/casoGeradoSchema
 import { casoGeradoJsonSchema } from "../../../lib/casoGeradoJsonSchema";
 import { montarPrompt, type Dificuldade } from "../../../lib/gerarCasoPrompt";
 
-const MODELO = "gemini-2.5-flash";
+// gemini-2.5-flash foi descontinuado para novas chaves de API (erro 404) —
+// gemini-3.6-flash é o modelo estável recomendado atualmente para uso
+// geral (ai.google.dev/gemini-api/docs/models, checado em ago/2026).
+const MODELO = "gemini-3.6-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
 
 interface CorpoRequisicao {
