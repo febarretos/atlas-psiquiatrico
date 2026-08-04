@@ -7,6 +7,7 @@ import Badge from "./Badge";
 
 import type { CasoLivre } from "../lib/casoLivreSchema";
 import type { AvaliacaoRespostaLivreResposta } from "../lib/avaliarRespostaLivreSchema";
+import { chamarComRetryDeQuota } from "../lib/chamarComRetryDeQuota";
 import { medicamentos } from "../data/medicamentos";
 import { diagnosticos } from "../data/diagnosticos";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
@@ -34,6 +35,7 @@ export default function CasoLivrePlayer({ caso }: Props) {
   const [respostasIncorretas, setRespostasIncorretas] = useState<RespostaIncorreta[]>([]);
   const [rascunho, setRascunho] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [aguardandoSegundos, setAguardandoSegundos] = useState<number | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [concluido, setConcluido] = useState(false);
 
@@ -45,22 +47,27 @@ export default function CasoLivrePlayer({ caso }: Props) {
 
     setEnviando(true);
     setErro(null);
+    setAguardandoSegundos(null);
 
     try {
-      const resposta = await fetch("/api/avaliar-resposta-livre", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          pergunta: etapa.pergunta,
-          gabaritoInterno: etapa.gabaritoInterno,
-          respostaDoUsuario: rascunho,
-        }),
-      });
+      const { resposta, dados } = await chamarComRetryDeQuota(
+        () =>
+          fetch("/api/avaliar-resposta-livre", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              pergunta: etapa.pergunta,
+              gabaritoInterno: etapa.gabaritoInterno,
+              respostaDoUsuario: rascunho,
+            }),
+          }),
+        setAguardandoSegundos
+      );
 
-      const dados = await resposta.json();
+      const corpo = dados as { erro?: string; mensagem?: string } | null;
 
       if (!resposta.ok) {
-        throw new Error(dados?.erro ?? `Erro ${resposta.status}`);
+        throw new Error(corpo?.erro ?? corpo?.mensagem ?? `Erro ${resposta.status}`);
       }
 
       const avaliacao = dados as AvaliacaoRespostaLivreResposta;
@@ -87,6 +94,7 @@ export default function CasoLivrePlayer({ caso }: Props) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao avaliar a resposta.");
     } finally {
       setEnviando(false);
+      setAguardandoSegundos(null);
     }
   }
 
@@ -198,6 +206,13 @@ export default function CasoLivrePlayer({ caso }: Props) {
                     className="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-white outline-none focus:border-blue-500"
                   />
 
+                  {aguardandoSegundos !== null && (
+                    <div className="mt-2 rounded-lg border border-amber-500/50 bg-amber-500/10 p-3 text-sm text-amber-200">
+                      ⏳ Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
+                      tentar de novo...
+                    </div>
+                  )}
+
                   {erro && (
                     <div className="mt-2 rounded-lg border border-red-900/50 bg-red-500/10 p-3 text-sm text-red-300">
                       {erro}
@@ -210,7 +225,11 @@ export default function CasoLivrePlayer({ caso }: Props) {
                     disabled={enviando || !rascunho.trim()}
                     className="mt-3 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {enviando ? "Avaliando…" : "Enviar resposta"}
+                    {enviando
+                      ? aguardandoSegundos !== null
+                        ? `Aguardando ${aguardandoSegundos}s…`
+                        : "Avaliando…"
+                      : "Enviar resposta"}
                   </button>
                 </div>
               )}

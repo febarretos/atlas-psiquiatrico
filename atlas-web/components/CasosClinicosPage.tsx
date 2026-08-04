@@ -12,6 +12,7 @@ import { CasoClinico } from "../data/casos-clinicos/types";
 import type { CasoLivre } from "../lib/casoLivreSchema";
 import { diagnosticos } from "../data/diagnosticos";
 import type { Dificuldade } from "../lib/gerarCasoPrompt";
+import { chamarComRetryDeQuota } from "../lib/chamarComRetryDeQuota";
 
 interface Props {
   casos: CasoClinico[];
@@ -44,6 +45,7 @@ export default function CasosClinicosPage({
   const [diagnosticoEscolhido, setDiagnosticoEscolhido] = useState("");
   const [dificuldade, setDificuldade] = useState<Dificuldade>("classico");
   const [carregandoModo, setCarregandoModo] = useState<ModoGeracao | null>(null);
+  const [aguardandoSegundos, setAguardandoSegundos] = useState<number | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [casoGerado, setCasoGerado] = useState<CasoClinico | null>(null);
   const [casoLivreGerado, setCasoLivreGerado] = useState<CasoLivre | null>(null);
@@ -52,36 +54,42 @@ export default function CasosClinicosPage({
   async function gerarCaso(modo: ModoGeracao) {
     setCarregandoModo(modo);
     setErro(null);
+    setAguardandoSegundos(null);
 
     try {
-      const resposta = await fetch("/api/gerar-caso", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          diagnosticoId: diagnosticoEscolhido || undefined,
-          dificuldade,
-          modo,
-        }),
-      });
+      const { resposta, dados } = await chamarComRetryDeQuota(
+        () =>
+          fetch("/api/gerar-caso", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              diagnosticoId: diagnosticoEscolhido || undefined,
+              dificuldade,
+              modo,
+            }),
+          }),
+        setAguardandoSegundos
+      );
 
-      const dados = await resposta.json();
+      const corpo = dados as { erro?: string; casoLivre?: CasoLivre; caso?: CasoClinico; inspiracao?: FonteInspiracao[] } | null;
 
       if (!resposta.ok) {
-        throw new Error(dados?.erro ?? `Erro ${resposta.status}`);
+        throw new Error(corpo?.erro ?? `Erro ${resposta.status}`);
       }
 
       if (modo === "resposta-livre") {
-        setCasoLivreGerado(dados.casoLivre as CasoLivre);
+        setCasoLivreGerado(corpo?.casoLivre as CasoLivre);
         setCasoGerado(null);
       } else {
-        setCasoGerado(dados.caso as CasoClinico);
+        setCasoGerado(corpo?.caso as CasoClinico);
         setCasoLivreGerado(null);
       }
-      setFontes((dados.inspiracao as FonteInspiracao[]) ?? []);
+      setFontes(corpo?.inspiracao ?? []);
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao gerar o caso.");
     } finally {
       setCarregandoModo(null);
+      setAguardandoSegundos(null);
     }
   }
 
@@ -219,6 +227,13 @@ export default function CasosClinicosPage({
                   </div>
                 </div>
 
+                {aguardandoSegundos !== null && (
+                  <div className="rounded-lg border border-amber-500/50 bg-amber-500/10 p-3 text-sm text-amber-200">
+                    ⏳ Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
+                    tentar de novo...
+                  </div>
+                )}
+
                 {erro && (
                   <div className="rounded-lg border border-red-900/50 bg-red-500/10 p-3 text-sm text-red-300">
                     {erro}
@@ -233,7 +248,9 @@ export default function CasosClinicosPage({
                     className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {carregandoModo === "multipla-escolha"
-                      ? "Gerando…"
+                      ? aguardandoSegundos !== null
+                        ? `Aguardando ${aguardandoSegundos}s…`
+                        : "Gerando…"
                       : "🎯 Múltipla escolha (2 etapas)"}
                   </button>
 
@@ -244,7 +261,9 @@ export default function CasosClinicosPage({
                     className="rounded-xl border border-blue-500 px-5 py-3 text-sm font-semibold text-blue-300 transition-colors hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {carregandoModo === "resposta-livre"
-                      ? "Gerando…"
+                      ? aguardandoSegundos !== null
+                        ? `Aguardando ${aguardandoSegundos}s…`
+                        : "Gerando…"
                       : "✍️ Resposta livre (modo difícil)"}
                   </button>
                 </div>

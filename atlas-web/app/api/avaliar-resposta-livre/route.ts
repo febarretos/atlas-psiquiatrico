@@ -7,57 +7,7 @@ import {
   type AvaliacaoRespostaLivre,
   type AvaliacaoRespostaLivreResposta,
 } from "../../../lib/avaliarRespostaLivreSchema";
-
-// gemini-2.5-flash foi descontinuado para novas chaves de API (erro 404) —
-// gemini-3.6-flash é o modelo estável recomendado atualmente para uso
-// geral (ai.google.dev/gemini-api/docs/models, checado em ago/2026).
-const MODELO = "gemini-3.6-flash";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
-
-async function chamarGemini(prompt: string): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY não configurada no servidor.");
-  }
-
-  const resposta = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-goog-api-key": apiKey,
-    },
-    body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      generationConfig: {
-        responseMimeType: "application/json",
-        responseSchema: avaliacaoRespostaLivreJsonSchema,
-      },
-    }),
-  });
-
-  if (!resposta.ok) {
-    const corpo = await resposta.text().catch(() => "");
-    throw new Error(`Gemini API retornou ${resposta.status}: ${corpo.slice(0, 500)}`);
-  }
-
-  const dados = await resposta.json();
-  const texto = dados?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (typeof texto !== "string") {
-    throw new Error("Resposta da Gemini API não contém texto esperado.");
-  }
-
-  return texto;
-}
-
-function extrairJson(texto: string): unknown {
-  const limpo = texto
-    .trim()
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/```\s*$/i, "");
-
-  return JSON.parse(limpo);
-}
+import { chamarGemini, extrairJson, comUmaRetentativa, respostaDeFalha } from "../../../lib/gemini";
 
 function montarPromptAvaliacao(
   pergunta: string,
@@ -82,7 +32,7 @@ ${respostaDoUsuario}
 }
 
 async function avaliarUmaVez(prompt: string): Promise<AvaliacaoRespostaLivre> {
-  const texto = await chamarGemini(prompt);
+  const texto = await chamarGemini(prompt, avaliacaoRespostaLivreJsonSchema);
   return avaliacaoRespostaLivreSchema.parse(extrairJson(texto));
 }
 
@@ -106,29 +56,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ erro: "Corpo da requisição inválido." }, { status: 400 });
   }
 
-  const resultado = avaliarRespostaLivreRequestSchema.safeParse(corpoBruto);
-  if (!resultado.success) {
+  const validacao = avaliarRespostaLivreRequestSchema.safeParse(corpoBruto);
+  if (!validacao.success) {
     return NextResponse.json({ erro: "Corpo da requisição inválido." }, { status: 400 });
   }
 
-  const { pergunta, gabaritoInterno, respostaDoUsuario } = resultado.data;
+  const { pergunta, gabaritoInterno, respostaDoUsuario } = validacao.data;
   const prompt = montarPromptAvaliacao(pergunta, gabaritoInterno, respostaDoUsuario);
 
-  try {
-    const avaliacao = await avaliarUmaVez(prompt);
-    return NextResponse.json(comGabaritoSeErrado(avaliacao, gabaritoInterno));
-  } catch (primeiroErro) {
-    try {
-      const avaliacao = await avaliarUmaVez(prompt);
-      return NextResponse.json(comGabaritoSeErrado(avaliacao, gabaritoInterno));
-    } catch (segundoErro) {
-      const mensagem =
-        segundoErro instanceof Error ? segundoErro.message : "Erro desconhecido";
-      console.error("Falha ao avaliar resposta livre (2 tentativas):", primeiroErro, segundoErro);
-      return NextResponse.json(
-        { erro: `Não foi possível avaliar a resposta após 2 tentativas: ${mensagem}` },
-        { status: 502 }
-      );
-    }
+  const resultado = await comUmaRetentativa(() => avaliarUmaVez(prompt));
+  if (resultado.ok) {
+    return NextResponse.json(comGabaritoSeErrado(resultado.valor, gabaritoInterno));
   }
+  const falha = respostaDeFalha(resultado, "Não foi possível avaliar a resposta");
+  return NextResponse.json(falha.corpo, { status: falha.status });
 }
