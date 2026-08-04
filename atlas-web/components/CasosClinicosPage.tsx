@@ -71,10 +71,16 @@ export default function CasosClinicosPage({
         setAguardandoSegundos
       );
 
-      const corpo = dados as { erro?: string; casoLivre?: CasoLivre; caso?: CasoClinico; inspiracao?: FonteInspiracao[] } | null;
+      const corpo = dados as {
+        erro?: string;
+        mensagem?: string;
+        casoLivre?: CasoLivre;
+        caso?: CasoClinico;
+        inspiracao?: FonteInspiracao[];
+      } | null;
 
       if (!resposta.ok) {
-        throw new Error(corpo?.erro ?? `Erro ${resposta.status}`);
+        throw new Error(corpo?.erro ?? corpo?.mensagem ?? `Erro ${resposta.status}`);
       }
 
       if (modo === "resposta-livre") {

@@ -160,11 +160,16 @@ export function respostaDeFalha(
   contexto: string
 ): RespostaDeErro {
   if (resultado.erro instanceof GeminiQuotaError) {
+    // O detalhe técnico (blob de erro da API) fica só no log do servidor —
+    // se o retry automático do cliente também esbarrar em 429, o usuário só
+    // deve ver uma mensagem acionável, não o JSON cru do erro do Gemini.
+    console.error(`${contexto} — quota do Gemini excedida:`, resultado.erro.message);
     return {
       status: 429,
       corpo: {
         tipo: "quota",
-        mensagem: resultado.erro.message,
+        mensagem:
+          "Limite de uso gratuito da API do Gemini atingido. Aguarde alguns minutos e tente de novo — se persistir, pode ser o limite diário, que só libera de novo amanhã.",
         retryDelaySegundos: resultado.erro.retryDelaySegundos,
       },
     };
