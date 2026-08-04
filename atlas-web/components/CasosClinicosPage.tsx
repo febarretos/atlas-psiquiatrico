@@ -15,6 +15,11 @@ interface Props {
   casos: CasoClinico[];
 }
 
+// Desligado até ANTHROPIC_API_KEY estar configurada em produção (custo de
+// API separado da assinatura do Claude.ai) — reativar trocando para true,
+// nenhuma outra mudança necessária.
+const GERACAO_IA_ATIVA = false;
+
 const DIFICULDADES: { valor: Dificuldade; rotulo: string }[] = [
   { valor: "classico", rotulo: "Clássico" },
   { valor: "atipico", rotulo: "Atípico" },
@@ -106,6 +111,7 @@ export default function CasosClinicosPage({
         </div>
       ) : (
         <>
+          {GERACAO_IA_ATIVA && (
           <div className="mb-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <button
               type="button"
@@ -180,6 +186,7 @@ export default function CasosClinicosPage({
               </div>
             )}
           </div>
+          )}
 
           <div className="mb-8">
             <SearchBar
