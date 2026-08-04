@@ -15,6 +15,11 @@ interface Props {
   casos: CasoClinico[];
 }
 
+interface FonteInspiracao {
+  titulo: string;
+  url: string;
+}
+
 // Ligado — usa a API gratuita do Gemini (GEMINI_API_KEY). Se a variável
 // não estiver configurada em produção, a rota retorna erro amigável em vez
 // de quebrar a página.
@@ -37,6 +42,7 @@ export default function CasosClinicosPage({
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [casoGerado, setCasoGerado] = useState<CasoClinico | null>(null);
+  const [fontes, setFontes] = useState<FonteInspiracao[]>([]);
 
   async function gerarCaso() {
     setCarregando(true);
@@ -58,7 +64,8 @@ export default function CasosClinicosPage({
         throw new Error(dados?.erro ?? `Erro ${resposta.status}`);
       }
 
-      setCasoGerado(dados as CasoClinico);
+      setCasoGerado(dados.caso as CasoClinico);
+      setFontes((dados.inspiracao as FonteInspiracao[]) ?? []);
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao gerar o caso.");
     } finally {
@@ -93,14 +100,40 @@ export default function CasosClinicosPage({
       {casoGerado ? (
         <div className="mb-8">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-900/50 bg-red-500/10 p-4">
-            <p className="text-sm font-semibold text-red-300">
-              ⚠️ Caso sintético gerado por IA — não revisado clinicamente.
-              Pode conter erros. Não usar como referência clínica.
-            </p>
+            <div>
+              <p className="text-sm font-semibold text-red-300">
+                {fontes.length > 0
+                  ? "⚠️ Caso sintético, inspirado em relato de caso real — não revisado clinicamente."
+                  : "⚠️ Caso sintético gerado por IA — não revisado clinicamente."}{" "}
+                Pode conter erros. Não usar como referência clínica.
+              </p>
+
+              {fontes.length > 0 && (
+                <p className="mt-2 text-xs text-red-200/80">
+                  Inspirado em:{" "}
+                  {fontes.map((f, i) => (
+                    <span key={f.url}>
+                      {i > 0 && "; "}
+                      <a
+                        href={f.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline hover:text-red-100"
+                      >
+                        {f.titulo}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              )}
+            </div>
 
             <button
               type="button"
-              onClick={() => setCasoGerado(null)}
+              onClick={() => {
+                setCasoGerado(null);
+                setFontes([]);
+              }}
               className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
             >
               ← Voltar para os casos

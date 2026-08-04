@@ -2,6 +2,7 @@ import { diagnosticos } from "../data/diagnosticos";
 import { medicamentos } from "../data/medicamentos";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
 import { depressaoPsicoticaCotard } from "../data/casos-clinicos/depressao-psicotica-cotard";
+import type { ArtigoInspiracao } from "./buscarInspiracaoEuropePmc";
 
 export type Dificuldade = "classico" | "atipico" | "diferencial-dificil";
 
@@ -14,26 +15,43 @@ const DIFICULDADE_INSTRUCAO: Record<Dificuldade, string> = {
     "Foco no DIAGNÓSTICO DIFERENCIAL: o quadro deve compartilhar sobreposição real com pelo menos um diagnóstico concorrente plausível, e pelo menos uma etapa deve exigir discriminar entre as duas hipóteses com um achado específico, não óbvio.",
 };
 
-function escolherDiagnosticoAleatorio(): string {
+export function resolverDiagnosticoId(entrada: string | undefined): string {
+  if (entrada && diagnosticos.some((d) => d.id === entrada)) return entrada;
+
   const idx = Math.floor(Math.random() * diagnosticos.length);
   return diagnosticos[idx].id;
+}
+
+function montarBlocoInspiracao(inspiracao: ArtigoInspiracao[]): string {
+  if (inspiracao.length === 0) return "";
+
+  const resumos = inspiracao
+    .map((a, i) => `${i + 1}. "${a.titulo}"\n${a.abstractText}`)
+    .join("\n\n");
+
+  return `\n## Resumos de relatos de caso reais (inspiração de apresentação clínica)
+
+Os resumos abaixo são de relatos de caso reais, publicados em acesso aberto. Servem APENAS como inspiração para a apresentação clínica (sintomas, evolução, achados incongruentes, contexto do paciente) — NÃO copie frases ou estrutura desses resumos. Escreva uma vinheta inteiramente original e reescrita com suas próprias palavras, adaptada ao formato de etapas com perguntas do nosso app.
+
+${resumos}
+`;
 }
 
 // Não inclui mais o schema como texto (TypeScript/JSON-Schema) — isso agora
 // é aplicado mecanicamente pelo responseSchema do Gemini (ver
 // lib/casoGeradoJsonSchema.ts), que já traz a semântica de cada campo nos
 // próprios `description`. O prompt só precisa do contexto que o schema não
-// consegue expressar: quais ids são válidos, o exemplo de estilo, e a regra
-// "exatamente uma opção correta por etapa" (uma restrição entre campos que
-// nenhum JSON Schema consegue garantir sozinho — por isso a validação zod
-// em lib/casoGeradoSchema.ts continua sendo a segunda camada obrigatória).
+// consegue expressar: quais ids são válidos, o exemplo de estilo, os
+// resumos de inspiração (se houver), e a regra "exatamente uma opção
+// correta por etapa" (uma restrição entre campos que nenhum JSON Schema
+// consegue garantir sozinho — por isso a validação zod em
+// lib/casoGeradoSchema.ts continua sendo a segunda camada obrigatória).
 export function montarPrompt(
-  diagnosticoIdEntrada: string | undefined,
-  dificuldadeEntrada: Dificuldade | undefined
-): { prompt: string; diagnosticoId: string; dificuldade: Dificuldade } {
-  const diagnosticoId = diagnosticoIdEntrada ?? escolherDiagnosticoAleatorio();
+  diagnosticoId: string,
+  dificuldadeEntrada: Dificuldade | undefined,
+  inspiracao: ArtigoInspiracao[]
+): { prompt: string; dificuldade: Dificuldade } {
   const dificuldade = dificuldadeEntrada ?? "classico";
-
   const diagnostico = diagnosticos.find((d) => d.id === diagnosticoId);
 
   const listaDiagnosticos = diagnosticos
@@ -85,12 +103,12 @@ ${listaAchados}
 ## Exemplo de caso real, no estilo e profundidade esperados (NÃO copie o conteúdo clínico, é só referência de estilo/estrutura/qualidade das explicações)
 
 ${exemploJson}
-
+${montarBlocoInspiracao(inspiracao)}
 ## Instruções finais
 - NÃO preencha um campo "referencias" — um caso sintético não deve citar fontes bibliográficas reais que não foram checadas por ninguém.
 - Cada etapa deve ter exatamente 4 opções, com EXATAMENTE UMA marcada correta:true — essa contagem não é garantida pelo schema, verifique você mesmo antes de responder.
 - Toda alternativa (certa e erradas) precisa de uma explicação didática específica — por que ela é ou não compatível com o quadro apresentado, não apenas repetir a definição do termo.
 - 4 a 5 etapas, dificuldade crescente, terminando numa pergunta sobre conduta terapêutica.`;
 
-  return { prompt, diagnosticoId, dificuldade };
+  return { prompt, dificuldade };
 }

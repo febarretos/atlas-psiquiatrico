@@ -5,7 +5,9 @@ import { medicamentos } from "../../../data/medicamentos";
 import { dominiosPsicopatologicos } from "../../../data/psicopatologia";
 import { casoGeradoSchema, type CasoGerado } from "../../../lib/casoGeradoSchema";
 import { casoGeradoJsonSchema } from "../../../lib/casoGeradoJsonSchema";
-import { montarPrompt, type Dificuldade } from "../../../lib/gerarCasoPrompt";
+import { montarPrompt, resolverDiagnosticoId, type Dificuldade } from "../../../lib/gerarCasoPrompt";
+import { termoInglesDoDiagnostico } from "../../../lib/diagnosticoTermoIngles";
+import { buscarInspiracao, type ArtigoInspiracao } from "../../../lib/buscarInspiracaoEuropePmc";
 
 // gemini-2.5-flash foi descontinuado para novas chaves de API (erro 404) —
 // gemini-3.6-flash é o modelo estável recomendado atualmente para uso
@@ -19,6 +21,11 @@ interface CorpoRequisicao {
   // Quando true, devolve o prompt e o responseSchema montados sem chamar
   // o Gemini — útil para revisar antes de gastar uma chamada de verdade.
   preview?: boolean;
+}
+
+interface FonteInspiracao {
+  titulo: string;
+  url: string;
 }
 
 async function chamarGemini(prompt: string): Promise<string> {
@@ -106,6 +113,10 @@ async function gerarUmaVez(prompt: string): Promise<CasoGerado> {
   return limparReferenciasInvalidas(validado);
 }
 
+function paraFontes(inspiracao: ArtigoInspiracao[]): FonteInspiracao[] {
+  return inspiracao.map((a) => ({ titulo: a.titulo, url: a.url }));
+}
+
 export async function POST(request: NextRequest) {
   let corpo: CorpoRequisicao;
   try {
@@ -114,10 +125,11 @@ export async function POST(request: NextRequest) {
     corpo = {};
   }
 
-  const { prompt, diagnosticoId, dificuldade } = montarPrompt(
-    corpo.diagnosticoId,
-    corpo.dificuldade
-  );
+  const diagnosticoId = resolverDiagnosticoId(corpo.diagnosticoId);
+  const termoIngles = termoInglesDoDiagnostico(diagnosticoId);
+  const inspiracao = termoIngles ? await buscarInspiracao(termoIngles) : [];
+
+  const { prompt, dificuldade } = montarPrompt(diagnosticoId, corpo.dificuldade, inspiracao);
 
   if (corpo.preview) {
     return NextResponse.json({
@@ -125,16 +137,17 @@ export async function POST(request: NextRequest) {
       diagnosticoId,
       dificuldade,
       responseSchema: casoGeradoJsonSchema,
+      inspiracao: paraFontes(inspiracao),
     });
   }
 
   try {
     const caso = await gerarUmaVez(prompt);
-    return NextResponse.json(caso);
+    return NextResponse.json({ caso, inspiracao: paraFontes(inspiracao) });
   } catch (primeiroErro) {
     try {
       const caso = await gerarUmaVez(prompt);
-      return NextResponse.json(caso);
+      return NextResponse.json({ caso, inspiracao: paraFontes(inspiracao) });
     } catch (segundoErro) {
       const mensagem =
         segundoErro instanceof Error ? segundoErro.message : "Erro desconhecido";
