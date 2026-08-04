@@ -71,22 +71,26 @@ export const manejoToc: Fluxograma = {
     },
     {
       id: "conduta-isrs-leve",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
         "Sem acesso à TCC-EPR: iniciar ISRS em dose adequada como tratamento inicial (ex. fluoxetina, sertralina, paroxetina, fluvoxamina ou escitalopram).",
       detalhe:
         "Doses eficazes no TOC costumam ser mais altas do que as utilizadas na depressão.",
+      medicamentosRelacionados: ["fluoxetina", "sertralina", "paroxetina", "fluvoxamina", "escitalopram"],
       opcoes: [
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
     {
       id: "gravidade-moderada-grave",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
-        "Em quadros moderados a graves ou com insight pobre, iniciar tratamento combinado: ISRS em dose adequada (frequentemente na faixa superior recomendada) associado a TCC com exposição e prevenção de resposta (EPR).",
+        "Em quadros moderados a graves ou com insight pobre, iniciar tratamento combinado: ISRS em dose adequada (frequentemente na faixa superior recomendada, ex. fluoxetina, sertralina, paroxetina, fluvoxamina ou escitalopram) associado a TCC com exposição e prevenção de resposta (EPR).",
       detalhe:
         "A combinação farmacoterapia + TCC-EPR tende a apresentar melhores desfechos que qualquer modalidade isolada em quadros mais graves. Titular a dose do ISRS ao longo das primeiras semanas conforme tolerabilidade.",
+      medicamentosRelacionados: ["fluoxetina", "sertralina", "paroxetina", "fluvoxamina", "escitalopram"],
       opcoes: [
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
@@ -143,6 +147,7 @@ export const manejoToc: Fluxograma = {
         "Trocar para outro ISRS de eficácia estabelecida no TOC ou para clomipramina (antidepressivo tricíclico com ação serotoninérgica potente).",
       detalhe:
         "Clomipramina é uma alternativa eficaz, porém com perfil de efeitos adversos mais desfavorável (anticolinérgicos, cardiovasculares) que exige monitorização, incluindo ECG em pacientes com fatores de risco cardiovascular. Reavaliar resposta em 8 a 12 semanas.",
+      medicamentosRelacionados: ["clomipramina"],
     },
     {
       id: "conduta-potencializar",
@@ -152,6 +157,7 @@ export const manejoToc: Fluxograma = {
         "Associar antipsicótico atípico em dose baixa (ex. risperidona ou aripiprazol) como potencializador ao ISRS/clomipramina em uso.",
       detalhe:
         "Estratégia com evidência de benefício em subgrupo de pacientes refratários, especialmente com tiques associados. Reavaliar resposta em 4 a 8 semanas e considerar suspensão se não houver benefício claro, pelo perfil de efeitos adversos metabólicos.",
+      medicamentosRelacionados: ["risperidona", "aripiprazol"],
     },
     {
       id: "conduta-encaminhar-especializado",

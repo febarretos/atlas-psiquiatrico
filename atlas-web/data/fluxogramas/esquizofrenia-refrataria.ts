@@ -27,11 +27,13 @@ export const esquizofreniaRefrataria: Fluxograma = {
     },
     {
       id: "escolha-antipsicotico",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
         "Escolher antipsicótico atípico de primeira linha, considerando perfil de efeitos adversos (metabólicos, extrapiramidais, sedativos, cardiovasculares/QTc, hiperprolactinemia) e preferência do paciente.",
       detalhe:
         "Opções comuns incluem risperidona, olanzapina, quetiapina, aripiprazol, entre outros. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol"],
       opcoes: [
         { label: "Antipsicótico iniciado, aguardar resposta", proximoNodeId: "resposta-primeiro-episodio" },
       ],
@@ -106,11 +108,13 @@ export const esquizofreniaRefrataria: Fluxograma = {
     },
     {
       id: "indicacao-clozapina",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
         "Esquizofrenia refratária ao tratamento confirmada: a clozapina é o padrão-ouro para esses casos, apesar de permanecer subutilizada na prática clínica.",
       detalhe:
         "A clozapina apresenta eficácia superior a outros antipsicóticos em pacientes refratários e deve ser oferecida assim que o critério de refratariedade for preenchido, sem atrasos desnecessários. Discutir com o paciente os benefícios esperados e a necessidade de monitorização hematológica obrigatória.",
+      medicamentosRelacionados: ["clozapina"],
       opcoes: [
         { label: "Iniciar clozapina com monitorização hematológica", proximoNodeId: "monitorizacao-clozapina" },
       ],
@@ -146,6 +150,7 @@ export const esquizofreniaRefrataria: Fluxograma = {
         "Manter a clozapina na dose eficaz, com monitorização hematológica contínua conforme protocolo.",
       detalhe:
         "Manter acompanhamento clínico regular, monitorização metabólica e reforço de adesão ao esquema de hemogramas periódicos, essencial para a segurança do tratamento a longo prazo.",
+      medicamentosRelacionados: ["clozapina"],
     },
     {
       id: "conduta-potencializacao",
@@ -155,6 +160,7 @@ export const esquizofreniaRefrataria: Fluxograma = {
         "Resposta insuficiente à clozapina em dose e tempo adequados: considerar estratégias de potencialização.",
       detalhe:
         "Opções incluem associação de um segundo antipsicótico (ex. aripiprazol como adjuvante, com possível benefício também sobre efeitos metabólicos) e eletroconvulsoterapia (ECT), com evidência de benefício em esquizofrenia refratária à clozapina. Encaminhar a serviço especializado em psicose refratária para condução conjunta do caso.",
+      medicamentosRelacionados: ["aripiprazol"],
     },
   ],
 

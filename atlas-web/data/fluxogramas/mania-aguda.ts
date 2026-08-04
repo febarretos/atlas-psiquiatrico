@@ -54,6 +54,7 @@ export const maniaAguda: Fluxograma = {
         "Indicar internação psiquiátrica para estabilização em ambiente seguro e monitorizado.",
       detalhe:
         "Iniciar antipsicótico atípico (ex. risperidona, olanzapina, quetiapina ou aripiprazol) isolado ou associado a estabilizador de humor (lítio ou valproato), conforme gravidade. Considerar sedação com benzodiazepínico associado se agitação intensa. Suspender antidepressivo em uso, se houver. Reavaliar diariamente a resposta e a necessidade de contenção/medidas de segurança.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol", "litio", "valproato"],
     },
     {
       id: "revisao-antidepressivo",
@@ -93,33 +94,39 @@ export const maniaAguda: Fluxograma = {
     },
     {
       id: "trat-estabilizador",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
         "Iniciar estabilizador de humor em monoterapia: lítio (titulado por litemia, alvo geralmente entre 0,8-1,2 mEq/L na fase aguda) ou valproato (titulado por dose/peso, com atenção a nível sérico).",
       detalhe:
         "Solicitar exames basais (função renal e tireoidiana para lítio; função hepática e hemograma para valproato).",
+      medicamentosRelacionados: ["litio", "valproato"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
     {
       id: "trat-antipsicotico",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
         "Iniciar antipsicótico atípico em monoterapia (ex. risperidona, olanzapina, quetiapina ou aripiprazol), considerando perfil de efeitos adversos e preferência do paciente.",
       detalhe:
         "Antipsicóticos atípicos costumam ter início de ação mais rápido que estabilizadores clássicos, sendo úteis quando controle rápido dos sintomas é desejável. Monitorar efeitos metabólicos e extrapiramidais.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
     {
       id: "trat-associacao",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
         "Iniciar associação de estabilizador de humor (lítio ou valproato) com antipsicótico atípico.",
       detalhe:
         "Indicada em episódios graves, com sintomas psicóticos, agitação importante ou risco elevado. Associada a maior taxa de resposta e remissão que monoterapia em quadros graves, ao custo de mais efeitos adversos.",
+      medicamentosRelacionados: ["litio", "valproato", "risperidona", "olanzapina", "quetiapina", "aripiprazol"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

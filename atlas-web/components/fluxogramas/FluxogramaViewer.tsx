@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 
 import { Fluxograma, FluxogramaNode } from "../../data/fluxogramas/types";
+import { medicamentos } from "../../data/medicamentos";
+import MedicamentoMiniCard from "./MedicamentoMiniCard";
 
 interface FluxogramaViewerProps {
   fluxograma: Fluxograma;
@@ -92,6 +94,10 @@ export default function FluxogramaViewer({
 
   const caminhoPercorrido = historico.slice(0, -1);
 
+  const medicamentosDoNode = (nodeAtual.medicamentosRelacionados ?? [])
+    .map((id) => medicamentos.find((m) => m.id === id))
+    .filter((m): m is NonNullable<typeof m> => Boolean(m));
+
   return (
     <div>
       {caminhoPercorrido.length > 0 && (
@@ -177,6 +183,29 @@ export default function FluxogramaViewer({
             <p className="mt-3 text-sm leading-6 text-slate-300">
               {nodeAtual.detalhe}
             </p>
+          )}
+
+          {medicamentosDoNode.length > 0 && (
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {medicamentosDoNode.map((m) => (
+                <MedicamentoMiniCard key={m.id} medicamento={m} />
+              ))}
+            </div>
+          )}
+
+          {nodeAtual.opcoes && nodeAtual.opcoes.length > 0 && (
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {nodeAtual.opcoes.map((opcao) => (
+                <button
+                  key={opcao.label}
+                  type="button"
+                  onClick={() => escolherOpcao(opcao.label, opcao.proximoNodeId)}
+                  className="rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-left text-sm font-medium text-white transition-colors hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-300"
+                >
+                  {opcao.label}
+                </button>
+              ))}
+            </div>
           )}
         </div>
       )}

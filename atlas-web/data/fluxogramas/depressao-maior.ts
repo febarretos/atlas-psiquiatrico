@@ -8,7 +8,7 @@ export const depressaoMaior: Fluxograma = {
   categoria: "Transtornos do Humor",
 
   descricao:
-    "Algoritmo para rastreio, confirmação diagnóstica, avaliação de risco de suicídio e escolha/ajuste de tratamento no episódio depressivo maior, baseado em diretrizes CANMAT/APA.",
+    "Algoritmo para rastreio, confirmação diagnóstica, avaliação de risco de suicídio e escolha/ajuste de tratamento no episódio depressivo maior, baseado em diretrizes CANMAT/APA — com a escolha do antidepressivo vinculada ao perfil do paciente, não apenas à classe.",
 
   nodeInicialId: "rastreio",
 
@@ -87,7 +87,7 @@ export const depressaoMaior: Fluxograma = {
         "Gravidade leve: sintomas mínimos além do necessário para diagnóstico, prejuízo funcional leve. Moderada a grave: maior número de sintomas, prejuízo funcional importante ou sintomas psicóticos/melancólicos.",
       opcoes: [
         { label: "Leve", proximoNodeId: "leve-preferencia" },
-        { label: "Moderada a grave", proximoNodeId: "tratamento-combinado" },
+        { label: "Moderada a grave", proximoNodeId: "perfil-farmaco-moderada-grave" },
       ],
     },
     {
@@ -97,7 +97,7 @@ export const depressaoMaior: Fluxograma = {
         "Nos episódios leves, psicoterapia isolada é a primeira escolha. O paciente tem preferência e acesso a psicoterapia baseada em evidência (TCC, ativação comportamental ou terapia interpessoal)?",
       opcoes: [
         { label: "Sim", proximoNodeId: "conduta-leve-psicoterapia" },
-        { label: "Não / sem acesso", proximoNodeId: "conduta-leve-farmaco" },
+        { label: "Não / sem acesso", proximoNodeId: "perfil-farmaco-leve" },
       ],
     },
     {
@@ -109,21 +109,215 @@ export const depressaoMaior: Fluxograma = {
       detalhe:
         "Farmacoterapia não é obrigatória em episódios leves. Reavaliar resposta clínica em 4 a 6 semanas; se ausência de melhora, considerar associação de antidepressivo.",
     },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — episódio LEVE sem acesso a psicoterapia
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: "perfil-farmaco-leve",
+      tipo: "pergunta",
+      texto:
+        "Sem acesso à psicoterapia: antes de escolher o antidepressivo, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí — esta lista simplifica, para fins didáticos, uma decisão que na prática pode envolver múltiplos fatores simultâneos.",
+      opcoes: [
+        { label: "Cardiopatia / risco de QT longo", proximoNodeId: "conduta-leve-farmaco-cardiopatia" },
+        { label: "Insuficiência renal", proximoNodeId: "conduta-leve-farmaco-renal" },
+        { label: "Gravidez ou lactação", proximoNodeId: "conduta-leve-farmaco-gravidez" },
+        { label: "Idoso / risco de queda", proximoNodeId: "conduta-leve-farmaco-idoso" },
+        { label: "Insônia proeminente como sintoma-alvo", proximoNodeId: "conduta-leve-farmaco-insonia" },
+        { label: "Fadiga/hipersonia proeminente como sintoma-alvo", proximoNodeId: "conduta-leve-farmaco-fadiga" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-leve-farmaco" },
+      ],
+    },
+    {
+      id: "conduta-leve-farmaco-cardiopatia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Antidepressivo com menor risco cardiovascular: sertralina tem o melhor perfil de segurança cardiovascular entre os ISRS.",
+      detalhe:
+        "Evitar citalopram em dose alta (risco de prolongamento do QT, dose máxima já reduzida pela FDA) e evitar antidepressivos tricíclicos em dose alta (cardiotoxicidade por bloqueio de canais de sódio). Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["sertralina"],
+    },
+    {
+      id: "conduta-leve-farmaco-renal",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar antidepressivo sem necessidade de ajuste de dose na insuficiência renal: sertralina ou escitalopram.",
+      detalhe:
+        "Venlafaxina, duloxetina, bupropiona e mirtazapina exigem ajuste de dose na insuficiência renal — evitar como primeira escolha nesse contexto. Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+    },
+    {
+      id: "conduta-leve-farmaco-gravidez",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar o antidepressivo com o perfil mais favorável já documentado para gestação e lactação: sertralina.",
+      detalhe:
+        "Sertralina é uma das opções mais estudadas na gestação e é considerada compatível com a amamentação na maioria dos casos. A decisão final deve sempre ser individualizada e, idealmente, discutida com a obstetrícia. Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["sertralina"],
+    },
+    {
+      id: "conduta-leve-farmaco-idoso",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar menor carga anticolinérgica e menor sedação, para reduzir risco de queda: sertralina ou escitalopram.",
+      detalhe:
+        "Evitar como primeira escolha agentes mais sedativos/anticolinérgicos (trazodona, mirtazapina, antidepressivos tricíclicos) nesse perfil. Se um tricíclico for necessário por outro motivo, a nortriptilina é a opção preferida entre eles em idosos. Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+    },
+    {
+      id: "conduta-leve-farmaco-insonia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Insônia como sintoma-alvo proeminente: considerar mirtazapina ou trazodona pelo efeito sedativo/hipnótico.",
+      detalhe:
+        "Trazodona tem risco de hipotensão ortostática mais pronunciado nas primeiras doses — atenção especial se houver também risco de queda. Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["mirtazapina", "trazodona"],
+    },
+    {
+      id: "conduta-leve-farmaco-fadiga",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Fadiga ou hipersonia como sintoma-alvo proeminente: considerar bupropiona pelo efeito sobre energia, motivação e concentração.",
+      detalhe:
+        "Evitar em epilepsia e em anorexia/bulimia nervosa (contraindicações formais, risco convulsivo). Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["bupropiona"],
+    },
     {
       id: "conduta-leve-farmaco",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Sem acesso à psicoterapia: considerar antidepressivo de primeira linha (ISRS, ex. sertralina ou escitalopram) isoladamente, ou monitoramento ativo estruturado (watchful waiting) se sintomas muito leves e preferência do paciente.",
-      detalhe: "Reavaliar resposta clínica em 4 a 6 semanas.",
+        "Sem condição especial identificada: considerar antidepressivo de primeira linha (ISRS), como sertralina ou escitalopram, isoladamente — ou monitoramento ativo estruturado (watchful waiting) se sintomas muito leves e preferência do paciente.",
+      detalhe:
+        "A meta-análise de rede de Cipriani et al. (2018, Lancet, 21 antidepressivos) mostrou eficácia/aceitabilidade combinadas relativamente melhores para agomelatina, escitalopram, mirtazapina, paroxetina, sertralina e vortioxetina — mas as diferenças absolutas entre a maioria dos antidepressivos são pequenas. Reavaliar resposta clínica em 4 a 6 semanas.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
     },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — episódio MODERADO A GRAVE (tratamento combinado)
+    // ─────────────────────────────────────────────────────────────
     {
-      id: "tratamento-combinado",
+      id: "perfil-farmaco-moderada-grave",
       tipo: "pergunta",
       texto:
-        "Em episódios moderados a graves, iniciar tratamento combinado: farmacoterapia com antidepressivo de primeira linha (ISRS ou ISRSN, ex. sertralina, escitalopram ou venlafaxina) associada a psicoterapia baseada em evidência. Após reavaliação estruturada em 4 a 6 semanas, qual foi a resposta clínica?",
+        "Em episódios moderados a graves, o tratamento é combinado: farmacoterapia associada a psicoterapia baseada em evidência. Antes de escolher o antidepressivo, o paciente apresenta alguma destas condições relevantes para essa escolha?",
       detalhe:
-        "Titular a dose até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade. Resposta adequada = melhora ≥50% dos sintomas. Para a escolha do agente inicial, a meta-análise de rede de Cipriani et al. (2018, Lancet, 21 antidepressivos) mostrou eficácia/aceitabilidade combinadas relativamente melhores para agomelatina, escitalopram, mirtazapina, paroxetina, sertralina e vortioxetina — mas as diferenças absolutas entre a maioria dos antidepressivos são pequenas, e a escolha deve ser individualizada por perfil de efeitos adversos, comorbidades, interações e preferência do paciente, não apenas por eficácia populacional média.",
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí — esta lista simplifica, para fins didáticos, uma decisão que na prática pode envolver múltiplos fatores simultâneos.",
+      opcoes: [
+        { label: "Cardiopatia / risco de QT longo", proximoNodeId: "conduta-combinado-cardiopatia" },
+        { label: "Insuficiência renal", proximoNodeId: "conduta-combinado-renal" },
+        { label: "Gravidez ou lactação", proximoNodeId: "conduta-combinado-gravidez" },
+        { label: "Idoso / risco de queda", proximoNodeId: "conduta-combinado-idoso" },
+        { label: "Insônia proeminente como sintoma-alvo", proximoNodeId: "conduta-combinado-insonia" },
+        { label: "Fadiga/hipersonia proeminente como sintoma-alvo", proximoNodeId: "conduta-combinado-fadiga" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-combinado-padrao" },
+      ],
+    },
+    {
+      id: "conduta-combinado-cardiopatia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Antidepressivo com menor risco cardiovascular, associado a psicoterapia: sertralina tem o melhor perfil de segurança cardiovascular entre os ISRS.",
+      detalhe:
+        "Evitar citalopram em dose alta e evitar antidepressivos tricíclicos em dose alta pelo risco de prolongamento do QT e arritmia — ver módulo Emergências: Torsades de Pointes. Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["sertralina"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-renal",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar antidepressivo sem necessidade de ajuste de dose na insuficiência renal, associado a psicoterapia: sertralina ou escitalopram.",
+      detalhe:
+        "Venlafaxina, duloxetina, bupropiona e mirtazapina exigem ajuste de dose na insuficiência renal — evitar como primeira escolha nesse contexto. Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-gravidez",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar o antidepressivo com o perfil mais favorável já documentado para gestação e lactação, associado a psicoterapia: sertralina.",
+      detalhe:
+        "Sertralina é uma das opções mais estudadas na gestação e é considerada compatível com a amamentação na maioria dos casos. A decisão final deve sempre ser individualizada e, idealmente, discutida com a obstetrícia. Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["sertralina"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-idoso",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Priorizar menor carga anticolinérgica e menor sedação, para reduzir risco de queda, associado a psicoterapia: sertralina ou escitalopram.",
+      detalhe:
+        "Evitar como primeira escolha agentes mais sedativos/anticolinérgicos (trazodona, mirtazapina, antidepressivos tricíclicos) nesse perfil. Se um tricíclico for necessário por outro motivo, a nortriptilina é a opção preferida entre eles em idosos. Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-insonia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Insônia como sintoma-alvo proeminente: considerar mirtazapina ou trazodona, associado a psicoterapia.",
+      detalhe:
+        "Trazodona tem risco de hipotensão ortostática mais pronunciado nas primeiras doses — atenção especial se houver também risco de queda. Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["mirtazapina", "trazodona"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-fadiga",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Fadiga ou hipersonia como sintoma-alvo proeminente: considerar bupropiona, associada a psicoterapia.",
+      detalhe:
+        "Evitar em epilepsia e em anorexia/bulimia nervosa (contraindicações formais, risco convulsivo). Titular até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade.",
+      medicamentosRelacionados: ["bupropiona"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "conduta-combinado-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: antidepressivo de primeira linha (ISRS ou ISRSN, ex. sertralina ou escitalopram), associado a psicoterapia baseada em evidência.",
+      detalhe:
+        "Titular a dose até a faixa terapêutica usual nas primeiras semanas, conforme tolerabilidade. A meta-análise de rede de Cipriani et al. (2018, Lancet, 21 antidepressivos) mostrou eficácia/aceitabilidade combinadas relativamente melhores para agomelatina, escitalopram, mirtazapina, paroxetina, sertralina e vortioxetina — mas as diferenças absolutas entre a maioria dos antidepressivos são pequenas, e a escolha deve ser individualizada por perfil de efeitos adversos, comorbidades, interações e preferência do paciente, não apenas por eficácia populacional média.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+      opcoes: [
+        { label: "Reavaliar após 4-6 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-combinado" },
+      ],
+    },
+    {
+      id: "avaliacao-resposta-combinado",
+      tipo: "pergunta",
+      texto:
+        "Após reavaliação estruturada em 4 a 6 semanas de tratamento combinado (farmacoterapia + psicoterapia), qual foi a resposta clínica?",
+      detalhe: "Resposta adequada = melhora ≥50% dos sintomas.",
       opcoes: [
         { label: "Resposta adequada (≥50% de melhora)", proximoNodeId: "conduta-manter" },
         { label: "Resposta parcial (melhora, mas incompleta)", proximoNodeId: "conduta-otimizar" },
@@ -165,7 +359,9 @@ export const depressaoMaior: Fluxograma = {
       nivel: "atencao",
       texto:
         "Trocar para antidepressivo de outra classe (ex. de ISRS para ISRSN, mirtazapina ou bupropiona) ou associar um segundo agente com mecanismo complementar.",
-      detalhe: "Reavaliar resposta clínica em 4 a 6 semanas após a mudança.",
+      detalhe:
+        "A escolha entre essas opções também deve considerar o perfil do paciente (ex.: venlafaxina/duloxetina se sintomas de dor associados; mirtazapina se insônia proeminente; bupropiona se fadiga/disfunção sexual prévia). Reavaliar resposta clínica em 4 a 6 semanas após a mudança.",
+      medicamentosRelacionados: ["venlafaxina", "mirtazapina", "bupropiona"],
     },
     {
       id: "conduta-resistencia",
@@ -174,7 +370,8 @@ export const depressaoMaior: Fluxograma = {
       texto:
         "Caracteriza-se depressão resistente ao tratamento: encaminhar a psiquiatra especialista ou serviço de referência.",
       detalhe:
-        "Considerar estratégias de potencialização (lítio, antipsicótico atípico adjuvante, associação de antidepressivos), e, conforme disponibilidade e gravidade, eletroconvulsoterapia (ECT) ou esketamina intranasal. Reavaliação multidisciplinar é recomendada.",
+        "Considerar estratégias de potencialização (lítio, antipsicótico atípico adjuvante como quetiapina ou aripiprazol, associação de antidepressivos), e, conforme disponibilidade e gravidade, eletroconvulsoterapia (ECT) ou esketamina intranasal. Reavaliação multidisciplinar é recomendada.",
+      medicamentosRelacionados: ["litio", "quetiapina", "aripiprazol"],
     },
   ],
 

@@ -51,11 +51,21 @@ export const manejoAnsiedade: Fluxograma = {
     },
     {
       id: "tag-tratamento",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
-        "Iniciar ISRS ou ISRSN de primeira linha (ex: escitalopram, sertralina, venlafaxina ou duloxetina), associado a TCC. Qual foi a resposta clínica após 4 a 8 semanas em dose adequada?",
+        "Iniciar ISRS ou ISRSN de primeira linha (ex: escitalopram, sertralina, venlafaxina ou duloxetina), associado a TCC.",
       detalhe:
         "A meta-análise de rede de Slee et al. (2019, Lancet, tratamentos farmacológicos para TAG) situou duloxetina, pregabalina, venlafaxina e escitalopram entre os agentes com melhor perfil combinado de eficácia e tolerabilidade — mas, como na depressão, as diferenças absolutas entre os agentes de primeira linha são modestas, e a escolha deve considerar comorbidades, efeitos adversos e preferência do paciente.",
+      medicamentosRelacionados: ["escitalopram", "sertralina", "venlafaxina", "duloxetina"],
+      opcoes: [
+        { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-tag" },
+      ],
+    },
+    {
+      id: "avaliacao-resposta-tag",
+      tipo: "pergunta",
+      texto: "Após 4 a 8 semanas em dose adequada, qual foi a resposta clínica?",
       opcoes: [
         { label: "Resposta adequada", proximoNodeId: "conduta-tag-manter" },
         { label: "Resposta parcial", proximoNodeId: "conduta-tag-otimizar" },
@@ -78,9 +88,19 @@ export const manejoAnsiedade: Fluxograma = {
     },
     {
       id: "tag-segunda-linha",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
-        "Após falha de uma tentativa adequada de primeira linha: trocar para outro ISRS/ISRSN de classe diferente, ou considerar pregabalina como alternativa (evidência específica para TAG). Houve resposta após a mudança?",
+        "Após falha de uma tentativa adequada de primeira linha: trocar para outro ISRS/ISRSN de classe diferente, ou considerar pregabalina como alternativa (evidência específica para TAG).",
+      medicamentosRelacionados: ["pregabalina"],
+      opcoes: [
+        { label: "Reavaliar resposta após a mudança →", proximoNodeId: "avaliacao-resposta-tag-segunda" },
+      ],
+    },
+    {
+      id: "avaliacao-resposta-tag-segunda",
+      tipo: "pergunta",
+      texto: "Houve resposta após a mudança?",
       opcoes: [
         { label: "Resposta adequada", proximoNodeId: "conduta-tag-manter" },
         { label: "Sem resposta", proximoNodeId: "conduta-tag-refrataria" },
@@ -116,9 +136,21 @@ export const manejoAnsiedade: Fluxograma = {
     },
     {
       id: "panico-tratamento",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
-        "Iniciar ISRS em dose inicial mais baixa que a usual (risco de piora paradoxal da ansiedade nas primeiras semanas), associado a TCC com exposição interoceptiva — ambos com eficácia semelhante. Considerar benzodiazepínico por tempo limitado na fase de latência do ISRS em casos muito incapacitantes. Qual foi a resposta após 4 a 8 semanas?",
+        "Iniciar ISRS (ex.: sertralina ou escitalopram) em dose inicial mais baixa que a usual (risco de piora paradoxal da ansiedade nas primeiras semanas), associado a TCC com exposição interoceptiva — ambos com eficácia semelhante.",
+      detalhe:
+        "Considerar benzodiazepínico por tempo limitado na fase de latência do ISRS em casos muito incapacitantes.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+      opcoes: [
+        { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-panico" },
+      ],
+    },
+    {
+      id: "avaliacao-resposta-panico",
+      tipo: "pergunta",
+      texto: "Após 4 a 8 semanas, qual foi a resposta clínica?",
       opcoes: [
         { label: "Resposta adequada", proximoNodeId: "conduta-panico-manter" },
         { label: "Resposta parcial", proximoNodeId: "conduta-panico-otimizar" },

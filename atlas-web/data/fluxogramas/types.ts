@@ -12,9 +12,20 @@ export interface FluxogramaNode {
 
   detalhe?: string; // texto explicativo adicional, opcional
 
-  opcoes?: FluxogramaOpcao[]; // presente quando tipo === "pergunta"
+  // Presente tipicamente quando tipo === "pergunta"; também pode aparecer
+  // em um node "conduta" quando essa conduta precisa continuar o fluxo
+  // (ex.: uma recomendação farmacológica personalizada que leva a um
+  // node de reavaliação de resposta) — nesse caso o viewer renderiza o
+  // card de conduta normalmente e, abaixo, os botões de opções.
+  opcoes?: FluxogramaOpcao[];
 
   nivel?: "alerta" | "atencao" | "rotina"; // presente quando tipo === "conduta"
+
+  // Ids de data/medicamentos referenciados por esta conduta farmacológica
+  // específica — usado só quando tipo === "conduta", para renderizar um
+  // mini-card do medicamento (nome, dose inicial, pérola clínica) que
+  // linka para a página completa dele.
+  medicamentosRelacionados?: string[];
 }
 
 export interface Fluxograma {

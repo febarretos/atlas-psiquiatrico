@@ -50,6 +50,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Priorizar segurança imediata: avaliar necessidade de internação.",
       detalhe:
         "Iniciar antipsicótico atípico (risperidona, olanzapina, quetiapina ou aripiprazol) isolado ou associado a estabilizador de humor (lítio ou valproato) em dose de ataque. Considerar eletroconvulsoterapia (ECT) em quadros graves, refratários ou com risco de vida.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol", "litio", "valproato"],
     },
     {
       id: "mania-antidepressivo",
@@ -59,12 +60,34 @@ export const manejoTranstornoBipolar: Fluxograma = {
       opcoes: [
         {
           label: "Monoterapia com estabilizador (lítio ou valproato)",
-          proximoNodeId: "mania-reavaliacao",
+          proximoNodeId: "conduta-mania-estabilizador",
         },
         {
           label: "Antipsicótico atípico, isolado ou associado a estabilizador",
-          proximoNodeId: "mania-reavaliacao",
+          proximoNodeId: "conduta-mania-antipsicotico",
         },
+      ],
+    },
+    {
+      id: "conduta-mania-estabilizador",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto: "Iniciar estabilizador de humor em monoterapia (lítio ou valproato).",
+      detalhe: "Suspender antidepressivo em uso, se houver, de forma gradual salvo contraindicação.",
+      medicamentosRelacionados: ["litio", "valproato"],
+      opcoes: [
+        { label: "Reavaliar após 1-2 semanas →", proximoNodeId: "mania-reavaliacao" },
+      ],
+    },
+    {
+      id: "conduta-mania-antipsicotico",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto: "Iniciar antipsicótico atípico, isolado ou associado a estabilizador de humor.",
+      detalhe: "Suspender antidepressivo em uso, se houver, de forma gradual salvo contraindicação.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol"],
+      opcoes: [
+        { label: "Reavaliar após 1-2 semanas →", proximoNodeId: "mania-reavaliacao" },
       ],
     },
     {
@@ -147,12 +170,25 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Corrigir a monoterapia com antidepressivo — risco de virada maníaca/hipomaníaca e ciclagem acelerada.",
       detalhe:
         "Associar estabilizador de humor ou antipsicótico com evidência em depressão bipolar antes de considerar a suspensão do antidepressivo; não suspender abruptamente sem plano de substituição.",
+      medicamentosRelacionados: ["quetiapina", "lurasidona", "litio"],
     },
     {
       id: "dep-primeira-linha",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
-        "IMPORTANTE: evitar antidepressivo em monoterapia. Iniciar agente com evidência específica para depressão bipolar — quetiapina, lurasidona (associada a lítio ou valproato) ou lítio. Em Transtorno Bipolar tipo II há, em geral, maior tolerância a associar um antidepressivo a um estabilizador já em uso do que no tipo I. Qual foi a resposta clínica após 6 a 8 semanas?",
+        "IMPORTANTE: evitar antidepressivo em monoterapia. Iniciar agente com evidência específica para depressão bipolar — quetiapina, lurasidona (associada a lítio ou valproato) ou lítio.",
+      detalhe:
+        "Em Transtorno Bipolar tipo II há, em geral, maior tolerância a associar um antidepressivo a um estabilizador já em uso do que no tipo I.",
+      medicamentosRelacionados: ["quetiapina", "lurasidona", "litio", "valproato"],
+      opcoes: [
+        { label: "Reavaliar após 6-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-dep-bipolar" },
+      ],
+    },
+    {
+      id: "avaliacao-resposta-dep-bipolar",
+      tipo: "pergunta",
+      texto: "Após 6 a 8 semanas, qual foi a resposta clínica?",
       opcoes: [
         { label: "Resposta adequada", proximoNodeId: "manutencao-confirmacao" },
         { label: "Resposta parcial", proximoNodeId: "dep-otimizar" },
@@ -173,6 +209,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Trocar estratégia farmacológica ou associar lamotrigina.",
       detalhe:
         "Considerar troca de antipsicótico, associação de lamotrigina (útil sobretudo na prevenção de novos episódios depressivos), ECT em casos graves, e encaminhamento a especialista/serviço de referência.",
+      medicamentosRelacionados: ["lamotrigina"],
     },
 
     {
@@ -192,6 +229,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Iniciar antipsicótico atípico ou valproato, evitando antidepressivo.",
       detalhe:
         "Reavaliar em 2 semanas pela maior instabilidade e risco associados aos estados mistos; se resposta insuficiente, associar um segundo agente ou reencaminhar a este fluxograma pela fase predominante que emergir (maníaca ou depressiva).",
+      medicamentosRelacionados: ["aripiprazol", "olanzapina", "valproato"],
     },
 
     {
@@ -211,6 +249,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Iniciar tratamento de manutenção conforme a fase aguda predominante do paciente.",
       detalhe:
         "Lítio é o padrão-ouro para prevenção de recaídas maníacas e tem evidência específica de redução do risco de suicídio a longo prazo. Lamotrigina tem maior eficácia na prevenção de recaídas depressivas (pouca eficácia antimaníaca). Valproato e antipsicóticos atípicos são alternativas conforme o perfil do paciente.",
+      medicamentosRelacionados: ["litio", "lamotrigina", "valproato"],
     },
     {
       id: "manutencao-monitorizacao",

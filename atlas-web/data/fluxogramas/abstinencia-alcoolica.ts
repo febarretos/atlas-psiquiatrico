@@ -48,22 +48,26 @@ export const abstinenciaAlcoolica: Fluxograma = {
     },
     {
       id: "conduta-leve-ambulatorial",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "rotina",
       texto:
         "Abstinência leve, sem fatores de risco para complicação: manejo ambulatorial é possível, desde que haja suporte social adequado e possibilidade de reavaliação frequente.",
       detalhe:
-        "Iniciar benzodiazepínico em esquema fixo decrescente (ex. diazepam ou clordiazepóxido) ou guiado por sintomas (protocolo orientado por CIWA-Ar), associado a tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
+        "Iniciar benzodiazepínico em esquema fixo decrescente (ex. diazepam, ou clordiazepóxido onde disponível) ou guiado por sintomas (protocolo orientado por CIWA-Ar), associado a tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
+      medicamentosRelacionados: ["diazepam"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
       ],
     },
     {
       id: "conduta-internacao",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
         "Abstinência moderada a grave, ou presença de fatores de risco para complicação (convulsões prévias, delirium tremens prévio, comorbidade clínica instável, uso concomitante de outros sedativos): indicar internação para manejo mais intensivo.",
       detalhe:
-        "Iniciar benzodiazepínico em dose mais alta, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+        "Iniciar benzodiazepínico em dose mais alta, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes — lorazepam é preferível ao diazepam se houver hepatopatia relevante, pela metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+      medicamentosRelacionados: ["diazepam", "lorazepam"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
       ],
@@ -88,6 +92,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
         "Delirium tremens: emergência médica que requer manejo intensivo imediato.",
       detalhe:
         "Encaminhar para avaliação e manejo em caráter de emergência (consultar a página/fluxograma de Emergências do Atlas). Necessário suporte em ambiente com monitorização contínua, doses mais altas de benzodiazepínico conforme protocolo, correção de distúrbios hidroeletrolíticos, e avaliação de necessidade de suporte em unidade de terapia intensiva conforme gravidade e instabilidade autonômica.",
+      medicamentosRelacionados: ["diazepam", "lorazepam"],
     },
     {
       id: "estabilizacao-concluida",

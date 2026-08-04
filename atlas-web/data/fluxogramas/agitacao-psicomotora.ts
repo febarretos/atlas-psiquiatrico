@@ -104,6 +104,7 @@ export const agitacaoPsicomotora: Fluxograma = {
       texto:
         "Antipsicótico por via oral (ex. risperidona 1-2 mg ou olanzapina 5-10 mg VO), associado a benzodiazepínico oral (ex. lorazepam 1-2 mg) se necessário.",
       detalhe: "Reavaliar a resposta clínica em 30 a 60 minutos.",
+      medicamentosRelacionados: ["risperidona", "olanzapina", "lorazepam"],
     },
     {
       id: "conduta-oral-benzodiazepinico",
@@ -111,6 +112,7 @@ export const agitacaoPsicomotora: Fluxograma = {
       nivel: "rotina",
       texto: "Benzodiazepínico por via oral isolado (ex. lorazepam 1-2 mg VO).",
       detalhe: "Reavaliar a resposta clínica em 30 a 60 minutos.",
+      medicamentosRelacionados: ["lorazepam"],
     },
     {
       id: "contraindicacao-antipsicotico",
@@ -124,9 +126,21 @@ export const agitacaoPsicomotora: Fluxograma = {
     },
     {
       id: "conduta-im-benzodiazepinico",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
-        "Administrar benzodiazepínico por via intramuscular (ex. midazolam IM), com monitorização contínua de sinais vitais e oximetria de pulso. Atenção ao risco de depressão respiratória, especialmente se uso concomitante de álcool ou outros depressores do SNC. Reavaliando em 15 a 30 minutos: houve contenção adequada da agitação, sem intercorrências clínicas?",
+        "Administrar benzodiazepínico por via intramuscular (ex. lorazepam IM, ou midazolam onde disponível, pela ação mais rápida), com monitorização contínua de sinais vitais e oximetria de pulso.",
+      detalhe:
+        "Atenção ao risco de depressão respiratória, especialmente se uso concomitante de álcool ou outros depressores do SNC.",
+      medicamentosRelacionados: ["lorazepam"],
+      opcoes: [
+        { label: "Reavaliar em 15-30 minutos →", proximoNodeId: "resposta-im-benzodiazepinico" },
+      ],
+    },
+    {
+      id: "resposta-im-benzodiazepinico",
+      tipo: "pergunta",
+      texto: "Houve contenção adequada da agitação, sem intercorrências clínicas?",
       opcoes: [
         { label: "Sim, contenção adequada", proximoNodeId: "conduta-observacao" },
         { label: "Não, agitação persiste ou intercorrência", proximoNodeId: "conduta-reavaliar-medico" },
@@ -134,9 +148,21 @@ export const agitacaoPsicomotora: Fluxograma = {
     },
     {
       id: "conduta-im-associacao",
-      tipo: "pergunta",
+      tipo: "conduta",
+      nivel: "atencao",
       texto:
-        "Administrar associação intramuscular de antipsicótico e benzodiazepínico (ex. haloperidol + midazolam) ou antipsicótico atípico IM isolado (ex. olanzapina IM); evitar associar olanzapina IM com benzodiazepínico pelo risco de depressão cardiorrespiratória. Com monitorização contínua de sinais vitais, reavaliando em 15 a 30 minutos: houve contenção adequada da agitação, sem intercorrências clínicas?",
+        "Administrar associação intramuscular de antipsicótico e benzodiazepínico (ex. haloperidol + lorazepam) ou antipsicótico atípico IM isolado (ex. olanzapina IM), com monitorização contínua de sinais vitais.",
+      detalhe:
+        "Evitar associar olanzapina IM com benzodiazepínico pelo risco de depressão cardiorrespiratória — são duas estratégias alternativas, não devem ser somadas.",
+      medicamentosRelacionados: ["haloperidol", "olanzapina", "lorazepam"],
+      opcoes: [
+        { label: "Reavaliar em 15-30 minutos →", proximoNodeId: "resposta-im-associacao" },
+      ],
+    },
+    {
+      id: "resposta-im-associacao",
+      tipo: "pergunta",
+      texto: "Houve contenção adequada da agitação, sem intercorrências clínicas?",
       opcoes: [
         { label: "Sim, contenção adequada", proximoNodeId: "conduta-observacao" },
         { label: "Não, agitação persiste ou intercorrência", proximoNodeId: "conduta-reavaliar-medico" },
