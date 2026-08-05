@@ -2,6 +2,7 @@ import type { Medicamento } from "../data/types";
 import type { Diagnostico } from "../data/diagnosticos/types";
 import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
+import type { CasoSimulador, OpcaoSimulador } from "../data/simulador/types";
 
 // Geração de texto pronto pra colar em prontuário eletrônico — cada
 // função aqui produz uma frase redigida como nota clínica real, nunca um
@@ -97,4 +98,39 @@ export function gerarTextoConduta(
   }
 
   return `${base} Baseado em avaliação de ${trilhaDeDecisoes.join(", ")}.`;
+}
+
+// Resumo do caso jogado no Simulador de Psiquiatria, como uma nota de
+// evolução — o diagnóstico real (só revelado no desfecho) e a sequência
+// de decisões tomadas pelo caminho, sem os rótulos internos
+// "ideal"/"aceitavel"/"problematica" (são feedback pra quem jogou, não
+// pertencem a uma nota clínica).
+export function gerarTextoSimulador(
+  caso: CasoSimulador,
+  diagnosticoReal: Diagnostico,
+  opcoesEscolhidas: OpcaoSimulador[]
+): string {
+  const cid = diagnosticoReal.cid11
+    ? `CID-11: ${diagnosticoReal.cid11}`
+    : diagnosticoReal.cid10
+      ? `CID-10: ${diagnosticoReal.cid10}`
+      : undefined;
+
+  const diagnosticoTexto = cid ? `${diagnosticoReal.nome} (${cid})` : diagnosticoReal.nome;
+
+  const base = `Nota de evolução (caso simulado "${caso.tituloAnedotico}"): diagnóstico ${diagnosticoTexto}.`;
+
+  if (opcoesEscolhidas.length === 0) {
+    return base;
+  }
+
+  // opcao.texto no simulador costuma ser uma frase completa (termina em
+  // "."), diferente dos rótulos curtos de opção do fluxograma — remove
+  // esse ponto final antes de juntar, pelo mesmo motivo de
+  // gerarTextoConduta: nunca gerar "..".
+  const trilha = opcoesEscolhidas
+    .map((opcao) => limparRotuloParaTrilha(opcao.texto).replace(/\.+$/, ""))
+    .join(", ");
+
+  return `${base} Conduta seguida ao longo do caso: ${trilha}.`;
 }

@@ -41,6 +41,11 @@ const modulos = [
     descricao: "Algoritmos diagnósticos e terapêuticos",
     href: "/fluxogramas",
   },
+  {
+    titulo: "🎮 Simulador de Psiquiatria",
+    descricao: "Casos narrativos em árvore de decisão — tom leve, fundamento clínico exato",
+    href: "/simulador",
+  },
 ];
 
 export default function Home() {

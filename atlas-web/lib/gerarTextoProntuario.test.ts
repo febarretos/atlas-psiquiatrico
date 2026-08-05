@@ -6,6 +6,7 @@ import {
   gerarTextoDiagnostico,
   gerarTextoEscala,
   gerarTextoConduta,
+  gerarTextoSimulador,
   limparRotuloParaTrilha,
 } from "./gerarTextoProntuario.ts";
 
@@ -13,6 +14,8 @@ import type { Medicamento } from "../data/types.ts";
 import type { Diagnostico } from "../data/diagnosticos/types.ts";
 import type { Escala } from "../data/escalas/types.ts";
 import type { FluxogramaNode } from "../data/fluxogramas/types.ts";
+import { voJardim } from "../data/simulador/vo-jardim.ts";
+import { diagnosticos } from "../data/diagnosticos/index.ts";
 
 // Fixtures deliberadamente independentes de data/medicamentos, data/
 // diagnosticos etc. — os imports transitivos desses módulos usam paths
@@ -171,6 +174,38 @@ test("gerarTextoConduta: nó de conduta real do fluxograma de depressão maior, 
   assert.equal(
     texto,
     "Conduta: Antidepressivo com menor risco cardiovascular, associado a psicoterapia: sertralina tem o melhor perfil de segurança cardiovascular entre os ISRS. Baseado em avaliação de sim, critérios confirmados, risco baixo, moderada a grave, cardiopatia / risco de QT longo."
+  );
+});
+
+test("gerarTextoSimulador: caminho 'bom' pelo caso real vo-jardim, até o desfecho", () => {
+  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoRealId)!;
+
+  // Percorre manualmente o caminho "ideal" do caso real (mesmos ids de nó
+  // usados em data/simulador/vo-jardim.ts) — simula o que o
+  // SimuladorPlayer acumularia jogando até o desfecho-bom.
+  const porId = new Map(voJardim.nos.map((n) => [n.id, n]));
+  const idsDoCaminho = ["entrevista-jardim", "exames-completo", "conduta-boa", "evolucao-boa"];
+  const opcoesEscolhidas = idsDoCaminho.map((id) => porId.get(id)!.opcoes[0]);
+
+  const texto = gerarTextoSimulador(voJardim, diagnosticoReal, opcoesEscolhidas);
+  console.log("\n[simulador]\n" + texto);
+
+  assert.ok(texto.startsWith('Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim")'));
+  assert.ok(texto.includes("Transtorno Depressivo Maior (CID-11: 6A70)"));
+  assert.ok(texto.includes("Conduta seguida ao longo do caso:"));
+  // Rótulos de opção não devem carregar aspas internas soltas nem os
+  // marcadores de qualidadeDecisao — só o texto da escolha em si.
+  assert.ok(!texto.includes("ideal"));
+  assert.ok(!texto.includes("problematica"));
+});
+
+test("gerarTextoSimulador: sem decisões tomadas ainda, gera só o cabeçalho", () => {
+  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoRealId)!;
+  const texto = gerarTextoSimulador(voJardim, diagnosticoReal, []);
+
+  assert.equal(
+    texto,
+    'Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim"): diagnóstico Transtorno Depressivo Maior (CID-11: 6A70).'
   );
 });
 

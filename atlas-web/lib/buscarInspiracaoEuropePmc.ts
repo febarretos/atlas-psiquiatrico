@@ -42,13 +42,34 @@ async function buscar(query: string): Promise<EuropePmcResultado[]> {
 // reforçado no prompt). Nunca lança erro: Europe PMC fora do ar/lento não
 // deve impedir a geração do caso, só faz cair no fallback sem inspiração
 // externa.
-export async function buscarInspiracao(termoIngles: string): Promise<ArtigoInspiracao[]> {
-  const base = `(TITLE:"case report") AND (ABSTRACT:"${termoIngles}") AND (SRC:MED) AND (OPEN_ACCESS:Y)`;
+//
+// `termosAdicionais` refina a busca combinando o termo do diagnóstico com
+// outros termos em ABSTRACT (ex.: "atypical presentation", "diagnostic
+// dilemma") — usado pelo simulador pra priorizar relatos de apresentação
+// atípica/desafio diagnóstico como inspiração de textura, sem afetar as
+// chamadas existentes que não passam esse argumento.
+export async function buscarInspiracao(
+  termoIngles: string,
+  termosAdicionais: string[] = []
+): Promise<ArtigoInspiracao[]> {
+  const clausulaAdicional =
+    termosAdicionais.length > 0
+      ? ` AND (${termosAdicionais.map((t) => `ABSTRACT:"${t}"`).join(" OR ")})`
+      : "";
+
+  const baseSemAdicional = `(TITLE:"case report") AND (ABSTRACT:"${termoIngles}") AND (SRC:MED) AND (OPEN_ACCESS:Y)`;
+  const base = `${baseSemAdicional}${clausulaAdicional}`;
 
   try {
     let resultados = await buscar(`${base} AND (LICENSE:"cc by")`);
     if (resultados.length === 0) {
       resultados = await buscar(base);
+    }
+    // Os termos adicionais (ex.: "atypical presentation") restringem bastante
+    // a busca — se não acharem nada, cai pro termo do diagnóstico sozinho em
+    // vez de ficar sem nenhuma inspiração.
+    if (resultados.length === 0 && clausulaAdicional) {
+      resultados = await buscar(baseSemAdicional);
     }
 
     return resultados
