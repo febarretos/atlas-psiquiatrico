@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "tsx --test lib/**/*.test.ts",
-    "gerar-caso-simulador": "tsx scripts/gerar-caso-simulador.ts"
+    "gerar-caso-simulador": "tsx scripts/gerar-caso-simulador.ts",
+    "gerar-caso-emergencia": "tsx scripts/gerar-caso-emergencia.ts"
   },
   "dependencies": {
     "next": "16.2.12",

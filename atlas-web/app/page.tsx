@@ -46,6 +46,11 @@ const modulos = [
     descricao: "Casos narrativos em árvore de decisão — tom leve, fundamento clínico exato",
     href: "/simulador",
   },
+  {
+    titulo: "🚨 Simulador de Emergência",
+    descricao: "Jogo de tensão em tempo real — sinais vitais evoluem por turno, banco de casos das Emergências",
+    href: "/simulador-emergencia",
+  },
 ];
 
 export default function Home() {

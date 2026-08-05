@@ -14,6 +14,7 @@ const menu = [
   { nome: "Escalas", href: "/escalas", icone: "📋" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
   { nome: "Simulador", href: "/simulador", icone: "🎮" },
+  { nome: "Simulador de Emergência", href: "/simulador-emergencia", icone: "🚨" },
   { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
 ];
 
@@ -51,7 +52,7 @@ export default function Sidebar({
           {menu.map((item) => {
             const ativo =
               pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
+              (item.href !== "/" && pathname.startsWith(`${item.href}/`));
 
             return (
               <Link
