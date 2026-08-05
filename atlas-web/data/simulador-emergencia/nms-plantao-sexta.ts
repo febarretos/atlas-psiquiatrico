@@ -33,6 +33,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       condicao: "Rigidez, hipertermia e disautonomia da NMS progredindo sem tratamento",
       efeitoPorTurno: {
         frequenciaCardiaca: 4,
+        pressaoArterial: { sistolica: 3, diastolica: 2 },
         temperatura: 0.4,
         saturacaoO2: -1,
         rigidezMuscular: 0.5,
@@ -64,7 +65,12 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       label: "Hidratação venosa vigorosa e resfriamento ativo",
       categoria: "suporte",
       custoTempo: 1,
-      efeitoImediato: { temperatura: -1.2, frequenciaCardiaca: -6, riscoIminente: -2 },
+      efeitoImediato: {
+        temperatura: -1.2,
+        frequenciaCardiaca: -6,
+        saturacaoO2: 2,
+        riscoIminente: -2,
+      },
       repetivel: true,
     },
     {
@@ -72,7 +78,12 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       label: "Administrar dantroleno IV",
       categoria: "medicacao",
       custoTempo: 1,
-      efeitoImediato: { rigidezMuscular: -4, temperatura: -1.5, riscoIminente: -3 },
+      efeitoImediato: {
+        rigidezMuscular: -4,
+        temperatura: -1.5,
+        pressaoArterial: { sistolica: -6, diastolica: -4 },
+        riscoIminente: -3,
+      },
       repetivel: true,
     },
     {
@@ -87,7 +98,6 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
         temperatura: 1.5,
         rigidezMuscular: 3,
         riscoIminente: 3,
-        nivelConsciencia: "torporoso",
       },
     },
     {

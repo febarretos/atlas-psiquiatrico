@@ -23,6 +23,10 @@ import type {
 //   limiares mal calibrada pelo gerador torne a vitória inalcançável.
 // - TEMPO ESGOTADO: turnoAtual >= turnosMaximos sem ter estabilizado nem
 //   morrido — terceiro desfecho, ruim mas distinto de óbito.
+// - NÍVEL DE CONSCIÊNCIA: campo DERIVADO (ver calcularNivelConsciencia),
+//   não mais algo que ações definem via efeitoImediato/riscoSeIncorreta —
+//   evita o paciente "travar" num nível que só piora (ou só melhora) por
+//   causa de uma ação isolada, dessincronizado do resto do quadro.
 
 const ORDEM_CONSCIENCIA: SinaisVitais["nivelConsciencia"][] = [
   "alerta",
@@ -40,8 +44,42 @@ function clamp(valor: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, valor));
 }
 
+// Deriva o nível de consciência a partir dos demais sinais vitais — NÃO é
+// mais um campo que ações definem diretamente (ver AVISO em
+// data/simulador-emergencia/types.ts). Pondera:
+// - riscoIminente (peso 0.5): gravidade geral do quadro, o maior
+//   determinante isolado.
+// - hipóxia / saturacaoO2 baixa (peso 0.2): rebaixa consciência por
+//   privação de O2 ao SNC — efeito fisiológico direto e bem estabelecido.
+// - hipertermia extrema (peso 0.15): febre alta por si só pode causar
+//   confusão/torpor, mas o efeito é menos direto que hipóxia.
+// - rigidezMuscular (peso 0.15): não tem relação fisiológica direta com
+//   nível de consciência, mas correlaciona com gravidade geral do quadro
+//   nos casos onde é relevante (NMS/catatonia) — por isso entra com peso
+//   menor, só como proxy adicional de gravidade.
+// Pesos somam 1.0, resultando num escore 0-10 mapeado nas 5 categorias.
+export function calcularNivelConsciencia(sinais: SinaisVitais): SinaisVitais["nivelConsciencia"] {
+  const severidadeTemperatura = clamp((sinais.temperatura - 37) * 1.5, 0, 10);
+  const severidadeHipoxia = clamp((97 - sinais.saturacaoO2) * 1, 0, 10);
+  const rigidez = sinais.rigidezMuscular ?? 0;
+
+  const escore =
+    sinais.riscoIminente * 0.5 +
+    severidadeTemperatura * 0.15 +
+    severidadeHipoxia * 0.2 +
+    rigidez * 0.15;
+
+  if (escore >= 8) return "coma";
+  if (escore >= 6) return "torporoso";
+  if (escore >= 4) return "confuso";
+  if (escore >= 2) return "sonolento";
+  return "alerta";
+}
+
 // Aplica um efeito a um estado de sinais vitais sem mutar o original.
-// Campos numéricos somam (delta); nivelConsciencia substitui (override).
+// Campos numéricos somam (delta). nivelConsciencia NÃO é lido de `efeito`
+// — é sempre recalculado a partir do resultado via calcularNivelConsciencia,
+// mesmo que algum dado antigo ainda traga o campo (ignorado nesse caso).
 export function aplicarEfeito(atual: SinaisVitais, efeito: EfeitoSinaisVitais): SinaisVitais {
   const proximo: SinaisVitais = {
     ...atual,
@@ -69,9 +107,6 @@ export function aplicarEfeito(atual: SinaisVitais, efeito: EfeitoSinaisVitais): 
   if (efeito.saturacaoO2 !== undefined) {
     proximo.saturacaoO2 = clamp(atual.saturacaoO2 + efeito.saturacaoO2, 0, 100);
   }
-  if (efeito.nivelConsciencia !== undefined) {
-    proximo.nivelConsciencia = efeito.nivelConsciencia;
-  }
   if (efeito.agitacaoPsicomotora !== undefined) {
     proximo.agitacaoPsicomotora = clamp(atual.agitacaoPsicomotora + efeito.agitacaoPsicomotora, 0, 10);
   }
@@ -81,6 +116,8 @@ export function aplicarEfeito(atual: SinaisVitais, efeito: EfeitoSinaisVitais): 
   if (efeito.riscoIminente !== undefined) {
     proximo.riscoIminente = clamp(atual.riscoIminente + efeito.riscoIminente, 0, 10);
   }
+
+  proximo.nivelConsciencia = calcularNivelConsciencia(proximo);
 
   return proximo;
 }
@@ -231,11 +268,20 @@ export interface EstadoJogo {
 }
 
 export function criarEstadoInicial(caso: CasoSimuladorEmergencia): EstadoJogo {
+  // nivelConsciencia do caso é recalculado aqui também — garante que o
+  // estado inicial nunca fique inconsistente com a fórmula, mesmo que o
+  // valor bruto em sinaisVitaisIniciais (dado de autoria) esteja
+  // desatualizado.
+  const sinaisIniciais: SinaisVitais = {
+    ...caso.sinaisVitaisIniciais,
+    nivelConsciencia: calcularNivelConsciencia(caso.sinaisVitaisIniciais),
+  };
+
   return {
-    sinaisAtuais: caso.sinaisVitaisIniciais,
+    sinaisAtuais: sinaisIniciais,
     turnoAtual: 0,
     log: [],
-    desfecho: verificarDesfecho(caso, caso.sinaisVitaisIniciais, 0),
+    desfecho: verificarDesfecho(caso, sinaisIniciais, 0),
     acoesJaUsadas: new Set(),
   };
 }

@@ -32,6 +32,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       condicao: "Abstinência alcoólica grave progredindo sem benzodiazepínico, risco de convulsão e colapso autonômico",
       efeitoPorTurno: {
         frequenciaCardiaca: 6,
+        pressaoArterial: { sistolica: 3, diastolica: 2 },
         temperatura: 0.4,
         agitacaoPsicomotora: 0.6,
         riscoIminente: 1.3,
@@ -46,7 +47,12 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       categoria: "medicacao",
       medicamentoId: "diazepam",
       custoTempo: 1,
-      efeitoImediato: { agitacaoPsicomotora: -3, riscoIminente: -2 },
+      efeitoImediato: {
+        agitacaoPsicomotora: -3,
+        temperatura: -0.4,
+        pressaoArterial: { sistolica: -6, diastolica: -4 },
+        riscoIminente: -2,
+      },
       repetivel: true,
     },
     {
@@ -85,7 +91,6 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
         frequenciaCardiaca: 15,
         temperatura: 1.0,
         riscoIminente: 3,
-        nivelConsciencia: "torporoso",
       },
     },
     {

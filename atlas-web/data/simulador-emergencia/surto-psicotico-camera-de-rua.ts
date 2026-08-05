@@ -33,6 +33,7 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       condicao: "Agitação e risco de lesão progredindo sem controle, possível causa orgânica não investigada evoluindo em paralelo",
       efeitoPorTurno: {
         frequenciaCardiaca: 5,
+        pressaoArterial: { sistolica: 3, diastolica: 2 },
         temperatura: 0.3,
         agitacaoPsicomotora: 0.7,
         riscoIminente: 1.1,
@@ -46,7 +47,13 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       label: "Levar para ambiente calmo, com baixo estímulo",
       categoria: "suporte",
       custoTempo: 0,
-      efeitoImediato: { agitacaoPsicomotora: -1, riscoIminente: -1 },
+      efeitoImediato: {
+        agitacaoPsicomotora: -1,
+        frequenciaCardiaca: -3,
+        temperatura: -0.3,
+        pressaoArterial: { sistolica: -2, diastolica: -1 },
+        riscoIminente: -1,
+      },
       repetivel: true,
     },
     {
@@ -96,7 +103,6 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
         temperatura: 1.2,
         agitacaoPsicomotora: 2,
         riscoIminente: 3,
-        nivelConsciencia: "torporoso",
       },
     },
     {

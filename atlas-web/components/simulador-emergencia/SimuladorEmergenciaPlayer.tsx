@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import Badge from "../Badge";
 import MedicamentoMiniCard from "../fluxogramas/MedicamentoMiniCard";
+import MonitorFisiologico, { type PulsoAcao } from "./MonitorFisiologico";
 
 import type {
   AcaoDisponivel,
@@ -34,32 +35,11 @@ const SEVERIDADE_CLASSE: Record<Severidade, string> = {
 };
 
 // Faixas de referência genéricas (não específicas de um caso) só pra
-// colorir o monitor — a lógica de vitória/óbito de verdade está inteira
-// em lib/motorSimuladorEmergencia.ts; isto aqui é puramente visual.
-function severidadeFrequenciaCardiaca(v: number): Severidade {
-  if (v >= 130 || v < 45) return "critico";
-  if (v >= 110 || v < 55) return "alerta";
-  return "normal";
-}
-
-function severidadePressao(sistolica: number): Severidade {
-  if (sistolica >= 180 || sistolica < 80) return "critico";
-  if (sistolica >= 150 || sistolica < 90) return "alerta";
-  return "normal";
-}
-
-function severidadeTemperatura(v: number): Severidade {
-  if (v >= 40) return "critico";
-  if (v >= 38) return "alerta";
-  return "normal";
-}
-
-function severidadeSaturacao(v: number): Severidade {
-  if (v < 90) return "critico";
-  if (v < 95) return "alerta";
-  return "normal";
-}
-
+// colorir os cards de consciência/agitação/rigidez — FC/PA/temperatura/
+// SpO2/risco agora são desenhados pelo monitor Phaser (ver
+// MonitorFisiologico.tsx). A lógica de vitória/óbito de verdade está
+// inteira em lib/motorSimuladorEmergencia.ts; isto aqui é puramente
+// visual.
 function severidadeConsciencia(v: SinaisVitais["nivelConsciencia"]): Severidade {
   if (v === "torporoso" || v === "coma") return "critico";
   if (v === "sonolento" || v === "confuso") return "alerta";
@@ -152,6 +132,9 @@ interface ToastAcao {
 export default function SimuladorEmergenciaPlayer({ caso }: Props) {
   const [estado, setEstado] = useState<EstadoJogo>(() => criarEstadoInicial(caso));
   const [toast, setToast] = useState<ToastAcao | null>(null);
+  const [pulso, setPulso] = useState<PulsoAcao | null>(null);
+  const [mudo, setMudo] = useState(false);
+  const pulsoNonceRef = useRef(0);
 
   useEffect(() => {
     if (!toast) return;
@@ -182,6 +165,11 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
     if (proximo !== estado) {
       const mudancas = calcularDiferencas(estado.sinaisAtuais, proximo.sinaisAtuais);
       setToast({ acaoLabel: acao.label, mudancas });
+
+      const deltaRisco = proximo.sinaisAtuais.riscoIminente - estado.sinaisAtuais.riscoIminente;
+      const tipo: PulsoAcao["tipo"] = deltaRisco < 0 ? "boa" : deltaRisco > 0 ? "ruim" : "neutra";
+      pulsoNonceRef.current += 1;
+      setPulso({ tipo, nonce: pulsoNonceRef.current });
     }
     setEstado(proximo);
   }
@@ -189,6 +177,7 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
   function reiniciar() {
     setEstado(criarEstadoInicial(caso));
     setToast(null);
+    setPulso(null);
   }
 
   return (
@@ -225,51 +214,40 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
         </div>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <VitalCard
-          label="FC"
-          valor={`${Math.round(sinais.frequenciaCardiaca)} bpm`}
-          severidade={severidadeFrequenciaCardiaca(sinais.frequenciaCardiaca)}
-        />
-        <VitalCard
-          label="PA"
-          valor={`${Math.round(sinais.pressaoArterial.sistolica)}/${Math.round(
-            sinais.pressaoArterial.diastolica
-          )}`}
-          severidade={severidadePressao(sinais.pressaoArterial.sistolica)}
-        />
-        <VitalCard
-          label="Temperatura"
-          valor={`${sinais.temperatura.toFixed(1)}°C`}
-          severidade={severidadeTemperatura(sinais.temperatura)}
-        />
-        <VitalCard
-          label="SatO₂"
-          valor={`${Math.round(sinais.saturacaoO2)}%`}
-          severidade={severidadeSaturacao(sinais.saturacaoO2)}
-        />
-        <VitalCard
-          label="Consciência"
-          valor={sinais.nivelConsciencia}
-          severidade={severidadeConsciencia(sinais.nivelConsciencia)}
-        />
-        <VitalCard
-          label="Agitação"
-          valor={`${sinais.agitacaoPsicomotora.toFixed(0)}/10`}
-          severidade={severidadeEscala0a10(sinais.agitacaoPsicomotora)}
-        />
-        {sinais.rigidezMuscular !== undefined && (
+      <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start">
+        <div className="flex-shrink-0">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">Monitor</div>
+            <button
+              type="button"
+              onClick={() => setMudo((atual) => !atual)}
+              className="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1 text-xs text-slate-400 transition-colors hover:border-blue-500 hover:text-white"
+            >
+              {mudo ? "🔇 Som desligado" : "🔊 Som ligado"}
+            </button>
+          </div>
+          <MonitorFisiologico sinais={sinais} emAlarme={alarme} pulso={pulso} mudo={mudo} />
+        </div>
+
+        <div className="grid flex-1 grid-cols-2 gap-3 self-stretch sm:grid-cols-3 lg:grid-cols-1">
           <VitalCard
-            label="Rigidez muscular"
-            valor={`${sinais.rigidezMuscular.toFixed(0)}/10`}
-            severidade={severidadeEscala0a10(sinais.rigidezMuscular)}
+            label="Consciência"
+            valor={sinais.nivelConsciencia}
+            severidade={severidadeConsciencia(sinais.nivelConsciencia)}
           />
-        )}
-        <VitalCard
-          label="Risco iminente"
-          valor={`${sinais.riscoIminente.toFixed(0)}/10`}
-          severidade={severidadeEscala0a10(sinais.riscoIminente)}
-        />
+          <VitalCard
+            label="Agitação"
+            valor={`${sinais.agitacaoPsicomotora.toFixed(0)}/10`}
+            severidade={severidadeEscala0a10(sinais.agitacaoPsicomotora)}
+          />
+          {sinais.rigidezMuscular !== undefined && (
+            <VitalCard
+              label="Rigidez muscular"
+              valor={`${sinais.rigidezMuscular.toFixed(0)}/10`}
+              severidade={severidadeEscala0a10(sinais.rigidezMuscular)}
+            />
+          )}
+        </div>
       </div>
 
       {toast && (

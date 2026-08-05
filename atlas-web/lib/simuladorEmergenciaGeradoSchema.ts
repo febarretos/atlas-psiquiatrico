@@ -18,8 +18,11 @@ const sinaisVitaisSchema = z.object({
   riscoIminente: z.number().min(0).max(10),
 });
 
-// Delta aditivo (nunca valor absoluto) exceto nivelConsciencia, que é
-// override — ver o comentário de topo em data/simulador-emergencia/types.ts.
+// Delta aditivo (nunca valor absoluto) — usado em efeitoPorTurno/
+// efeitoImediato/riscoSeIncorreta. NÃO tem nivelConsciencia: esse campo é
+// sempre derivado pelo motor (calcularNivelConsciencia), nunca definido
+// diretamente por uma ação — ver o comentário de topo em
+// data/simulador-emergencia/types.ts.
 const efeitoSinaisVitaisSchema = z.object({
   frequenciaCardiaca: z.number().optional(),
   pressaoArterial: z
@@ -30,10 +33,16 @@ const efeitoSinaisVitaisSchema = z.object({
     .optional(),
   temperatura: z.number().optional(),
   saturacaoO2: z.number().optional(),
-  nivelConsciencia: nivelConscienciaSchema.optional(),
   agitacaoPsicomotora: z.number().optional(),
   rigidezMuscular: z.number().optional(),
   riscoIminente: z.number().optional(),
+});
+
+// Mesma forma de efeitoSinaisVitaisSchema, MAS com nivelConsciencia —
+// usado só em limiaresDesfecho, onde o campo é um valor-alvo comparado
+// contra o nível já derivado (não um efeito sendo aplicado).
+const limiarSinaisVitaisSchema = efeitoSinaisVitaisSchema.extend({
+  nivelConsciencia: nivelConscienciaSchema.optional(),
 });
 
 const regraEvolucaoSchema = z.object({
@@ -54,13 +63,38 @@ const acaoDisponivelSchema = z.object({
   repetivel: z.boolean().optional(),
 });
 
+// Campos numéricos "simples" de EfeitoSinaisVitais — pressaoArterial fica
+// de fora por ser aninhado (tratado à parte na auditoria abaixo).
+const CAMPOS_NUMERICOS_SIMPLES = [
+  "frequenciaCardiaca",
+  "temperatura",
+  "saturacaoO2",
+  "agitacaoPsicomotora",
+  "rigidezMuscular",
+  "riscoIminente",
+] as const;
+
+const CAMPO_LABEL: Record<(typeof CAMPOS_NUMERICOS_SIMPLES)[number] | "pressaoArterial.sistolica" | "pressaoArterial.diastolica", string> = {
+  frequenciaCardiaca: "frequenciaCardiaca",
+  temperatura: "temperatura",
+  saturacaoO2: "saturacaoO2",
+  agitacaoPsicomotora: "agitacaoPsicomotora",
+  rigidezMuscular: "rigidezMuscular",
+  riscoIminente: "riscoIminente",
+  "pressaoArterial.sistolica": "pressaoArterial.sistolica",
+  "pressaoArterial.diastolica": "pressaoArterial.diastolica",
+};
+
 // Além da forma (garantida também pelo responseSchema do Gemini, ver
 // lib/simuladorEmergenciaGeradoJsonSchema.ts), valida invariantes do
 // motor que tornariam o caso injogável: precisa existir pelo menos uma
 // ação que reduza riscoIminente (senão é impossível vencer), pelo menos
 // uma ação com riscoSeIncorreta (senão a mecânica de erro plausível não
-// é usada), e riscoIminente inicial não pode já estar nos extremos
-// (óbito/vitória instantâneos, sem o jogador chegar a agir).
+// é usada), riscoIminente inicial não pode já estar nos extremos
+// (óbito/vitória instantâneos, sem o jogador chegar a agir), e — a
+// auditoria sistêmica descrita na Tarefa 2 — todo campo que a evolução
+// natural piora sozinha precisa ter pelo menos uma ação que o melhore no
+// sentido oposto, senão o campo fica preso numa mão única.
 export const casoSimuladorEmergenciaGeradoSchema = z
   .object({
     id: z.string().min(1),
@@ -72,9 +106,9 @@ export const casoSimuladorEmergenciaGeradoSchema = z
     acoesDisponiveis: z.array(acaoDisponivelSchema).min(3),
     turnosMaximos: z.number().int().min(1),
     limiaresDesfecho: z.object({
-      estabilizacao: efeitoSinaisVitaisSchema,
-      obito: efeitoSinaisVitaisSchema,
-      piora: efeitoSinaisVitaisSchema,
+      estabilizacao: limiarSinaisVitaisSchema,
+      obito: limiarSinaisVitaisSchema,
+      piora: limiarSinaisVitaisSchema,
     }),
   })
   .superRefine((caso, ctx) => {
@@ -125,6 +159,56 @@ export const casoSimuladorEmergenciaGeradoSchema = z
           code: "custom",
           message: `Ação "${acao.id}" não muda nenhum sinal vital e não tem resultadoTexto — o jogador não recebe nenhum feedback ao escolhê-la.`,
           path: ["acoesDisponiveis", index],
+        });
+      }
+    });
+
+    // Auditoria sistêmica (Tarefa 2): todo campo que a evolução natural
+    // move sozinho precisa de pelo menos uma ação (efeitoImediato) que o
+    // mova no sentido OPOSTO — senão o campo só piora (ou só melhora) e
+    // fica preso numa mão única durante a partida inteira.
+    for (const campo of CAMPOS_NUMERICOS_SIMPLES) {
+      const direcaoNatural = caso.regrasDeEvolucaoNatural.reduce(
+        (soma, regra) => soma + (regra.efeitoPorTurno[campo] ?? 0),
+        0
+      );
+      if (direcaoNatural === 0) continue; // campo não é movido pela doença não tratada — não exigimos cobertura
+
+      const temAcaoNoSentidoOposto = caso.acoesDisponiveis.some((acao) => {
+        const valor = acao.efeitoImediato[campo];
+        if (valor === undefined) return false;
+        return direcaoNatural > 0 ? valor < 0 : valor > 0;
+      });
+
+      if (!temAcaoNoSentidoOposto) {
+        ctx.addIssue({
+          code: "custom",
+          message: `Campo "${CAMPO_LABEL[campo]}" ${
+            direcaoNatural > 0 ? "só piora" : "só melhora"
+          } sozinho a cada turno (regrasDeEvolucaoNatural) e nenhuma ação o move no sentido oposto — fica preso numa mão única durante a partida.`,
+        });
+      }
+    }
+
+    (["sistolica", "diastolica"] as const).forEach((sub) => {
+      const direcaoNatural = caso.regrasDeEvolucaoNatural.reduce(
+        (soma, regra) => soma + (regra.efeitoPorTurno.pressaoArterial?.[sub] ?? 0),
+        0
+      );
+      if (direcaoNatural === 0) return;
+
+      const temAcaoNoSentidoOposto = caso.acoesDisponiveis.some((acao) => {
+        const valor = acao.efeitoImediato.pressaoArterial?.[sub];
+        if (valor === undefined) return false;
+        return direcaoNatural > 0 ? valor < 0 : valor > 0;
+      });
+
+      if (!temAcaoNoSentidoOposto) {
+        ctx.addIssue({
+          code: "custom",
+          message: `Campo "pressaoArterial.${sub}" ${
+            direcaoNatural > 0 ? "só piora" : "só melhora"
+          } sozinho a cada turno e nenhuma ação o move no sentido oposto — fica preso numa mão única durante a partida.`,
         });
       }
     });

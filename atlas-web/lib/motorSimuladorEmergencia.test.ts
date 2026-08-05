@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   aplicarEfeito,
   aplicarEvolucaoNatural,
+  calcularNivelConsciencia,
   criarEstadoInicial,
   escolherAcao,
   verificarDesfecho,
@@ -29,20 +30,127 @@ const sinaisBase: SinaisVitais = {
   riscoIminente: 5,
 };
 
-test("aplicarEfeito: campos numéricos somam (delta), nivelConsciencia substitui (override)", () => {
+test("aplicarEfeito: campos numéricos somam (delta)", () => {
   const resultado = aplicarEfeito(sinaisBase, {
     frequenciaCardiaca: 10,
     temperatura: 1.5,
     riscoIminente: 2,
-    nivelConsciencia: "confuso",
   });
 
   assert.equal(resultado.frequenciaCardiaca, 110);
   assert.equal(resultado.temperatura, 38.5);
   assert.equal(resultado.riscoIminente, 7);
-  assert.equal(resultado.nivelConsciencia, "confuso");
   // Campos não mencionados no efeito ficam intactos.
   assert.equal(resultado.saturacaoO2, 98);
+});
+
+test("aplicarEfeito: ignora nivelConsciencia vindo do efeito — sempre recalcula a partir do resultado", () => {
+  // nivelConsciencia continua um campo válido no tipo EfeitoSinaisVitais
+  // (usado em limiaresDesfecho), mas aplicarEfeito precisa ignorá-lo
+  // quando aparece aqui — simula um dado desatualizado/mal-formado.
+  const resultado = aplicarEfeito(sinaisBase, {
+    nivelConsciencia: "coma",
+    riscoIminente: 0,
+  });
+
+  assert.notEqual(resultado.nivelConsciencia, "coma");
+  assert.equal(resultado.nivelConsciencia, calcularNivelConsciencia(resultado));
+});
+
+test("calcularNivelConsciencia: sinais normais → alerta", () => {
+  const nivel = calcularNivelConsciencia({
+    frequenciaCardiaca: 80,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 98,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 1,
+    riscoIminente: 0,
+  });
+  assert.equal(nivel, "alerta");
+});
+
+test("calcularNivelConsciencia: riscoIminente máximo isolado NÃO força coma sem hipóxia/hipertermia real — só risco abstrato não deveria bastar", () => {
+  const nivel = calcularNivelConsciencia({
+    frequenciaCardiaca: 80,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 98,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 1,
+    riscoIminente: 10,
+  });
+  // Continua claramente grave (não "alerta"/"sonolento"), mas não desce
+  // sozinho a coma sem hipóxia/hipertermia/rigidez real acompanhando —
+  // na prática esse estado específico já dispara óbito por riscoIminente
+  // >= 10 de qualquer forma (ver verificarDesfecho), então o valor exato
+  // de nivelConsciencia aqui não decide o desfecho.
+  assert.equal(nivel, "confuso");
+});
+
+test("calcularNivelConsciencia: risco alto + hipóxia grave + hipertermia extrema + rigidez alta → coma", () => {
+  const nivel = calcularNivelConsciencia({
+    frequenciaCardiaca: 150,
+    pressaoArterial: { sistolica: 90, diastolica: 60 },
+    temperatura: 41.5,
+    saturacaoO2: 82,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 2,
+    rigidezMuscular: 9,
+    riscoIminente: 9,
+  });
+  assert.equal(nivel, "coma");
+});
+
+test("calcularNivelConsciencia: hipóxia grave rebaixa consciência mesmo com riscoIminente moderado", () => {
+  const comHipoxiaGrave = calcularNivelConsciencia({
+    frequenciaCardiaca: 100,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 80, // hipóxia grave
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 3,
+    riscoIminente: 3,
+  });
+  const semHipoxia = calcularNivelConsciencia({
+    frequenciaCardiaca: 100,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 98,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 3,
+    riscoIminente: 3,
+  });
+  const ORDEM = ["alerta", "sonolento", "confuso", "torporoso", "coma"];
+  assert.ok(
+    ORDEM.indexOf(comHipoxiaGrave) > ORDEM.indexOf(semHipoxia),
+    `hipóxia grave deveria rebaixar mais a consciência (${comHipoxiaGrave} vs ${semHipoxia})`
+  );
+});
+
+test("calcularNivelConsciencia: rigidez muscular alta pesa menos que riscoIminente/hipóxia, mas ainda move o escore", () => {
+  const comRigidez = calcularNivelConsciencia({
+    frequenciaCardiaca: 100,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 98,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 3,
+    rigidezMuscular: 10,
+    riscoIminente: 3,
+  });
+  const semRigidez = calcularNivelConsciencia({
+    frequenciaCardiaca: 100,
+    pressaoArterial: { sistolica: 120, diastolica: 80 },
+    temperatura: 37,
+    saturacaoO2: 98,
+    nivelConsciencia: "alerta",
+    agitacaoPsicomotora: 3,
+    rigidezMuscular: 0,
+    riscoIminente: 3,
+  });
+  const ORDEM = ["alerta", "sonolento", "confuso", "torporoso", "coma"];
+  assert.ok(ORDEM.indexOf(comRigidez) >= ORDEM.indexOf(semRigidez));
 });
 
 test("aplicarEfeito: clampa riscoIminente/agitacao/rigidez em [0,10] e saturacaoO2 em [0,100]", () => {

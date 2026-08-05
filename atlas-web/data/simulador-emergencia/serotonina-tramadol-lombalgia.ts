@@ -35,6 +35,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       condicao: "Excesso serotoninérgico (ISRS + tramadol) progredindo sem suspensão dos agentes",
       efeitoPorTurno: {
         frequenciaCardiaca: 6,
+        pressaoArterial: { sistolica: 3, diastolica: 2 },
         temperatura: 0.5,
         saturacaoO2: -1,
         agitacaoPsicomotora: 0.6,
@@ -65,7 +66,12 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       label: "Hidratação venosa vigorosa e resfriamento ativo",
       categoria: "suporte",
       custoTempo: 1,
-      efeitoImediato: { temperatura: -1.2, frequenciaCardiaca: -8, riscoIminente: -2 },
+      efeitoImediato: {
+        temperatura: -1.2,
+        frequenciaCardiaca: -8,
+        saturacaoO2: 2,
+        riscoIminente: -2,
+      },
       repetivel: true,
     },
     {
@@ -73,7 +79,12 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       label: "Administrar ciproeptadina (antagonista serotoninérgico)",
       categoria: "medicacao",
       custoTempo: 1,
-      efeitoImediato: { agitacaoPsicomotora: -3, temperatura: -1.3, riscoIminente: -3 },
+      efeitoImediato: {
+        agitacaoPsicomotora: -3,
+        temperatura: -1.3,
+        pressaoArterial: { sistolica: -6, diastolica: -4 },
+        riscoIminente: -3,
+      },
       repetivel: true,
     },
     {
@@ -89,7 +100,6 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
         temperatura: 1.5,
         agitacaoPsicomotora: 3,
         riscoIminente: 3,
-        nivelConsciencia: "torporoso",
       },
     },
     {

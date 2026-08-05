@@ -60,12 +60,12 @@ const sinaisVitaisJsonSchema: GeminiSchema = {
   ],
 };
 
-// Usado tanto pra efeitoPorTurno/efeitoImediato/riscoSeIncorreta quanto
-// pra limiaresDesfecho — em todos os casos, campos numéricos são DELTA
-// aditivo (exceto quando o campo representa um limiar de desfecho, caso
-// em que é o valor-alvo) e nivelConsciencia é sempre override/valor-alvo.
-// Todo campo é opcional: omitir os que não são afetados/não fazem parte
-// do limiar.
+// Usado em efeitoPorTurno/efeitoImediato/riscoSeIncorreta — campos
+// numéricos são DELTA aditivo. NÃO tem nivelConsciencia: esse campo é
+// sempre calculado pelo motor a partir dos demais sinais vitais
+// (riscoIminente, temperatura, saturacaoO2, rigidezMuscular), nunca
+// definido diretamente por uma ação. Todo campo é opcional: omitir os
+// que não são afetados.
 const efeitoSinaisVitaisJsonSchema: GeminiSchema = {
   type: "OBJECT",
   properties: {
@@ -73,10 +73,24 @@ const efeitoSinaisVitaisJsonSchema: GeminiSchema = {
     pressaoArterial: efeitoPressaoArterialJsonSchema,
     temperatura: { type: "NUMBER" },
     saturacaoO2: { type: "NUMBER" },
-    nivelConsciencia: { type: "STRING", enum: nivelConscienciaEnum },
     agitacaoPsicomotora: { type: "NUMBER" },
     rigidezMuscular: { type: "NUMBER" },
     riscoIminente: { type: "NUMBER" },
+  },
+};
+
+// Mesma forma acima, MAS com nivelConsciencia — usado só em
+// limiaresDesfecho, onde o campo é um valor-alvo comparado contra o
+// nível já calculado pelo motor (não um efeito sendo aplicado).
+const limiarSinaisVitaisJsonSchema: GeminiSchema = {
+  type: "OBJECT",
+  properties: {
+    ...efeitoSinaisVitaisJsonSchema.properties,
+    nivelConsciencia: {
+      type: "STRING",
+      enum: nivelConscienciaEnum,
+      description: "Valor-alvo: o motor considera atingido quando o nível JÁ CALCULADO chega nessa gravidade ou pior.",
+    },
   },
 };
 
@@ -177,9 +191,9 @@ export const casoSimuladorEmergenciaGeradoJsonSchema: GeminiSchema = {
       description:
         "Cada campo especificado aqui funciona como VALOR-ALVO (não delta). estabilizacao é só informativo (a vitória real é riscoIminente chegar a 0); obito e piora são condições adicionais de alerta/derrota além de riscoIminente chegar a 10.",
       properties: {
-        estabilizacao: efeitoSinaisVitaisJsonSchema,
-        obito: efeitoSinaisVitaisJsonSchema,
-        piora: efeitoSinaisVitaisJsonSchema,
+        estabilizacao: limiarSinaisVitaisJsonSchema,
+        obito: limiarSinaisVitaisJsonSchema,
+        piora: limiarSinaisVitaisJsonSchema,
       },
       required: ["estabilizacao", "obito", "piora"],
     },

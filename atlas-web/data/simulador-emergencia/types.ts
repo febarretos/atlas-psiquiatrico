@@ -7,8 +7,16 @@
 //    pressaoArterial.sistolica/diastolica) é tratado como DELTA aditivo
 //    em efeitoPorTurno/efeitoImediato/riscoSeIncorreta — soma-se ao
 //    valor atual, nunca substitui.
-// 2. nivelConsciencia é o único campo categórico — quando presente num
-//    efeito, é um OVERRIDE (define o novo estado), não um delta.
+// 2. nivelConsciencia NÃO é mais um campo que efeitoImediato/
+//    riscoSeIncorreta/efeitoPorTurno define — é DERIVADO a cada
+//    recálculo de sinais vitais por calcularNivelConsciencia (ver
+//    lib/motorSimuladorEmergencia.ts), a partir de riscoIminente,
+//    temperatura, saturacaoO2 e rigidezMuscular. Um valor eventualmente
+//    presente em EfeitoSinaisVitais.nivelConsciencia nesses três lugares
+//    é ignorado pelo motor. A ÚNICA exceção é limiaresDesfecho (item 5
+//    abaixo): ali nivelConsciencia continua sendo um valor-alvo válido,
+//    porque é um LIMIAR sendo comparado contra o valor já derivado, não
+//    um efeito sendo aplicado.
 // 3. riscoSeIncorreta é aplicado de forma INCONDICIONAL sempre que essa
 //    ação específica é escolhida — não há avaliação de contexto em tempo
 //    real. Por isso uma ação que só é errada em certos contextos (ex.:
@@ -43,10 +51,12 @@ export interface SinaisVitais {
   riscoIminente: number; // 0-10 — "termômetro" geral; 0 = estabilizado, 10 = óbito
 }
 
-// Delta aditivo pros campos numéricos + override categórico pra
-// nivelConsciencia (ver semântica acima). pressaoArterial aqui é
-// Partial<PressaoArterial> pra permitir alterar só a sistólica, só a
-// diastólica, ou ambas.
+// Delta aditivo pros campos numéricos (ver semântica acima).
+// pressaoArterial aqui é Partial<PressaoArterial> pra permitir alterar só
+// a sistólica, só a diastólica, ou ambas. nivelConsciencia só é
+// significativo quando este tipo é usado como limiaresDesfecho (valor-
+// alvo) — em efeitoImediato/riscoSeIncorreta/efeitoPorTurno, o motor
+// ignora esse campo mesmo que esteja presente (ver item 2 acima).
 export interface EfeitoSinaisVitais {
   frequenciaCardiaca?: number;
   pressaoArterial?: Partial<PressaoArterial>;
