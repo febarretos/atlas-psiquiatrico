@@ -146,10 +146,10 @@ const acaoDisponivelJsonSchema: GeminiSchema = {
     repetivel: {
       type: "BOOLEAN",
       description:
-        "true SOMENTE pra ações que fazem sentido escolher mais de uma vez na mesma partida (ex.: redose de um benzodiazepínico, hidratação/resfriamento contínuo). false ou omitido pra decisões de uma vez só (ex.: suspender um medicamento, chamar a UTI, solicitar um exame, contenção mecânica) — a interface desabilita o botão dessas depois do primeiro uso.",
+        "OBRIGATÓRIO em toda ação, sem exceção. true SOMENTE em ações de categoria medicacao que representem dose titulável (ex.: redose de um benzodiazepínico) E que tenham custoTempo maior que 0 — NUNCA combine repetivel:true com custoTempo:0 (isso já causou um bug real: uma ação grátis e repetível resolveu um caso sozinha só de ser clicada várias vezes). false em TODA ação de categoria suporte/comunicacao/contencao (são decisões de uma vez só: 'ambiente calmo', 'chamar a UTI', 'contenção mecânica') e na maioria das ações de exame — a interface desabilita o botão dessas depois do primeiro uso.",
     },
   },
-  required: ["id", "label", "categoria", "custoTempo", "efeitoImediato"],
+  required: ["id", "label", "categoria", "custoTempo", "efeitoImediato", "repetivel"],
 };
 
 export const casoSimuladorEmergenciaGeradoJsonSchema: GeminiSchema = {

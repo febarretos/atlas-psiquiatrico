@@ -51,6 +51,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { riscoIminente: -1 },
+      repetivel: false,
     },
     {
       id: "lorazepam-agitacao",
@@ -70,9 +71,9 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
         temperatura: -1.2,
         frequenciaCardiaca: -8,
         saturacaoO2: 2,
-        riscoIminente: -2,
+        riscoIminente: -1,
       },
-      repetivel: true,
+      repetivel: false,
     },
     {
       id: "ciproeptadina",
@@ -99,8 +100,9 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       riscoSeIncorreta: {
         temperatura: 1.5,
         agitacaoPsicomotora: 3,
-        riscoIminente: 3,
+        riscoIminente: 4,
       },
+      repetivel: false,
     },
     {
       id: "exames-laboratoriais",
@@ -110,15 +112,17 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "CK sérica discretamente elevada. Função renal preservada. Gasometria sem acidose significativa neste momento — diagnóstico aqui é clínico (critérios de Hunter), não laboratorial.",
+      repetivel: false,
     },
     {
       id: "acionar-uti",
       label: "Chamar a UTI para avaliar transferência",
       categoria: "comunicacao",
       custoTempo: 2,
-      efeitoImediato: { riscoIminente: -1 },
+      efeitoImediato: {},
       resultadoTexto:
         "A UTI confirma leito em cerca de 15 minutos e orienta manter resfriamento e sedação até a vaga se efetivar.",
+      repetivel: false,
     },
     {
       id: "tranquilizar-familia",
@@ -128,14 +132,16 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "A família confirma que Camila começou o tramadol há 2 dias e nunca tinha tido reação parecida antes — ajuda a fechar a hipótese diagnóstica.",
+      repetivel: false,
     },
     {
       id: "sedacao-intubacao",
       label: "Sedação profunda e intubação orotraqueal",
       categoria: "suporte",
       custoTempo: 3,
-      efeitoImediato: { agitacaoPsicomotora: -4, riscoIminente: -2 },
+      efeitoImediato: { agitacaoPsicomotora: -4 },
       condicaoDeUso: "Reservado a casos muito graves, com hipertermia >41°C ou rigidez importante.",
+      repetivel: false,
     },
   ],
 

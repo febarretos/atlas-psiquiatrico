@@ -99,14 +99,23 @@ export interface AcaoDisponivel {
   // isso, a ação não dá nenhum feedback visível ao jogador.
   resultadoTexto?: string;
 
-  // Se true, a UI permite escolher esta ação mais de uma vez na mesma
-  // partida (ex.: redose de um benzodiazepínico) e mostra um contador de
-  // dose. Se false/ausente (padrão), representa uma decisão de uma vez só
-  // (ex.: "suspender o antipsicótico", "chamar a UTI") — a UI desabilita o
-  // botão depois do primeiro uso pra evitar clique repetido por engano.
+  // OBRIGATÓRIO — sem valor padrão, pra forçar decidir isso
+  // conscientemente pra toda ação nova (um bug real já passou batido
+  // quando isso era opcional: "ambiente calmo", custoTempo 0, marcada
+  // repetivel:true, resolveu um caso sozinha só de ser clicada
+  // repetidamente). Se true, a UI permite escolher esta ação mais de uma
+  // vez na mesma partida e mostra um contador de dose. Regra de autoria:
+  // ações de categoria "suporte"/"comunicacao"/"contencao" são quase
+  // sempre false — são decisões pontuais (ex.: "ambiente calmo",
+  // "chamar a UTI"), não doses tituláveis. "medicacao" PODE ser true
+  // (ex.: redose de benzodiazepínico), mas só quando custoTempo custa
+  // caro o suficiente pra não virar spam grátis — nunca combine
+  // repetivel:true com custoTempo:0. "exame" costuma ser false, exceto
+  // reavaliações seriadas legítimas (ex.: escala CIWA-Ar) que não têm
+  // efeitoImediato sobre sinais vitais, então não têm como virar exploit.
   // Não é avaliado pelo motor (lib/motorSimuladorEmergencia.ts): a
   // restrição é só de interface, o motor sempre processa a ação recebida.
-  repetivel?: boolean;
+  repetivel: boolean;
 
   // Presente SÓ em ações que são incorretas *neste caso específico* —
   // aplicado sempre que a ação é escolhida, sem checagem de contexto.

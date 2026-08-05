@@ -51,17 +51,22 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
         agitacaoPsicomotora: -3,
         temperatura: -0.4,
         pressaoArterial: { sistolica: -6, diastolica: -4 },
-        riscoIminente: -2,
+        riscoIminente: -3,
       },
       repetivel: true,
     },
     {
+      // reposicao-tiamina e ambiente-calmo-reorientacao eram
+      // repetivel:true com custoTempo:0 e reduziam riscoIminente — o
+      // mesmo padrão de bug encontrado em "ambiente calmo" do surto
+      // psicótico (clique grátis infinito). Ambas viram decisão de uma
+      // vez só agora.
       id: "reposicao-tiamina",
       label: "Repor tiamina antes/junto da glicose",
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { riscoIminente: -1 },
-      repetivel: true,
+      repetivel: false,
     },
     {
       id: "correcao-eletrolitica",
@@ -69,14 +74,15 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 1,
       efeitoImediato: { riscoIminente: -1, frequenciaCardiaca: -3 },
+      repetivel: false,
     },
     {
       id: "ambiente-calmo-reorientacao",
       label: "Ambiente calmo, bem iluminado, com reorientação frequente",
       categoria: "suporte",
       custoTempo: 0,
-      efeitoImediato: { agitacaoPsicomotora: -1, riscoIminente: -1 },
-      repetivel: true,
+      efeitoImediato: { agitacaoPsicomotora: -1 },
+      repetivel: false,
     },
     {
       id: "antipsicotico-em-vez-de-bzd",
@@ -92,6 +98,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
         temperatura: 1.0,
         riscoIminente: 3,
       },
+      repetivel: false,
     },
     {
       id: "escala-ciwa",
@@ -108,8 +115,9 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       label: "Chamar reforço da equipe para monitorização contínua de sinais vitais",
       categoria: "comunicacao",
       custoTempo: 1,
-      efeitoImediato: { riscoIminente: -1 },
+      efeitoImediato: {},
       resultadoTexto: "A equipe reforça a monitorização à beira do leito — qualquer piora será notada rápido.",
+      repetivel: false,
     },
     {
       id: "tranquilizar-familia",
@@ -119,6 +127,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "A família confirma o padrão de consumo de longa data e uma internação anterior com abstinência grave — reforça o diagnóstico.",
+      repetivel: false,
     },
   ],
 

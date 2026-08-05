@@ -50,6 +50,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { riscoIminente: -1 },
+      repetivel: false,
     },
     {
       id: "lorazepam-agitacao",
@@ -69,9 +70,9 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
         temperatura: -1.2,
         frequenciaCardiaca: -6,
         saturacaoO2: 2,
-        riscoIminente: -2,
+        riscoIminente: -1,
       },
-      repetivel: true,
+      repetivel: false,
     },
     {
       id: "dantroleno",
@@ -99,6 +100,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
         rigidezMuscular: 3,
         riscoIminente: 3,
       },
+      repetivel: false,
     },
     {
       id: "exames-laboratoriais",
@@ -108,15 +110,17 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "CK sérica: 18.400 U/L (muito elevada — compatível com rabdomiólise). Ureia e creatinina discretamente elevadas. Potássio 5,3 mEq/L. Leucocitose leve (14.200/mm³) sem desvio.",
+      repetivel: false,
     },
     {
       id: "acionar-uti",
       label: "Chamar a UTI para avaliar transferência",
       categoria: "comunicacao",
       custoTempo: 2,
-      efeitoImediato: { riscoIminente: -1 },
+      efeitoImediato: {},
       resultadoTexto:
         "A UTI aceita a transferência e confirma leito em cerca de 15 minutos, mas orienta manter as medidas de suporte e resfriamento até a vaga se efetivar.",
+      repetivel: false,
     },
     {
       id: "tranquilizar-familia",
@@ -126,14 +130,16 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "A esposa de Ricardo, que estava na sala de espera, entende a gravidade, autoriza as condutas necessárias e pede pra ser avisada assim que houver qualquer mudança.",
+      repetivel: false,
     },
     {
       id: "ect-urgencia",
       label: "Considerar eletroconvulsoterapia em caráter de urgência",
       categoria: "suporte",
       custoTempo: 3,
-      efeitoImediato: { rigidezMuscular: -3, riscoIminente: -2 },
+      efeitoImediato: { rigidezMuscular: -3 },
       condicaoDeUso: "Indicado principalmente em casos refratários ao tratamento farmacológico.",
+      repetivel: false,
     },
   ],
 

@@ -261,9 +261,10 @@ export interface EstadoJogo {
   desfecho: Desfecho | null;
   // Ids de ações já escolhidas ao menos uma vez nesta partida — usado
   // pela UI pra desabilitar ações não-repetíveis já usadas (ver
-  // AcaoDisponivel.repetivel em data/simulador-emergencia/types.ts). Não é
-  // consultado por escolherAcao: o motor sempre processa a ação recebida,
-  // a restrição é só de interface.
+  // AcaoDisponivel.repetivel em data/simulador-emergencia/types.ts) E
+  // consultado por escolherAcao (ver comentário lá): o motor também
+  // recusa reprocessar uma ação repetivel:false já usada, não depende só
+  // da UI bloquear o clique.
   acoesJaUsadas: Set<string>;
 }
 
@@ -289,13 +290,20 @@ export function criarEstadoInicial(caso: CasoSimuladorEmergencia): EstadoJogo {
 // Processa um turno: evolução natural pelo custoTempo da ação, depois o
 // efeito da ação (+ riscoSeIncorreta, se a ação tiver um definido —
 // aplicado incondicionalmente, ver topo do arquivo). Ignora a chamada se
-// o jogo já tiver acabado.
+// o jogo já tiver acabado, OU se a ação é repetivel:false e já foi usada
+// antes — essa segunda checagem é enforcement de verdade, não só da UI
+// (um bug real já aconteceu por depender só da interface bloquear o
+// clique: uma ação ficou mal configurada como repetivel:true e nada no
+// motor a impedia de ser reaplicada). Em ambos os casos retorna o MESMO
+// objeto `estado` (não uma cópia) — permite comparação por referência
+// pra detectar no-op.
 export function escolherAcao(
   caso: CasoSimuladorEmergencia,
   estado: EstadoJogo,
   acao: AcaoDisponivel
 ): EstadoJogo {
   if (estado.desfecho !== null) return estado;
+  if (!acao.repetivel && estado.acoesJaUsadas.has(acao.id)) return estado;
 
   const turnosDecorridos = Math.max(0, acao.custoTempo);
 

@@ -60,7 +60,10 @@ const acaoDisponivelSchema = z.object({
   condicaoDeUso: z.string().min(1).optional(),
   riscoSeIncorreta: efeitoSinaisVitaisSchema.optional(),
   resultadoTexto: z.string().min(1).optional(),
-  repetivel: z.boolean().optional(),
+  // Obrigatório (sem .optional()) — ver comentário em
+  // data/simulador-emergencia/types.ts. Um caso que omite isso é
+  // rejeitado na validação, não silenciosamente tratado como false.
+  repetivel: z.boolean(),
 });
 
 // Campos numéricos "simples" de EfeitoSinaisVitais — pressaoArterial fica
@@ -161,7 +164,37 @@ export const casoSimuladorEmergenciaGeradoSchema = z
           path: ["acoesDisponiveis", index],
         });
       }
+
+      // Bug real que já aconteceu: ação grátis (custoTempo 0, sem
+      // evolução natural cobrando o tempo) marcada repetivel:true vira
+      // clique infinito — sozinha resolve o caso. Nunca permitir a
+      // combinação, pra essa classe de bug não voltar num caso futuro.
+      if (acao.repetivel && acao.custoTempo === 0) {
+        ctx.addIssue({
+          code: "custom",
+          message: `Ação "${acao.id}" é repetivel:true com custoTempo:0 — clique infinito sem custo de tempo nenhum. Ações grátis (custoTempo 0) precisam ser repetivel:false.`,
+          path: ["acoesDisponiveis", index],
+        });
+      }
     });
+
+    // Auditoria de magnitude (Tarefa 2): ações de suporte/comunicação
+    // isoladas (não medicação, não investigação) não podem, somadas,
+    // valer mais que ~40% do riscoIminente inicial — senão dá pra
+    // "vencer" só com medidas de ambiente/conversa, sem nenhuma conduta
+    // médica real. Cada ação de suporte/comunicação só entra nessa soma
+    // uma vez (repetivel:false é exigido para essas categorias em
+    // outro ponto da autoria, mas a soma aqui já assume uso único).
+    const somaSuporteComunicacao = caso.acoesDisponiveis
+      .filter((a) => a.categoria === "suporte" || a.categoria === "comunicacao")
+      .reduce((soma, a) => soma + Math.min(0, a.efeitoImediato.riscoIminente ?? 0), 0);
+    const limiteSuporte = -0.4 * caso.sinaisVitaisIniciais.riscoIminente;
+    if (somaSuporteComunicacao < limiteSuporte) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Ações de suporte/comunicação somam ${somaSuporteComunicacao} de riscoIminente, mais que ~40% do risco inicial (${caso.sinaisVitaisIniciais.riscoIminente}) — dá pra estabilizar só com medidas de ambiente/conversa, sem nenhuma medicação ou investigação real. Reduza o efeito dessas ações ou mova parte do trabalho pra uma ação de medicacao.`,
+      });
+    }
 
     // Auditoria sistêmica (Tarefa 2): todo campo que a evolução natural
     // move sozinho precisa de pelo menos uma ação (efeitoImediato) que o

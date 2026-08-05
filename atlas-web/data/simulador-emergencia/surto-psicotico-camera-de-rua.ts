@@ -43,6 +43,12 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
 
   acoesDisponiveis: [
     {
+      // Rebalanceado: era repetivel:true com custoTempo:0 e reduzia
+      // riscoIminente — clicada repetidamente, sozinha estabilizava o
+      // caso, sem nenhuma medicação ou investigação real (bug real
+      // encontrado em teste). Agora é uma decisão de uma vez só e não
+      // mexe mais em riscoIminente — ajuda a agitação/FC/temperatura/PA
+      // (sintomático), mas não resolve a gravidade de base sozinha.
       id: "ambiente-calmo",
       label: "Levar para ambiente calmo, com baixo estímulo",
       categoria: "suporte",
@@ -52,9 +58,8 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
         frequenciaCardiaca: -3,
         temperatura: -0.3,
         pressaoArterial: { sistolica: -2, diastolica: -1 },
-        riscoIminente: -1,
       },
-      repetivel: true,
+      repetivel: false,
     },
     {
       id: "antipsicotico-dose-baixa",
@@ -62,16 +67,18 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       categoria: "medicacao",
       medicamentoId: "risperidona",
       custoTempo: 1,
-      efeitoImediato: { agitacaoPsicomotora: -3, riscoIminente: -1 },
+      efeitoImediato: { agitacaoPsicomotora: -3, riscoIminente: -3 },
+      repetivel: true,
     },
     {
       id: "investigacao-organica",
       label: "Solicitar investigação orgânica (labs gerais, triagem toxicológica, neuroimagem)",
       categoria: "exame",
       custoTempo: 1,
-      efeitoImediato: {},
+      efeitoImediato: { riscoIminente: -1 },
       resultadoTexto:
-        "Labs gerais e triagem toxicológica normais. A neuroimagem ainda está pendente, mas o EEG mostra lentificação difusa discreta — achado inespecífico, mas que reforça manter a investigação de causa orgânica em aberto.",
+        "Labs gerais e triagem toxicológica normais. A neuroimagem ainda está pendente, mas o EEG mostra lentificação difusa discreta — achado inespecífico, mas que reforça manter a investigação de causa orgânica em aberto e já ajuda a direcionar a conduta.",
+      repetivel: false,
     },
     {
       id: "avaliacao-risco-seguranca",
@@ -81,6 +88,7 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "Sem ideação suicida no momento. Risco de heteroagressão presente enquanto a agitação não for controlada — reforça a indicação de ambiente seguro e, se necessário, contenção.",
+      repetivel: false,
     },
     {
       id: "contencao-mecanica",
@@ -89,6 +97,7 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       custoTempo: 1,
       efeitoImediato: { agitacaoPsicomotora: -2, riscoIminente: -1 },
       condicaoDeUso: "Último recurso, quando medidas menos restritivas falharam ou há risco iminente de lesão.",
+      repetivel: false,
     },
     {
       id: "escalar-antipsicotico-ignorando-piora",
@@ -102,8 +111,9 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       riscoSeIncorreta: {
         temperatura: 1.2,
         agitacaoPsicomotora: 2,
-        riscoIminente: 3,
+        riscoIminente: 4,
       },
+      repetivel: false,
     },
     {
       id: "envolver-familia",
@@ -113,14 +123,16 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "A família confirma que Bruno nunca teve nada parecido antes e que a mudança de comportamento começou de forma bem abrupta há 3 dias — reforça a urgência da investigação orgânica.",
+      repetivel: false,
     },
     {
       id: "acionar-equipe-apoio",
       label: "Chamar apoio de mais profissionais da equipe",
       categoria: "comunicacao",
       custoTempo: 1,
-      efeitoImediato: { agitacaoPsicomotora: -1, riscoIminente: -1 },
+      efeitoImediato: { agitacaoPsicomotora: -1 },
       resultadoTexto: "Mais dois profissionais chegam pra ajudar a manter o ambiente seguro.",
+      repetivel: false,
     },
   ],
 

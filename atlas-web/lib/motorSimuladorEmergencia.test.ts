@@ -269,101 +269,185 @@ function testarCasoEmergencia(
     assert.ok(estado.turnoAtual <= caso.turnosMaximos, "deveria estabilizar dentro do prazo");
   });
 
-  test(`PLAYTHROUGH ${apelido} — repetir a ação-armadilha leva ao óbito`, () => {
+  test(`PLAYTHROUGH ${apelido} — a ação-armadilha (uma vez só) leva ao óbito`, () => {
     let estado = criarEstadoInicial(caso);
+    const armadilha = acaoPorId(caso, opcoes.acaoArmadilha);
 
     console.log(`\n[${apelido} — caminho ruim: ${opcoes.acaoArmadilha}]`);
     console.log(`turno 0: riscoIminente=${estado.sinaisAtuais.riscoIminente} temp=${estado.sinaisAtuais.temperatura.toFixed(1)}`);
 
-    let turnosDeSeguranca = 20; // evita loop infinito se o fixture estiver mal calibrado
-    while (estado.desfecho === null && turnosDeSeguranca > 0) {
-      estado = escolherAcao(caso, estado, acaoPorId(caso, opcoes.acaoArmadilha));
-      console.log(
-        `turno ${estado.turnoAtual} (${opcoes.acaoArmadilha}): riscoIminente=${estado.sinaisAtuais.riscoIminente.toFixed(1)} temp=${estado.sinaisAtuais.temperatura.toFixed(1)} consciencia=${estado.sinaisAtuais.nivelConsciencia} desfecho=${estado.desfecho ?? "-"}`
-      );
-      turnosDeSeguranca--;
-    }
+    // A ação-armadilha é sempre repetivel:false (é uma decisão errada de
+    // uma vez só, não algo pra clicar repetidamente) — então precisa
+    // matar sozinha, num clique. Chamar de novo aqui é só uma prova de
+    // que o motor bloqueia a repetição, não uma tentativa de "ajudar" a
+    // matar o paciente.
+    assert.equal(armadilha.repetivel, false, `ação-armadilha "${armadilha.id}" precisa ser repetivel:false`);
 
-    assert.equal(estado.desfecho, "obito");
+    estado = escolherAcao(caso, estado, armadilha);
+    console.log(
+      `turno ${estado.turnoAtual} (${armadilha.id}): riscoIminente=${estado.sinaisAtuais.riscoIminente.toFixed(1)} temp=${estado.sinaisAtuais.temperatura.toFixed(1)} consciencia=${estado.sinaisAtuais.nivelConsciencia} desfecho=${estado.desfecho ?? "-"}`
+    );
+
+    assert.equal(estado.desfecho, "obito", "a ação-armadilha precisa matar sozinha, num clique só");
+
+    const repetida = escolherAcao(caso, estado, armadilha);
+    assert.equal(repetida, estado, "chamar a ação-armadilha de novo depois do óbito não deveria mudar nada");
   });
 
-  test(`PLAYTHROUGH ${apelido} — não fazer nada útil (só comunicação/exames) leva a tempo-esgotado ou óbito`, () => {
+  test(`PLAYTHROUGH ${apelido} — não fazer nada útil (só comunicação/exames) nunca reduz o risco`, () => {
     let estado = criarEstadoInicial(caso);
+    const riscoInicial = estado.sinaisAtuais.riscoIminente;
 
     console.log(`\n[${apelido} — caminho passivo: só exames/comunicação]`);
 
-    let i = 0;
-    let turnosDeSeguranca = 20;
-
-    while (estado.desfecho === null && turnosDeSeguranca > 0) {
-      const id = opcoes.acoesInocuas[i % opcoes.acoesInocuas.length];
+    for (const id of opcoes.acoesInocuas) {
+      if (estado.desfecho !== null) break;
       estado = escolherAcao(caso, estado, acaoPorId(caso, id));
       console.log(
         `turno ${estado.turnoAtual} (${id}): riscoIminente=${estado.sinaisAtuais.riscoIminente.toFixed(1)} desfecho=${estado.desfecho ?? "-"}`
       );
-      i++;
-      turnosDeSeguranca--;
     }
 
-    assert.ok(estado.desfecho === "obito" || estado.desfecho === "tempo-esgotado");
+    const pioroOuNaoMelhorou =
+      estado.desfecho === "obito" ||
+      estado.desfecho === "tempo-esgotado" ||
+      estado.sinaisAtuais.riscoIminente >= riscoInicial;
+
+    assert.ok(pioroOuNaoMelhorou, "fazer só ações inócuas não deveria reduzir o risco iminente");
+  });
+
+  test(`${caso.id}: motor bloqueia repetição de TODA ação repetivel:false, não só a UI`, () => {
+    for (const acao of caso.acoesDisponiveis) {
+      if (acao.repetivel) continue;
+
+      let estado = criarEstadoInicial(caso);
+      estado = escolherAcao(caso, estado, acao);
+      if (estado.desfecho !== null) continue; // ação sozinha já terminou o jogo (ex.: armadilha fatal) — nada pra repetir
+
+      const depoisDeUmaVez = estado;
+
+      // Spam: chama a mesma ação repetivel:false várias vezes seguidas,
+      // como um clique duplicado/repetido por engano no botão.
+      for (let tentativa = 0; tentativa < 10; tentativa++) {
+        estado = escolherAcao(caso, estado, acao);
+      }
+
+      assert.equal(
+        estado,
+        depoisDeUmaVez,
+        `"${acao.id}" em "${caso.id}" é repetivel:false mas o motor processou de novo — regressão do bug de "ambiente calmo"`
+      );
+      assert.equal(estado.log.filter((e) => e.acaoId === acao.id).length, 1);
+    }
+  });
+
+  test(`${caso.id}: ações de suporte sozinhas (sem medicação/investigação/contenção) não estabilizam o caso`, () => {
+    // TAREFA 2 do rebalanceamento: ações de suporte/ambiente isoladas não
+    // podem, sozinhas, resolver o caso — o grosso da melhora tem que vir
+    // de medicacao/exame/contencao real. Usa cada ação categoria
+    // "suporte" uma vez (respeitando repetivel, como um jogador real
+    // faria) e confirma que isso nunca é suficiente pra estabilizar.
+    let estado = criarEstadoInicial(caso);
+    const acoesSuporte = caso.acoesDisponiveis.filter((a) => a.categoria === "suporte");
+
+    for (const acao of acoesSuporte) {
+      if (estado.desfecho !== null) break;
+      estado = escolherAcao(caso, estado, acao);
+      if (acao.repetivel) {
+        // dose adicional pra dar uma chance real de "vencer só com suporte"
+        estado = escolherAcao(caso, estado, acao);
+      }
+    }
+
+    assert.notEqual(
+      estado.desfecho,
+      "estabilizacao",
+      `"${caso.id}" foi estabilizado usando só ações de suporte — suporte sozinho não deveria resolver o caso`
+    );
   });
 }
 
+// As sequências "boas" abaixo só repetem ações repetivel:true (as únicas
+// que a UI de verdade deixaria o jogador clicar mais de uma vez) — cada
+// ação de uso único aparece no máximo uma vez, espelhando exatamente o
+// que dá pra fazer jogando pela interface, não o que o motor toleraria
+// se chamado direto (ver TAREFA 1/2 do rebalanceamento: uma sequência
+// que repetia "hidratação/resfriamento" ou "ambiente calmo" várias vezes
+// escondia o bug de repetição em vez de expor pacing real).
 testarCasoEmergencia("nms", nmsPlantaoSexta, {
   sequenciaBoa: [
     "suspender-antipsicotico",
+    "hidratacao-resfriamento",
     "dantroleno",
     "lorazepam-agitacao",
-    "hidratacao-resfriamento",
     "dantroleno",
-    "hidratacao-resfriamento",
+    "lorazepam-agitacao",
+    "dantroleno",
   ],
   acaoArmadilha: "aumentar-antipsicotico",
-  acoesInocuas: ["exames-laboratoriais", "tranquilizar-familia"],
+  acoesInocuas: ["exames-laboratoriais", "acionar-uti", "tranquilizar-familia", "ect-urgencia"],
 });
 
 testarCasoEmergencia("serotonina", serotoninaTramadolLombalgia, {
   sequenciaBoa: [
     "suspender-serotoninergicos",
+    "hidratacao-resfriamento",
     "ciproeptadina",
     "lorazepam-agitacao",
-    "hidratacao-resfriamento",
     "ciproeptadina",
-    "hidratacao-resfriamento",
+    "lorazepam-agitacao",
+    "ciproeptadina",
   ],
   acaoArmadilha: "reintroduzir-sertralina",
-  acoesInocuas: ["exames-laboratoriais", "tranquilizar-familia"],
+  acoesInocuas: ["exames-laboratoriais", "acionar-uti", "tranquilizar-familia", "sedacao-intubacao"],
 });
 
 testarCasoEmergencia("surto psicótico", surtoPsicoticoCameraDeRua, {
   sequenciaBoa: [
     "ambiente-calmo",
-    "antipsicotico-dose-baixa",
+    "investigacao-organica",
     "contencao-mecanica",
-    "ambiente-calmo",
+    "antipsicotico-dose-baixa",
     "acionar-equipe-apoio",
-    "ambiente-calmo",
-    "ambiente-calmo",
-    "ambiente-calmo",
-    "ambiente-calmo",
+    "antipsicotico-dose-baixa",
+    "antipsicotico-dose-baixa",
+    "antipsicotico-dose-baixa",
+    "antipsicotico-dose-baixa",
+    "antipsicotico-dose-baixa",
+    "antipsicotico-dose-baixa",
   ],
   acaoArmadilha: "escalar-antipsicotico-ignorando-piora",
-  acoesInocuas: ["investigacao-organica", "avaliacao-risco-seguranca"],
+  acoesInocuas: ["avaliacao-risco-seguranca", "envolver-familia", "acionar-equipe-apoio", "ambiente-calmo"],
 });
 
 testarCasoEmergencia("delirium tremens", deliriumTremensFraturaFemur, {
   sequenciaBoa: [
     "reposicao-tiamina",
-    "beneodiazepinico-titulado",
-    "ambiente-calmo-reorientacao",
     "correcao-eletrolitica",
-    "beneodiazepinico-titulado",
-    "reposicao-tiamina",
     "ambiente-calmo-reorientacao",
-    "reposicao-tiamina",
+    "beneodiazepinico-titulado",
+    "beneodiazepinico-titulado",
+    "beneodiazepinico-titulado",
+    "beneodiazepinico-titulado",
+    "beneodiazepinico-titulado",
+    "beneodiazepinico-titulado",
   ],
   acaoArmadilha: "antipsicotico-em-vez-de-bzd",
-  acoesInocuas: ["escala-ciwa", "tranquilizar-familia"],
+  // escala-ciwa é repetivel:true (reavaliação seriada legítima, sem
+  // efeito sobre sinais vitais) — é o único jeito de ter turnos
+  // suficientes de "passividade" nesse caso sem violar o bloqueio de
+  // repetição das demais ações inócuas (todas de uso único).
+  acoesInocuas: [
+    "monitorizacao-continua",
+    "tranquilizar-familia",
+    "ambiente-calmo-reorientacao",
+    "escala-ciwa",
+    "escala-ciwa",
+    "escala-ciwa",
+    "escala-ciwa",
+    "escala-ciwa",
+    "escala-ciwa",
+  ],
 });
 
 test("estaEmAlarme: riscoIminente alto dispara alarme mesmo sem limiaresDesfecho.piora configurado", () => {
