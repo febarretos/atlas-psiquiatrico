@@ -51,6 +51,7 @@ const acaoDisponivelSchema = z.object({
   condicaoDeUso: z.string().min(1).optional(),
   riscoSeIncorreta: efeitoSinaisVitaisSchema.optional(),
   resultadoTexto: z.string().min(1).optional(),
+  repetivel: z.boolean().optional(),
 });
 
 // Além da forma (garantida também pelo responseSchema do Gemini, ver

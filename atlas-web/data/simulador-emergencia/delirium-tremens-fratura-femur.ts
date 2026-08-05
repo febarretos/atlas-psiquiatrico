@@ -47,6 +47,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       medicamentoId: "diazepam",
       custoTempo: 1,
       efeitoImediato: { agitacaoPsicomotora: -3, riscoIminente: -2 },
+      repetivel: true,
     },
     {
       id: "reposicao-tiamina",
@@ -54,6 +55,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { riscoIminente: -1 },
+      repetivel: true,
     },
     {
       id: "correcao-eletrolitica",
@@ -68,6 +70,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { agitacaoPsicomotora: -1, riscoIminente: -1 },
+      repetivel: true,
     },
     {
       id: "antipsicotico-em-vez-de-bzd",
@@ -93,6 +96,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       efeitoImediato: {},
       resultadoTexto:
         "CIWA-Ar: 28 pontos — abstinência grave. Indica benzodiazepínico em doses altas e monitorização contínua.",
+      repetivel: true,
     },
     {
       id: "monitorizacao-continua",

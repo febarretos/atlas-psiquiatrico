@@ -58,6 +58,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       medicamentoId: "lorazepam",
       custoTempo: 1,
       efeitoImediato: { agitacaoPsicomotora: -3, riscoIminente: -1 },
+      repetivel: true,
     },
     {
       id: "hidratacao-resfriamento",
@@ -65,6 +66,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 1,
       efeitoImediato: { temperatura: -1.2, frequenciaCardiaca: -8, riscoIminente: -2 },
+      repetivel: true,
     },
     {
       id: "ciproeptadina",
@@ -72,6 +74,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       categoria: "medicacao",
       custoTempo: 1,
       efeitoImediato: { agitacaoPsicomotora: -3, temperatura: -1.3, riscoIminente: -3 },
+      repetivel: true,
     },
     {
       id: "reintroduzir-sertralina",

@@ -47,6 +47,7 @@ export const surtoPsicoticoCameraDeRua: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 0,
       efeitoImediato: { agitacaoPsicomotora: -1, riscoIminente: -1 },
+      repetivel: true,
     },
     {
       id: "antipsicotico-dose-baixa",

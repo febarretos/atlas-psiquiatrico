@@ -57,6 +57,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       medicamentoId: "lorazepam",
       custoTempo: 1,
       efeitoImediato: { agitacaoPsicomotora: -3, rigidezMuscular: -2, riscoIminente: -1 },
+      repetivel: true,
     },
     {
       id: "hidratacao-resfriamento",
@@ -64,6 +65,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       categoria: "suporte",
       custoTempo: 1,
       efeitoImediato: { temperatura: -1.2, frequenciaCardiaca: -6, riscoIminente: -2 },
+      repetivel: true,
     },
     {
       id: "dantroleno",
@@ -71,6 +73,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       categoria: "medicacao",
       custoTempo: 1,
       efeitoImediato: { rigidezMuscular: -4, temperatura: -1.5, riscoIminente: -3 },
+      repetivel: true,
     },
     {
       id: "aumentar-antipsicotico",

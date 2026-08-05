@@ -89,6 +89,15 @@ export interface AcaoDisponivel {
   // isso, a ação não dá nenhum feedback visível ao jogador.
   resultadoTexto?: string;
 
+  // Se true, a UI permite escolher esta ação mais de uma vez na mesma
+  // partida (ex.: redose de um benzodiazepínico) e mostra um contador de
+  // dose. Se false/ausente (padrão), representa uma decisão de uma vez só
+  // (ex.: "suspender o antipsicótico", "chamar a UTI") — a UI desabilita o
+  // botão depois do primeiro uso pra evitar clique repetido por engano.
+  // Não é avaliado pelo motor (lib/motorSimuladorEmergencia.ts): a
+  // restrição é só de interface, o motor sempre processa a ação recebida.
+  repetivel?: boolean;
+
   // Presente SÓ em ações que são incorretas *neste caso específico* —
   // aplicado sempre que a ação é escolhida, sem checagem de contexto.
   riscoSeIncorreta?: EfeitoSinaisVitais;

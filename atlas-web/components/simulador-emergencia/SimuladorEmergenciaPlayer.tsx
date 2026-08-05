@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import Badge from "../Badge";
@@ -109,20 +109,86 @@ const CAMPO_LABEL: Record<string, string> = {
   nivelConsciencia: "Nível de consciência",
 };
 
+function formatarSinal(valor: number): string {
+  const arredondado = Math.round(valor * 10) / 10;
+  const sinal = arredondado > 0 ? "+" : "";
+  return `${sinal}${Number.isInteger(arredondado) ? arredondado : arredondado.toFixed(1)}`;
+}
+
+// Diferença entre os sinais vitais antes/depois de UM turno (evolução
+// natural + efeito da ação + riscoSeIncorreta, se aplicável, já
+// combinados) — usado só pra montar o resumo temporário mostrado ao
+// jogador logo após clicar numa ação (TAREFA 3 do pedido original).
+function calcularDiferencas(antes: SinaisVitais, depois: SinaisVitais): string[] {
+  const diffs: string[] = [];
+  const EPSILON = 0.05;
+
+  const numerico = (campo: string, unidade: string, valorAntes: number, valorDepois: number) => {
+    if (Math.abs(valorDepois - valorAntes) < EPSILON) return;
+    diffs.push(`${CAMPO_LABEL[campo]} ${formatarSinal(valorDepois - valorAntes)}${unidade}`);
+  };
+
+  numerico("frequenciaCardiaca", " bpm", antes.frequenciaCardiaca, depois.frequenciaCardiaca);
+  numerico("temperatura", "°C", antes.temperatura, depois.temperatura);
+  numerico("saturacaoO2", "%", antes.saturacaoO2, depois.saturacaoO2);
+  numerico("agitacaoPsicomotora", "", antes.agitacaoPsicomotora, depois.agitacaoPsicomotora);
+  if (antes.rigidezMuscular !== undefined && depois.rigidezMuscular !== undefined) {
+    numerico("rigidezMuscular", "", antes.rigidezMuscular, depois.rigidezMuscular);
+  }
+  numerico("riscoIminente", "", antes.riscoIminente, depois.riscoIminente);
+
+  if (antes.nivelConsciencia !== depois.nivelConsciencia) {
+    diffs.push(`Nível de consciência: ${antes.nivelConsciencia} → ${depois.nivelConsciencia}`);
+  }
+
+  return diffs;
+}
+
+interface ToastAcao {
+  acaoLabel: string;
+  mudancas: string[];
+}
+
 export default function SimuladorEmergenciaPlayer({ caso }: Props) {
   const [estado, setEstado] = useState<EstadoJogo>(() => criarEstadoInicial(caso));
+  const [toast, setToast] = useState<ToastAcao | null>(null);
+
+  useEffect(() => {
+    if (!toast) return;
+    const temporizador = setTimeout(() => setToast(null), 4000);
+    return () => clearTimeout(temporizador);
+  }, [toast]);
 
   const emergencia = emergencias.find((e) => e.id === caso.emergenciaBaseId);
   const sinais = estado.sinaisAtuais;
   const alarme = estaEmAlarme(caso, sinais);
   const jogoAcabou = estado.desfecho !== null;
 
+  // Nº de vezes que cada ação já foi escolhida — usado pro contador de
+  // dose em ações repetíveis (ex.: "Lorazepam — 2ª dose").
+  const contagemPorAcao = useMemo(() => {
+    const contagem = new Map<string, number>();
+    for (const entrada of estado.log) {
+      contagem.set(entrada.acaoId, (contagem.get(entrada.acaoId) ?? 0) + 1);
+    }
+    return contagem;
+  }, [estado.log]);
+
   function jogar(acao: AcaoDisponivel) {
-    setEstado((atual) => escolherAcao(caso, atual, acao));
+    const usada = estado.acoesJaUsadas.has(acao.id);
+    if (usada && !acao.repetivel) return; // ação de uma vez só já usada — não deveria nem chegar aqui (botão desabilitado), guarda extra.
+
+    const proximo = escolherAcao(caso, estado, acao);
+    if (proximo !== estado) {
+      const mudancas = calcularDiferencas(estado.sinaisAtuais, proximo.sinaisAtuais);
+      setToast({ acaoLabel: acao.label, mudancas });
+    }
+    setEstado(proximo);
   }
 
   function reiniciar() {
     setEstado(criarEstadoInicial(caso));
+    setToast(null);
   }
 
   return (
@@ -206,84 +272,121 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
         />
       </div>
 
-      {!jogoAcabou ? (
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-          <div className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Conduta
+      {toast && (
+        <div className="mb-6 rounded-xl border border-blue-500/40 bg-blue-500/10 p-4">
+          <div className="text-xs font-semibold uppercase tracking-wider text-blue-300">
+            {toast.acaoLabel}
           </div>
+          {toast.mudancas.length > 0 ? (
+            <p className="mt-1.5 text-sm text-blue-200">{toast.mudancas.join(" · ")}</p>
+          ) : (
+            <p className="mt-1.5 text-sm text-blue-200">Sem mudança perceptível nos sinais vitais neste turno.</p>
+          )}
+        </div>
+      )}
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {caso.acoesDisponiveis.map((acao) => (
+      <div className="grid gap-6 lg:grid-cols-[1fr_340px] lg:items-start">
+        <div>
+          {!jogoAcabou ? (
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+              <div className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Conduta
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {caso.acoesDisponiveis.map((acao) => {
+                  const vezesUsada = contagemPorAcao.get(acao.id) ?? 0;
+                  const jaUsada = estado.acoesJaUsadas.has(acao.id);
+                  const bloqueada = jaUsada && !acao.repetivel;
+
+                  return (
+                    <button
+                      key={acao.id}
+                      type="button"
+                      disabled={bloqueada}
+                      onClick={() => jogar(acao)}
+                      className={`rounded-xl border p-4 text-left transition-colors ${
+                        bloqueada
+                          ? "cursor-not-allowed border-slate-800 bg-slate-900/60 opacity-50"
+                          : "border-slate-700 bg-slate-800 hover:border-blue-500 hover:bg-blue-500/10"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="font-semibold text-white">
+                          {acao.label}
+                          {acao.repetivel && vezesUsada > 0 && (
+                            <span className="ml-1.5 font-normal text-blue-300">
+                              — {vezesUsada + 1}ª dose
+                            </span>
+                          )}
+                        </span>
+                        {acao.custoTempo > 0 && !bloqueada && (
+                          <span className="whitespace-nowrap text-xs text-slate-500">
+                            +{acao.custoTempo} {acao.custoTempo === 1 ? "turno" : "turnos"}
+                          </span>
+                        )}
+                      </div>
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <Badge color="gray">{CATEGORIA_LABEL[acao.categoria]}</Badge>
+                        {bloqueada && <Badge color="green">✓ já feito</Badge>}
+                      </div>
+                      {acao.condicaoDeUso && !bloqueada && (
+                        <p className="mt-2 text-xs text-slate-500">{acao.condicaoDeUso}</p>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <TelaDesfecho caso={caso} estado={estado} emergenciaNome={emergencia?.nome} />
+          )}
+
+          {jogoAcabou && (
+            <div className="mt-6">
               <button
-                key={acao.id}
                 type="button"
-                onClick={() => jogar(acao)}
-                className="rounded-xl border border-slate-700 bg-slate-800 p-4 text-left transition-colors hover:border-blue-500 hover:bg-blue-500/10"
+                onClick={reiniciar}
+                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
               >
-                <div className="flex items-start justify-between gap-2">
-                  <span className="font-semibold text-white">{acao.label}</span>
-                  {acao.custoTempo > 0 && (
-                    <span className="whitespace-nowrap text-xs text-slate-500">
-                      +{acao.custoTempo} {acao.custoTempo === 1 ? "turno" : "turnos"}
-                    </span>
-                  )}
-                </div>
-                <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <Badge color="gray">{CATEGORIA_LABEL[acao.categoria]}</Badge>
-                </div>
-                {acao.condicaoDeUso && (
-                  <p className="mt-2 text-xs text-slate-500">{acao.condicaoDeUso}</p>
-                )}
+                ↺ Jogar de novo
               </button>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
-      ) : (
-        <TelaDesfecho caso={caso} estado={estado} emergenciaNome={emergencia?.nome} />
-      )}
 
-      {estado.log.length > 0 && (
-        <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 lg:sticky lg:top-4">
           <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Histórico de condutas
+            Linha do tempo
           </div>
 
-          <ol className="space-y-2">
-            {estado.log.map((entrada, index) => (
-              <li
-                key={index}
-                className={`rounded-lg border px-3 py-2 text-sm ${
-                  entrada.foiIncorreta
-                    ? "border-red-500/30 bg-red-500/5 text-red-300"
-                    : "border-slate-800 bg-slate-950 text-slate-300"
-                }`}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span>
-                    Turno {entrada.turno}: {entrada.acaoLabel}
-                  </span>
-                  {entrada.foiIncorreta && <Badge color="red">conduta inadequada</Badge>}
-                </div>
-                {entrada.resultadoTexto && (
-                  <p className="mt-1.5 text-xs italic text-slate-400">{entrada.resultadoTexto}</p>
-                )}
-              </li>
-            ))}
-          </ol>
+          {estado.log.length === 0 ? (
+            <p className="text-sm text-slate-500">Nenhuma conduta ainda — as ações que você tomar aparecem aqui, em ordem.</p>
+          ) : (
+            <ol className="max-h-[32rem] space-y-2 overflow-y-auto">
+              {estado.log.map((entrada, index) => (
+                <li
+                  key={index}
+                  className={`rounded-lg border px-3 py-2 text-sm ${
+                    entrada.foiIncorreta
+                      ? "border-red-500/30 bg-red-500/5 text-red-300"
+                      : "border-slate-800 bg-slate-950 text-slate-300"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-medium">Turno {entrada.turno}</span>
+                    {entrada.foiIncorreta && <Badge color="red">inadequada</Badge>}
+                  </div>
+                  <p className="mt-1">{entrada.acaoLabel}</p>
+                  {entrada.resultadoTexto && (
+                    <p className="mt-1.5 text-xs italic text-slate-400">{entrada.resultadoTexto}</p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
-      )}
-
-      {jogoAcabou && (
-        <div className="mt-6">
-          <button
-            type="button"
-            onClick={reiniciar}
-            className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
-          >
-            ↺ Jogar de novo
-          </button>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

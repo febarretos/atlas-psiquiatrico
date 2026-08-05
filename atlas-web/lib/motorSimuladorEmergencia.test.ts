@@ -274,3 +274,37 @@ test("escolherAcao: ignora ação escolhida depois que o jogo já acabou", () =>
   const proximo = escolherAcao(nmsPlantaoSexta, estado, acaoPorId(nmsPlantaoSexta, "dantroleno"));
   assert.equal(proximo, estado); // retorna o mesmo objeto, sem processar nada
 });
+
+test("criarEstadoInicial: acoesJaUsadas começa vazio", () => {
+  const estado = criarEstadoInicial(nmsPlantaoSexta);
+  assert.equal(estado.acoesJaUsadas.size, 0);
+});
+
+test("escolherAcao: acrescenta o id da ação a acoesJaUsadas, sem mutar o Set anterior", () => {
+  const inicial = criarEstadoInicial(nmsPlantaoSexta);
+  const depoisDantroleno = escolherAcao(nmsPlantaoSexta, inicial, acaoPorId(nmsPlantaoSexta, "dantroleno"));
+
+  assert.equal(inicial.acoesJaUsadas.size, 0); // estado anterior não foi mutado
+  assert.ok(depoisDantroleno.acoesJaUsadas.has("dantroleno"));
+  assert.equal(depoisDantroleno.acoesJaUsadas.size, 1);
+
+  const depoisLorazepam = escolherAcao(
+    nmsPlantaoSexta,
+    depoisDantroleno,
+    acaoPorId(nmsPlantaoSexta, "lorazepam-agitacao")
+  );
+  assert.equal(depoisLorazepam.acoesJaUsadas.size, 2);
+  assert.ok(depoisLorazepam.acoesJaUsadas.has("dantroleno"));
+  assert.ok(depoisLorazepam.acoesJaUsadas.has("lorazepam-agitacao"));
+});
+
+test("escolherAcao: repetir a mesma ação não duplica a entrada em acoesJaUsadas (Set), mas duplica em log", () => {
+  const inicial = criarEstadoInicial(nmsPlantaoSexta);
+  const acao = acaoPorId(nmsPlantaoSexta, "lorazepam-agitacao");
+
+  const primeiro = escolherAcao(nmsPlantaoSexta, inicial, acao);
+  const segundo = escolherAcao(nmsPlantaoSexta, primeiro, acao);
+
+  assert.equal(segundo.acoesJaUsadas.size, 1);
+  assert.equal(segundo.log.filter((e) => e.acaoId === "lorazepam-agitacao").length, 2);
+});

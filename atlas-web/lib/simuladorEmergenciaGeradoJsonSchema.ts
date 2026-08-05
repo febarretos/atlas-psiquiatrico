@@ -129,6 +129,11 @@ const acaoDisponivelJsonSchema: GeminiSchema = {
       description:
         "Resultado narrativo fixo mostrado ao jogador quando ele escolhe esta ação (ex.: 'CK sérica: 18.400 U/L — muito elevada. Função renal preservada.', 'A UTI confirma leito em 15 minutos.'). OBRIGATÓRIO sempre que efeitoImediato não mudar nenhum sinal vital (comum em ações de categoria exame/comunicacao) — sem isso a ação não dá NENHUM feedback ao jogador. Puramente narrativo, não é lido pelo motor do jogo.",
     },
+    repetivel: {
+      type: "BOOLEAN",
+      description:
+        "true SOMENTE pra ações que fazem sentido escolher mais de uma vez na mesma partida (ex.: redose de um benzodiazepínico, hidratação/resfriamento contínuo). false ou omitido pra decisões de uma vez só (ex.: suspender um medicamento, chamar a UTI, solicitar um exame, contenção mecânica) — a interface desabilita o botão dessas depois do primeiro uso.",
+    },
   },
   required: ["id", "label", "categoria", "custoTempo", "efeitoImediato"],
 };

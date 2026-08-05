@@ -222,6 +222,12 @@ export interface EstadoJogo {
   turnoAtual: number;
   log: EntradaLog[];
   desfecho: Desfecho | null;
+  // Ids de ações já escolhidas ao menos uma vez nesta partida — usado
+  // pela UI pra desabilitar ações não-repetíveis já usadas (ver
+  // AcaoDisponivel.repetivel em data/simulador-emergencia/types.ts). Não é
+  // consultado por escolherAcao: o motor sempre processa a ação recebida,
+  // a restrição é só de interface.
+  acoesJaUsadas: Set<string>;
 }
 
 export function criarEstadoInicial(caso: CasoSimuladorEmergencia): EstadoJogo {
@@ -230,6 +236,7 @@ export function criarEstadoInicial(caso: CasoSimuladorEmergencia): EstadoJogo {
     turnoAtual: 0,
     log: [],
     desfecho: verificarDesfecho(caso, caso.sinaisVitaisIniciais, 0),
+    acoesJaUsadas: new Set(),
   };
 }
 
@@ -272,5 +279,6 @@ export function escolherAcao(
       },
     ],
     desfecho,
+    acoesJaUsadas: new Set(estado.acoesJaUsadas).add(acao.id),
   };
 }
