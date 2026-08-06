@@ -76,9 +76,18 @@ export default function MedicamentosPage({
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
-          💊 Medicamentos
-        </h1>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-4xl font-bold text-white">
+            💊 Medicamentos
+          </h1>
+
+          <Link
+            href="/medicamentos/classes"
+            className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+          >
+            🗂️ Navegar por classe
+          </Link>
+        </div>
 
         <p className="mt-3 text-slate-400">
           {lista.length} medicamento(s)
