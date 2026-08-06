@@ -4,7 +4,11 @@ import { useMemo, useState } from "react";
 
 import { Fluxograma, FluxogramaNode } from "../../data/fluxogramas/types";
 import { medicamentos } from "../../data/medicamentos";
+import { escalas } from "../../data/escalas";
+import { diagnosticos } from "../../data/diagnosticos";
 import MedicamentoMiniCard from "./MedicamentoMiniCard";
+import EscalaMiniCard from "./EscalaMiniCard";
+import DiagnosticoMiniCard from "./DiagnosticoMiniCard";
 import CondutaProntuarioPanel from "./CondutaProntuarioPanel";
 import { limparRotuloParaTrilha } from "../../lib/gerarTextoProntuario";
 
@@ -100,6 +104,14 @@ export default function FluxogramaViewer({
     .map((id) => medicamentos.find((m) => m.id === id))
     .filter((m): m is NonNullable<typeof m> => Boolean(m));
 
+  const escalasDoNode = (nodeAtual.escalasRelacionadas ?? [])
+    .map((id) => escalas.find((e) => e.id === id))
+    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+
+  const diagnosticosDoNode = (nodeAtual.diagnosticosRelacionados ?? [])
+    .map((id) => diagnosticos.find((d) => d.id === id))
+    .filter((d): d is NonNullable<typeof d> => Boolean(d));
+
   const trilhaDeDecisoes = caminhoPercorrido
     .map((passo) => passo.opcaoEscolhida)
     .filter((opcao): opcao is string => Boolean(opcao))
@@ -155,6 +167,22 @@ export default function FluxogramaViewer({
             </p>
           )}
 
+          {escalasDoNode.length > 0 && (
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {escalasDoNode.map((e) => (
+                <EscalaMiniCard key={e.id} escala={e} />
+              ))}
+            </div>
+          )}
+
+          {diagnosticosDoNode.length > 0 && (
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {diagnosticosDoNode.map((d) => (
+                <DiagnosticoMiniCard key={d.id} diagnostico={d} />
+              ))}
+            </div>
+          )}
+
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {nodeAtual.opcoes?.map((opcao) => (
               <button
@@ -196,6 +224,22 @@ export default function FluxogramaViewer({
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {medicamentosDoNode.map((m) => (
                 <MedicamentoMiniCard key={m.id} medicamento={m} />
+              ))}
+            </div>
+          )}
+
+          {escalasDoNode.length > 0 && (
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {escalasDoNode.map((e) => (
+                <EscalaMiniCard key={e.id} escala={e} />
+              ))}
+            </div>
+          )}
+
+          {diagnosticosDoNode.length > 0 && (
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {diagnosticosDoNode.map((d) => (
+                <DiagnosticoMiniCard key={d.id} diagnostico={d} />
               ))}
             </div>
           )}

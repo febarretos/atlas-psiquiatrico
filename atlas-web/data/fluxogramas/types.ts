@@ -26,6 +26,19 @@ export interface FluxogramaNode {
   // mini-card do medicamento (nome, dose inicial, pérola clínica) que
   // linka para a página completa dele.
   medicamentosRelacionados?: string[];
+
+  // Ids de data/escalas referenciados por este passo do algoritmo (ex.:
+  // "aplicar a escala X") — renderiza um mini-card da escala (sigla,
+  // nome, categoria) que linka para a página completa dela. Pode
+  // aparecer tanto em node "pergunta" (indicação do instrumento antes
+  // de decidir) quanto "conduta".
+  escalasRelacionadas?: string[];
+
+  // Ids de data/diagnosticos referenciados por este node (ex.: um node
+  // de diagnóstico diferencial que aponta pro diagnóstico formal
+  // correspondente) — renderiza um mini-card do diagnóstico (nome,
+  // categoria, CID) que linka para a página completa dele.
+  diagnosticosRelacionados?: string[];
 }
 
 export interface Fluxograma {

@@ -7,6 +7,7 @@ import { esquizofreniaRefrataria } from "./esquizofrenia-refrataria";
 import { abstinenciaAlcoolica } from "./abstinencia-alcoolica";
 import { manejoAnsiedade } from "./manejo-ansiedade";
 import { manejoTranstornoBipolar } from "./manejo-transtorno-bipolar";
+import { avaliacaoDemencia } from "./avaliacao-demencia";
 
 export const fluxogramas = [
   riscoSuicidio,
@@ -18,4 +19,5 @@ export const fluxogramas = [
   manejoToc,
   esquizofreniaRefrataria,
   abstinenciaAlcoolica,
+  avaliacaoDemencia,
 ];

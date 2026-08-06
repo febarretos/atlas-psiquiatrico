@@ -57,6 +57,11 @@ import { tiamina } from "./antidotos-resgate/tiamina";
 import { naloxona } from "./antidotos-resgate/naloxona";
 import { flumazenil } from "./antidotos-resgate/flumazenil";
 
+import { donepezila } from "./anticolinesterasicos-e-antidemencia/donepezila";
+import { rivastigmina } from "./anticolinesterasicos-e-antidemencia/rivastigmina";
+import { galantamina } from "./anticolinesterasicos-e-antidemencia/galantamina";
+import { memantina } from "./anticolinesterasicos-e-antidemencia/memantina";
+
 export const medicamentos = [
   sertralina,
   escitalopram,
@@ -116,4 +121,9 @@ export const medicamentos = [
   tiamina,
   naloxona,
   flumazenil,
+
+  donepezila,
+  rivastigmina,
+  galantamina,
+  memantina,
 ];

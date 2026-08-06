@@ -17,8 +17,12 @@ import { scoff } from "./scoff";
 import { msiBpd } from "./msi-bpd";
 import { epds } from "./epds";
 import { isi } from "./isi";
+import { meem } from "./meem";
+import { moca } from "./moca";
 
 export const escalas = [
+  meem,
+  moca,
   cssrs,
   phq9,
   gad7,

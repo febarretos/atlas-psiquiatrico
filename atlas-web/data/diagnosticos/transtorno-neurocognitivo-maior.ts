@@ -72,11 +72,15 @@ export const transtornoNeurocognitivoMaior: Diagnostico = {
     { id: "curso-cronico-meses", peso: 2 },
   ],
 
-  // Inibidores da colinesterase e memantina (primeira linha farmacológica
-  // segundo o texto acima) não constam em data/medicamentos/index.ts;
-  // medicamentosPrimeiraLinha omitido. Antipsicóticos deliberadamente NÃO
-  // incluídos aqui como primeira linha (ver alerta de risco de mortalidade
-  // aumentada nesta população em tratamentoPrimeiraLinha).
+  // Antipsicóticos deliberadamente NÃO incluídos aqui como primeira linha
+  // (ver alerta de risco de mortalidade aumentada nesta população em
+  // tratamentoPrimeiraLinha).
+  medicamentosPrimeiraLinha: [
+    "donepezila",
+    "rivastigmina",
+    "galantamina",
+    "memantina",
+  ],
 
   referencias: [
     "DSM-5-TR (American Psychiatric Association, 2022)",
