@@ -67,6 +67,16 @@ ${montarBlocoInspiracao(inspiracao)}
 - noInicialId deve ser o id do primeiro nó (turno "entrevista").
 - Cada nó de desfecho deve refletir de forma honesta o resultado do caminho de decisões que levou até ele — um caminho com decisões majoritariamente "problematica" deve levar a um desfecho pior (não necessariamente catastrófico, mas com consequência real), e um caminho majoritariamente "ideal" a um desfecho bom.
 
+## Regras para as opções de cada nó — evitar que a resposta certa fique óbvia só pela forma
+
+1. POSIÇÃO ALEATÓRIA: a opção "ideal" NÃO pode ficar sempre na primeira posição da lista. Varie deliberadamente a posição da opção "ideal" (e da ordem das demais) de nó para nó — em alguns nós ela deve vir em segundo, terceiro ou último lugar. Um jogador que aprenda "a resposta certa é sempre a primeira" está trapaceando o jogo, não aprendendo psiquiatria.
+
+2. PARIDADE DE TAMANHO: as opções de um mesmo nó devem ter comprimento e nível de detalhe similares. Não deixe a opção "ideal" visivelmente mais longa, mais específica ou mais bem escrita que as demais — isso é uma pista tão forte quanto a posição.
+
+3. SEM PISTAS LINGUÍSTICAS: evite qualificadores absolutos nas opções "problematica" ("imediatamente", "sem questionar", "ignorando totalmente") quando um distrator mais sutil seria mais realista, e evite hedging na opção "ideal" que a faça soar obviamente mais cautelosa/correta. As opções devem soar igualmente plausíveis e igualmente decididas na forma como estão escritas — a diferença tem que estar no conteúdo clínico, não no tom.
+
+4. TESTE MENTAL OBRIGATÓRIO antes de finalizar cada nó: "um residente, lendo só a posição e o tom das opções (sem avaliar o mérito clínico de cada uma), conseguiria adivinhar qual é a ideal?" Se a resposta for sim, reordene e reescreva até que não consiga.
+
 ## Instruções finais
 - Todo nó (exceto desfecho) deve ter opções cujas qualidadeDecisao variem entre "ideal", "aceitavel" e "problematica" — não deixe todas as opções de um mesmo nó com a mesma avaliação, isso tornaria a escolha óbvia demais mesmo sem o rótulo aparecer.
 - Não preencha nenhum campo de referência bibliográfica ou pérola clínica — não fazem parte deste schema.

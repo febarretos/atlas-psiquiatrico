@@ -17,10 +17,10 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "ideal"
         },
         {
-          "texto": "Focar apenas nos detalhes das deliberações sobre o relógio de luz, ignorando a duração total dos sintomas e o histórico prévio.",
-          "consequencia": "Vanderlei se empolga explicando a fiação, mas você perde dados essenciais sobre a cronologia e fatores desencadeantes.",
-          "proximoNoId": "exames-investigacao-parcial",
-          "qualidadeDecisao": "aceitavel"
+          "texto": "Confrontar Vanderlei diretamente, afirmando que tomadas não transmitem pensamentos e que sua teoria é fisicamente impossível.",
+          "consequencia": "Vanderlei se levanta irritado, acusa você de estar mancomunado com o síndico e recusa-se a continuar falando.",
+          "proximoNoId": "exames-investigacao-agressiva",
+          "qualidadeDecisao": "problematica"
         },
         {
           "texto": "Diagnosticar imediatamente psicose induzida por maconha e encerrar a entrevista sem investigar a duração dos sintomas ou descartar causas orgânicas.",
@@ -29,10 +29,10 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Confrontar Vanderlei diretamente, afirmando que tomadas não transmitem pensamentos e que sua teoria é fisicamente impossível.",
-          "consequencia": "Vanderlei se levanta irritado, acusa você de estar mancomunado com o síndico e recusa-se a continuar falando.",
-          "proximoNoId": "exames-investigacao-agressiva",
-          "qualidadeDecisao": "problematica"
+          "texto": "Focar apenas nos detalhes das deliberações sobre o relógio de luz, ignorando a duração total dos sintomas e o histórico prévio.",
+          "consequencia": "Vanderlei se empolga explicando a fiação, mas você perde dados essenciais sobre a cronologia e fatores desencadeantes.",
+          "proximoNoId": "exames-investigacao-parcial",
+          "qualidadeDecisao": "aceitavel"
         }
       ]
     },
@@ -41,13 +41,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "turno": "exames",
       "narrativa": "A anamnese detalhada confirma mais de 6 meses de sintomas ativos e residuais com impacto funcional marcante. Para cumprir o Critério E do DSM-5 e descartar etiologias secundárias, você solicita exames laboratoriais (hemograma, TSH, função renal/hepática, eletrólitos, sorologias, toxicológico de urina) e TC de crânio. Todos os resultados retornam estritamente normais.",
       "opcoes": [
-        {
-          "texto": "Iniciar Risperidona 1 a 2 mg/dia via oral, prevendo titulação gradual para 2 a 4 mg/dia, associada a psicoeducação familiar.",
-          "consequencia": "Vanderlei aceita a medicação inicial sem resistência relevante e a família se sente acolhida com a explicação do plano terapêutico.",
-          "medicamentoId": "risperidona",
-          "proximoNoId": "conduta-tratamento-primeira-linha",
-          "qualidadeDecisao": "ideal"
-        },
         {
           "texto": "Prescrever Olanzapina 5 a 10 mg/dia via oral, orientando a família sobre monitorização metabólica e perfil de efeitos adversos.",
           "consequencia": "O tratamento antipsicótico de primeira linha é iniciado com boa perspectiva de resposta nos sintomas positivos.",
@@ -61,6 +54,13 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "medicamentoId": "clozapina",
           "proximoNoId": "conduta-erro-farmacologico",
           "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Iniciar Risperidona 1 a 2 mg/dia via oral, prevendo titulação gradual para 2 a 4 mg/dia, associada a psicoeducação familiar.",
+          "consequencia": "Vanderlei aceita a medicação inicial sem resistência relevante e a família se sente acolhida com a explicação do plano terapêutico.",
+          "medicamentoId": "risperidona",
+          "proximoNoId": "conduta-tratamento-primeira-linha",
+          "qualidadeDecisao": "ideal"
         },
         {
           "texto": "Prescrever Quetiapina 25 mg/dia à noite como dose única e definitiva para tratar a psicose.",
@@ -84,11 +84,11 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "ideal"
         },
         {
-          "texto": "Prescrever Aripiprazol 10 mg/dia via oral enquanto aguarda a evolução clínica do paciente.",
-          "consequencia": "O antipsicótico atípico é iniciado adequadamente, embora a investigação diagnóstica tenha ficado um pouco lacunar.",
-          "medicamentoId": "aripiprazol",
-          "proximoNoId": "conduta-tratamento-parcial",
-          "qualidadeDecisao": "aceitavel"
+          "texto": "Dar alta com prescrição exclusiva de Diazepam 10 mg/dia para acalmar a paranoia sem prescrever antipsicóticos.",
+          "consequencia": "A ansiedade reduz discretamente, mas os delírios e alucinações permanecem intactos e o quadro psicótico evolui sem tratamento específico.",
+          "medicamentoId": "diazepam",
+          "proximoNoId": "conduta-sem-antipsicotico",
+          "qualidadeDecisao": "problematica"
         },
         {
           "texto": "Prescrever Haloperidol 20 mg/dia em dose alta imediata para conter as ideias delirantes rapidamente.",
@@ -98,11 +98,11 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Dar alta com prescrição exclusiva de Diazepam 10 mg/dia para acalmar a paranoia sem prescrever antipsicóticos.",
-          "consequencia": "A ansiedade reduz discretamente, mas os delírios e alucinações permanecem intactos e o quadro psicótico evolui sem tratamento específico.",
-          "medicamentoId": "diazepam",
-          "proximoNoId": "conduta-sem-antipsicotico",
-          "qualidadeDecisao": "problematica"
+          "texto": "Prescrever Aripiprazol 10 mg/dia via oral enquanto aguarda a evolução clínica do paciente.",
+          "consequencia": "O antipsicótico atípico é iniciado adequadamente, embora a investigação diagnóstica tenha ficado um pouco lacunar.",
+          "medicamentoId": "aripiprazol",
+          "proximoNoId": "conduta-tratamento-parcial",
+          "qualidadeDecisao": "aceitavel"
         }
       ]
     },
@@ -112,18 +112,17 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "narrativa": "A precipitação diagnóstica gerou ruído na relação médico-paciente. Dona Valéria traz exames de sangue recentes de um atendimento de urgência sem alterações relevantes, mas você não realizou o exame físico neurológico adequado nem confirmou os critérios para transtorno psicótico primário.",
       "opcoes": [
         {
+          "texto": "Manter a hipótese de uso clandestino de substâncias sem solicitar exames e liberar o paciente sem medicação.",
+          "consequencia": "Vanderlei fica sem assistência, os delírios se intensificam e a família fica desamparada.",
+          "proximoNoId": "conduta-sem-antipsicotico",
+          "qualidadeDecisao": "problematica"
+        },
+        {
           "texto": "Reconhecer a pressa, acolher o paciente, solicitar triagem toxicológica de confirmação e iniciar Olanzapina 10 mg/dia.",
           "consequencia": "A aliança terapêutica é reconstruída e o tratamento de primeira linha para esquizofrenia é corretamente instituído.",
           "medicamentoId": "olanzapina",
           "proximoNoId": "conduta-tratamento-primeira-linha",
           "qualidadeDecisao": "ideal"
-        },
-        {
-          "texto": "Iniciar Paliperidona 6 mg/dia via oral enquanto agenda exames complementares de rotina.",
-          "consequencia": "O antipsicótico atípico é iniciado com sucesso, trazendo estabilização inicial apesar do atrito na entrevista.",
-          "medicamentoId": "paliperidona",
-          "proximoNoId": "conduta-tratamento-parcial",
-          "qualidadeDecisao": "aceitavel"
         },
         {
           "texto": "Prescrever Risperidona 12 mg/dia de início para compensar a falta de diagnóstico preciso com dose elevada.",
@@ -133,10 +132,11 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Manter a hipótese de uso clandestino de substâncias sem solicitar exames e liberar o paciente sem medicação.",
-          "consequencia": "Vanderlei fica sem assistência, os delírios se intensificam e a família fica desamparada.",
-          "proximoNoId": "conduta-sem-antipsicotico",
-          "qualidadeDecisao": "problematica"
+          "texto": "Iniciar Paliperidona 6 mg/dia via oral enquanto agenda exames complementares de rotina.",
+          "consequencia": "O antipsicótico atípico é iniciado com sucesso, trazendo estabilização inicial apesar do atrito na entrevista.",
+          "medicamentoId": "paliperidona",
+          "proximoNoId": "conduta-tratamento-parcial",
+          "qualidadeDecisao": "aceitavel"
         }
       ]
     },
@@ -153,6 +153,12 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "ideal"
         },
         {
+          "texto": "Dar alta sugerindo que a família procure um pronto-socorro apenas se ele se tornar violento.",
+          "consequencia": "O paciente é desassistido no momento crítico do primeiro episódio/recaída sem intervenção precoce.",
+          "proximoNoId": "conduta-sem-antipsicotico",
+          "qualidadeDecisao": "problematica"
+        },
+        {
           "texto": "Prescrever Quetiapina 300 mg/dia com titulação em etapas para manejar a agitação e os sintomas psicóticos.",
           "consequencia": "A dose adequada para esquizofrenia é atingida gradualmente, reduzindo a paranoia sem causar contenção mecanicista.",
           "medicamentoId": "quetiapina",
@@ -164,12 +170,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "consequencia": "A experiência é traumatizante para o paciente, que passa a enxergar a equipe médica como parceira do síndico persecutório.",
           "proximoNoId": "conduta-erro-farmacologico",
           "qualidadeDecisao": "problematica"
-        },
-        {
-          "texto": "Dar alta sugerindo que a família procure um pronto-socorro apenas se ele se tornar violento.",
-          "consequencia": "O paciente é desassistido no momento crítico do primeiro episódio/recaída sem intervenção precoce.",
-          "proximoNoId": "conduta-sem-antipsicotico",
-          "qualidadeDecisao": "problematica"
         }
       ]
     },
@@ -178,6 +178,18 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "turno": "conduta",
       "narrativa": "O antipsicótico de segunda geração foi bem instituído em dose terapêutica inicial adequada. Na consulta de retorno após 3 semanas, Dona Valéria relata que Vanderlei está mais calmo, parou de falar com as tomadas e aceitou retirar parte do papel-alumínio das janelas. Ele nega efeitos colaterais graves.",
       "opcoes": [
+        {
+          "texto": "Suspender o antipsicótico alegando que, como as vozes pararam, o tratamento já cumpriu seu papel.",
+          "consequencia": "A interrupção precoce provoca recaída psicótica aguda em poucas semanas.",
+          "proximoNoId": "evolucao-ruim",
+          "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Associar um segundo antipsicótico potente sem aguardar as 4 a 6 semanas recomendadas de teste terapêutico em monoterapia.",
+          "consequencia": "A polifarmácia precoce aumenta a carga anticolinérgica e os efeitos colaterais sem ganho comprovado de eficácia.",
+          "proximoNoId": "evolucao-ruim",
+          "qualidadeDecisao": "problematica"
+        },
         {
           "texto": "Manter a dose terapêutica do antipsicótico, monitorar perfil metabólico/prolactina e encaminhar para intervenções psicossociais (CAPS/TCC).",
           "consequencia": "A conduta combinada consolida a resposta terapêutica e promove a reabilitação funcional sustentada.",
@@ -189,18 +201,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "consequencia": "O aumento precoce desnecessário gera acatisia leve que deixa Vanderlei irrequieto durante o dia.",
           "proximoNoId": "evolucao-intermediaria",
           "qualidadeDecisao": "aceitavel"
-        },
-        {
-          "texto": "Associar um segundo antipsicótico potente sem aguardar as 4 a 6 semanas recomendadas de teste terapêutico em monoterapia.",
-          "consequencia": "A polifarmácia precoce aumenta a carga anticolinérgica e os efeitos colaterais sem ganho comprovado de eficácia.",
-          "proximoNoId": "evolucao-ruim",
-          "qualidadeDecisao": "problematica"
-        },
-        {
-          "texto": "Suspender o antipsicótico alegando que, como as vozes pararam, o tratamento já cumpriu seu papel.",
-          "consequencia": "A interrupção precoce provoca recaída psicótica aguda em poucas semanas.",
-          "proximoNoId": "evolucao-ruim",
-          "qualidadeDecisao": "problematica"
         }
       ]
     },
@@ -210,17 +210,17 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "narrativa": "Na avaliação de retorno após 3 semanas, Vanderlei apresenta melhora discreta. Ele ainda acredita que o relógio de luz monitora seus passos, mas o impacto emocional reduziu. Entretanto, relata inquietação nas pernas que o impede de ficar sentado (acatisia discreta).",
       "opcoes": [
         {
+          "texto": "Adicionar um benzodiazepínico em dose alta contínua como única solução para a Inquietação, ignorando o ajuste antipsicótico.",
+          "consequencia": "O paciente desenvolve sedação e tolerância ao benzodiazepínico sem resolver a causa primária.",
+          "proximoNoId": "evolucao-ruim",
+          "qualidadeDecisao": "problematica"
+        },
+        {
           "texto": "Ajustar a dose do antipsicótico ou associar Propranolol para tratar a acatisia, mantendo a monoterapia e o suporte familiar.",
           "consequencia": "A acatisia melhora sensivelmente, aumentando o conforto e a adesão de Vanderlei ao tratamento.",
           "medicamentoId": "propranolol",
           "proximoNoId": "evolucao-boa",
           "qualidadeDecisao": "ideal"
-        },
-        {
-          "texto": "Manter o mesmo esquema sem tratar a acatisia, orientando o paciente a suportar o desconforto.",
-          "consequencia": "Vanderlei começa a pular doses do remédio por conta própria devido ao desconforto motor.",
-          "proximoNoId": "evolucao-intermediaria",
-          "qualidadeDecisao": "aceitavel"
         },
         {
           "texto": "Trocar abruptamente de antipsicótico sem fazer o desmame cruzado adequado.",
@@ -229,10 +229,10 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Adicionar um benzodiazepínico em dose alta contínua como única solução para a Inquietação, ignorando o ajuste antipsicótico.",
-          "consequencia": "O paciente desenvolve sedação e tolerância ao benzodiazepínico sem resolver a causa primária.",
-          "proximoNoId": "evolucao-ruim",
-          "qualidadeDecisao": "problematica"
+          "texto": "Manter o mesmo esquema sem tratar a acatisia, orientando o paciente a suportar o desconforto.",
+          "consequencia": "Vanderlei começa a pular doses do remédio por conta própria devido ao desconforto motor.",
+          "proximoNoId": "evolucao-intermediaria",
+          "qualidadeDecisao": "aceitavel"
         }
       ]
     },
@@ -241,12 +241,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "turno": "conduta",
       "narrativa": "A conduta inicial inadequada (dose excessiva, Clozapina sem critérios ou contenção) gerou complicações. Vanderlei retorna extremamente sedado, com sialorreia ou rigidez marcada. Valéria está desesperada achando que o irmão enlouqueceu de vez devido ao remédio.",
       "opcoes": [
-        {
-          "texto": "Reconhecer o efeito adverso, reajustar o antipsicótico para dose terapêutica baixa de atípico de 2ª geração e prescrever medicação sintomática.",
-          "consequencia": "Os efeitos colaterais regridem e o paciente recupera o bem-estar físico básico, permitindo retomar o tratamento com segurança.",
-          "proximoNoId": "evolucao-intermediaria",
-          "qualidadeDecisao": "ideal"
-        },
         {
           "texto": "Manter a dose alta acreditando que a rigidez e a agitação motora são piora do quadro psicótico primário.",
           "consequencia": "O paciente evolui com piora acentuada dos sintomas extrapiramidais e recusa total de medicação oral.",
@@ -264,6 +258,12 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "consequencia": "O paciente fica totalmente desamparado e apresenta grave recaída psicótica.",
           "proximoNoId": "evolucao-ruim",
           "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Reconhecer o efeito adverso, reajustar o antipsicótico para dose terapêutica baixa de atípico de 2ª geração e prescrever medicação sintomática.",
+          "consequencia": "Os efeitos colaterais regridem e o paciente recupera o bem-estar físico básico, permitindo retomar o tratamento com segurança.",
+          "proximoNoId": "evolucao-intermediaria",
+          "qualidadeDecisao": "ideal"
         }
       ]
     },
@@ -280,13 +280,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "ideal"
         },
         {
-          "texto": "Subir a Quetiapina apenas para 50 mg/dia mantendo a dose em nível insuficiente para bloqueio dopaminérgico psicótico.",
-          "consequencia": "O paciente continua psicótico e apenas dorme mais horas durante o dia.",
-          "medicamentoId": "quetiapina",
-          "proximoNoId": "evolucao-intermediaria",
-          "qualidadeDecisao": "aceitavel"
-        },
-        {
           "texto": "Manter a dose subterapêutica e associar um antidepressivo ISRS.",
           "consequencia": "O antidepressivo não trata o quadro psicótico primário e os delírios persistem inalterados.",
           "proximoNoId": "evolucao-ruim",
@@ -297,6 +290,13 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "consequencia": "A família abandona o tratamento médico e o paciente se deteriora em isolamento grave.",
           "proximoNoId": "evolucao-ruim",
           "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Subir a Quetiapina apenas para 50 mg/dia mantendo a dose em nível insuficiente para bloqueio dopaminérgico psicótico.",
+          "consequencia": "O paciente continua psicótico e apenas dorme mais horas durante o dia.",
+          "medicamentoId": "quetiapina",
+          "proximoNoId": "evolucao-intermediaria",
+          "qualidadeDecisao": "aceitavel"
         }
       ]
     },
@@ -306,11 +306,10 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "narrativa": "Sem antipsicótico prescrito, Vanderlei piora rapidamente. Duas semanas depois, ele ameaçou o síndico com um martelo para tentar arrancar o relógio de luz do prédio. A polícia foi acionada e o trouxe ao pronto-socorro psiquiátrico acompanhado da irmã.",
       "opcoes": [
         {
-          "texto": "Acolher a crise, iniciar antipsicótico atípico em dose adequada (ex: Olanzapina 10 mg/dia ou Risperidona 3 mg/dia) e propor acompanhamento intensivo no CAPS.",
-          "consequencia": "A crise é contida sem necessidade de violência e o tratamento adequado é finalmente iniciado.",
-          "medicamentoId": "olanzapina",
-          "proximoNoId": "evolucao-intermediaria",
-          "qualidadeDecisao": "ideal"
+          "texto": "Recusar o atendimento alegando que o paciente é um caso de polícia e não de psiquiatria.",
+          "consequencia": "O paciente é marginalizado e o quadro de esquizofrenia não tratada culmina em desfecho trágico.",
+          "proximoNoId": "evolucao-ruim",
+          "qualidadeDecisao": "problematica"
         },
         {
           "texto": "Prescrever Risperidona 2 mg/dia e associar acompanhamento psicossocial urgente.",
@@ -326,10 +325,11 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Recusar o atendimento alegando que o paciente é um caso de polícia e não de psiquiatria.",
-          "consequencia": "O paciente é marginalizado e o quadro de esquizofrenia não tratada culmina em desfecho trágico.",
-          "proximoNoId": "evolucao-ruim",
-          "qualidadeDecisao": "problematica"
+          "texto": "Acolher a crise, iniciar antipsicótico atípico em dose adequada (ex: Olanzapina 10 mg/dia ou Risperidona 3 mg/dia) e propor acompanhamento intensivo no CAPS.",
+          "consequencia": "A crise é contida sem necessidade de violência e o tratamento adequado é finalmente iniciado.",
+          "medicamentoId": "olanzapina",
+          "proximoNoId": "evolucao-intermediaria",
+          "qualidadeDecisao": "ideal"
         }
       ]
     },
@@ -339,27 +339,27 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "narrativa": "Após 8 semanas de tratamento antipsicótico bem conduzido em dose terapêutica, Vanderlei apresenta remissão completa das alucinações auditivas e distanciamento crítico do delírio. Ele admite: Eu tinha certeza sobre o relógio de luz, mas agora vejo que era coisa da minha cabeça. Ele voltou a tomar banho diariamente e conversa sobre retornar à marcenaria.",
       "opcoes": [
         {
-          "texto": "Manter a medicação antipsicótica na dose eficaz de manutenção, vincular a reabilitação funcional e manter acompanhamento metabólico periódico.",
-          "consequencia": "Vanderlei consolida a estabilização psíquica, previne recaídas e retoma suas atividades produtivas.",
-          "proximoNoId": "desfecho-excelente",
-          "qualidadeDecisao": "ideal"
-        },
-        {
           "texto": "Reduzir a dose do antipsicótico pela metade imediatamente devido à melhora sintomática completa.",
           "consequencia": "A redução prematura da dose favorece o reaparecimento discreto de ruídos e desconfiança.",
           "proximoNoId": "desfecho-regular",
           "qualidadeDecisao": "aceitavel"
         },
         {
-          "texto": "Suspender a medicação e dar alta definitiva, considerando-o curado da esquizofrenia.",
-          "consequencia": "A esquizofrenia é uma condição crônica; a suspensão resulta em recaída grave nos meses subsequentes.",
-          "proximoNoId": "desfecho-grave",
-          "qualidadeDecisao": "problematica"
+          "texto": "Manter a medicação antipsicótica na dose eficaz de manutenção, vincular a reabilitação funcional e manter acompanhamento metabólico periódico.",
+          "consequencia": "Vanderlei consolida a estabilização psíquica, previne recaídas e retoma suas atividades produtivas.",
+          "proximoNoId": "desfecho-excelente",
+          "qualidadeDecisao": "ideal"
         },
         {
           "texto": "Trocar o antipsicótico atual por outro de classe diferente sem qualquer indicação clínica.",
           "consequencia": "A troca desnecessária gera instabilidade sintomática e desadaptação metabólica.",
           "proximoNoId": "desfecho-regular",
+          "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Suspender a medicação e dar alta definitiva, considerando-o curado da esquizofrenia.",
+          "consequencia": "A esquizofrenia é uma condição crônica; a suspensão resulta em recaída grave nos meses subsequentes.",
+          "proximoNoId": "desfecho-grave",
           "qualidadeDecisao": "problematica"
         }
       ]
@@ -369,12 +369,6 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "turno": "evolucao",
       "narrativa": "Vanderlei teve melhora parcial dos sintomas. As vozes das tomadas tornaram-se sussurros esporádicos, mas ele ainda evita o corredor do prédio e apresenta apatia marcante e lentificação (sintomas negativos/residuais). A irmã relata que ele passa o dia sentado na sala sem iniciativa.",
       "opcoes": [
-        {
-          "texto": "Otimizar a abordagem psicossocial (TCC para psicose, treino de habilidades sociais) e considerar antipsicótico com perfil favorável para sintomas negativos se necessário.",
-          "consequencia": "O estímulo psicossocial ajuda Vanderlei a superar a avolia e melhorar sua inserção social.",
-          "proximoNoId": "desfecho-excelente",
-          "qualidadeDecisao": "ideal"
-        },
         {
           "texto": "Aumentar a dose do antipsicótico ao máximo tolerado para tentar apagar os sintomas negativos.",
           "consequencia": "O aumento de dose piora o embotamento e induz impregnação motora sem melhorar a avolia.",
@@ -392,6 +386,12 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
           "consequencia": "O excesso de medicações provoca toxicidade e piora a adesão do paciente.",
           "proximoNoId": "desfecho-grave",
           "qualidadeDecisao": "problematica"
+        },
+        {
+          "texto": "Otimizar a abordagem psicossocial (TCC para psicose, treino de habilidades sociais) e considerar antipsicótico com perfil favorável para sintomas negativos se necessário.",
+          "consequencia": "O estímulo psicossocial ajuda Vanderlei a superar a avolia e melhorar sua inserção social.",
+          "proximoNoId": "desfecho-excelente",
+          "qualidadeDecisao": "ideal"
         }
       ]
     },
@@ -401,26 +401,26 @@ export const oTeoremaDasAntenasDoSeuVanderlei: CasoSimulador = {
       "narrativa": "O manejo inadequado resultou em deterioração do caso. Vanderlei está em exacerbação psicótica grave, recusa alimentos achando que estão envenenados pela rede elétrica e apresenta agitação psicomotora intermitente com prejuízo funcional total.",
       "opcoes": [
         {
-          "texto": "Indicar internação psiquiátrica para estabilização de crise, reavaliar o diagnóstico e reestruturar o esquema com antipsicótico atípico em dose adequada.",
-          "consequencia": "A internação protetiva permite ajustar a medicação em ambiente seguro e contornar a crise grave.",
-          "proximoNoId": "desfecho-regular",
-          "qualidadeDecisao": "ideal"
-        },
-        {
           "texto": "Associar três antipsicóticos diferentes em doses elevadas simultaneamente.",
           "consequencia": "A polifarmácia massiva causa efeitos colaterais severos e risco elevado de complicações metabólicas e neurológicas.",
           "proximoNoId": "desfecho-grave",
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Encaminhar para internação e dar alta definitiva do acompanhamento ambulatorial.",
-          "consequencia": "A falta de continuidade no pós-alta perpetua o ciclo de reinternações psiquiátricas.",
+          "texto": "Iniciar Clozapina sem equipe capacitada nem estrutura para realização do hemograma semanal obrigatório.",
+          "consequencia": "O uso irresponsável de Clozapina expõe o paciente a risco de agranulocitose não detectada.",
           "proximoNoId": "desfecho-grave",
           "qualidadeDecisao": "problematica"
         },
         {
-          "texto": "Iniciar Clozapina sem equipe capacitada nem estrutura para realização do hemograma semanal obrigatório.",
-          "consequencia": "O uso irresponsável de Clozapina expõe o paciente a risco de agranulocitose não detectada.",
+          "texto": "Indicar internação psiquiátrica para estabilização de crise, reavaliar o diagnóstico e reestruturar o esquema com antipsicótico atípico em dose adequada.",
+          "consequencia": "A internação protetiva permite ajustar a medicação em ambiente seguro e contornar a crise grave.",
+          "proximoNoId": "desfecho-regular",
+          "qualidadeDecisao": "ideal"
+        },
+        {
+          "texto": "Encaminhar para internação e dar alta definitiva do acompanhamento ambulatorial.",
+          "consequencia": "A falta de continuidade no pós-alta perpetua o ciclo de reinternações psiquiátricas.",
           "proximoNoId": "desfecho-grave",
           "qualidadeDecisao": "problematica"
         }
