@@ -19,7 +19,7 @@ function chaveItem(diagnosticoId: string, indice: number): string {
   return `${diagnosticoId}::${indice}`;
 }
 
-export default function EntrevistaScidChecklist({ diagnosticos }: Props) {
+export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) {
   const [busca, setBusca] = useState("");
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
   const [abertos, setAbertos] = useState<Set<string>>(new Set());
@@ -68,7 +68,7 @@ export default function EntrevistaScidChecklist({ diagnosticos }: Props) {
   const textoResumo = useMemo(() => {
     if (totalMarcados === 0) return "";
 
-    const linhas: string[] = ["ENTREVISTA ESTRUTURADA (checklist DSM-5-TR, formato SCID-5-CV) — itens positivos:", ""];
+    const linhas: string[] = ["ENTREVISTA ESTRUTURADA (checklist DSM-5-TR) — itens positivos:", ""];
 
     for (const { categoria, diagnosticos: listaDoModulo } of modulos) {
       const diagnosticosComMarcado = listaDoModulo.filter((d) =>
@@ -92,18 +92,12 @@ export default function EntrevistaScidChecklist({ diagnosticos }: Props) {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-8 rounded-xl border border-slate-800 bg-slate-900 p-8">
-        <h1 className="text-4xl font-bold text-white">🗂️ Entrevista SCID-5-CV</h1>
+        <h1 className="text-4xl font-bold text-white">🗂️ Entrevista Diagnóstica Estruturada</h1>
 
         <p className="mt-4 text-slate-400">
-          Checklist de apoio à entrevista clínica estruturada, organizado no formato de módulos
-          do SCID-5-CV (Structured Clinical Interview for DSM-5 — Clinician Version). Os itens de
-          cada transtorno vêm dos critérios diagnósticos do DSM-5-TR já cadastrados no Atlas —{" "}
-          <strong className="text-slate-300">
-            não é uma reprodução do roteiro/texto proprietário do SCID-5
-          </strong>{" "}
-          publicado pela American Psychiatric Publishing. Use como apoio de memória durante a
-          entrevista, não como substituto do instrumento original nem de treinamento formal em
-          sua aplicação.
+          Checklist de apoio à entrevista clínica, organizado por módulos diagnósticos, com os
+          critérios diagnósticos do DSM-5-TR já cadastrados no Atlas. Use como apoio de memória
+          durante a entrevista.
         </p>
 
         <p className="mt-3 text-sm text-slate-500">

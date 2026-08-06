@@ -1,0 +1,69 @@
+import { Diagnostico } from "./types";
+
+export const personalidadeAntissocial: Diagnostico = {
+  id: "personalidade-antissocial",
+
+  nome: "Transtorno de Personalidade Antissocial",
+
+  categoria: "Transtornos de Personalidade",
+
+  cid10: "F60.2",
+
+  descricao:
+    "Padrão persistente de desconsideração e violação dos direitos alheios, com início antes dos 15 anos (evidenciado por Transtorno de Conduta) e continuidade após os 18 anos. Diagnóstico exige idade mínima de 18 anos.",
+
+  criteriosDiagnosticos: [
+    "A. Padrão persistente de desconsideração e violação dos direitos alheios, ocorrendo desde os 15 anos, indicado por 3 (ou mais) dos seguintes critérios:",
+    "1. Fracasso em ajustar-se às normas sociais relativas a comportamentos legais, indicado pela execução repetida de atos que constituem motivo de detenção.",
+    "2. Tendência a enganar, indicada por mentiras repetidas, uso de nomes falsos ou de trapaça para benefício ou prazer pessoal.",
+    "3. Impulsividade ou fracasso em fazer planos para o futuro.",
+    "4. Irritabilidade e agressividade, indicadas por repetidas lutas corporais ou agressões físicas.",
+    "5. Desrespeito pela segurança própria ou alheia.",
+    "6. Irresponsabilidade persistente, indicada por fracasso repetido em manter comportamento laboral consistente ou honrar obrigações financeiras.",
+    "7. Ausência de remorso, indicada por indiferença ou racionalização por ter ferido, maltratado ou roubado outra pessoa.",
+    "B. O indivíduo tem, no mínimo, 18 anos.",
+    "C. Evidência de Transtorno de Conduta com início anterior aos 15 anos.",
+    "D. A ocorrência de comportamento antissocial não se dá exclusivamente durante o curso de esquizofrenia ou transtorno bipolar.",
+  ],
+
+  especificadores: [
+    "Presença de traços psicopáticos (frieza afetiva, superficialidade emocional, manipulação instrumental) associa-se a maior gravidade e pior resposta ao tratamento, embora não constitua um especificador formal do DSM-5-TR.",
+  ],
+
+  duracaoMinima: "Padrão presente desde os 15 anos (como Transtorno de Conduta), com diagnóstico formal de Transtorno de Personalidade Antissocial só a partir dos 18 anos",
+
+  prevalencia:
+    "Prevalência estimada entre 0,2% e 3,3% na população geral, significativamente mais comum em homens (proporção aproximada de 3:1 a 5:1). Prevalência muito mais elevada em populações forenses e penitenciárias.",
+
+  cursoEPrognostico:
+    "Curso crônico, com tendência a atenuação de comportamentos antissociais francos (especialmente criminalidade) a partir da quarta década de vida, embora déficits interpessoais e de empatia costumem persistir. Risco aumentado de morte prematura por causas violentas.",
+
+  diagnosticoDiferencial: [
+    "Transtorno por Uso de Substâncias — comportamento antissocial pode ocorrer exclusivamente no contexto de uso ativo de substâncias, sem padrão presente desde a adolescência",
+    "Esquizofrenia e Transtorno Bipolar — comportamento antissocial não deve ocorrer exclusivamente durante episódios desses transtornos (critério D)",
+    "Transtorno de Personalidade Narcisista — grandiosidade e busca de admiração predominam sobre agressividade e violação franca de normas/leis",
+    "Transtorno de Personalidade Borderline — impulsividade e instabilidade presentes, mas centradas em relacionamentos e autoimagem, não em desconsideração instrumental pelos direitos alheios",
+    "Comportamento antissocial próprio de determinados contextos socioeconômicos ou de grupo (deve haver disfunção que extrapole o esperado para o contexto)",
+  ],
+
+  comorbidadesComuns: [
+    "Transtorno por Uso de Substâncias (muito frequente)",
+    "Transtorno de Déficit de Atenção/Hiperatividade (histórico na infância)",
+    "Transtornos de Ansiedade e Transtorno Depressivo Maior",
+    "Transtorno do Jogo",
+    "Outros Transtornos de Personalidade (borderline, narcisista, histriônica)",
+  ],
+
+  tratamentoPrimeiraLinha: [
+    "Intervenções psicossociais estruturadas com foco cognitivo-comportamental voltadas a comportamento de risco e resolução de problemas — evidência de eficácia limitada e prognóstico reservado",
+    "Tratamento de comorbidades associadas (transtorno por uso de substâncias, TDAH residual) frequentemente traz o maior benefício funcional mensurável",
+    "Farmacoterapia não possui indicação como tratamento central do transtorno em si; pode ser considerada para agressividade impulsiva refratária ou sintomas-alvo específicos",
+    "Intervenção precoce em Transtorno de Conduta na infância/adolescência é a estratégia com maior potencial preventivo",
+  ],
+
+  referencias: [
+    "DSM-5-TR (American Psychiatric Association, 2022)",
+    "CID-10 (OMS)",
+    "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
+  ],
+};

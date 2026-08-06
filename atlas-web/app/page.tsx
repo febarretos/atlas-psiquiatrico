@@ -42,9 +42,9 @@ const modulos = [
     href: "/fluxogramas",
   },
   {
-    titulo: "🗂️ Entrevista SCID-5-CV",
-    descricao: "Checklist de apoio à entrevista estruturada, por módulos diagnósticos",
-    href: "/entrevista-scid",
+    titulo: "🗂️ Entrevista Diagnóstica Estruturada",
+    descricao: "Checklist de critérios DSM-5-TR, por módulos diagnósticos",
+    href: "/entrevista-estruturada",
   },
   {
     titulo: "🎮 Simulador de Psiquiatria",

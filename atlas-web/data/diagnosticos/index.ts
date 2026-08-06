@@ -7,6 +7,15 @@ import { toc } from "./toc";
 import { tept } from "./tept";
 import { esquizofrenia } from "./esquizofrenia";
 import { personalidadeBorderline } from "./personalidade-borderline";
+import { personalidadeParanoide } from "./personalidade-paranoide";
+import { personalidadeEsquizoide } from "./personalidade-esquizoide";
+import { personalidadeEsquizotipica } from "./personalidade-esquizotipica";
+import { personalidadeAntissocial } from "./personalidade-antissocial";
+import { personalidadeHistrionica } from "./personalidade-histrionica";
+import { personalidadeNarcisista } from "./personalidade-narcisista";
+import { personalidadeEsquiva } from "./personalidade-esquiva";
+import { personalidadeDependente } from "./personalidade-dependente";
+import { personalidadeObsessivoCompulsiva } from "./personalidade-obsessivo-compulsiva";
 import { fobiaSocial } from "./fobia-social";
 import { distimia } from "./distimia";
 import { ciclotimia } from "./ciclotimia";
@@ -32,6 +41,15 @@ export const diagnosticos = [
   tept,
   esquizofrenia,
   personalidadeBorderline,
+  personalidadeParanoide,
+  personalidadeEsquizoide,
+  personalidadeEsquizotipica,
+  personalidadeAntissocial,
+  personalidadeHistrionica,
+  personalidadeNarcisista,
+  personalidadeEsquiva,
+  personalidadeDependente,
+  personalidadeObsessivoCompulsiva,
   fobiaSocial,
   distimia,
   ciclotimia,
