@@ -121,7 +121,7 @@ export const agitacaoPsicomotora: Fluxograma = {
         "Há contraindicação relevante a antipsicóticos (ex. uso importante de álcool ou depressores do SNC com risco de depressão respiratória, prolongamento significativo do intervalo QT) ou indicação de monoterapia benzodiazepínica (ex. abstinência alcoólica)?",
       opcoes: [
         { label: "Sim", proximoNodeId: "conduta-im-benzodiazepinico" },
-        { label: "Não", proximoNodeId: "conduta-im-associacao" },
+        { label: "Não", proximoNodeId: "perfil-im-associacao" },
       ],
     },
     {
@@ -147,14 +147,40 @@ export const agitacaoPsicomotora: Fluxograma = {
       ],
     },
     {
-      id: "conduta-im-associacao",
+      id: "perfil-im-associacao",
+      tipo: "pergunta",
+      texto:
+        "Contenção química por via intramuscular é necessária. Antes de escolher entre associação (antipsicótico + benzodiazepínico) ou antipsicótico atípico isolado, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "As duas estratégias são alternativas, não devem ser somadas — associar olanzapina IM com benzodiazepínico carrega risco relevante de depressão cardiorrespiratória.",
+      opcoes: [
+        { label: "Risco cardiovascular relevante / QT longo", proximoNodeId: "conduta-im-olanzapina-isolada" },
+        { label: "Já recebeu benzodiazepínico ou uso concomitante de álcool/depressor do SNC", proximoNodeId: "conduta-im-olanzapina-isolada" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-im-haloperidol-lorazepam" },
+      ],
+    },
+    {
+      id: "conduta-im-haloperidol-lorazepam",
       tipo: "conduta",
       nivel: "atencao",
       texto:
-        "Administrar associação intramuscular de antipsicótico e benzodiazepínico (ex. haloperidol + lorazepam) ou antipsicótico atípico IM isolado (ex. olanzapina IM), com monitorização contínua de sinais vitais.",
+        "Associação intramuscular de haloperidol e lorazepam, com monitorização contínua de sinais vitais.",
       detalhe:
-        "Evitar associar olanzapina IM com benzodiazepínico pelo risco de depressão cardiorrespiratória — são duas estratégias alternativas, não devem ser somadas.",
-      medicamentosRelacionados: ["haloperidol", "olanzapina", "lorazepam"],
+        "Combinação clássica de contenção química, com mecanismos complementares (antagonismo D2 + potencialização GABAérgica) e resposta geralmente mais rápida que monoterapia. Reservar para pacientes sem risco cardiovascular relevante nem uso concomitante de outro depressor do SNC, pelo risco somado de prolongamento de QT (haloperidol) e depressão respiratória (associação com benzodiazepínico).",
+      medicamentosRelacionados: ["haloperidol", "lorazepam"],
+      opcoes: [
+        { label: "Reavaliar em 15-30 minutos →", proximoNodeId: "resposta-im-associacao" },
+      ],
+    },
+    {
+      id: "conduta-im-olanzapina-isolada",
+      tipo: "conduta",
+      nivel: "atencao",
+      texto:
+        "Olanzapina intramuscular isolada (sem associar benzodiazepínico), com monitorização contínua de sinais vitais.",
+      detalhe:
+        "Evita somar o risco de prolongamento de QT do haloperidol em paciente com risco cardiovascular relevante, e evita a depressão cardiorrespiratória aditiva de associar antipsicótico IM com benzodiazepínico em paciente que já recebeu depressor do SNC ou está sob efeito de álcool. Não administrar benzodiazepínico nas horas seguintes à olanzapina IM pelo mesmo motivo.",
+      medicamentosRelacionados: ["olanzapina"],
       opcoes: [
         { label: "Reavaliar em 15-30 minutos →", proximoNodeId: "resposta-im-associacao" },
       ],

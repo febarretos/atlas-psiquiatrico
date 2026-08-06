@@ -55,7 +55,7 @@ export const manejoToc: Fluxograma = {
         "TCC-EPR isolada é indicada quando há acesso a terapeuta com treinamento específico em EPR e o paciente está motivado a se engajar no tratamento.",
       opcoes: [
         { label: "Sim, disponibilidade e preferência por TCC-EPR", proximoNodeId: "conduta-tcc-isolada" },
-        { label: "Não / sem acesso a TCC-EPR", proximoNodeId: "conduta-isrs-leve" },
+        { label: "Não / sem acesso a TCC-EPR", proximoNodeId: "perfil-farmaco-toc-leve" },
       ],
     },
     {
@@ -69,28 +69,142 @@ export const manejoToc: Fluxograma = {
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — ISRS em quadro LEVE (sem acesso a TCC-EPR)
+    // ─────────────────────────────────────────────────────────────
     {
-      id: "conduta-isrs-leve",
+      id: "perfil-farmaco-toc-leve",
+      tipo: "pergunta",
+      texto:
+        "Sem acesso à TCC-EPR: iniciar ISRS em dose adequada como tratamento inicial. Antes de escolher o agente, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Doses eficazes no TOC costumam ser mais altas do que as utilizadas na depressão. Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante e individualize a partir daí.",
+      opcoes: [
+        { label: "Polifarmácia relevante / múltiplas interações a evitar", proximoNodeId: "conduta-toc-leve-interacao" },
+        { label: "Idoso / maior sensibilidade a efeitos anticolinérgicos", proximoNodeId: "conduta-toc-leve-idoso" },
+        { label: "Preocupação com adesão (esquecimento de doses)", proximoNodeId: "conduta-toc-leve-adesao" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-toc-leve-padrao" },
+      ],
+    },
+    {
+      id: "conduta-toc-leve-interacao",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Sem acesso à TCC-EPR: iniciar ISRS em dose adequada como tratamento inicial (ex. fluoxetina, sertralina, paroxetina, fluvoxamina ou escitalopram).",
+        "Polifarmácia relevante: sertralina, evitando fluvoxamina.",
       detalhe:
-        "Doses eficazes no TOC costumam ser mais altas do que as utilizadas na depressão.",
-      medicamentosRelacionados: ["fluoxetina", "sertralina", "paroxetina", "fluvoxamina", "escitalopram"],
+        "Fluvoxamina é inibidora potente de CYP1A2, CYP2C19 e CYP3A4 — risco elevado de interação em paciente polimedicado. Sertralina tem perfil de interação mais limpo entre os ISRS. Doses eficazes no TOC costumam ser mais altas do que na depressão.",
+      medicamentosRelacionados: ["sertralina"],
       opcoes: [
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
     {
-      id: "gravidade-moderada-grave",
+      id: "conduta-toc-leve-idoso",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Em quadros moderados a graves ou com insight pobre, iniciar tratamento combinado: ISRS em dose adequada (frequentemente na faixa superior recomendada, ex. fluoxetina, sertralina, paroxetina, fluvoxamina ou escitalopram) associado a TCC com exposição e prevenção de resposta (EPR).",
+        "Idoso ou maior sensibilidade a efeitos anticolinérgicos: escitalopram, evitando paroxetina.",
       detalhe:
-        "A combinação farmacoterapia + TCC-EPR tende a apresentar melhores desfechos que qualquer modalidade isolada em quadros mais graves. Titular a dose do ISRS ao longo das primeiras semanas conforme tolerabilidade.",
-      medicamentosRelacionados: ["fluoxetina", "sertralina", "paroxetina", "fluvoxamina", "escitalopram"],
+        "Paroxetina tem a maior carga anticolinérgica entre os ISRS, com maior risco de confusão/prejuízo cognitivo em idosos. Escitalopram tem perfil mais limpo nesse aspecto. Doses eficazes no TOC costumam ser mais altas do que na depressão.",
+      medicamentosRelacionados: ["escitalopram"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-toc-leve-adesao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Preocupação com adesão: fluoxetina, pela meia-vida longa.",
+      detalhe:
+        "A meia-vida longa da fluoxetina (e de seu metabólito ativo) torna o esquema mais tolerante a doses ocasionalmente esquecidas, sem a queda abrupta de nível sérico que ocorreria com um ISRS de meia-vida curta. Doses eficazes no TOC costumam ser mais altas do que na depressão.",
+      medicamentosRelacionados: ["fluoxetina"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-toc-leve-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: sertralina ou escitalopram, considerando preferência do paciente.",
+      detalhe:
+        "Ambos são ISRS de primeira linha bem tolerados. Doses eficazes no TOC costumam ser mais altas do que na depressão.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — tratamento COMBINADO (moderado a grave)
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: "gravidade-moderada-grave",
+      tipo: "pergunta",
+      texto:
+        "Em quadros moderados a graves ou com insight pobre, iniciar tratamento combinado: ISRS em dose adequada (frequentemente na faixa superior recomendada) associado a TCC com exposição e prevenção de resposta (EPR). Antes de escolher o agente, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "A combinação farmacoterapia + TCC-EPR tende a apresentar melhores desfechos que qualquer modalidade isolada em quadros mais graves. Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante e individualize a partir daí.",
+      opcoes: [
+        { label: "Polifarmácia relevante / múltiplas interações a evitar", proximoNodeId: "conduta-toc-grave-interacao" },
+        { label: "Idoso / maior sensibilidade a efeitos anticolinérgicos", proximoNodeId: "conduta-toc-grave-idoso" },
+        { label: "Preocupação com adesão (esquecimento de doses)", proximoNodeId: "conduta-toc-grave-adesao" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-toc-grave-padrao" },
+      ],
+    },
+    {
+      id: "conduta-toc-grave-interacao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Polifarmácia relevante: sertralina, evitando fluvoxamina, associada a TCC-EPR.",
+      detalhe:
+        "Fluvoxamina é inibidora potente de CYP1A2, CYP2C19 e CYP3A4 — risco elevado de interação em paciente polimedicado. Titular a dose ao longo das primeiras semanas conforme tolerabilidade, frequentemente na faixa superior recomendada.",
+      medicamentosRelacionados: ["sertralina"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-toc-grave-idoso",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Idoso ou maior sensibilidade a efeitos anticolinérgicos: escitalopram, evitando paroxetina, associado a TCC-EPR.",
+      detalhe:
+        "Paroxetina tem a maior carga anticolinérgica entre os ISRS. Titular a dose ao longo das primeiras semanas conforme tolerabilidade, frequentemente na faixa superior recomendada.",
+      medicamentosRelacionados: ["escitalopram"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-toc-grave-adesao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Preocupação com adesão: fluoxetina, pela meia-vida longa, associada a TCC-EPR.",
+      detalhe:
+        "Mais tolerante a doses ocasionalmente esquecidas. Titular a dose ao longo das primeiras semanas conforme tolerabilidade, frequentemente na faixa superior recomendada.",
+      medicamentosRelacionados: ["fluoxetina"],
+      opcoes: [
+        { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-toc-grave-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: sertralina ou escitalopram, associada a TCC-EPR.",
+      detalhe:
+        "Titular a dose ao longo das primeiras semanas conforme tolerabilidade, frequentemente na faixa superior recomendada.",
+      medicamentosRelacionados: ["sertralina", "escitalopram"],
       opcoes: [
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

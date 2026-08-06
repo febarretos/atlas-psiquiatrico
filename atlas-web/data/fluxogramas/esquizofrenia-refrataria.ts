@@ -21,19 +21,62 @@ export const esquizofreniaRefrataria: Fluxograma = {
       detalhe:
         "Confirmar diagnóstico de esquizofrenia ou transtorno do espectro psicótico após excluir causas orgânicas, uso de substâncias e outros transtornos psiquiátricos primários com sintomas psicóticos.",
       opcoes: [
-        { label: "Sim, primeiro episódio", proximoNodeId: "escolha-antipsicotico" },
+        { label: "Sim, primeiro episódio", proximoNodeId: "perfil-antipsicotico-primeiro-episodio" },
         { label: "Não, episódios/tratamentos prévios", proximoNodeId: "historico-tratamentos" },
       ],
     },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — escolha do antipsicótico no PRIMEIRO EPISÓDIO
+    // ─────────────────────────────────────────────────────────────
     {
-      id: "escolha-antipsicotico",
+      id: "perfil-antipsicotico-primeiro-episodio",
+      tipo: "pergunta",
+      texto:
+        "Escolher antipsicótico atípico de primeira linha. Antes de escolher o agente, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima — pacientes em primeiro episódio costumam ser mais sensíveis a efeitos extrapiramidais e responder a doses menores que pacientes com múltiplos episódios prévios. Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante e individualize a partir daí.",
+      opcoes: [
+        { label: "Insônia / agitação proeminente", proximoNodeId: "conduta-antipsicotico-1e-insonia" },
+        { label: "Preocupação com ganho de peso / risco metabólico", proximoNodeId: "conduta-antipsicotico-1e-metabolico" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-antipsicotico-1e-padrao" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-1e-insonia",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Escolher antipsicótico atípico de primeira linha, considerando perfil de efeitos adversos (metabólicos, extrapiramidais, sedativos, cardiovasculares/QTc, hiperprolactinemia) e preferência do paciente.",
+        "Insônia ou agitação proeminente: quetiapina, pelo efeito sedativo mais pronunciado entre os atípicos.",
       detalhe:
-        "Opções comuns incluem risperidona, olanzapina, quetiapina, aripiprazol, entre outros. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
-      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol"],
+        "Monitorar efeitos metabólicos e hipotensão ortostática, especialmente na titulação inicial. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
+      medicamentosRelacionados: ["quetiapina"],
+      opcoes: [
+        { label: "Antipsicótico iniciado, aguardar resposta", proximoNodeId: "resposta-primeiro-episodio" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-1e-metabolico",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Preocupação com ganho de peso ou risco metabólico: aripiprazol, pelo menor risco metabólico entre os antipsicóticos atípicos.",
+      detalhe:
+        "Particularmente relevante em primeiro episódio, dado que o paciente costuma ser jovem e o tratamento tende a ser de longo prazo. Monitorar acatisia e inquietação. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
+      medicamentosRelacionados: ["aripiprazol"],
+      opcoes: [
+        { label: "Antipsicótico iniciado, aguardar resposta", proximoNodeId: "resposta-primeiro-episodio" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-1e-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: risperidona, opção de primeira linha clássica com eficácia rápida bem estabelecida.",
+      detalhe:
+        "Monitorar sintomas extrapiramidais e hiperprolactinemia, aos quais pacientes em primeiro episódio são mais sensíveis. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
+      medicamentosRelacionados: ["risperidona"],
       opcoes: [
         { label: "Antipsicótico iniciado, aguardar resposta", proximoNodeId: "resposta-primeiro-episodio" },
       ],
@@ -102,7 +145,7 @@ export const esquizofreniaRefrataria: Fluxograma = {
       detalhe:
         "Esta é a definição operacional de esquizofrenia refratária/resistente ao tratamento. Confirmar adesão a ambas as tentativas antes de considerar o critério preenchido.",
       opcoes: [
-        { label: "Não, falha a apenas 1 antipsicótico ou histórico incerto", proximoNodeId: "escolha-antipsicotico" },
+        { label: "Não, falha a apenas 1 antipsicótico ou histórico incerto", proximoNodeId: "perfil-antipsicotico-primeiro-episodio" },
         { label: "Sim, falha a 2 antipsicóticos em dose/tempo adequados", proximoNodeId: "indicacao-clozapina" },
       ],
     },

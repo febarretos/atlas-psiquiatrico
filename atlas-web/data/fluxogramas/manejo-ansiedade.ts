@@ -37,7 +37,7 @@ export const manejoAnsiedade: Fluxograma = {
       detalhe:
         "Considerar o uso do GAD-7 (disponível no módulo Escalas) para quantificar a gravidade e monitorar a resposta ao tratamento.",
       opcoes: [
-        { label: "Sim", proximoNodeId: "tag-tratamento" },
+        { label: "Sim", proximoNodeId: "perfil-farmaco-tag" },
         { label: "Não", proximoNodeId: "conduta-diferencial-tag" },
       ],
     },
@@ -50,14 +50,52 @@ export const manejoAnsiedade: Fluxograma = {
         "Considerar transtorno de ajustamento, hipertireoidismo, uso excessivo de cafeína/estimulantes, abstinência de substâncias, ou outro transtorno de ansiedade específico (pânico, fobia social).",
     },
     {
-      id: "tag-tratamento",
+      id: "perfil-farmaco-tag",
+      tipo: "pergunta",
+      texto:
+        "Iniciar ISRS ou ISRSN de primeira linha, associado a TCC. Antes de escolher o agente, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "A meta-análise de rede de Slee et al. (2019, Lancet, tratamentos farmacológicos para TAG) situou duloxetina, pregabalina, venlafaxina e escitalopram entre os agentes com melhor perfil combinado de eficácia e tolerabilidade — mas, como na depressão, as diferenças absolutas entre os agentes de primeira linha são modestas na ausência de uma condição que justifique priorizar um deles. Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante e individualize a partir daí.",
+      opcoes: [
+        { label: "Dor crônica associada (ex.: fibromialgia, dor neuropática)", proximoNodeId: "conduta-tag-dor-cronica" },
+        { label: "Hipertensão não controlada / risco cardiovascular", proximoNodeId: "conduta-tag-cardiovascular" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-tag-padrao" },
+      ],
+    },
+    {
+      id: "conduta-tag-dor-cronica",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Iniciar ISRS ou ISRSN de primeira linha (ex: escitalopram, sertralina, venlafaxina ou duloxetina), associado a TCC.",
+        "Dor crônica associada: duloxetina, pela indicação dual documentada em TAG e em quadros de dor crônica (ex.: fibromialgia, dor neuropática).",
+      detalhe: "Monitorar pressão arterial e função hepática. Reavaliar resposta clínica em 4 a 8 semanas.",
+      medicamentosRelacionados: ["duloxetina"],
+      opcoes: [
+        { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-tag" },
+      ],
+    },
+    {
+      id: "conduta-tag-cardiovascular",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Hipertensão não controlada ou risco cardiovascular: sertralina, evitando venlafaxina pelo seu efeito pressórico dose-dependente.",
       detalhe:
-        "A meta-análise de rede de Slee et al. (2019, Lancet, tratamentos farmacológicos para TAG) situou duloxetina, pregabalina, venlafaxina e escitalopram entre os agentes com melhor perfil combinado de eficácia e tolerabilidade — mas, como na depressão, as diferenças absolutas entre os agentes de primeira linha são modestas, e a escolha deve considerar comorbidades, efeitos adversos e preferência do paciente.",
-      medicamentosRelacionados: ["escitalopram", "sertralina", "venlafaxina", "duloxetina"],
+        "Sertralina tem o melhor perfil de segurança cardiovascular entre os ISRS. Reavaliar resposta clínica em 4 a 8 semanas.",
+      medicamentosRelacionados: ["sertralina"],
+      opcoes: [
+        { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-tag" },
+      ],
+    },
+    {
+      id: "conduta-tag-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: escitalopram ou sertralina, considerando preferência do paciente.",
+      detalhe:
+        "Ambos são ISRS de primeira linha bem tolerados para TAG. Reavaliar resposta clínica em 4 a 8 semanas.",
+      medicamentosRelacionados: ["escitalopram", "sertralina"],
       opcoes: [
         { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-tag" },
       ],

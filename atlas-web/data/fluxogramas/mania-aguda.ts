@@ -87,33 +87,161 @@ export const maniaAguda: Fluxograma = {
       detalhe:
         "Monoterapia (estabilizador de humor ou antipsicótico atípico) costuma ser suficiente em quadros leves a moderados. Associação de estabilizador + antipsicótico é indicada em quadros mais graves, com sintomas psicóticos, ou histórico de resposta parcial a monoterapia.",
       opcoes: [
-        { label: "Monoterapia com estabilizador de humor (lítio ou valproato)", proximoNodeId: "trat-estabilizador" },
-        { label: "Monoterapia com antipsicótico atípico", proximoNodeId: "trat-antipsicotico" },
+        { label: "Monoterapia com estabilizador de humor (lítio ou valproato)", proximoNodeId: "perfil-estabilizador" },
+        { label: "Monoterapia com antipsicótico atípico", proximoNodeId: "perfil-antipsicotico" },
         { label: "Quadro mais grave: associação estabilizador + antipsicótico", proximoNodeId: "trat-associacao" },
       ],
     },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — monoterapia com ESTABILIZADOR DE HUMOR
+    // ─────────────────────────────────────────────────────────────
     {
-      id: "trat-estabilizador",
+      id: "perfil-estabilizador",
+      tipo: "pergunta",
+      texto:
+        "Monoterapia com estabilizador de humor. Antes de escolher entre lítio e valproato, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí.",
+      opcoes: [
+        { label: "Gravidez, ou mulher em idade fértil sem contracepção eficaz", proximoNodeId: "conduta-estabilizador-gravidez" },
+        { label: "Insuficiência renal", proximoNodeId: "conduta-estabilizador-renal" },
+        { label: "Hepatopatia significativa", proximoNodeId: "conduta-estabilizador-hepatopatia" },
+        { label: "Ciclagem rápida ou episódio misto", proximoNodeId: "conduta-estabilizador-ciclagem" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-estabilizador-padrao" },
+      ],
+    },
+    {
+      id: "conduta-estabilizador-gravidez",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Iniciar estabilizador de humor em monoterapia: lítio (titulado por litemia, alvo geralmente entre 0,8-1,2 mEq/L na fase aguda) ou valproato (titulado por dose/peso, com atenção a nível sérico).",
+        "Gravidez ou mulher em idade fértil sem contracepção eficaz: priorizar lítio, evitando valproato.",
       detalhe:
-        "Solicitar exames basais (função renal e tireoidiana para lítio; função hepática e hemograma para valproato).",
-      medicamentosRelacionados: ["litio", "valproato"],
+        "Valproato é um dos psicofármacos com maior risco teratogênico documentado (defeitos de tubo neural e outras malformações), devendo ser evitado em mulheres em idade fértil sempre que houver alternativa — não apenas em gestação já confirmada. Lítio também tem risco (ex. anomalia de Ebstein), mas é classicamente considerado a opção com perfil mais favorável entre os dois nessa situação. Solicitar exames basais de função renal e tireoidiana.",
+      medicamentosRelacionados: ["litio"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],
     },
     {
-      id: "trat-antipsicotico",
+      id: "conduta-estabilizador-renal",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Iniciar antipsicótico atípico em monoterapia (ex. risperidona, olanzapina, quetiapina ou aripiprazol), considerando perfil de efeitos adversos e preferência do paciente.",
+        "Insuficiência renal: priorizar valproato, evitando lítio.",
       detalhe:
-        "Antipsicóticos atípicos costumam ter início de ação mais rápido que estabilizadores clássicos, sendo úteis quando controle rápido dos sintomas é desejável. Monitorar efeitos metabólicos e extrapiramidais.",
-      medicamentosRelacionados: ["risperidona", "olanzapina", "quetiapina", "aripiprazol"],
+        "Lítio é excretado quase exclusivamente pelo rim e tem janela terapêutica estreita — a insuficiência renal aumenta significativamente o risco de toxicidade. Valproato tem metabolização predominantemente hepática. Solicitar exames basais de função hepática e hemograma antes de iniciar.",
+      medicamentosRelacionados: ["valproato"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-estabilizador-hepatopatia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Hepatopatia significativa: priorizar lítio, evitando valproato.",
+      detalhe:
+        "Valproato tem potencial hepatotóxico e risco de hiperamonemia, exigindo cautela redobrada em hepatopatia significativa. Lítio não é metabolizado pelo fígado. Solicitar exames basais de função renal e tireoidiana antes de iniciar.",
+      medicamentosRelacionados: ["litio"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-estabilizador-ciclagem",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Ciclagem rápida ou episódio misto: priorizar valproato.",
+      detalhe:
+        "Valproato tem evidência de eficácia mais consistente que o lítio nesses subtipos de apresentação, conforme diretrizes CANMAT/ISBD. Solicitar exames basais de função hepática e hemograma.",
+      medicamentosRelacionados: ["valproato"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-estabilizador-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: lítio (titulado por litemia, alvo geralmente entre 0,8-1,2 mEq/L na fase aguda).",
+      detalhe:
+        "Lítio segue sendo o padrão histórico entre os estabilizadores, com a vantagem adicional de evidência robusta de redução de risco de suicídio a longo prazo — relevante na escolha de manutenção, não só da fase aguda. Valproato é alternativa igualmente válida na ausência de condição especial. Solicitar exames basais de função renal e tireoidiana.",
+      medicamentosRelacionados: ["litio", "valproato"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — monoterapia com ANTIPSICÓTICO ATÍPICO
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: "perfil-antipsicotico",
+      tipo: "pergunta",
+      texto:
+        "Monoterapia com antipsicótico atípico. Antes de escolher entre as opções, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí.",
+      opcoes: [
+        { label: "Insônia proeminente / necessidade de efeito sedativo", proximoNodeId: "conduta-antipsicotico-insonia" },
+        { label: "Preocupação com ganho de peso / risco metabólico", proximoNodeId: "conduta-antipsicotico-metabolico" },
+        { label: "Idoso / risco de queda", proximoNodeId: "conduta-antipsicotico-idoso" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-antipsicotico-padrao" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-insonia",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Insônia proeminente: considerar quetiapina, pelo efeito sedativo/hipnótico mais pronunciado entre os atípicos.",
+      detalhe:
+        "Monitorar efeitos metabólicos (ganho de peso, dislipidemia) e hipotensão ortostática, especialmente na titulação inicial.",
+      medicamentosRelacionados: ["quetiapina"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-metabolico",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Preocupação com ganho de peso ou risco metabólico: considerar aripiprazol, pelo menor risco metabólico entre os antipsicóticos atípicos.",
+      detalhe:
+        "Monitorar acatisia e inquietação, efeitos adversos mais associados ao aripiprazol que aos demais atípicos, por seu perfil de agonismo parcial D2.",
+      medicamentosRelacionados: ["aripiprazol"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-idoso",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Idoso ou risco de queda: considerar risperidona em dose baixa, pela menor carga anticolinérgica e menor hipotensão ortostática em relação a olanzapina e quetiapina.",
+      detalhe:
+        "Titular com cautela e monitorar sintomas extrapiramidais, aos quais idosos são mais sensíveis mesmo em dose baixa.",
+      medicamentosRelacionados: ["risperidona"],
+      opcoes: [
+        { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
+      ],
+    },
+    {
+      id: "conduta-antipsicotico-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: risperidona ou olanzapina, considerando preferência do paciente.",
+      detalhe:
+        "Ambos têm início de ação rápido e boa eficácia documentada na fase aguda da mania. Olanzapina tende a ser mais sedativa e com maior risco metabólico; risperidona tende a ter menor sedação e menor ganho de peso, à custa de maior risco de sintomas extrapiramidais em dose mais alta. Monitorar efeitos metabólicos e extrapiramidais em ambos os casos.",
+      medicamentosRelacionados: ["risperidona", "olanzapina"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

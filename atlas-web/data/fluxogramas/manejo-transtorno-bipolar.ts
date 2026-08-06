@@ -174,13 +174,52 @@ export const manejoTranstornoBipolar: Fluxograma = {
     },
     {
       id: "dep-primeira-linha",
+      tipo: "pergunta",
+      texto:
+        "IMPORTANTE: evitar antidepressivo em monoterapia. Antes de escolher o agente com evidência específica para depressão bipolar, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Em Transtorno Bipolar tipo II há, em geral, maior tolerância a associar um antidepressivo a um estabilizador já em uso do que no tipo I. Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante e individualize a partir daí.",
+      opcoes: [
+        { label: "Insônia ou ansiedade proeminente associada", proximoNodeId: "conduta-dep-bipolar-insonia" },
+        { label: "Preocupação com ganho de peso / risco metabólico", proximoNodeId: "conduta-dep-bipolar-metabolico" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-dep-bipolar-padrao" },
+      ],
+    },
+    {
+      id: "conduta-dep-bipolar-insonia",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "IMPORTANTE: evitar antidepressivo em monoterapia. Iniciar agente com evidência específica para depressão bipolar — quetiapina, lurasidona (associada a lítio ou valproato) ou lítio.",
+        "Insônia ou ansiedade proeminente: quetiapina, pelo efeito sedativo/ansiolítico adicional que a torna especialmente útil quando esses sintomas coexistem com a depressão bipolar.",
       detalhe:
-        "Em Transtorno Bipolar tipo II há, em geral, maior tolerância a associar um antidepressivo a um estabilizador já em uso do que no tipo I.",
-      medicamentosRelacionados: ["quetiapina", "lurasidona", "litio", "valproato"],
+        "Monitorar efeitos metabólicos (ganho de peso, dislipidemia) e hipotensão ortostática, especialmente na titulação inicial.",
+      medicamentosRelacionados: ["quetiapina"],
+      opcoes: [
+        { label: "Reavaliar após 6-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-dep-bipolar" },
+      ],
+    },
+    {
+      id: "conduta-dep-bipolar-metabolico",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Preocupação com ganho de peso ou risco metabólico: lurasidona, pelo perfil metabólico mais favorável entre os antipsicóticos atípicos com evidência específica em depressão bipolar.",
+      detalhe:
+        "Administrar com alimentos (absorção significativamente maior), associada a lítio ou valproato conforme o quadro. Monitorar acatisia e sintomas extrapiramidais.",
+      medicamentosRelacionados: ["lurasidona"],
+      opcoes: [
+        { label: "Reavaliar após 6-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-dep-bipolar" },
+      ],
+    },
+    {
+      id: "conduta-dep-bipolar-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: lítio, ou quetiapina como alternativa igualmente válida.",
+      detalhe:
+        "Lítio tem a vantagem adicional de evidência específica de redução de risco de suicídio a longo prazo, relevante já na escolha inicial pensando na fase de manutenção subsequente. Solicitar exames basais de função renal e tireoidiana.",
+      medicamentosRelacionados: ["litio", "quetiapina"],
       opcoes: [
         { label: "Reavaliar após 6-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-dep-bipolar" },
       ],
@@ -244,12 +283,46 @@ export const manejoTranstornoBipolar: Fluxograma = {
     },
     {
       id: "manutencao-iniciar",
+      tipo: "pergunta",
+      texto:
+        "Iniciar tratamento de manutenção. Ao longo da história do paciente, qual fase predominou nos episódios anteriores?",
+      detalhe:
+        "Essa é a variável mais importante na escolha do agente de manutenção — lítio e lamotrigina têm perfis de eficácia praticamente opostos entre prevenção de mania e de depressão.",
+      opcoes: [
+        { label: "Predomínio de episódios maníacos, ou risco de suicídio relevante", proximoNodeId: "conduta-manutencao-mania" },
+        { label: "Predomínio de episódios depressivos", proximoNodeId: "conduta-manutencao-depressao" },
+        { label: "Sem predomínio claro / episódios mistos equilibrados", proximoNodeId: "conduta-manutencao-padrao" },
+      ],
+    },
+    {
+      id: "conduta-manutencao-mania",
       tipo: "conduta",
       nivel: "rotina",
-      texto: "Iniciar tratamento de manutenção conforme a fase aguda predominante do paciente.",
+      texto:
+        "Predomínio de episódios maníacos ou risco de suicídio relevante: lítio.",
       detalhe:
-        "Lítio é o padrão-ouro para prevenção de recaídas maníacas e tem evidência específica de redução do risco de suicídio a longo prazo. Lamotrigina tem maior eficácia na prevenção de recaídas depressivas (pouca eficácia antimaníaca). Valproato e antipsicóticos atípicos são alternativas conforme o perfil do paciente.",
-      medicamentosRelacionados: ["litio", "lamotrigina", "valproato"],
+        "Lítio é o padrão-ouro para prevenção de recaídas maníacas e tem evidência específica de redução do risco de suicídio a longo prazo — uma das poucas vantagens de mortalidade bem documentadas entre os estabilizadores. Monitorização periódica de função renal e tireoidiana.",
+      medicamentosRelacionados: ["litio"],
+    },
+    {
+      id: "conduta-manutencao-depressao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Predomínio de episódios depressivos: lamotrigina.",
+      detalhe:
+        "Lamotrigina tem eficácia bem documentada na prevenção de recaídas depressivas, mas ação antimaníaca fraca — não deve ser usada isoladamente se houver histórico relevante de mania. Titulação lenta é obrigatória pelo risco de rash cutâneo grave (síndrome de Stevens-Johnson).",
+      medicamentosRelacionados: ["lamotrigina"],
+    },
+    {
+      id: "conduta-manutencao-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem predomínio claro entre as fases: lítio, com valproato ou antipsicótico atípico como alternativas conforme tolerabilidade.",
+      detalhe:
+        "Na ausência de um padrão claro de predomínio, o lítio segue sendo a escolha com base de evidência mais ampla para prevenção de recaídas em geral. Monitorização periódica: função renal e tireoidiana com lítio, função hepática e hemograma com valproato, perfil metabólico com antipsicóticos.",
+      medicamentosRelacionados: ["litio", "valproato"],
     },
     {
       id: "manutencao-monitorizacao",

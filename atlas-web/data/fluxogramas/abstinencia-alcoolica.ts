@@ -42,32 +42,118 @@ export const abstinenciaAlcoolica: Fluxograma = {
       detalhe:
         "CIWA-Ar até ~8-10 pontos costuma indicar abstinência leve; pontuações mais altas (geralmente >15) indicam abstinência grave, com maior risco de convulsões e delirium tremens.",
       opcoes: [
-        { label: "Leve (sintomas mínimos, sem fatores de risco para complicação)", proximoNodeId: "conduta-leve-ambulatorial" },
-        { label: "Moderada a grave, ou fatores de risco para complicação", proximoNodeId: "conduta-internacao" },
+        { label: "Leve (sintomas mínimos, sem fatores de risco para complicação)", proximoNodeId: "perfil-farmaco-leve" },
+        { label: "Moderada a grave, ou fatores de risco para complicação", proximoNodeId: "perfil-farmaco-internacao" },
+      ],
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — abstinência LEVE (manejo ambulatorial)
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: "perfil-farmaco-leve",
+      tipo: "pergunta",
+      texto:
+        "Abstinência leve, sem fatores de risco para complicação: manejo ambulatorial é possível, desde que haja suporte social adequado e possibilidade de reavaliação frequente. Antes de escolher o benzodiazepínico, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí.",
+      opcoes: [
+        { label: "Hepatopatia significativa", proximoNodeId: "conduta-leve-hepatopatia" },
+        { label: "Idoso / risco de queda", proximoNodeId: "conduta-leve-idoso" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-leve-padrao" },
       ],
     },
     {
-      id: "conduta-leve-ambulatorial",
+      id: "conduta-leve-hepatopatia",
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Abstinência leve, sem fatores de risco para complicação: manejo ambulatorial é possível, desde que haja suporte social adequado e possibilidade de reavaliação frequente.",
+        "Hepatopatia significativa: priorizar lorazepam em esquema fixo decrescente ou guiado por sintomas.",
       detalhe:
-        "Iniciar benzodiazepínico em esquema fixo decrescente (ex. diazepam, ou clordiazepóxido onde disponível) ou guiado por sintomas (protocolo orientado por CIWA-Ar), associado a tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
-      medicamentosRelacionados: ["diazepam"],
+        "Lorazepam é metabolizado por glucuronidação direta (fase II), sem depender das vias oxidativas hepáticas (fase I, CYP450) comprometidas na hepatopatia — evita acúmulo de metabólitos ativos que ocorreria com diazepam nesse contexto. Associar tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
+      medicamentosRelacionados: ["lorazepam", "tiamina"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
       ],
     },
     {
-      id: "conduta-internacao",
+      id: "conduta-leve-idoso",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Idoso ou risco de queda: priorizar lorazepam, pela menor sedação residual e menor risco de acúmulo.",
+      detalhe:
+        "Diazepam tem meia-vida longa e metabólito ativo de eliminação ainda mais lenta — em idosos, isso aumenta o risco de sedação cumulativa, confusão e queda. Lorazepam não tem metabólito ativo relevante e seu perfil é mais previsível nessa faixa etária. Associar tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
+      medicamentosRelacionados: ["lorazepam", "tiamina"],
+      opcoes: [
+        { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
+      ],
+    },
+    {
+      id: "conduta-leve-padrao",
+      tipo: "conduta",
+      nivel: "rotina",
+      texto:
+        "Sem condição especial identificada: iniciar diazepam em esquema fixo decrescente ou guiado por sintomas (protocolo orientado por CIWA-Ar).",
+      detalhe:
+        "A meia-vida longa do diazepam (e de seu metabólito ativo) permite um desmame mais suave e autolimitado, sendo por isso a escolha clássica quando não há hepatopatia ou risco de acúmulo relevante. Associar tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
+      medicamentosRelacionados: ["diazepam", "tiamina"],
+      opcoes: [
+        { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
+      ],
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // Perfil do paciente — abstinência MODERADA A GRAVE (internação)
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: "perfil-farmaco-internacao",
+      tipo: "pergunta",
+      texto:
+        "Abstinência moderada a grave, ou presença de fatores de risco para complicação (convulsões prévias, delirium tremens prévio, comorbidade clínica instável, uso concomitante de outros sedativos): indicar internação para manejo mais intensivo. Antes de escolher o benzodiazepínico, o paciente apresenta alguma destas condições relevantes para essa escolha?",
+      detalhe:
+        "Se houver mais de uma condição relevante ao mesmo tempo, priorize a que for clinicamente mais limitante para essa escolha e individualize a partir daí.",
+      opcoes: [
+        { label: "Hepatopatia significativa", proximoNodeId: "conduta-internacao-hepatopatia" },
+        { label: "Idoso / risco de queda", proximoNodeId: "conduta-internacao-idoso" },
+        { label: "Nenhuma condição especial", proximoNodeId: "conduta-internacao-padrao" },
+      ],
+    },
+    {
+      id: "conduta-internacao-hepatopatia",
       tipo: "conduta",
       nivel: "atencao",
       texto:
-        "Abstinência moderada a grave, ou presença de fatores de risco para complicação (convulsões prévias, delirium tremens prévio, comorbidade clínica instável, uso concomitante de outros sedativos): indicar internação para manejo mais intensivo.",
+        "Hepatopatia significativa: lorazepam em dose ajustada à gravidade, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
       detalhe:
-        "Iniciar benzodiazepínico em dose mais alta, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes — lorazepam é preferível ao diazepam se houver hepatopatia relevante, pela metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
-      medicamentosRelacionados: ["diazepam", "lorazepam"],
+        "Metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas — evita acúmulo de metabólitos ativos. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+      medicamentosRelacionados: ["lorazepam", "tiamina"],
+      opcoes: [
+        { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
+      ],
+    },
+    {
+      id: "conduta-internacao-idoso",
+      tipo: "conduta",
+      nivel: "atencao",
+      texto:
+        "Idoso ou risco de queda: lorazepam em doses menores e mais frequentes, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
+      detalhe:
+        "Sem metabólito ativo relevante, o que reduz o risco de sedação cumulativa e queda em relação ao diazepam nessa faixa etária. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+      medicamentosRelacionados: ["lorazepam", "tiamina"],
+      opcoes: [
+        { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
+      ],
+    },
+    {
+      id: "conduta-internacao-padrao",
+      tipo: "conduta",
+      nivel: "atencao",
+      texto:
+        "Sem condição especial identificada: diazepam em dose mais alta, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
+      detalhe:
+        "A meia-vida longa favorece um desmame mais suave e melhor cobertura anticonvulsivante contínua, sendo a escolha clássica de protocolos de internação quando não há hepatopatia ou risco de acúmulo relevante. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+      medicamentosRelacionados: ["diazepam", "tiamina"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
       ],
@@ -92,7 +178,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
         "Delirium tremens: emergência médica que requer manejo intensivo imediato.",
       detalhe:
         "Encaminhar para avaliação e manejo em caráter de emergência (consultar a página/fluxograma de Emergências do Atlas). Necessário suporte em ambiente com monitorização contínua, doses mais altas de benzodiazepínico conforme protocolo, correção de distúrbios hidroeletrolíticos, e avaliação de necessidade de suporte em unidade de terapia intensiva conforme gravidade e instabilidade autonômica.",
-      medicamentosRelacionados: ["diazepam", "lorazepam"],
+      medicamentosRelacionados: ["diazepam", "lorazepam", "tiamina"],
     },
     {
       id: "estabilizacao-concluida",
