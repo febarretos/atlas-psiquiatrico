@@ -1,4 +1,7 @@
 import { CasoSimuladorEmergencia } from "./types";
+import { catatoniaMalignaPlantao } from "./catatonia-maligna-plantao";
+import { overdoseTriciclicosPlantaoUrgencia } from "./overdose-triciclicos-plantao-urgencia";
+import { intoxicacaoLitioDeidratacaoGrave } from "./intoxicacao-litio-deidratacao-grave";
 import { nmsPlantaoSexta } from "./nms-plantao-sexta";
 import { serotoninaTramadolLombalgia } from "./serotonina-tramadol-lombalgia";
 import { surtoPsicoticoCameraDeRua } from "./surto-psicotico-camera-de-rua";
@@ -14,6 +17,9 @@ export const casosSimuladorEmergencia: CasoSimuladorEmergencia[] = [
   serotoninaTramadolLombalgia,
   surtoPsicoticoCameraDeRua,
   deliriumTremensFraturaFemur,
+  intoxicacaoLitioDeidratacaoGrave,
+  overdoseTriciclicosPlantaoUrgencia,
+  catatoniaMalignaPlantao,
 ];
 
 export * from "./types";

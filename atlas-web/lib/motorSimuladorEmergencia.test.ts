@@ -15,6 +15,9 @@ import { nmsPlantaoSexta } from "../data/simulador-emergencia/nms-plantao-sexta.
 import { serotoninaTramadolLombalgia } from "../data/simulador-emergencia/serotonina-tramadol-lombalgia.ts";
 import { surtoPsicoticoCameraDeRua } from "../data/simulador-emergencia/surto-psicotico-camera-de-rua.ts";
 import { deliriumTremensFraturaFemur } from "../data/simulador-emergencia/delirium-tremens-fratura-femur.ts";
+import { intoxicacaoLitioDeidratacaoGrave } from "../data/simulador-emergencia/intoxicacao-litio-deidratacao-grave.ts";
+import { overdoseTriciclicosPlantaoUrgencia } from "../data/simulador-emergencia/overdose-triciclicos-plantao-urgencia.ts";
+import { catatoniaMalignaPlantao } from "../data/simulador-emergencia/catatonia-maligna-plantao.ts";
 import { medicamentos } from "../data/medicamentos/index.ts";
 import { emergencias } from "../data/emergencias/index.ts";
 import type { CasoSimuladorEmergencia, SinaisVitais } from "../data/simulador-emergencia/types.ts";
@@ -448,6 +451,44 @@ testarCasoEmergencia("delirium tremens", deliriumTremensFraturaFemur, {
     "escala-ciwa",
     "escala-ciwa",
   ],
+});
+
+testarCasoEmergencia("intoxicação por lítio", intoxicacaoLitioDeidratacaoGrave, {
+  sequenciaBoa: [
+    "suspender-litio",
+    "hidratacao-venosa-vigorosa",
+    "solicitar-hemodialise-uti",
+    "solicitar-hemodialise-uti",
+    "solicitar-hemodialise-uti",
+  ],
+  acaoArmadilha: "administrar-haloperidol-erro",
+  acoesInocuas: ["suspender-litio", "hidratacao-venosa-vigorosa", "oxigenioterapia", "solicitar-litemia-funcao-renal"],
+});
+
+testarCasoEmergencia("overdose de tricíclicos", overdoseTriciclicosPlantaoUrgencia, {
+  sequenciaBoa: [
+    "carvao-ativado",
+    "bicarbonato-sodio",
+    "bicarbonato-sodio",
+    "bicarbonato-sodio",
+    "bicarbonato-sodio",
+    "bicarbonato-sodio",
+  ],
+  acaoArmadilha: "manter-antisicotico",
+  acoesInocuas: ["suporte-oxigenio", "solucao-fisiologica", "ecg-seriado", "chamar-uti"],
+});
+
+testarCasoEmergencia("catatonia maligna", catatoniaMalignaPlantao, {
+  sequenciaBoa: [
+    "administrar-lorazepam-iv",
+    "administrar-lorazepam-iv",
+    "administrar-lorazepam-iv",
+    "administrar-lorazepam-iv",
+    "administrar-lorazepam-iv",
+    "administrar-lorazepam-iv",
+  ],
+  acaoArmadilha: "administrar-haloperidol-im",
+  acoesInocuas: ["oxigenioterapia-mascara", "hidratacao-e-resfriamento", "solicitar-ect-urgencia", "solicitar-exames-laboratoriais"],
 });
 
 test("estaEmAlarme: riscoIminente alto dispara alarme mesmo sem limiaresDesfecho.piora configurado", () => {

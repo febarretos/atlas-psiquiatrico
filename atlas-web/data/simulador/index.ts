@@ -1,4 +1,7 @@
 import { CasoSimulador } from "./types";
+import { casoBorderlineAltaFuncionalidade } from "./caso-borderline-alta-funcionalidade";
+import { casoPanicoRezadeira } from "./caso-panico-rezadeira";
+import { oTeoremaDasAntenasDoSeuVanderlei } from "./o-teorema-das-antenas-do-seu-vanderlei";
 import { voJardim } from "./vo-jardim";
 
 // Arquivo mantido pelo script scripts/gerar-caso-simulador.ts — cada
@@ -8,6 +11,9 @@ import { voJardim } from "./vo-jardim";
 // confiável.
 export const casosSimulador: CasoSimulador[] = [
   voJardim,
+  oTeoremaDasAntenasDoSeuVanderlei,
+  casoPanicoRezadeira,
+  casoBorderlineAltaFuncionalidade,
 ];
 
 export * from "./types";
