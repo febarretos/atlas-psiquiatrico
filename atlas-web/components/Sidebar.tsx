@@ -13,6 +13,7 @@ const menu = [
   { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
   { nome: "Escalas", href: "/escalas", icone: "📋" },
   { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
+  { nome: "Entrevista SCID-5-CV", href: "/entrevista-scid", icone: "📝" },
   { nome: "Simulador", href: "/simulador", icone: "🎮" },
   { nome: "Simulador de Emergência", href: "/simulador-emergencia", icone: "🚨" },
   { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
