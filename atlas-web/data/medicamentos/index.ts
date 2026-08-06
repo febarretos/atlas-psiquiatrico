@@ -50,6 +50,13 @@ import { pregabalina } from "./outros-adjuvantes/pregabalina";
 import { propranolol } from "./outros-adjuvantes/propranolol";
 import { zolpidem } from "./outros-adjuvantes/zolpidem";
 
+import { dantroleno } from "./antidotos-resgate/dantroleno";
+import { bromocriptina } from "./antidotos-resgate/bromocriptina";
+import { ciproeptadina } from "./antidotos-resgate/ciproeptadina";
+import { tiamina } from "./antidotos-resgate/tiamina";
+import { naloxona } from "./antidotos-resgate/naloxona";
+import { flumazenil } from "./antidotos-resgate/flumazenil";
+
 export const medicamentos = [
   sertralina,
   escitalopram,
@@ -102,4 +109,11 @@ export const medicamentos = [
   pregabalina,
   propranolol,
   zolpidem,
+
+  dantroleno,
+  bromocriptina,
+  ciproeptadina,
+  tiamina,
+  naloxona,
+  flumazenil,
 ];

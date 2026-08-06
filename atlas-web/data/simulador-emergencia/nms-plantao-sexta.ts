@@ -2,11 +2,9 @@ import { CasoSimuladorEmergencia } from "./types";
 
 // Caso escrito à mão (NÃO gerado pelo Gemini/script) só pra validar o
 // schema, o motor e a UI antes da primeira geração real. Doses/ações
-// (lorazepam, haloperidol) conferem com data/medicamentos; dantroleno e
-// bromocriptina — o tratamento farmacológico real de escolha da NMS —
-// não estão modelados no app, por isso aparecem só no label das ações,
-// sem medicamentoId. Substituir/remover quando o primeiro caso real for
-// gerado com `npm run gerar-caso-emergencia`.
+// (lorazepam, haloperidol, dantroleno) conferem com data/medicamentos.
+// Substituir/remover quando o primeiro caso real for gerado com
+// `npm run gerar-caso-emergencia`.
 export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
   id: "nms-plantao-sexta",
 
@@ -78,6 +76,7 @@ export const nmsPlantaoSexta: CasoSimuladorEmergencia = {
       id: "dantroleno",
       label: "Administrar dantroleno IV",
       categoria: "medicacao",
+      medicamentoId: "dantroleno",
       custoTempo: 1,
       efeitoImediato: {
         rigidezMuscular: -4,

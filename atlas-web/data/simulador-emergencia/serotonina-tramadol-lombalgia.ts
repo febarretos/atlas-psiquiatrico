@@ -1,10 +1,8 @@
 import { CasoSimuladorEmergencia } from "./types";
 
 // Caso escrito à mão (NÃO gerado pelo Gemini/script), no mesmo padrão do
-// caso de NMS (nms-plantao-sexta.ts): lorazepam/sertralina conferem com
-// data/medicamentos; ciproeptadina — o antagonista serotoninérgico real de
-// escolha — não está modelada no app, por isso aparece só no label da
-// ação, sem medicamentoId. rigidezMuscular é deliberadamente OMITIDO
+// caso de NMS (nms-plantao-sexta.ts): lorazepam/sertralina/ciproeptadina
+// conferem com data/medicamentos. rigidezMuscular é deliberadamente OMITIDO
 // aqui: a síndrome serotoninérgica cursa com HIPERreflexia/clônus, o
 // oposto da rigidez "em cano de chumbo" da NMS — usar o mesmo campo pras
 // duas confundiria exatamente o achado que diferencia os dois quadros no
@@ -79,6 +77,7 @@ export const serotoninaTramadolLombalgia: CasoSimuladorEmergencia = {
       id: "ciproeptadina",
       label: "Administrar ciproeptadina (antagonista serotoninérgico)",
       categoria: "medicacao",
+      medicamentoId: "ciproeptadina",
       custoTempo: 1,
       efeitoImediato: {
         agitacaoPsicomotora: -3,

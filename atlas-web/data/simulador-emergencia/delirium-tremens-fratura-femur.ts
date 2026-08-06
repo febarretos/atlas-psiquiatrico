@@ -1,10 +1,8 @@
 import { CasoSimuladorEmergencia } from "./types";
 
 // Caso escrito à mão (NÃO gerado pelo Gemini/script), mesmo padrão dos
-// outros casos deste módulo. diazepam conferem com data/medicamentos;
-// tiamina — parte central da conduta real (previne encefalopatia de
-// Wernicke) — não está modelada no app, por isso aparece só no label da
-// ação, sem medicamentoId. A armadilha aqui é trocar o benzodiazepínico
+// outros casos deste módulo. diazepam/tiamina conferem com
+// data/medicamentos. A armadilha aqui é trocar o benzodiazepínico
 // por antipsicótico pra conter a agitação: não trata a abstinência e
 // reduz o limiar convulsivo numa DT — erro real e documentado.
 export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
@@ -64,6 +62,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       id: "reposicao-tiamina",
       label: "Repor tiamina antes/junto da glicose",
       categoria: "suporte",
+      medicamentoId: "tiamina",
       custoTempo: 0,
       efeitoImediato: { riscoIminente: -1 },
       repetivel: false,
