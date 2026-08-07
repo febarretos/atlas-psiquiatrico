@@ -8,6 +8,10 @@ import { abstinenciaAlcoolica } from "./abstinencia-alcoolica";
 import { manejoAnsiedade } from "./manejo-ansiedade";
 import { manejoTranstornoBipolar } from "./manejo-transtorno-bipolar";
 import { avaliacaoDemencia } from "./avaliacao-demencia";
+import { tdahAdultos } from "./tdah-adultos";
+import { transtornosAlimentares } from "./transtornos-alimentares";
+import { manejoInsonia } from "./manejo-insonia";
+import { manejoTept } from "./manejo-tept";
 
 export const fluxogramas = [
   riscoSuicidio,
@@ -20,4 +24,8 @@ export const fluxogramas = [
   esquizofreniaRefrataria,
   abstinenciaAlcoolica,
   avaliacaoDemencia,
+  tdahAdultos,
+  transtornosAlimentares,
+  manejoInsonia,
+  manejoTept,
 ];
