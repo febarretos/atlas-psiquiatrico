@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { medicamentos } from "../../../data/medicamentos";
+import { diagnosticos } from "../../../data/diagnosticos";
+import { fluxogramas } from "../../../data/fluxogramas";
+import { casosSimuladorEmergencia } from "../../../data/simulador-emergencia";
+import { casosSimulador } from "../../../data/simulador";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
@@ -41,6 +45,30 @@ export default async function Medicamento({
 
   const qtKey = normalizeEffectKey(medicamento.qt);
   const qtAlto = qtKey === "alto" || qtKey === "muitoalto";
+
+  // Busca reversa: onde este medicamento é referenciado em outros
+  // módulos, que hoje só linkam nessa direção (módulo -> medicamento).
+  const diagnosticosQueUsam = diagnosticos.filter((d) =>
+    d.medicamentosPrimeiraLinha?.includes(medicamento.id)
+  );
+
+  const fluxogramasQueUsam = fluxogramas.filter((f) =>
+    f.nodes.some((n) => n.medicamentosRelacionados?.includes(medicamento.id))
+  );
+
+  const casosEmergenciaQueUsam = casosSimuladorEmergencia.filter((c) =>
+    c.acoesDisponiveis.some((a) => a.medicamentoId === medicamento.id)
+  );
+
+  const casosSimuladorQueUsam = casosSimulador.filter((c) =>
+    c.nos.some((n) => n.opcoes.some((o) => o.medicamentoId === medicamento.id))
+  );
+
+  const temReferenciaCruzada =
+    diagnosticosQueUsam.length > 0 ||
+    fluxogramasQueUsam.length > 0 ||
+    casosEmergenciaQueUsam.length > 0 ||
+    casosSimuladorQueUsam.length > 0;
 
   return (
     <main className="text-white">
@@ -320,6 +348,72 @@ export default async function Medicamento({
                       Ver: Torsades de Pointes / Prolongamento do QT →
                     </Link>
                   )}
+                </div>
+              )}
+            </div>
+          </Section>
+        )}
+
+        {temReferenciaCruzada && (
+          <Section titulo="🔗 Onde este medicamento aparece">
+            <div className="grid gap-6 md:grid-cols-2">
+              {diagnosticosQueUsam.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                    Primeira linha para
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {diagnosticosQueUsam.map((d) => (
+                      <Link key={d.id} href={`/diagnosticos/${d.id}`}>
+                        <Badge color="blue">🧠 {d.nome}</Badge>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {fluxogramasQueUsam.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                    Usado nestes fluxogramas
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {fluxogramasQueUsam.map((f) => (
+                      <Link key={f.id} href={`/fluxogramas/${f.id}`}>
+                        <Badge color="green">🌳 {f.titulo}</Badge>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {casosEmergenciaQueUsam.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                    Aparece no Simulador de Emergência
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {casosEmergenciaQueUsam.map((c) => (
+                      <Link key={c.id} href={`/simulador-emergencia/${c.id}`}>
+                        <Badge color="yellow">🚨 {c.nomeAnedotico}</Badge>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {casosSimuladorQueUsam.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                    Aparece no Simulador de Psiquiatria
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {casosSimuladorQueUsam.map((c) => (
+                      <Link key={c.id} href={`/simulador/${c.id}`}>
+                        <Badge color="gray">🎮 {c.tituloAnedotico}</Badge>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
