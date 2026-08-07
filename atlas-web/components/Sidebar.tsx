@@ -3,20 +3,48 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const menu = [
-  { nome: "Início", href: "/", icone: "🏠" },
-  { nome: "Assistente de Medicação", href: "/assistente", icone: "🧭" },
-  { nome: "Emergências", href: "/emergencias", icone: "🚨" },
-  { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
-  { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
-  { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
-  { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
-  { nome: "Escalas", href: "/escalas", icone: "📋" },
-  { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
-  { nome: "Entrevista Diagnóstica Estruturada", href: "/entrevista-estruturada", icone: "📝" },
-  { nome: "Simulador", href: "/simulador", icone: "🎮" },
-  { nome: "Simulador de Emergência", href: "/simulador-emergencia", icone: "🚨" },
-  { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
+interface ItemMenu {
+  nome: string;
+  href: string;
+  icone: string;
+}
+
+interface GrupoMenu {
+  titulo: string;
+  itens: ItemMenu[];
+}
+
+const inicio: ItemMenu = { nome: "Início", href: "/", icone: "🏠" };
+
+const grupos: GrupoMenu[] = [
+  {
+    titulo: "Referência",
+    itens: [
+      { nome: "Emergências", href: "/emergencias", icone: "🚨" },
+      { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
+      { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
+      { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
+      { nome: "Escalas", href: "/escalas", icone: "📋" },
+      { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
+    ],
+  },
+  {
+    titulo: "Ferramentas de Consulta",
+    itens: [
+      { nome: "Assistente de Medicação", href: "/assistente", icone: "🧭" },
+      { nome: "Entrevista Diagnóstica Estruturada", href: "/entrevista-estruturada", icone: "📝" },
+      { nome: "Mapa de Conhecimento", href: "/mapa", icone: "🕸️" },
+    ],
+  },
+  {
+    titulo: "Casos & Prática",
+    itens: [
+      { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
+      { nome: "Simulador", href: "/simulador", icone: "🎮" },
+      { nome: "Simulador de Emergência", href: "/simulador-emergencia", icone: "🚑" },
+      { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
+    ],
+  },
 ];
 
 interface Props {
@@ -49,19 +77,18 @@ export default function Sidebar({
           🧠 Atlas Psiquiátrico
         </h1>
 
-        <nav className="space-y-2">
-          {menu.map((item) => {
-            const ativo =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+        <nav className="space-y-6">
+          {(() => {
+            const ativo = (href: string) =>
+              pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
-            return (
+            const link = (item: ItemMenu) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={onFechar}
                 className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
-                  ativo
+                  ativo(item.href)
                     ? "bg-blue-600 text-white"
                     : "text-slate-300 hover:bg-slate-800"
                 }`}
@@ -70,7 +97,22 @@ export default function Sidebar({
                 <span>{item.nome}</span>
               </Link>
             );
-          })}
+
+            return (
+              <>
+                <div className="space-y-2">{link(inicio)}</div>
+
+                {grupos.map((grupo) => (
+                  <div key={grupo.titulo} className="space-y-2">
+                    <h2 className="px-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                      {grupo.titulo}
+                    </h2>
+                    {grupo.itens.map(link)}
+                  </div>
+                ))}
+              </>
+            );
+          })()}
         </nav>
       </aside>
     </>

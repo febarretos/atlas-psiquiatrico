@@ -47,6 +47,11 @@ const modulos = [
     href: "/entrevista-estruturada",
   },
   {
+    titulo: "🕸️ Mapa de Conhecimento",
+    descricao: "Grafo interativo de todas as conexões entre diagnósticos, medicamentos, escalas e fluxogramas",
+    href: "/mapa",
+  },
+  {
     titulo: "🎮 Simulador de Psiquiatria",
     descricao: "Casos narrativos em árvore de decisão — tom leve, fundamento clínico exato",
     href: "/simulador",
