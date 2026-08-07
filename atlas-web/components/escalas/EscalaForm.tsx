@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 
 import Badge from "../Badge";
 import BotaoCopiarProntuario from "../BotaoCopiarProntuario";
@@ -8,8 +9,10 @@ import InfoCard from "../InfoCard";
 import HistoricoEscala from "./HistoricoEscala";
 
 import { Escala } from "../../data/escalas/types";
+import { fluxogramas } from "../../data/fluxogramas";
 import { salvarEntrada } from "../../lib/historicoEscalas";
 import { gerarTextoEscala } from "../../lib/gerarTextoProntuario";
+import { encontrarVinculoEscalaFluxograma } from "../../lib/escalaFluxogramaLinks";
 
 interface Props {
   escala: Escala;
@@ -73,6 +76,15 @@ export default function EscalaForm({ escala }: Props) {
     () => Math.max(0, ...escala.faixas.map((f) => f.max)),
     [escala.faixas]
   );
+
+  const vinculoFluxograma = useMemo(() => {
+    if (!faixa) return undefined;
+    return encontrarVinculoEscalaFluxograma(escala.id, faixa.cor);
+  }, [escala.id, faixa]);
+
+  const fluxogramaVinculado = vinculoFluxograma
+    ? fluxogramas.find((f) => f.id === vinculoFluxograma.fluxogramaId)
+    : undefined;
 
   function salvarNoHistorico() {
     if (!completo || !faixa || !pacienteLabel.trim()) return;
@@ -226,6 +238,15 @@ export default function EscalaForm({ escala }: Props) {
                       <span className="text-sm text-slate-400 print:text-black">
                         {faixa.descricao}
                       </span>
+                    )}
+
+                    {fluxogramaVinculado && vinculoFluxograma && (
+                      <Link
+                        href={`/fluxogramas/${vinculoFluxograma.fluxogramaId}?no=${vinculoFluxograma.nodeId}`}
+                        className="text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300 print:hidden"
+                      >
+                        → Ver conduta no fluxograma de {fluxogramaVinculado.titulo}
+                      </Link>
                     )}
                   </div>
                 ) : (

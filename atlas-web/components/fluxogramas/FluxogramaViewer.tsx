@@ -14,6 +14,11 @@ import { limparRotuloParaTrilha } from "../../lib/gerarTextoProntuario";
 
 interface FluxogramaViewerProps {
   fluxograma: Fluxograma;
+  // Node de entrada, quando se chega ao fluxograma já num passo específico
+  // (ex.: link "ver conduta" a partir do resultado de uma escala de risco).
+  // "Reiniciar" sempre volta pro nodeInicialId real do algoritmo, não pra
+  // este override — o atalho é só um ponto de entrada, não redefine o começo.
+  nodeInicialId?: string;
 }
 
 interface PassoHistorico {
@@ -47,10 +52,15 @@ const nivelEstilo: Record<
 
 export default function FluxogramaViewer({
   fluxograma,
+  nodeInicialId,
 }: FluxogramaViewerProps) {
   const [historico, setHistorico] = useState<PassoHistorico[]>([
-    { nodeId: fluxograma.nodeInicialId },
+    { nodeId: nodeInicialId ?? fluxograma.nodeInicialId },
   ]);
+
+  const entrouPorAtalho = Boolean(
+    nodeInicialId && nodeInicialId !== fluxograma.nodeInicialId
+  );
 
   const nodesPorId = useMemo(() => {
     const mapa = new Map<string, FluxogramaNode>();
@@ -119,6 +129,24 @@ export default function FluxogramaViewer({
 
   return (
     <div>
+      {entrouPorAtalho && (
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-500/40 bg-blue-500/10 px-5 py-4 text-sm text-blue-200">
+          <span>
+            Você entrou direto neste passo, a partir do resultado de uma
+            escala — as perguntas de triagem anteriores não foram
+            percorridas.
+          </span>
+
+          <button
+            type="button"
+            onClick={reiniciar}
+            className="whitespace-nowrap font-semibold text-blue-100 underline-offset-2 hover:underline"
+          >
+            Ver fluxograma completo desde o início
+          </button>
+        </div>
+      )}
+
       {caminhoPercorrido.length > 0 && (
         <div className="mb-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
           <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">

@@ -9,10 +9,14 @@ interface Props {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    no?: string;
+  }>;
 }
 
-export default async function FluxogramaPage({ params }: Props) {
+export default async function FluxogramaPage({ params, searchParams }: Props) {
   const { id } = await params;
+  const { no } = await searchParams;
 
   const fluxograma = fluxogramas.find(
     (f) => f.id === decodeURIComponent(id)
@@ -21,6 +25,10 @@ export default async function FluxogramaPage({ params }: Props) {
   if (!fluxograma) {
     notFound();
   }
+
+  const nodeInicialId = fluxograma.nodes.some((n) => n.id === no)
+    ? no
+    : undefined;
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -36,7 +44,7 @@ export default async function FluxogramaPage({ params }: Props) {
         <p className="mt-4 text-slate-400">{fluxograma.descricao}</p>
       </div>
 
-      <FluxogramaViewer fluxograma={fluxograma} />
+      <FluxogramaViewer fluxograma={fluxograma} nodeInicialId={nodeInicialId} />
 
       {fluxograma.referencias && fluxograma.referencias.length > 0 && (
         <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-6">
