@@ -7,6 +7,7 @@ import {
   gerarTextoEscala,
   gerarTextoConduta,
   gerarTextoSimulador,
+  gerarTextoTendenciaEscala,
   limparRotuloParaTrilha,
 } from "./gerarTextoProntuario.ts";
 
@@ -14,6 +15,7 @@ import type { Medicamento } from "../data/types.ts";
 import type { Diagnostico } from "../data/diagnosticos/types.ts";
 import type { Escala } from "../data/escalas/types.ts";
 import type { FluxogramaNode } from "../data/fluxogramas/types.ts";
+import type { EntradaHistorico } from "./historicoEscalas.ts";
 import { voJardim } from "../data/simulador/vo-jardim.ts";
 import { diagnosticos } from "../data/diagnosticos/index.ts";
 
@@ -206,6 +208,62 @@ test("gerarTextoSimulador: sem decisões tomadas ainda, gera só o cabeçalho", 
   assert.equal(
     texto,
     'Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim"): diagnóstico Transtorno Depressivo Maior (CID-11: 6A70).'
+  );
+});
+
+function entradaCiwaFixture(pontuacao: number, dataISO: string): EntradaHistorico {
+  return {
+    id: `ciwa-ar-fixture-${dataISO}`,
+    escalaId: "ciwa-ar",
+    pacienteLabel: "J.S.",
+    dataISO,
+    pontuacao,
+    faixaLabel: "fixture",
+    faixaCor: "red",
+  };
+}
+
+test("gerarTextoTendenciaEscala: pontuação caiu entre as duas aplicações mais recentes", () => {
+  const entradas = [
+    entradaCiwaFixture(24, "2026-08-05T10:00:00.000Z"),
+    entradaCiwaFixture(12, "2026-08-07T10:00:00.000Z"),
+  ];
+
+  const texto = gerarTextoTendenciaEscala("CIWA-Ar", entradas);
+  console.log("\n[tendência, caiu]\n" + texto);
+
+  assert.equal(texto, "CIWA-Ar caiu de 24 para 12 pontos entre 05/08/26 e 07/08/26.");
+});
+
+test("gerarTextoTendenciaEscala: pontuação subiu, e ordem das entradas de entrada não importa", () => {
+  // Entradas propositalmente fora de ordem cronológica — a função deve
+  // ordenar por dataISO antes de comparar as duas mais recentes.
+  const entradas = [
+    entradaCiwaFixture(18, "2026-08-07T10:00:00.000Z"),
+    entradaCiwaFixture(9, "2026-08-05T10:00:00.000Z"),
+  ];
+
+  const texto = gerarTextoTendenciaEscala("CIWA-Ar", entradas);
+
+  assert.equal(texto, "CIWA-Ar subiu de 9 para 18 pontos entre 05/08/26 e 07/08/26.");
+});
+
+test("gerarTextoTendenciaEscala: pontuação estável entre as duas aplicações mais recentes", () => {
+  const entradas = [
+    entradaCiwaFixture(10, "2026-08-05T10:00:00.000Z"),
+    entradaCiwaFixture(10, "2026-08-07T10:00:00.000Z"),
+  ];
+
+  const texto = gerarTextoTendenciaEscala("CIWA-Ar", entradas);
+
+  assert.equal(texto, "CIWA-Ar manteve-se estável em 10 pontos entre 05/08/26 e 07/08/26.");
+});
+
+test("gerarTextoTendenciaEscala: com menos de 2 entradas, devolve string vazia", () => {
+  assert.equal(gerarTextoTendenciaEscala("CIWA-Ar", []), "");
+  assert.equal(
+    gerarTextoTendenciaEscala("CIWA-Ar", [entradaCiwaFixture(10, "2026-08-05T10:00:00.000Z")]),
+    ""
   );
 });
 

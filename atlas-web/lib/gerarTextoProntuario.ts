@@ -3,6 +3,7 @@ import type { Diagnostico } from "../data/diagnosticos/types";
 import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
 import type { CasoSimulador, OpcaoSimulador } from "../data/simulador/types";
+import type { EntradaHistorico } from "./historicoEscalas";
 
 // Geração de texto pronto pra colar em prontuário eletrônico — cada
 // função aqui produz uma frase redigida como nota clínica real, nunca um
@@ -70,6 +71,39 @@ export function gerarTextoEscala(
     faixaCorrespondente.label.charAt(0).toLowerCase() + faixaCorrespondente.label.slice(1);
 
   return `Aplicado ${escala.sigla} (${escala.nome}), pontuação total de ${pontuacaoCalculada}, compatível com ${faixaTexto}.`;
+}
+
+function formatarDataCurta(dataISO: string): string {
+  return new Date(dataISO).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  });
+}
+
+// Resume a evolução de um paciente numa escala, comparando as duas
+// aplicações mais recentes do histórico local (ver lib/historicoEscalas.ts)
+// — pensado pra ser colado junto de gerarTextoConduta numa nota de
+// evolução. Devolve "" com menos de 2 entradas, pra quem chama poder
+// simplesmente omitir a frase em vez de tratar caso especial.
+export function gerarTextoTendenciaEscala(
+  siglaEscala: string,
+  entradas: EntradaHistorico[]
+): string {
+  if (entradas.length < 2) return "";
+
+  const ordenadas = [...entradas].sort((a, b) => a.dataISO.localeCompare(b.dataISO));
+  const anterior = ordenadas[ordenadas.length - 2];
+  const atual = ordenadas[ordenadas.length - 1];
+
+  const periodo = `entre ${formatarDataCurta(anterior.dataISO)} e ${formatarDataCurta(atual.dataISO)}`;
+
+  if (atual.pontuacao === anterior.pontuacao) {
+    return `${siglaEscala} manteve-se estável em ${atual.pontuacao} pontos ${periodo}.`;
+  }
+
+  const verbo = atual.pontuacao < anterior.pontuacao ? "caiu" : "subiu";
+  return `${siglaEscala} ${verbo} de ${anterior.pontuacao} para ${atual.pontuacao} pontos ${periodo}.`;
 }
 
 // Remove o "Sim, "/"Não, " inicial (comum nos rótulos de opção deste
