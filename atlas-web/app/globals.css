@@ -1,7 +1,81 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --color-paper: #fbfaf7;
+  --color-panel: #ffffff;
+  --color-rule: #e6e2d9;
+  --color-rule-soft: #f0ede6;
+  --color-rule-faint: #f5f2ec;
+  --color-hover-warm: #f4f1ea;
+  --color-sticky-head: #f6f3ec;
+
+  /* ink-3/ink-4 são ~0.5-0.6 mais escuros que a proposta original do
+     protótipo (#8A8E95/#A9ADB4): naquela versão o contraste contra
+     paper/panel ficava em ~3.15:1 e ~2.16:1, abaixo do mínimo de 4.5:1
+     (texto pequeno) e 3:1 (texto grande) da WCAG AA — problemático para
+     leitura rápida em plantão. Os valores abaixo miram ~4.6:1 e ~3.4:1. */
+  --color-ink: #191b1e;
+  --color-ink-2: #5c6067;
+  --color-ink-3: #75797f;
+  --color-ink-4: #8f939a;
+  --color-ink-5: #c5c1b8;
+  --color-ink-6: #cfcbc1;
+
+  --color-accent: #2e5487;
+  --color-accent-hover: #1f3a5f;
+  --color-accent-soft: #eaeff6;
+  --color-accent-border: #d3deec;
+
+  --color-ok: #2f6b4f;
+  --color-ok-bg: #e9f2ed;
+  --color-ok-border: #cbe0d4;
+
+  --color-warn: #8a6212;
+  --color-warn-bg: #fbf3e2;
+  --color-warn-border: #ebdcb8;
+
+  --color-alert: #a63a2c;
+  --color-alert-bg: #faedea;
+  --color-alert-border: #e7c9c2;
+  --color-alert-deep: #7e2b20;
+  --color-alert-muted: #8a5348;
+  --color-alert-tint: #fdf7f5;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+@keyframes atlas-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes atlas-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-atlas-rise {
+  animation: atlas-rise 240ms ease-out;
+}
+
+.animate-atlas-fade {
+  animation: atlas-fade 140ms ease-out;
 }
 
 @media print {

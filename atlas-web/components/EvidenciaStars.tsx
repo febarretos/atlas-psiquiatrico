@@ -10,21 +10,30 @@ const rotulos: Record<number, string> = {
   1: "Off-label, evidência restrita",
 };
 
+const cor: Record<number, string> = {
+  5: "bg-ok",
+  4: "bg-ok",
+  3: "bg-warn",
+  2: "bg-alert",
+  1: "bg-alert",
+};
+
 export default function EvidenciaStars({
   nivel,
 }: EvidenciaStarsProps) {
   return (
-    <span
-      className="inline-flex items-center gap-1.5"
-      title={rotulos[nivel]}
-    >
+    <span className="inline-flex items-center gap-2" title={rotulos[nivel]}>
       <span
-        className="tracking-tight text-amber-400"
+        className="block h-[5px] w-[62px] overflow-hidden rounded-full bg-rule-soft"
         aria-hidden="true"
       >
-        {"★".repeat(nivel)}
-        <span className="text-slate-700">{"★".repeat(5 - nivel)}</span>
+        <span
+          className={`block h-full ${cor[nivel]}`}
+          style={{ width: `${nivel * 20}%` }}
+        />
       </span>
+
+      <span className="font-mono text-[11px] text-ink-3">{nivel}/5</span>
 
       <span className="sr-only">
         Nível de evidência: {nivel} de 5 — {rotulos[nivel]}

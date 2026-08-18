@@ -11,15 +11,11 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className="mb-10">
-      <div className="mb-4 flex items-center gap-3">
-        <div className="h-6 w-1 rounded-full bg-blue-500 print:hidden" />
+      <h2 className="mb-4 font-serif text-2xl font-medium text-ink print:text-black">
+        {titulo}
+      </h2>
 
-        <h2 className="text-2xl font-bold text-white print:text-black">
-          {titulo}
-        </h2>
-      </div>
-
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm print:border-none print:bg-white print:p-0 print:text-black print:shadow-none">
+      <div className="rounded-xl border border-rule bg-panel p-6 print:border-none print:bg-white print:p-0 print:text-black">
         {children}
       </div>
     </section>

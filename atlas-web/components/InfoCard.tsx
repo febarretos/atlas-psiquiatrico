@@ -10,12 +10,12 @@ export default function InfoCard({
   valor,
 }: InfoCardProps) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900 px-5 py-4 transition-colors hover:border-slate-700">
-      <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-rule bg-panel px-5 py-4">
+      <div className="mb-2 font-mono text-[10px] tracking-wider uppercase text-ink-3">
         {titulo}
       </div>
 
-      <div className="text-base text-white">
+      <div className="text-[15px] text-ink">
         {valor}
       </div>
     </div>

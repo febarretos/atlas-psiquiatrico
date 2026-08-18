@@ -15,13 +15,13 @@ export default function Card({
   children,
 }: CardProps) {
   const conteudo = (
-    <div className="group h-full rounded-2xl border border-slate-800 bg-slate-900 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10">
-      <h3 className="text-xl font-semibold text-white transition-colors group-hover:text-blue-400">
+    <div className="group h-full rounded-xl border border-rule bg-panel p-6 transition-colors hover:border-accent">
+      <h3 className="font-serif text-xl font-medium text-ink transition-colors group-hover:text-accent">
         {titulo}
       </h3>
 
       {descricao && (
-        <p className="mt-3 text-sm leading-6 text-slate-400">
+        <p className="mt-3 text-sm leading-6 text-ink-2">
           {descricao}
         </p>
       )}

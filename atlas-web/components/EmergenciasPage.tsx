@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
-import Badge from "./Badge";
 import SearchBar from "./SearchBar";
+import { normalizarBusca } from "../lib/normalizarBusca";
 
 import { Emergencia } from "../data/emergencias/types";
 
@@ -18,28 +18,29 @@ export default function EmergenciasPage({
   const [busca, setBusca] = useState("");
 
   const lista = useMemo(() => {
-    return [...emergencias]
-      .filter((e) => {
-        const texto = (e.nome + " " + e.categoria).toLowerCase();
+    const termo = normalizarBusca(busca.trim());
 
-        return texto.includes(busca.toLowerCase());
-      })
+    return [...emergencias]
+      .filter((e) => normalizarBusca(e.nome + " " + e.categoria).includes(termo))
       .sort((a, b) => a.nome.localeCompare(b.nome));
   }, [busca, emergencias]);
 
   return (
-    <main className="mx-auto max-w-7xl">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
-          🚨 Emergências Psiquiátricas
+    <div className="mx-auto max-w-[1000px] animate-atlas-rise pt-[38px]">
+      <div className="border-b border-alert-border pb-5">
+        <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-alert">
+          Conduta imediata
+        </div>
+        <h1 className="mt-2 font-serif text-[38px] font-medium tracking-tight text-ink">
+          Emergências psiquiátricas
         </h1>
-
-        <p className="mt-3 text-slate-400">
-          Referência rápida para quadros agudos com risco de vida — reconhecimento e conduta imediata.
+        <p className="mt-2 max-w-[60ch] text-[14px] text-ink-2">
+          {emergencias.length} quadros agudos com risco de vida. Reconhecimento, primeiras
+          medidas e critérios de transferência.
         </p>
       </div>
 
-      <div className="mb-8">
+      <div className="mb-2 mt-6">
         <SearchBar
           value={busca}
           onChange={setBusca}
@@ -47,31 +48,33 @@ export default function EmergenciasPage({
         />
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {lista.map((e) => (
-          <Link
-            key={e.id}
-            href={`/emergencias/${e.id}`}
-            className="group rounded-2xl border border-red-900/40 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-red-500"
-          >
-            <h2 className="text-xl font-semibold text-white group-hover:text-red-400">
-              {e.nome}
-            </h2>
+      <div className="mt-4 grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
+        {lista.map((e) => {
+          const critico = e.gravidade === "muito alta";
+          return (
+            <Link
+              key={e.id}
+              href={`/emergencias/${e.id}`}
+              className={`flex items-start justify-between gap-3.5 rounded-lg border px-4.5 py-4 transition-colors hover:border-alert ${
+                critico ? "border-alert-border bg-alert-tint" : "border-rule bg-panel"
+              }`}
+            >
+              <div>
+                <div className="text-[15px] font-medium text-ink">{e.nome}</div>
+                <div className="mt-0.5 text-[12.5px] text-ink-3">{e.categoria}</div>
+              </div>
 
-            <p className="mt-2 line-clamp-2 text-sm text-slate-400">
-              {e.descricao}
-            </p>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Badge color="gray">{e.categoria}</Badge>
-
-              <Badge color="red">
-                {e.gravidade === "muito alta" ? "Gravidade muito alta" : "Gravidade alta"}
-              </Badge>
-            </div>
-          </Link>
-        ))}
+              <span
+                className={`whitespace-nowrap rounded px-2 py-[3px] font-mono text-[9.5px] tracking-[0.1em] uppercase ${
+                  critico ? "bg-alert-bg text-alert" : "bg-hover-warm text-ink-2"
+                }`}
+              >
+                {critico ? "Gravidade muito alta" : "Gravidade alta"}
+              </span>
+            </Link>
+          );
+        })}
       </div>
-    </main>
+    </div>
   );
 }

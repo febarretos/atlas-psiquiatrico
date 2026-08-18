@@ -1,105 +1,44 @@
 "use client";
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { medicamentos } from "../data/medicamentos";
-import { diagnosticos } from "../data/diagnosticos";
-import { escalas } from "../data/escalas";
-import { emergencias } from "../data/emergencias";
-import { fluxogramas } from "../data/fluxogramas";
-import { dominiosPsicopatologicos } from "../data/psicopatologia";
-import { casosClinicos } from "../data/casos-clinicos";
-
-interface Resultado {
-  tipo: string;
-  nome: string;
-  sub: string;
-  href: string;
-}
+import { getTrilha } from "../lib/trilha";
 
 interface Props {
   onAbrirMenu: () => void;
+  onAbrirBusca: () => void;
 }
 
-export default function Topbar({ onAbrirMenu }: Props) {
-  const [busca, setBusca] = useState("");
-  const [aberto, setAberto] = useState(false);
+export default function Topbar({ onAbrirMenu, onAbrirBusca }: Props) {
+  const pathname = usePathname();
+  const trilha = getTrilha(pathname);
 
-  const resultados = useMemo<Resultado[]>(() => {
-    const termo = busca.trim().toLowerCase();
+  const [online, setOnline] = useState(
+    () => typeof navigator === "undefined" || navigator.onLine
+  );
 
-    if (!termo) return [];
+  useEffect(() => {
+    const marcarOnline = () => setOnline(true);
+    const marcarOffline = () => setOnline(false);
 
-    const itens: Resultado[] = [
-      ...medicamentos.map((m) => ({
-        tipo: "Medicamento",
-        nome: m.nome,
-        sub: m.classe,
-        href: `/medicamentos/${encodeURIComponent(m.nome)}`,
-      })),
-      ...diagnosticos.map((d) => ({
-        tipo: "Diagnóstico",
-        nome: d.nome,
-        sub: d.categoria,
-        href: `/diagnosticos/${d.id}`,
-      })),
-      ...escalas.map((e) => ({
-        tipo: "Escala",
-        nome: `${e.nome} (${e.sigla})`,
-        sub: e.categoria,
-        href: `/escalas/${e.id}`,
-      })),
-      ...emergencias.map((e) => ({
-        tipo: "Emergência",
-        nome: e.nome,
-        sub: e.categoria,
-        href: `/emergencias/${e.id}`,
-      })),
-      ...fluxogramas.map((f) => ({
-        tipo: "Fluxograma",
-        nome: f.titulo,
-        sub: f.categoria,
-        href: `/fluxogramas/${f.id}`,
-      })),
-      ...dominiosPsicopatologicos.map((d) => ({
-        tipo: "Psicopatologia",
-        nome: d.nome,
-        sub: `${d.achados.length} achado(s)`,
-        href: `/psicopatologia/${d.id}`,
-      })),
-      ...dominiosPsicopatologicos.flatMap((d) =>
-        d.achados.map((a) => ({
-          tipo: "Achado psicopatológico",
-          nome: a.nome,
-          sub: d.nome,
-          href: `/psicopatologia/${d.id}`,
-        }))
-      ),
-      ...casosClinicos.map((c) => ({
-        tipo: "Caso clínico",
-        nome: c.titulo,
-        sub: c.categoria,
-        href: `/casos-clinicos/${c.id}`,
-      })),
-    ];
+    window.addEventListener("online", marcarOnline);
+    window.addEventListener("offline", marcarOffline);
 
-    return itens
-      .filter((item) =>
-        (item.nome + " " + item.sub).toLowerCase().includes(termo)
-      )
-      .slice(0, 8);
-  }, [busca]);
+    return () => {
+      window.removeEventListener("online", marcarOnline);
+      window.removeEventListener("offline", marcarOffline);
+    };
+  }, []);
 
   return (
-    <header className="flex h-16 items-center justify-between gap-3 border-b border-slate-800 bg-slate-950 px-4 print:hidden md:px-8">
-
+    <header className="flex h-[58px] flex-none items-center justify-between gap-5 border-b border-rule bg-paper/92 px-5 backdrop-blur-sm print:hidden md:px-10">
       <div className="flex min-w-0 items-center gap-3">
         <button
           type="button"
           onClick={onAbrirMenu}
           aria-label="Abrir menu"
-          className="rounded-lg border border-slate-700 p-2 text-slate-300 transition-colors hover:border-blue-500 hover:text-white md:hidden"
+          className="rounded-md border border-rule p-1.5 text-ink-3 transition-colors hover:border-accent hover:text-accent md:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -117,47 +56,30 @@ export default function Topbar({ onAbrirMenu }: Props) {
           </svg>
         </button>
 
-        <h2 className="truncate text-lg font-semibold text-white md:text-xl">
-          Atlas Psiquiátrico
-        </h2>
+        <div className="flex min-w-0 items-center gap-2 font-mono text-[10.5px] tracking-[0.12em] uppercase text-ink-3">
+          <span className="hidden sm:inline">Atlas</span>
+          <span className="hidden text-ink-6 sm:inline">/</span>
+          <span className="truncate text-ink-2">{trilha}</span>
+        </div>
       </div>
 
-      <div className="relative w-full max-w-[420px]">
-        <input
-          type="text"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          onFocus={() => setAberto(true)}
-          onBlur={() => setTimeout(() => setAberto(false), 150)}
-          placeholder="Pesquisar..."
-          className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none"
-        />
+      <div className="flex flex-none items-center gap-2">
+        <button
+          type="button"
+          onClick={onAbrirBusca}
+          className="rounded-md border border-rule bg-panel px-2.5 py-[5px] font-mono text-[11px] text-ink-3 transition-colors hover:border-accent hover:text-accent"
+        >
+          buscar
+        </button>
 
-        {aberto && busca.trim() !== "" && (
-          <div className="absolute right-0 top-full z-50 mt-2 w-[min(420px,90vw)] overflow-hidden rounded-lg border border-slate-700 bg-slate-900 shadow-xl">
-            {resultados.length > 0 ? (
-              resultados.map((r) => (
-                <Link
-                  key={`${r.tipo}-${r.href}`}
-                  href={r.href}
-                  className="flex items-center justify-between gap-3 border-b border-slate-800 px-4 py-3 text-sm last:border-b-0 hover:bg-slate-800"
-                >
-                  <span className="text-white">{r.nome}</span>
-
-                  <span className="whitespace-nowrap text-xs text-slate-500">
-                    {r.tipo}
-                  </span>
-                </Link>
-              ))
-            ) : (
-              <div className="px-4 py-3 text-sm text-slate-500">
-                Nenhum resultado encontrado.
-              </div>
-            )}
-          </div>
-        )}
+        <div className="flex items-center gap-1.5 whitespace-nowrap rounded-md border border-rule bg-panel px-2.5 py-[5px] font-mono text-[11px] text-ink-3">
+          <span
+            className={`inline-block h-[6px] w-[6px] rounded-full ${online ? "bg-ok" : "bg-alert"}`}
+            aria-hidden="true"
+          />
+          {online ? "online" : "offline"}
+        </div>
       </div>
-
     </header>
   );
 }

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const classePadrao =
-  "rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white";
+  "rounded-lg bg-accent px-4 py-2.5 text-center text-[12.5px] font-medium text-white transition-colors hover:bg-accent-hover";
 
 export default function BotaoCopiarProntuario({ texto, className }: Props) {
   const [copiado, setCopiado] = useState(false);
@@ -30,7 +30,7 @@ export default function BotaoCopiarProntuario({ texto, className }: Props) {
 
   return (
     <button type="button" onClick={copiar} className={className ?? classePadrao}>
-      {copiado ? "✅ Copiado!" : "📋 Copiar pro prontuário"}
+      {copiado ? "Copiado ✓" : "Copiar para prontuário"}
     </button>
   );
 }

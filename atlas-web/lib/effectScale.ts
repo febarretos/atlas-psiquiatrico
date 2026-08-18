@@ -1,4 +1,10 @@
+// Escala categórica compartilhada para os eixos de efeito (ganho de peso,
+// sedação, disfunção sexual, QT, risco metabólico, EPS etc.) — usada por
+// Rating, EffectRadarChart e pela tabela de Medicamentos. Baseada na escala
+// de 7 níveis do redesenho: Nenhum(a) 5% · Muito baixo(a) 15% · Baixo(a) 35% ·
+// Leve / Baixa a moderada 50% · Moderado(a) 65% · Alto(a) 85% · Muito alto(a) 100%.
 export type EffectLevel =
+  | "nenhum"
   | "muitobaixo"
   | "baixo"
   | "leve"
@@ -7,15 +13,27 @@ export type EffectLevel =
   | "muitoalto";
 
 export const EFFECT_COLORS: Record<EffectLevel, string> = {
-  muitobaixo: "bg-green-500",
-  baixo: "bg-green-400",
-  leve: "bg-lime-400",
-  moderado: "bg-yellow-400",
-  alto: "bg-orange-500",
-  muitoalto: "bg-red-600",
+  nenhum: "bg-ok",
+  muitobaixo: "bg-ok",
+  baixo: "bg-ok",
+  leve: "bg-warn",
+  moderado: "bg-warn",
+  alto: "bg-alert",
+  muitoalto: "bg-alert",
+};
+
+export const EFFECT_TEXT_COLORS: Record<EffectLevel, string> = {
+  nenhum: "text-ok",
+  muitobaixo: "text-ok",
+  baixo: "text-ok",
+  leve: "text-warn",
+  moderado: "text-warn",
+  alto: "text-alert",
+  muitoalto: "text-alert",
 };
 
 export const EFFECT_LABELS: Record<EffectLevel, string> = {
+  nenhum: "Nenhum",
   muitobaixo: "Muito baixo",
   baixo: "Baixo",
   leve: "Leve",
@@ -27,6 +45,7 @@ export const EFFECT_LABELS: Record<EffectLevel, string> = {
 // Também usado como fração (width / 100) para o gráfico radar, mantendo a
 // mesma escala visual da barra de Rating.
 export const EFFECT_WIDTHS: Record<EffectLevel, number> = {
+  nenhum: 5,
   muitobaixo: 15,
   baixo: 35,
   leve: 50,
@@ -35,14 +54,30 @@ export const EFFECT_WIDTHS: Record<EffectLevel, number> = {
   muitoalto: 100,
 };
 
+// Tabela de correspondência exata (não heurística) entre os rótulos usados
+// em data/medicamentos e os níveis acima — cobre variações de gênero
+// ("Baixo"/"Baixa") e rótulos compostos ("Baixa a moderada") que uma troca
+// de sufixo simples não resolveria.
+const ROTULOS: Record<string, EffectLevel> = {
+  "nenhum": "nenhum",
+  "nenhuma": "nenhum",
+  "muito baixo": "muitobaixo",
+  "muito baixa": "muitobaixo",
+  "baixo": "baixo",
+  "baixa": "baixo",
+  "leve": "leve",
+  "baixa a moderada": "leve",
+  "moderado": "moderado",
+  "moderada": "moderado",
+  "alto": "alto",
+  "alta": "alto",
+  "muito alto": "muitoalto",
+  "muito alta": "muitoalto",
+};
+
 export function normalizeEffectKey(value: string): EffectLevel | null {
-  const normalized = value.replace(/\s/g, "").toLowerCase();
-  if (normalized in EFFECT_WIDTHS) return normalized as EffectLevel;
-
-  const alternativo = normalized.replace(/a$/, "o");
-  if (alternativo in EFFECT_WIDTHS) return alternativo as EffectLevel;
-
-  return null;
+  const normalized = value.trim().toLowerCase();
+  return ROTULOS[normalized] ?? null;
 }
 
 export function effectFraction(value: string): number {

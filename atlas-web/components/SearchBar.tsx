@@ -12,7 +12,7 @@ export default function SearchBar({
   return (
     <div className="relative">
       <svg
-        className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500"
+        className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-3"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ export default function SearchBar({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-slate-700 bg-slate-900 py-3 pl-12 pr-4 text-white placeholder:text-slate-500 outline-none transition-colors focus:border-blue-500"
+        className="w-full rounded-lg border border-rule bg-panel py-2.5 pl-11 pr-4 text-[14px] text-ink placeholder:text-ink-3 outline-none transition-colors focus:border-accent"
       />
     </div>
   );

@@ -3,118 +3,114 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface ItemMenu {
-  nome: string;
-  href: string;
-  icone: string;
-}
-
-interface GrupoMenu {
-  titulo: string;
-  itens: ItemMenu[];
-}
-
-const inicio: ItemMenu = { nome: "Início", href: "/", icone: "🏠" };
-
-const grupos: GrupoMenu[] = [
-  {
-    titulo: "Referência",
-    itens: [
-      { nome: "Emergências", href: "/emergencias", icone: "🚨" },
-      { nome: "Medicamentos", href: "/medicamentos", icone: "💊" },
-      { nome: "Diagnósticos", href: "/diagnosticos", icone: "🧠" },
-      { nome: "Psicopatologia", href: "/psicopatologia", icone: "🧩" },
-      { nome: "Escalas", href: "/escalas", icone: "📋" },
-      { nome: "Fluxogramas", href: "/fluxogramas", icone: "🌳" },
-    ],
-  },
-  {
-    titulo: "Ferramentas de Consulta",
-    itens: [
-      { nome: "Assistente de Medicação", href: "/assistente", icone: "🧭" },
-      { nome: "Entrevista Diagnóstica Estruturada", href: "/entrevista-estruturada", icone: "📝" },
-      { nome: "Mapa de Conhecimento", href: "/mapa", icone: "🕸️" },
-    ],
-  },
-  {
-    titulo: "Casos & Prática",
-    itens: [
-      { nome: "Casos Clínicos", href: "/casos-clinicos", icone: "🩺" },
-      { nome: "Simulador", href: "/simulador", icone: "🎮" },
-      { nome: "Simulador de Emergência", href: "/simulador-emergencia", icone: "🚑" },
-      { nome: "Modo de Estudo", href: "/estudo", icone: "🗂️" },
-    ],
-  },
-];
+import { grupos, ItemMenu } from "../lib/navegacao";
 
 interface Props {
   aberto: boolean;
   onFechar: () => void;
+  onAbrirBusca: () => void;
 }
 
-export default function Sidebar({
-  aberto,
-  onFechar,
-}: Props) {
+export default function Sidebar({ aberto, onFechar, onAbrirBusca }: Props) {
   const pathname = usePathname();
+
+  const ativo = (href: string) =>
+    pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
   return (
     <>
       {aberto && (
         <div
-          className="fixed inset-0 z-30 bg-black/60 md:hidden"
+          className="fixed inset-0 z-30 bg-ink/40 md:hidden"
           onClick={onFechar}
           aria-hidden="true"
         />
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-72 min-h-screen transform overflow-y-auto border-r border-slate-800 bg-slate-900 p-6 transition-transform duration-200 ease-out print:hidden md:static md:translate-x-0 ${
-          aberto ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 left-0 z-40 flex w-[272px] min-h-screen -translate-x-full transform flex-col overflow-y-auto border-r border-rule bg-panel transition-transform duration-200 ease-out print:hidden md:static md:translate-x-0 ${
+          aberto ? "translate-x-0" : ""
         }`}
       >
-        <h1 className="text-2xl font-bold text-white mb-8">
-          🧠 Atlas Psiquiátrico
-        </h1>
+        <div className="border-b border-rule-soft px-[22px] pb-[18px] pt-[26px]">
+          <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3">
+            Biblioteca clínica
+          </div>
+          <Link
+            href="/"
+            onClick={onFechar}
+            className="mt-1 block font-serif text-[23px] font-medium tracking-tight text-ink hover:text-ink"
+          >
+            Atlas Psiquiátrico
+          </Link>
+        </div>
 
-        <nav className="space-y-6">
-          {(() => {
-            const ativo = (href: string) =>
-              pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+        <div className="px-4 pb-2 pt-4">
+          <button
+            type="button"
+            onClick={onAbrirBusca}
+            className="group flex w-full items-center justify-between gap-2.5 rounded-lg border border-rule bg-paper px-3 py-2.5 text-ink-3 transition-colors hover:border-accent hover:text-accent"
+          >
+            <span className="text-[13px]">Buscar em tudo…</span>
+            <span className="rounded border border-rule bg-panel px-[5px] py-px font-mono text-[10px] group-hover:border-accent-border">
+              ⌘K
+            </span>
+          </button>
+        </div>
 
-            const link = (item: ItemMenu) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={onFechar}
-                className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
-                  ativo(item.href)
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-300 hover:bg-slate-800"
-                }`}
-              >
-                <span>{item.icone}</span>
-                <span>{item.nome}</span>
-              </Link>
-            );
+        <nav className="flex flex-col gap-5 px-4 pb-7 pt-3">
+          <div className="flex flex-col gap-px">
+            <ItemLink
+              item={{ nome: "Início", href: "/" }}
+              ativo={ativo("/")}
+              onClick={onFechar}
+            />
+          </div>
 
-            return (
-              <>
-                <div className="space-y-2">{link(inicio)}</div>
+          {grupos.map((grupo) => (
+            <div key={grupo.titulo} className="flex flex-col gap-px">
+              <div className="px-2 pb-[7px] font-mono text-[9.5px] tracking-[0.16em] uppercase text-ink-4">
+                {grupo.titulo}
+              </div>
 
-                {grupos.map((grupo) => (
-                  <div key={grupo.titulo} className="space-y-2">
-                    <h2 className="px-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                      {grupo.titulo}
-                    </h2>
-                    {grupo.itens.map(link)}
-                  </div>
-                ))}
-              </>
-            );
-          })()}
+              {grupo.itens.map((item) => (
+                <ItemLink
+                  key={item.href}
+                  item={item}
+                  ativo={ativo(item.href)}
+                  onClick={onFechar}
+                />
+              ))}
+            </div>
+          ))}
         </nav>
       </aside>
     </>
+  );
+}
+
+function ItemLink({
+  item,
+  ativo,
+  onClick,
+}: {
+  item: ItemMenu;
+  ativo: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={item.href}
+      onClick={onClick}
+      className={`flex items-center gap-2.5 rounded-md px-2 py-[7px] transition-colors ${
+        ativo ? "bg-accent-soft text-accent" : "text-ink hover:bg-hover-warm"
+      }`}
+      style={ativo ? { fontWeight: 500 } : undefined}
+    >
+      <span
+        className={`h-[15px] w-[3px] rounded-sm ${ativo ? "bg-accent" : "bg-transparent"}`}
+      />
+      <span className="text-[13.5px]">{item.nome}</span>
+    </Link>
   );
 }
