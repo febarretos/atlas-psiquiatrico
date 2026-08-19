@@ -47,13 +47,13 @@ export const cssrs: Escala = {
       id: "cssrs-4",
       texto:
         "O paciente teve algum grau de intenção de agir sobre esses pensamentos suicidas, além de apenas pensar neles?",
-      opcoes: opcoesSimNao(4),
+      opcoes: opcoesSimNao(5),
     },
     {
       id: "cssrs-5",
       texto:
         "O paciente começou a elaborar ou já elaborou um plano detalhado (quando, onde, como) sobre como se mataria, com intenção de executá-lo?",
-      opcoes: opcoesSimNao(5),
+      opcoes: opcoesSimNao(6),
     },
     {
       id: "cssrs-6",
@@ -62,7 +62,7 @@ export const cssrs: Escala = {
       opcoes: [
         { label: "Nunca", valor: 0 },
         { label: "Sim, mas há mais de 3 meses", valor: 4 },
-        { label: "Sim, nos últimos 3 meses", valor: 6 },
+        { label: "Sim, nos últimos 3 meses", valor: 7 },
       ],
     },
   ],
@@ -87,16 +87,17 @@ export const cssrs: Escala = {
     {
       min: 3,
       max: 4,
-      label: "Ideação suicida ativa com método ou intenção — risco moderado",
+      label:
+        "Ideação suicida ativa com método (sem intenção), ou comportamento suicida preparatório há mais de 3 meses — risco moderado",
       cor: "yellow",
       descricao:
         "Avaliação de risco aprofundada indicada. Considerar plano de segurança por escrito, envolvimento da rede de apoio, redução do acesso a meios letais e reavaliação em curto prazo.",
     },
     {
       min: 5,
-      max: 6,
+      max: 7,
       label:
-        "Plano específico com intenção, ou comportamento suicida nos últimos 3 meses — risco alto",
+        "Alguma intenção de agir, plano específico, ou comportamento suicida nos últimos 3 meses — risco alto",
       cor: "red",
       descricao:
         "Priorizar segurança imediata: avaliar necessidade de internação (voluntária ou involuntária se risco iminente), remover acesso a meios letais, garantir supervisão, e encaminhar/acionar avaliação psiquiátrica de urgência sem demora.",
@@ -104,7 +105,7 @@ export const cssrs: Escala = {
   ],
 
   notaInterpretacao:
-    "Esta é a versão resumida de TRIAGEM da C-SSRS, útil para estratificação rápida de risco. Qualquer resposta positiva a partir do item 3 (pensou em método) já indica necessidade de avaliação de risco mais aprofundada, incluindo perguntas sobre frequência, controlabilidade dos pensamentos, dissuasores, razões para viver e acesso concreto a meios letais — a versão completa da C-SSRS (Lifetime/Recent) é o instrumento indicado para essa avaliação detalhada. Comportamento suicida recente (item 6, últimos 3 meses) classifica o paciente como alto risco independentemente da pontuação de ideação. Este instrumento não substitui o julgamento clínico nem uma entrevista de risco completa.",
+    "Esta é a versão resumida de TRIAGEM da C-SSRS, útil para estratificação rápida de risco. Qualquer resposta positiva a partir do item 3 (pensou em método) já indica necessidade de avaliação de risco mais aprofundada, incluindo perguntas sobre frequência, controlabilidade dos pensamentos, dissuasores, razões para viver e acesso concreto a meios letais — a versão completa da C-SSRS (Lifetime/Recent) é o instrumento indicado para essa avaliação detalhada. Qualquer grau de intenção de agir (item 4), não só um plano específico (item 5), já classifica o paciente como alto risco pelo protocolo oficial do Columbia Lighthouse Project — os valores dos itens 4, 5 e 6 (comportamento recente) foram escolhidos deliberadamente para caírem todos na faixa de risco alto, distintos do item 6 há mais de 3 meses (risco moderado), evitando que a pontuação por maior item os confunda. Comportamento suicida recente (item 6, últimos 3 meses) classifica o paciente como alto risco independentemente da pontuação de ideação. Este instrumento não substitui o julgamento clínico nem uma entrevista de risco completa.",
 
   referencias: [
     "Posner K, et al. The Columbia-Suicide Severity Rating Scale: initial validity and internal consistency findings from three multisite studies with adolescents and adults. Am J Psychiatry. 2011.",
