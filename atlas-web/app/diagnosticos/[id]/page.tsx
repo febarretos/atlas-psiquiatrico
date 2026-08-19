@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { diagnosticos } from "../../../data/diagnosticos";
 import { medicamentos } from "../../../data/medicamentos";
+import { fluxogramas } from "../../../data/fluxogramas";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import BotaoFavoritar from "../../../components/BotaoFavoritar";
 import CriteriosChecklist from "../../../components/CriteriosChecklist";
 import DiagnosticoProntuarioPanel from "../../../components/DiagnosticoProntuarioPanel";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
+import VisitaTracker from "../../../components/VisitaTracker";
 
 interface Props {
   params: Promise<{
@@ -32,8 +35,19 @@ export default async function DiagnosticoDetalhe({
     .map((id) => medicamentos.find((m) => m.id === id))
     .filter((m): m is NonNullable<typeof m> => Boolean(m));
 
+  const fluxogramasQueUsam = fluxogramas.filter((f) =>
+    f.nodes.some((n) => n.diagnosticosRelacionados?.includes(diagnostico.id))
+  );
+
   return (
     <div className="mx-auto max-w-[980px] animate-atlas-rise pt-[38px]">
+      <VisitaTracker
+        tipo="diagnostico"
+        id={diagnostico.id}
+        nome={diagnostico.nome}
+        href={`/diagnosticos/${encodeURIComponent(diagnostico.id)}`}
+      />
+
       <Link
         href="/diagnosticos"
         className="mb-4 inline-block font-mono text-[10.5px] tracking-[0.1em] uppercase text-ink-3 hover:text-accent"
@@ -42,9 +56,18 @@ export default async function DiagnosticoDetalhe({
       </Link>
 
       <div className="border-b border-rule pb-[22px]">
-        <h1 className="font-serif text-[40px] font-medium leading-none tracking-tight text-ink sm:text-[48px]">
-          {diagnostico.nome}
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-6">
+          <h1 className="font-serif text-[40px] font-medium leading-none tracking-tight text-ink sm:text-[48px]">
+            {diagnostico.nome}
+          </h1>
+
+          <BotaoFavoritar
+            tipo="diagnostico"
+            id={diagnostico.id}
+            nome={diagnostico.nome}
+            href={`/diagnosticos/${encodeURIComponent(diagnostico.id)}`}
+          />
+        </div>
 
         <div className="mt-3.5 flex flex-wrap gap-2">
           <Badge color="blue">{diagnostico.categoria}</Badge>
@@ -137,6 +160,23 @@ export default async function DiagnosticoDetalhe({
           )}
         </div>
       </div>
+
+      {fluxogramasQueUsam.length > 0 && (
+        <div className="mt-9">
+          <h2 className="mb-3.5 font-serif text-2xl font-medium text-ink">
+            Fluxogramas relacionados
+          </h2>
+          <div className="rounded-xl border border-rule bg-panel p-6">
+            <div className="flex flex-wrap gap-2">
+              {fluxogramasQueUsam.map((f) => (
+                <Link key={f.id} href={`/fluxogramas/${encodeURIComponent(f.id)}`}>
+                  <Badge color="gray">{f.titulo}</Badge>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {diagnostico.referencias && diagnostico.referencias.length > 0 && (
         <div className="mt-9 border-t border-rule pt-6">

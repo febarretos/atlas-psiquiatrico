@@ -8,11 +8,13 @@ import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
 import BotaoCopiarProntuario from "../../../components/BotaoCopiarProntuario";
+import BotaoFavoritar from "../../../components/BotaoFavoritar";
 import BotaoImprimir from "../../../components/BotaoImprimir";
 import EvidenciaStars from "../../../components/EvidenciaStars";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
 import Rating from "../../../components/Rating";
+import VisitaTracker from "../../../components/VisitaTracker";
 import {
   corCargaAnticolinergica,
   corGravidez,
@@ -112,6 +114,13 @@ export default async function Medicamento({
 
   return (
     <div className="mx-auto max-w-[980px] animate-atlas-rise pt-[38px]">
+      <VisitaTracker
+        tipo="medicamento"
+        id={medicamento.id}
+        nome={medicamento.nome}
+        href={`/medicamentos/${encodeURIComponent(medicamento.nome)}`}
+      />
+
       <Link
         href="/medicamentos"
         className="mb-4 inline-block font-mono text-[10.5px] tracking-[0.1em] uppercase text-ink-3 hover:text-accent"
@@ -140,6 +149,12 @@ export default async function Medicamento({
         <div className="flex flex-none flex-col gap-2">
           <BotaoCopiarProntuario texto={gerarTextoMedicamento(medicamento)} />
           <BotaoImprimir />
+          <BotaoFavoritar
+            tipo="medicamento"
+            id={medicamento.id}
+            nome={medicamento.nome}
+            href={`/medicamentos/${encodeURIComponent(medicamento.nome)}`}
+          />
         </div>
       </div>
 

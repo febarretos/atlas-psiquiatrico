@@ -42,6 +42,8 @@ export const convulsaoAbstinenciaAlcoolica: Emergencia = {
     "Internação e monitorização contínua para vigilância de progressão ao delirium tremens",
   ],
 
+  medicamentosResgate: ["diazepam", "lorazepam", "tiamina"],
+
   examesComplementares: [
     "Eletrólitos, com atenção especial a magnésio e potássio",
     "Glicemia",

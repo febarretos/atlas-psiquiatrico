@@ -38,6 +38,8 @@ export const sindromeNeurolepticaMaligna: Emergencia = {
     "Monitorização de função renal (risco de lesão renal aguda por rabdomiólise) e correção de distúrbios eletrolíticos",
   ],
 
+  medicamentosResgate: ["dantroleno", "bromocriptina"],
+
   examesComplementares: [
     "CK sérica (tipicamente muito elevada, podendo ultrapassar 1.000-100.000 U/L)",
     "Leucocitose",

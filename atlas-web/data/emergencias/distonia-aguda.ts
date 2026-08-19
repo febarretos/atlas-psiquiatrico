@@ -40,6 +40,8 @@ export const distoniaAguda: Emergencia = {
     "Reavaliar a necessidade e a escolha do antipsicótico causador após o episódio agudo resolvido, considerando redução de dose ou troca por agente de menor risco de sintomas extrapiramidais",
   ],
 
+  medicamentosResgate: ["biperideno"],
+
   examesComplementares: [
     "Geralmente diagnóstico clínico, sem necessidade de exames de rotina",
     "Considerar avaliação laboratorial ampliada diante de sinais atípicos, para descartar diagnósticos diferenciais como hipocalcemia",

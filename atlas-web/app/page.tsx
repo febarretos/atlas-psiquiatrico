@@ -4,6 +4,7 @@ import { grupos } from "../lib/navegacao";
 import { medicamentos } from "../data/medicamentos";
 import { diagnosticos } from "../data/diagnosticos";
 import { emergencias } from "../data/emergencias";
+import PainelRecentesFavoritos from "../components/PainelRecentesFavoritos";
 
 export default function Home() {
   return (
@@ -78,6 +79,8 @@ export default function Home() {
           </div>
         </Link>
       </div>
+
+      <PainelRecentesFavoritos />
 
       <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {grupos.map((grupo) => (

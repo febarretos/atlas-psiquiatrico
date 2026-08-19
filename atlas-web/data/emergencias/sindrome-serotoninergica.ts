@@ -35,6 +35,8 @@ export const sindromeSerotoninergica: Emergencia = {
     "Evitar antipsicóticos com potente ação anti-histamínica/anticolinérgica no manejo agudo, pois podem mascarar o quadro clínico",
   ],
 
+  medicamentosResgate: ["ciproeptadina"],
+
   examesComplementares: [
     "Diagnóstico predominantemente clínico (critérios de Hunter)",
     "CK sérica",

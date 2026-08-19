@@ -43,6 +43,8 @@ export const abstinenciaBenzodiazepinicos: Emergencia = {
     "Monitorização para sinais de delirium durante a retirada",
   ],
 
+  medicamentosResgate: ["diazepam", "lorazepam"],
+
   examesComplementares: [
     "Eletrólitos",
     "Função hepática, especialmente se houver conversão para agente com metabolização diferente",

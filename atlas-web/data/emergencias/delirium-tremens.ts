@@ -37,6 +37,8 @@ export const deliriumTremens: Emergencia = {
     "Monitorização contínua de sinais vitais",
   ],
 
+  medicamentosResgate: ["diazepam", "lorazepam", "tiamina"],
+
   examesComplementares: [
     "Eletrólitos (magnésio, potássio, fósforo)",
     "Função hepática",

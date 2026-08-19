@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import BotaoFavoritar from "../../../components/BotaoFavoritar";
 import Section from "../../../components/Section";
+import VisitaTracker from "../../../components/VisitaTracker";
 import EscalaForm from "../../../components/escalas/EscalaForm";
 
 import { escalas } from "../../../data/escalas";
@@ -23,10 +25,26 @@ export default async function EscalaPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-7xl">
+      <VisitaTracker
+        tipo="escala"
+        id={escala.id}
+        nome={escala.nome}
+        href={`/escalas/${encodeURIComponent(escala.id)}`}
+      />
+
       <div className="mb-10 rounded-xl border border-rule bg-panel p-8 print:hidden">
-        <h1 className="text-4xl font-bold text-ink">
-          {escala.nome}
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h1 className="text-4xl font-bold text-ink">
+            {escala.nome}
+          </h1>
+
+          <BotaoFavoritar
+            tipo="escala"
+            id={escala.id}
+            nome={escala.nome}
+            href={`/escalas/${encodeURIComponent(escala.id)}`}
+          />
+        </div>
 
         <div className="mt-5 flex flex-wrap gap-3">
           <Badge color="blue">{escala.sigla}</Badge>

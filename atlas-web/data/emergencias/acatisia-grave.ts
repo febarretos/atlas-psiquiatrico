@@ -43,6 +43,10 @@ export const acatisiaGrave: Emergencia = {
     "Em tempestade acatísica com risco de suicídio ou agressão associado, tratar como emergência comportamental: avaliação de segurança imediata e considerar internação (ver 'Risco de Suicídio Agudo' e 'Agitação Psicomotora Aguda' neste módulo)",
   ],
 
+  // Nota: biperideno é explicitamente contraindicado como tratamento da
+  // acatisia (ver condutaImediata acima) — não incluído aqui de propósito.
+  medicamentosResgate: ["propranolol", "lorazepam"],
+
   examesComplementares: [
     "Geralmente diagnóstico clínico",
     "Considerar exames complementares apenas se houver dúvida diagnóstica com outras causas de agitação",

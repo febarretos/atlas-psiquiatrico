@@ -1,9 +1,14 @@
+import Link from "next/link";
+
 import { emergencias } from "../../../data/emergencias";
+import { medicamentos } from "../../../data/medicamentos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import BotaoFavoritar from "../../../components/BotaoFavoritar";
 import Lista from "../../../components/Lista";
 import Section from "../../../components/Section";
+import VisitaTracker from "../../../components/VisitaTracker";
 
 interface Props {
   params: Promise<{
@@ -24,13 +29,33 @@ export default async function EmergenciaDetalhe({
     notFound();
   }
 
+  const medicamentosResgate = (emergencia.medicamentosResgate ?? [])
+    .map((id) => medicamentos.find((m) => m.id === id))
+    .filter((m): m is NonNullable<typeof m> => Boolean(m));
+
   return (
     <main className="text-ink">
       <div className="mx-auto max-w-7xl">
+        <VisitaTracker
+          tipo="emergencia"
+          id={emergencia.id}
+          nome={emergencia.nome}
+          href={`/emergencias/${encodeURIComponent(emergencia.id)}`}
+        />
+
         <div className="mb-10 rounded-xl border border-alert-border bg-alert-bg p-8">
-          <h1 className="text-5xl font-bold text-alert-deep">
-            {emergencia.nome}
-          </h1>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <h1 className="text-5xl font-bold text-alert-deep">
+              {emergencia.nome}
+            </h1>
+
+            <BotaoFavoritar
+              tipo="emergencia"
+              id={emergencia.id}
+              nome={emergencia.nome}
+              href={`/emergencias/${encodeURIComponent(emergencia.id)}`}
+            />
+          </div>
 
           <div className="mt-5 flex flex-wrap gap-3">
             <Badge color="gray">
@@ -65,6 +90,21 @@ export default async function EmergenciaDetalhe({
 
         <Section titulo="Conduta Imediata">
           <Lista itens={emergencia.condutaImediata} />
+
+          {medicamentosResgate.length > 0 && (
+            <div className="mt-5 border-t border-rule-soft pt-5">
+              <div className="mb-2.5 font-mono text-[9.5px] tracking-[0.13em] uppercase text-ink-4">
+                Medicamentos de resgate citados na conduta
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {medicamentosResgate.map((m) => (
+                  <Link key={m.id} href={`/medicamentos/${encodeURIComponent(m.nome)}`}>
+                    <Badge color="blue">{m.nome}</Badge>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </Section>
 
         {emergencia.examesComplementares && emergencia.examesComplementares.length > 0 && (

@@ -39,6 +39,8 @@ export const catatoniaMaligna: Emergencia = {
     "Tratar a condição psiquiátrica ou médica de base assim que a catatonia estiver controlada",
   ],
 
+  medicamentosResgate: ["lorazepam"],
+
   examesComplementares: [
     "Exclusão de causas orgânicas: exames laboratoriais gerais e neuroimagem quando indicado",
     "CK sérica (pode estar elevada)",

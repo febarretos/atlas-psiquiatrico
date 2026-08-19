@@ -50,6 +50,8 @@ export const agitacaoPsicomotoraAguda: Emergencia = {
     "Investigar e tratar a causa de base assim que o paciente estiver contido — rastrear ativamente causas orgânicas (glicemia, intoxicação, hipóxia) antes de assumir etiologia puramente psiquiátrica",
   ],
 
+  medicamentosResgate: ["haloperidol", "olanzapina", "ziprasidona", "lorazepam"],
+
   examesComplementares: [
     "Glicemia capilar, para excluir hipoglicemia como causa",
     "Triagem toxicológica quando houver suspeita de intoxicação por substância",
