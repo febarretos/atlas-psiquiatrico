@@ -40,18 +40,18 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
       <button
         type="button"
         onClick={() => setAberto(true)}
-        className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+        className="rounded-lg border border-rule bg-panel px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
       >
-        📋 Copiar pro prontuário
+        Copiar pro prontuário
       </button>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+    <div className="rounded-xl border border-rule bg-panel p-5">
       {diagnostico.especificadores && diagnostico.especificadores.length > 0 && (
         <div className="mb-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Especificadores (opcional)
           </p>
 
@@ -59,13 +59,13 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
             {diagnostico.especificadores.map((especificador) => (
               <label
                 key={especificador}
-                className="flex items-start gap-2 text-sm text-slate-300"
+                className="flex items-start gap-2 text-sm text-ink-2"
               >
                 <input
                   type="checkbox"
                   checked={especificadoresSelecionados.includes(especificador)}
                   onChange={() => alternarEspecificador(especificador)}
-                  className="mt-1 h-4 w-4 accent-blue-500"
+                  className="mt-1 h-4 w-4 accent-accent"
                 />
                 <span>{especificador}</span>
               </label>
@@ -74,7 +74,7 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
         </div>
       )}
 
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
         Texto (revise antes de copiar)
       </p>
 
@@ -82,7 +82,7 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}
-        className="w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm text-white outline-none focus:border-blue-500"
+        className="w-full rounded-lg border border-rule bg-paper p-3 text-sm text-ink outline-none focus:border-accent"
       />
 
       <div className="mt-3 flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
         <button
           type="button"
           onClick={() => setAberto(false)}
-          className="text-sm text-slate-400 hover:text-white"
+          className="text-sm text-ink-2 hover:text-ink"
         >
           Fechar
         </button>

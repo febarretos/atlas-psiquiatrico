@@ -107,10 +107,10 @@ export default function EscalaForm({ escala }: Props) {
         {escala.itens.map((item, index) => (
           <div
             key={item.id}
-            className="rounded-xl border border-slate-800 bg-slate-900 p-5"
+            className="rounded-xl border border-rule bg-panel p-5"
           >
-            <p className="mb-4 text-base font-medium text-white">
-              <span className="mr-2 text-slate-500">{index + 1}.</span>
+            <p className="mb-4 text-base font-medium text-ink">
+              <span className="mr-2 text-ink-3">{index + 1}.</span>
               {item.texto}
             </p>
 
@@ -125,8 +125,8 @@ export default function EscalaForm({ escala }: Props) {
                     htmlFor={inputId}
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition-colors ${
                       selecionado
-                        ? "border-blue-500 bg-blue-500/10"
-                        : "border-slate-800 bg-slate-950 hover:border-slate-700"
+                        ? "border-accent bg-accent-soft"
+                        : "border-rule bg-paper hover:border-accent-border"
                     }`}
                   >
                     <input
@@ -136,14 +136,14 @@ export default function EscalaForm({ escala }: Props) {
                       value={opcao.valor}
                       checked={selecionado}
                       onChange={() => responder(item.id, indiceOpcao)}
-                      className="h-4 w-4 accent-blue-500"
+                      className="h-4 w-4 accent-accent"
                     />
 
-                    <span className="flex-1 text-sm text-slate-200">
+                    <span className="flex-1 text-sm text-ink-2">
                       {opcao.label}
                     </span>
 
-                    <span className="text-xs font-semibold text-slate-500">
+                    <span className="text-xs font-semibold text-ink-3">
                       {opcao.valor}
                     </span>
                   </label>
@@ -180,9 +180,9 @@ export default function EscalaForm({ escala }: Props) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 print:border-none print:bg-white print:p-0 print:text-black">
+      <div className="rounded-xl border border-rule bg-panel p-6 print:border-none print:bg-white print:p-0 print:text-black">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-4 print:hidden">
-          <h3 className="text-xl font-bold text-white">Resultado</h3>
+          <h3 className="text-xl font-bold text-ink">Resultado</h3>
 
           <div className="flex items-center gap-2">
             {completo && faixa && (
@@ -200,7 +200,7 @@ export default function EscalaForm({ escala }: Props) {
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 Imprimir / Exportar PDF
               </button>
@@ -209,7 +209,7 @@ export default function EscalaForm({ escala }: Props) {
             <button
               type="button"
               onClick={reiniciar}
-              className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+              className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
             >
               Reiniciar
             </button>
@@ -221,7 +221,7 @@ export default function EscalaForm({ escala }: Props) {
             <InfoCard
               titulo="Pontuação total"
               valor={
-                <span className="text-2xl font-bold text-white print:text-black">
+                <span className="text-2xl font-bold text-ink print:text-black">
                   {pontuacao}
                 </span>
               }
@@ -235,7 +235,7 @@ export default function EscalaForm({ escala }: Props) {
                     <Badge color={faixa.cor}>{faixa.label}</Badge>
 
                     {faixa.descricao && (
-                      <span className="text-sm text-slate-400 print:text-black">
+                      <span className="text-sm text-ink-2 print:text-black">
                         {faixa.descricao}
                       </span>
                     )}
@@ -243,14 +243,14 @@ export default function EscalaForm({ escala }: Props) {
                     {fluxogramaVinculado && vinculoFluxograma && (
                       <Link
                         href={`/fluxogramas/${vinculoFluxograma.fluxogramaId}?no=${vinculoFluxograma.nodeId}`}
-                        className="text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300 print:hidden"
+                        className="text-sm font-semibold text-accent transition-colors hover:text-accent-hover print:hidden"
                       >
                         → Ver conduta no fluxograma de {fluxogramaVinculado.titulo}
                       </Link>
                     )}
                   </div>
                 ) : (
-                  <span className="text-sm text-slate-400">
+                  <span className="text-sm text-ink-2">
                     Pontuação fora das faixas cadastradas.
                   </span>
                 )
@@ -258,7 +258,7 @@ export default function EscalaForm({ escala }: Props) {
             />
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-6 text-center text-slate-400">
+          <div className="rounded-xl border border-dashed border-rule bg-paper p-6 text-center text-ink-2">
             Faltam {totalItens - itensRespondidos} de {totalItens} item(ns)
             para responder. A pontuação será calculada quando todos os itens
             forem preenchidos.
@@ -266,21 +266,21 @@ export default function EscalaForm({ escala }: Props) {
         )}
 
         {escala.notaInterpretacao && (
-          <p className="mt-5 text-sm leading-6 text-slate-400 print:text-black">
-            <strong className="text-slate-300 print:text-black">Nota: </strong>
+          <p className="mt-5 text-sm leading-6 text-ink-2 print:text-black">
+            <strong className="text-ink-2 print:text-black">Nota: </strong>
             {escala.notaInterpretacao}
           </p>
         )}
 
-        <p className="mt-6 border-t border-slate-800 pt-4 text-xs text-slate-500 print:border-slate-300">
+        <p className="mt-6 border-t border-rule pt-4 text-xs text-ink-3 print:border-slate-300">
           Este resultado é uma ferramenta de apoio à triagem clínica e não
           substitui avaliação médica.
         </p>
 
         {completo && (
-          <div className="mt-6 flex flex-wrap items-end gap-3 border-t border-slate-800 pt-6 print:hidden">
+          <div className="mt-6 flex flex-wrap items-end gap-3 border-t border-rule pt-6 print:hidden">
             <div className="flex flex-1 flex-col gap-2">
-              <label className="text-sm font-medium text-slate-400">
+              <label className="text-sm font-medium text-ink-2">
                 Salvar no histórico deste paciente (iniciais/identificador)
               </label>
 
@@ -292,7 +292,7 @@ export default function EscalaForm({ escala }: Props) {
                   setSalvo(false);
                 }}
                 placeholder="Ex: J.S. ou #1234"
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-500"
+                className="rounded-lg border border-rule bg-paper px-4 py-3 text-ink outline-none transition-colors focus:border-accent"
               />
             </div>
 
@@ -300,7 +300,7 @@ export default function EscalaForm({ escala }: Props) {
               type="button"
               onClick={salvarNoHistorico}
               disabled={!pacienteLabel.trim()}
-              className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {salvo ? "Salvo ✓" : "Salvar no histórico"}
             </button>

@@ -16,10 +16,10 @@ export default function SintomaPill({ rotulo, estado, onMarcar }: SintomaPillPro
     <div
       className={`inline-flex items-stretch overflow-hidden rounded-full border text-sm transition-colors ${
         estado === "presente"
-          ? "border-blue-500"
+          ? "border-accent"
           : estado === "ausente"
-            ? "border-red-500/60"
-            : "border-slate-700"
+            ? "border-alert"
+            : "border-rule"
       }`}
     >
       <button
@@ -27,8 +27,8 @@ export default function SintomaPill({ rotulo, estado, onMarcar }: SintomaPillPro
         onClick={() => onMarcar("presente")}
         className={`px-4 py-2 text-left transition-colors ${
           estado === "presente"
-            ? "bg-blue-500/10 text-blue-300"
-            : "bg-slate-900 text-slate-300 hover:border-slate-600"
+            ? "bg-accent-soft text-accent"
+            : "bg-panel text-ink-2 hover:border-accent-border"
         }`}
       >
         {rotulo}
@@ -40,8 +40,8 @@ export default function SintomaPill({ rotulo, estado, onMarcar }: SintomaPillPro
         title="Marcar como ausente/descartado"
         className={`border-l px-2 py-2 text-xs transition-colors ${
           estado === "ausente"
-            ? "border-red-500/40 bg-red-500/10 text-red-300"
-            : "border-slate-700 bg-slate-900 text-slate-500 hover:text-red-300"
+            ? "border-alert-border bg-alert-bg text-alert"
+            : "border-rule bg-panel text-ink-3 hover:text-alert"
         }`}
       >
         ✗

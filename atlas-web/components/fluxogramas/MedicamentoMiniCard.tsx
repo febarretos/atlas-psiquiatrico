@@ -21,28 +21,28 @@ export default function MedicamentoMiniCard({ medicamento }: Props) {
   return (
     <Link
       href={`/medicamentos/${encodeURIComponent(medicamento.nome)}`}
-      className="group block rounded-xl border border-slate-700 bg-slate-950 p-4 transition-colors hover:border-blue-500"
+      className="group block rounded-lg border border-rule bg-paper p-4 transition-colors hover:border-accent"
     >
       <div className="flex items-center justify-between gap-3">
-        <h4 className="font-semibold text-white group-hover:text-blue-400">
-          💊 {medicamento.nome}
+        <h4 className="font-semibold text-ink group-hover:text-accent">
+          {medicamento.nome}
         </h4>
 
-        <span className="whitespace-nowrap text-xs text-slate-500">
+        <span className="whitespace-nowrap text-xs text-ink-3">
           {medicamento.classe}
         </span>
       </div>
 
       {posologiaRelevante && (
-        <p className="mt-2 text-sm text-slate-400">
-          <span className="font-medium text-slate-300">Dose inicial: </span>
+        <p className="mt-2 text-sm text-ink-2">
+          <span className="font-medium text-ink-2">Dose inicial: </span>
           {posologiaRelevante.doseInicial}
         </p>
       )}
 
       {perolaPrincipal && (
-        <p className="mt-2 text-sm leading-5 text-slate-400">
-          💡 {perolaPrincipal}
+        <p className="mt-2 text-sm leading-5 text-ink-2">
+          {perolaPrincipal}
         </p>
       )}
     </Link>

@@ -102,7 +102,7 @@ export default function HistoricoEscala({
 
   if (pacientes.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-5 text-sm text-slate-500 print:hidden">
+      <div className="rounded-xl border border-dashed border-rule bg-panel p-5 text-sm text-ink-3 print:hidden">
         Nenhum histórico salvo neste navegador ainda para esta escala.
         Preencha o formulário acima e use &quot;Salvar no histórico&quot; para
         acompanhar a evolução de um paciente entre consultas.
@@ -111,17 +111,17 @@ export default function HistoricoEscala({
   }
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 print:hidden">
+    <div className="rounded-xl border border-rule bg-panel p-6 print:hidden">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-        <h3 className="text-xl font-bold text-white">
-          📈 Histórico de aplicações
+        <h3 className="text-xl font-bold text-ink">
+          Histórico de aplicações
         </h3>
 
         <div className="flex items-center gap-2">
           <select
             value={pacienteSelecionado}
             onChange={(e) => setPacienteSelecionado(e.target.value)}
-            className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white outline-none focus:border-blue-500"
+            className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
           >
             {pacientes.map((p) => (
               <option key={p} value={p}>
@@ -133,7 +133,7 @@ export default function HistoricoEscala({
           <button
             type="button"
             onClick={excluirPaciente}
-            className="rounded-lg border border-red-900/50 px-3 py-2 text-xs font-medium text-red-400 transition-colors hover:border-red-500 hover:text-red-300"
+            className="rounded-lg border border-alert-border px-3 py-2 text-xs font-medium text-alert transition-colors hover:border-alert"
           >
             Excluir paciente
           </button>
@@ -141,22 +141,22 @@ export default function HistoricoEscala({
       </div>
 
       {entradas.length >= 2 && pontos && (
-        <div className="mb-5 overflow-x-auto rounded-xl border border-slate-800 bg-slate-950 p-4">
+        <div className="mb-5 overflow-x-auto rounded-xl border border-rule bg-paper p-4">
           <svg viewBox="0 0 600 160" className="h-40 w-full min-w-[500px]">
             <polyline
               points={pontos.map((p) => `${p.x},${p.y}`).join(" ")}
               fill="none"
-              stroke="#3b82f6"
+              stroke="#2E5487"
               strokeWidth={2}
             />
 
             {pontos.map(({ x, y, entrada }) => (
               <g key={entrada.id}>
-                <circle cx={x} cy={y} r={4} fill="#3b82f6" />
-                <text x={x} y={y - 10} textAnchor="middle" fontSize={11} fill="#e2e8f0">
+                <circle cx={x} cy={y} r={4} fill="#2E5487" />
+                <text x={x} y={y - 10} textAnchor="middle" fontSize={11} fill="#191B1E">
                   {entrada.pontuacao}
                 </text>
-                <text x={x} y={152} textAnchor="middle" fontSize={10} fill="#64748b">
+                <text x={x} y={152} textAnchor="middle" fontSize={10} fill="#8F939A">
                   {formatarData(entrada.dataISO)}
                 </text>
               </g>
@@ -165,22 +165,22 @@ export default function HistoricoEscala({
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-xl border border-slate-800">
+      <div className="overflow-x-auto rounded-xl border border-rule">
         <table className="min-w-full">
-          <thead className="bg-slate-800">
+          <thead className="bg-sticky-head">
             <tr>
-              <th className="px-4 py-3 text-left font-semibold">Data</th>
-              <th className="px-4 py-3 text-left font-semibold">Pontuação</th>
-              <th className="px-4 py-3 text-left font-semibold">Interpretação</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink">Data</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink">Pontuação</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink">Interpretação</th>
               <th className="px-4 py-3 text-left font-semibold" />
             </tr>
           </thead>
 
           <tbody>
             {entradas.map((entrada) => (
-              <tr key={entrada.id} className="border-t border-slate-800">
-                <td className="px-4 py-3">{formatarData(entrada.dataISO)}</td>
-                <td className="px-4 py-3 font-semibold text-white">
+              <tr key={entrada.id} className="border-t border-rule-soft">
+                <td className="px-4 py-3 text-ink-2">{formatarData(entrada.dataISO)}</td>
+                <td className="px-4 py-3 font-semibold text-ink">
                   {entrada.pontuacao}
                 </td>
                 <td className="px-4 py-3">
@@ -190,7 +190,7 @@ export default function HistoricoEscala({
                   <button
                     type="button"
                     onClick={() => excluirEntrada(entrada.id)}
-                    className="text-xs text-slate-500 hover:text-red-400"
+                    className="text-xs text-ink-3 hover:text-alert"
                   >
                     Remover
                   </button>
@@ -201,7 +201,7 @@ export default function HistoricoEscala({
         </table>
       </div>
 
-      <p className="mt-4 text-xs text-slate-500">
+      <p className="mt-4 text-xs text-ink-3">
         Dados salvos apenas neste navegador (localStorage) — não são
         enviados a nenhum servidor. Use apenas iniciais ou identificadores
         não sensíveis para o paciente.

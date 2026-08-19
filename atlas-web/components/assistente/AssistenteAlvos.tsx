@@ -13,7 +13,7 @@ export default function AssistenteAlvos({
 }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-sm text-slate-400">
+      <p className="text-sm text-ink-2">
         Já sabe o(s) alvo(s) clínico(s) — selecione uma ou mais condições
         para cruzar com as indicações documentadas de cada medicamento.
       </p>
@@ -29,8 +29,8 @@ export default function AssistenteAlvos({
               onClick={() => alternarAlvo(c.id)}
               className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                 ativo
-                  ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                  : "border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-600"
+                  ? "border-accent bg-accent-soft text-accent"
+                  : "border-rule bg-panel text-ink-2 hover:border-accent-border"
               }`}
             >
               {c.nome}
@@ -44,21 +44,21 @@ export default function AssistenteAlvos({
           {paresAtivos.map((p) => (
             <div
               key={`${p.idA}-${p.idB}`}
-              className="rounded-xl border border-yellow-900/50 bg-yellow-500/5 p-5 text-sm leading-6 text-yellow-200"
+              className="rounded-xl border border-warn-border bg-warn-bg p-5 text-sm leading-6 text-warn"
             >
-              <strong>⚠️ Alvos potencialmente antagônicos.</strong> {p.aviso}
+              <strong>Alvos potencialmente antagônicos.</strong> {p.aviso}
             </div>
           ))}
         </div>
       )}
 
       {alvosSelecionados.size === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-8 text-center text-sm text-slate-500">
+        <div className="rounded-xl border border-dashed border-rule bg-paper p-8 text-center text-sm text-ink-3">
           Selecione ao menos uma condição-alvo acima para ver os candidatos.
         </div>
       ) : (
         resultadosAlvos.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-8 text-center text-sm text-slate-500">
+          <div className="rounded-xl border border-dashed border-rule bg-paper p-8 text-center text-sm text-ink-3">
             Nenhum medicamento cadastrado tem indicação documentada para
             nenhuma das condições selecionadas, nos dados desta ferramenta.
           </div>

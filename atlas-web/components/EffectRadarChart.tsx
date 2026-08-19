@@ -20,7 +20,7 @@ const EIXOS: { chave: keyof Omit<PerfilEfeitos, "nome">; rotulo: string }[] = [
   { chave: "qt", rotulo: "QT" },
 ];
 
-const PALETA = ["#3b82f6", "#34d399", "#fbbf24", "#f472b6", "#a78bfa", "#22d3ee"];
+const PALETA = ["#2E5487", "#34d399", "#fbbf24", "#f472b6", "#a78bfa", "#22d3ee"];
 
 function ponto(cx: number, cy: number, raio: number, fracao: number, anguloDeg: number) {
   const rad = (anguloDeg * Math.PI) / 180;
@@ -48,7 +48,7 @@ export default function EffectRadarChart({ perfis, size = 260 }: Props) {
               key={g}
               points={pts.map((p) => `${p.x},${p.y}`).join(" ")}
               fill="none"
-              stroke="#1e293b"
+              stroke="#E6E2D9"
               strokeWidth={1}
             />
           );
@@ -63,7 +63,7 @@ export default function EffectRadarChart({ perfis, size = 260 }: Props) {
               y1={cy}
               x2={p.x}
               y2={p.y}
-              stroke="#1e293b"
+              stroke="#E6E2D9"
               strokeWidth={1}
             />
           );
@@ -76,7 +76,7 @@ export default function EffectRadarChart({ perfis, size = 260 }: Props) {
               key={eixo.chave}
               x={p.x}
               y={p.y}
-              fill="#94a3b8"
+              fill="#75797F"
               fontSize={12}
               textAnchor="middle"
               dominantBaseline="middle"
@@ -113,7 +113,7 @@ export default function EffectRadarChart({ perfis, size = 260 }: Props) {
                 style={{ backgroundColor: PALETA[idx % PALETA.length] }}
               />
 
-              <span className="text-slate-300">{perfil.nome}</span>
+              <span className="text-ink-2">{perfil.nome}</span>
             </div>
           ))}
         </div>

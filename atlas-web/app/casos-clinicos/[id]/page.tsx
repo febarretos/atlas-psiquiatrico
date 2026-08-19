@@ -23,11 +23,11 @@ export default async function CasoClinicoDetalhe({
   }
 
   return (
-    <main className="text-white">
+    <main className="text-ink">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-10 rounded-xl border border-slate-800 bg-slate-900 p-8">
+        <div className="mb-10 rounded-xl border border-rule bg-panel p-8">
           <h1 className="text-4xl font-bold">
-            🩺 {caso.titulo}
+            {caso.titulo}
           </h1>
 
           <div className="mt-5">

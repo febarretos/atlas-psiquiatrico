@@ -49,17 +49,17 @@ export default function DiagnosticosPorCategoria({ diagnosticos }: Props) {
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-4xl font-bold text-white">🧠 Diagnósticos por Categoria</h1>
+          <h1 className="text-4xl font-bold text-ink">Diagnósticos por Categoria</h1>
 
           <Link
             href="/diagnosticos"
-            className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+            className="whitespace-nowrap rounded-lg border border-rule px-3 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
           >
             ← Ver lista completa
           </Link>
         </div>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           {categorias.length} categoria(s), {diagnosticos.length} diagnóstico(s) no total.
         </p>
       </div>
@@ -73,7 +73,7 @@ export default function DiagnosticosPorCategoria({ diagnosticos }: Props) {
       </div>
 
       {categorias.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900 p-12 text-center text-slate-400">
+        <div className="rounded-xl border border-dashed border-rule bg-panel p-12 text-center text-ink-3">
           Nenhuma categoria encontrada com essa busca.
         </div>
       ) : (
@@ -84,7 +84,7 @@ export default function DiagnosticosPorCategoria({ diagnosticos }: Props) {
             return (
               <section
                 key={categoria}
-                className="rounded-2xl border border-slate-800 bg-slate-900 shadow-sm"
+                className="rounded-xl border border-rule bg-panel"
               >
                 <button
                   type="button"
@@ -92,33 +92,32 @@ export default function DiagnosticosPorCategoria({ diagnosticos }: Props) {
                   className="flex w-full items-center justify-between gap-3 p-6 text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-6 w-1 rounded-full bg-blue-500" />
-                    <h2 className="text-xl font-bold text-white">{categoria}</h2>
+                    <h2 className="text-xl font-bold text-ink">{categoria}</h2>
                     <Badge color="gray">{listaDaCategoria.length}</Badge>
                   </div>
 
-                  <span className="text-slate-500">{aberta ? "▲" : "▼"}</span>
+                  <span className="text-ink-3">{aberta ? "▲" : "▼"}</span>
                 </button>
 
                 {aberta && (
-                  <div className="grid gap-4 border-t border-slate-800 p-6 pt-5 sm:grid-cols-2 xl:grid-cols-3">
+                  <div className="grid gap-4 border-t border-rule p-6 pt-5 sm:grid-cols-2 xl:grid-cols-3">
                     {listaDaCategoria.map((d) => (
                       <Link
                         key={d.id}
                         href={`/diagnosticos/${d.id}`}
-                        className="group rounded-xl border border-slate-700 bg-slate-950 p-4 transition-colors hover:border-blue-500"
+                        className="group rounded-lg border border-rule bg-paper p-4 transition-colors hover:border-accent"
                       >
-                        <h3 className="font-semibold text-white group-hover:text-blue-400">
+                        <h3 className="font-semibold text-ink group-hover:text-accent">
                           {d.nome}
                         </h3>
 
                         {(d.cid11 || d.cid10) && (
-                          <p className="mt-1 text-xs text-slate-500">
+                          <p className="mt-1 text-xs text-ink-3">
                             {d.cid11 ? `CID-11 ${d.cid11}` : `CID-10 ${d.cid10}`}
                           </p>
                         )}
 
-                        <p className="mt-2 line-clamp-2 text-sm text-slate-400">{d.descricao}</p>
+                        <p className="mt-2 line-clamp-2 text-sm text-ink-2">{d.descricao}</p>
                       </Link>
                     ))}
                   </div>

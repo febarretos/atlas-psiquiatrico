@@ -14,7 +14,7 @@ interface Props {
 export default function AssistenteManual({ idsManual, setIdsManual, medicamentos }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-sm text-slate-400">
+      <p className="text-sm text-ink-2">
         Já tem candidatos específicos em mente — escolha até 4 medicamentos
         para comparar diretamente.
       </p>

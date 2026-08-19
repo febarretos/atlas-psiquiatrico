@@ -17,14 +17,14 @@ export default function MedicamentoSelect({
 }: Props) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-slate-400">
+      <label className="text-sm font-medium text-ink-2">
         {label}
       </label>
 
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-blue-500"
+        className="rounded-lg border border-rule bg-panel px-4 py-3 text-ink outline-none transition-colors focus:border-accent"
       >
         <option value="">
           Selecione...

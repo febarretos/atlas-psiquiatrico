@@ -25,10 +25,10 @@ export default function AssistenteSintomas({
 
   if (diagnosticoEscolhido) {
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <div className="rounded-xl border border-rule bg-panel p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-xl font-bold text-white">{diagnosticoEscolhido.nome}</h3>
+            <h3 className="text-xl font-bold text-ink">{diagnosticoEscolhido.nome}</h3>
             <Badge color="blue">{diagnosticoEscolhido.categoria}</Badge>
           </div>
 
@@ -36,25 +36,25 @@ export default function AssistenteSintomas({
             <Link
               href={`/diagnosticos/${diagnosticoEscolhido.id}`}
               target="_blank"
-              className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+              className="rounded-lg border border-rule px-3 py-2 text-sm text-ink-2 transition-colors hover:border-accent hover:text-ink"
             >
               Ver critérios
             </Link>
             <button
               type="button"
               onClick={() => setDiagnosticoEscolhido(null)}
-              className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+              className="rounded-lg border border-rule px-3 py-2 text-sm text-ink-2 transition-colors hover:border-accent hover:text-ink"
             >
               ← Trocar diagnóstico
             </button>
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-yellow-900/50 bg-yellow-500/5 p-5">
-          <p className="text-sm font-semibold text-yellow-200">
+        <div className="mt-4 rounded-xl border border-warn-border bg-warn-bg p-5">
+          <p className="text-sm font-semibold text-warn">
             Antes de fechar essa hipótese, descartar:
           </p>
-          <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-yellow-100/90">
+          <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-warn">
             {diagnosticoEscolhido.diagnosticoDiferencial.map((d) => (
               <li key={d}>{d}</li>
             ))}
@@ -63,11 +63,11 @@ export default function AssistenteSintomas({
 
         {diagnosticoEscolhido.comorbidadesComuns &&
           diagnosticoEscolhido.comorbidadesComuns.length > 0 && (
-            <div className="mt-4 rounded-xl border border-slate-700 bg-slate-950 p-5">
-              <p className="text-sm font-semibold text-slate-300">
+            <div className="mt-4 rounded-xl border border-rule bg-paper p-5">
+              <p className="text-sm font-semibold text-ink-2">
                 Rastrear também (comorbidades comuns):
               </p>
-              <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-slate-300">
+              <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-ink-2">
                 {diagnosticoEscolhido.comorbidadesComuns.map((c) => (
                   <li key={c}>{c}</li>
                 ))}
@@ -75,10 +75,10 @@ export default function AssistenteSintomas({
             </div>
           )}
 
-        <p className="mt-4 text-sm font-semibold text-slate-300">
+        <p className="mt-4 text-sm font-semibold text-ink-2">
           Tratamento de primeira linha (segundo diretrizes):
         </p>
-        <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-slate-300">
+        <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-ink-2">
           {diagnosticoEscolhido.tratamentoPrimeiraLinha.map((t) => (
             <li key={t}>{t}</li>
           ))}
@@ -86,7 +86,7 @@ export default function AssistenteSintomas({
 
         {(!diagnosticoEscolhido.medicamentosPrimeiraLinha ||
           diagnosticoEscolhido.medicamentosPrimeiraLinha.length === 0) && (
-          <div className="mt-4 rounded-xl border border-dashed border-slate-700 bg-slate-950 p-4 text-sm text-slate-400">
+          <div className="mt-4 rounded-xl border border-dashed border-rule bg-paper p-4 text-sm text-ink-2">
             Tratamento de primeira linha predominantemente não farmacológico —
             sem sugestão de medicamentos para este diagnóstico.
           </div>
@@ -97,7 +97,7 @@ export default function AssistenteSintomas({
 
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-sm text-slate-400">
+      <p className="text-sm text-ink-2">
         Marque os sintomas/sinais observados no paciente para ver
         diagnósticos prováveis — ainda não fechou hipótese. Clique no texto
         para marcar como presente; clique no ✗ para marcar como
@@ -109,16 +109,16 @@ export default function AssistenteSintomas({
           {alertasAtivos.map((a) => (
             <div
               key={a.id}
-              className="rounded-xl border border-red-900/50 bg-red-500/5 p-5"
+              className="rounded-xl border border-alert-border bg-alert-bg p-5"
             >
-              <p className="text-sm font-semibold text-red-200">
-                🚨 Não esqueça de descartar: {a.titulo}
+              <p className="text-sm font-semibold text-alert">
+                Não esqueça de descartar: {a.titulo}
               </p>
-              <p className="mt-1 text-sm leading-6 text-red-100/80">{a.descricao}</p>
+              <p className="mt-1 text-sm leading-6 text-alert">{a.descricao}</p>
               <Link
                 href={a.href}
                 target="_blank"
-                className="mt-2 inline-block text-sm font-medium text-red-300 hover:text-red-200"
+                className="mt-2 inline-block text-sm font-medium text-alert hover:text-alert-deep"
               >
                 {a.linkLabel} →
               </Link>
@@ -129,7 +129,7 @@ export default function AssistenteSintomas({
 
       {categoriasSintomas.map((categoria) => (
         <div key={categoria}>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-ink-3">
             {categoria}
           </h3>
 
@@ -149,8 +149,8 @@ export default function AssistenteSintomas({
       ))}
 
       {sintomasMarcados.size > 0 && (
-        <div className="rounded-xl border border-yellow-900/50 bg-yellow-500/5 p-5 text-sm leading-6 text-yellow-200">
-          <strong>⚠️ Hipóteses diagnósticas, não um diagnóstico.</strong>{" "}
+        <div className="rounded-xl border border-warn-border bg-warn-bg p-5 text-sm leading-6 text-warn">
+          <strong>Hipóteses diagnósticas, não um diagnóstico.</strong>{" "}
           Ranking calculado pela sobreposição entre os sintomas marcados e um
           conjunto curado de sintomas-chave por diagnóstico — não avalia
           critérios completos, duração, diferenciais nem exclusão de causas
@@ -162,7 +162,7 @@ export default function AssistenteSintomas({
       )}
 
       {sintomasMarcados.size > 0 && candidatosDiagnostico.length === 0 && (
-        <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-8 text-center text-slate-400">
+        <div className="rounded-xl border border-dashed border-rule bg-paper p-8 text-center text-ink-2">
           Nenhum diagnóstico com sobreposição relevante para os sintomas
           marcados. Marque outros sintomas, ou consulte diretamente o módulo
           Diagnósticos.
@@ -170,28 +170,28 @@ export default function AssistenteSintomas({
       )}
 
       {discriminacao && (
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <div className="rounded-xl border border-rule bg-panel p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-semibold text-slate-300">
+            <p className="text-sm font-semibold text-ink-2">
               Sintomas que ajudariam a diferenciar
               {fixados.length === 2 ? " os candidatos fixados" : " os 2 principais candidatos"}
             </p>
             {fixados.length === 2 && (
-              <span className="text-xs text-slate-500">
-                🔍 fixado manualmente — clique em &quot;Fixar&quot; num card para
+              <span className="text-xs text-ink-3">
+                fixado manualmente — clique em &quot;Fixar&quot; num card para
                 trocar
               </span>
             )}
           </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-ink-2">
             <Badge color="blue">{discriminacao.a.nome}</Badge>
             <span>vs.</span>
             <Badge color="green">{discriminacao.b.nome}</Badge>
           </div>
 
           {discriminacao.soA.length === 0 && discriminacao.soB.length === 0 ? (
-            <p className="mt-3 text-sm text-slate-500">
+            <p className="mt-3 text-sm text-ink-3">
               Nenhum sintoma-chave exclusivo de um dos dois ainda não
               avaliado — considere os diferenciais e critérios completos de
               cada um (link &quot;Ver critérios&quot; abaixo).
@@ -199,12 +199,12 @@ export default function AssistenteSintomas({
           ) : (
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div>
-                <p className="mb-2 text-xs uppercase tracking-wide text-blue-300">
+                <p className="mb-2 text-xs uppercase tracking-wide text-accent">
                   Sugere {discriminacao.a.nome}, não {discriminacao.b.nome}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {discriminacao.soA.length === 0 && (
-                    <span className="text-xs text-slate-600">nenhum restante</span>
+                    <span className="text-xs text-ink-4">nenhum restante</span>
                   )}
                   {discriminacao.soA.map((s) => (
                     <SintomaPill
@@ -218,12 +218,12 @@ export default function AssistenteSintomas({
               </div>
 
               <div>
-                <p className="mb-2 text-xs uppercase tracking-wide text-green-300">
+                <p className="mb-2 text-xs uppercase tracking-wide text-ok">
                   Sugere {discriminacao.b.nome}, não {discriminacao.a.nome}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {discriminacao.soB.length === 0 && (
-                    <span className="text-xs text-slate-600">nenhum restante</span>
+                    <span className="text-xs text-ink-4">nenhum restante</span>
                   )}
                   {discriminacao.soB.map((s) => (
                     <SintomaPill
@@ -247,11 +247,11 @@ export default function AssistenteSintomas({
           return (
             <div
               key={c.diagnostico.id}
-              className="rounded-2xl border border-slate-800 bg-slate-900 p-6"
+              className="rounded-xl border border-rule bg-panel p-6"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white">{c.diagnostico.nome}</h3>
+                  <h3 className="text-lg font-bold text-ink">{c.diagnostico.nome}</h3>
 
                   <div className="mt-2 flex flex-wrap items-center gap-2">
                     <Badge color="blue">{c.diagnostico.categoria}</Badge>
@@ -261,7 +261,7 @@ export default function AssistenteSintomas({
                     {c.descartadosRotulos.length > 0 && (
                       <Badge color="red">{c.descartadosRotulos.length} descartado(s)</Badge>
                     )}
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-ink-3">
                       cobertura ponderada: {Math.round(c.score * 100)}%
                     </span>
                   </div>
@@ -274,17 +274,17 @@ export default function AssistenteSintomas({
                     title="Fixar para comparar no painel de discriminação"
                     className={`rounded-xl border px-3 py-2 text-sm font-medium transition-colors ${
                       estaFixado
-                        ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                        : "border-slate-700 text-slate-300 hover:border-blue-500 hover:text-white"
+                        ? "border-accent bg-accent-soft text-accent"
+                        : "border-rule text-ink-2 hover:border-accent hover:text-ink"
                     }`}
                   >
-                    🔍 {estaFixado ? "Fixado" : "Fixar"}
+                    {estaFixado ? "Fixado" : "Fixar"}
                   </button>
 
                   <Link
                     href={`/diagnosticos/${c.diagnostico.id}`}
                     target="_blank"
-                    className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                    className="rounded-xl border border-rule px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-ink"
                   >
                     Ver critérios
                   </Link>
@@ -292,19 +292,19 @@ export default function AssistenteSintomas({
                   <button
                     type="button"
                     onClick={() => setDiagnosticoEscolhido(c.diagnostico)}
-                    className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+                    className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                   >
                     Usar este diagnóstico →
                   </button>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm text-slate-400">
+              <p className="mt-4 text-sm text-ink-2">
                 Sintomas correspondentes: {c.matchedRotulos.join(", ")}
               </p>
 
               {c.descartadosRotulos.length > 0 && (
-                <p className="mt-1 text-sm text-red-300/80">
+                <p className="mt-1 text-sm text-alert">
                   Descartados (marcados ausentes): {c.descartadosRotulos.join(", ")}
                 </p>
               )}

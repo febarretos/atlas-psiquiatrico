@@ -27,7 +27,7 @@ export default function CriteriosChecklist({ itens }: Props) {
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 print:hidden">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-ink-2">
           Marque os itens observados/relatados para organizar a leitura
           durante a entrevista — {marcados.size} de {itens.length}{" "}
           marcado(s). Não calcula automaticamente se os critérios estão
@@ -39,7 +39,7 @@ export default function CriteriosChecklist({ itens }: Props) {
           <button
             type="button"
             onClick={() => setMarcados(new Set())}
-            className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+            className="whitespace-nowrap rounded-lg border border-rule px-3 py-2 text-xs font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
           >
             Limpar marcações
           </button>
@@ -57,11 +57,11 @@ export default function CriteriosChecklist({ itens }: Props) {
                   type="checkbox"
                   checked={marcado}
                   onChange={() => alternar(indice)}
-                  className="mt-1 h-4 w-4 accent-blue-500 print:hidden"
+                  className="mt-1 h-4 w-4 accent-accent print:hidden"
                 />
                 <span
                   className={
-                    marcado ? "text-white" : "text-slate-300 print:text-black"
+                    marcado ? "text-ink" : "text-ink-2 print:text-black"
                   }
                 >
                   {item}

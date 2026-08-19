@@ -32,9 +32,9 @@ const TURNO_LABEL: Record<NoSimulador["turno"], string> = {
 };
 
 const QUALIDADE_ESTILO: Record<OpcaoSimulador["qualidadeDecisao"], { label: string; classe: string }> = {
-  ideal: { label: "✅ Ideal", classe: "border-green-500/40 bg-green-500/10 text-green-300" },
-  aceitavel: { label: "🟡 Aceitável", classe: "border-yellow-500/40 bg-yellow-500/10 text-yellow-300" },
-  problematica: { label: "🔴 Problemática", classe: "border-red-500/40 bg-red-500/10 text-red-300" },
+  ideal: { label: "Ideal", classe: "border-ok-border bg-ok-bg text-ok" },
+  aceitavel: { label: "Aceitável", classe: "border-warn-border bg-warn-bg text-warn" },
+  problematica: { label: "Problemática", classe: "border-alert-border bg-alert-bg text-alert" },
 };
 
 // Feedback construtivo baseado na mistura de qualidadeDecisao das
@@ -89,7 +89,7 @@ export default function SimuladorPlayer({ caso }: Props) {
 
   if (!noAtual) {
     return (
-      <div className="rounded-2xl border border-red-500/50 bg-red-500/10 p-6 text-red-300">
+      <div className="rounded-xl border border-alert-border bg-alert-bg p-6 text-alert">
         Nó do caso não encontrado. Reinicie a simulação.
       </div>
     );
@@ -105,9 +105,9 @@ export default function SimuladorPlayer({ caso }: Props) {
 
   return (
     <div>
-      <div className="mb-5 rounded-xl border border-purple-900/50 bg-purple-500/10 p-4">
-        <p className="text-sm font-semibold text-purple-300">
-          🎭 Simulação lúdica com fundamento clínico real — não substitui julgamento profissional.
+      <div className="mb-5 rounded-lg border border-purple-200 bg-purple-50 p-4">
+        <p className="text-sm font-semibold text-purple-700">
+          Simulação lúdica com fundamento clínico real — não substitui julgamento profissional.
         </p>
       </div>
 
@@ -116,12 +116,12 @@ export default function SimuladorPlayer({ caso }: Props) {
           <div key={turno} className="flex flex-1 flex-col items-center gap-1.5">
             <div
               className={`h-1.5 w-full rounded-full ${
-                i <= indiceTurnoAtual ? "bg-blue-500" : "bg-slate-800"
+                i <= indiceTurnoAtual ? "bg-accent" : "bg-hover-warm"
               }`}
             />
             <span
               className={`text-[10px] font-semibold uppercase tracking-wider ${
-                i <= indiceTurnoAtual ? "text-blue-300" : "text-slate-600"
+                i <= indiceTurnoAtual ? "text-accent" : "text-ink-4"
               }`}
             >
               {TURNO_LABEL[turno]}
@@ -131,8 +131,8 @@ export default function SimuladorPlayer({ caso }: Props) {
       </div>
 
       {caminhoPercorrido.length > 0 && (
-        <div className="mb-6 max-h-80 overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <div className="mb-6 max-h-80 overflow-y-auto rounded-xl border border-rule bg-panel p-5">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Histórico
           </div>
 
@@ -143,14 +143,14 @@ export default function SimuladorPlayer({ caso }: Props) {
 
               return (
                 <li key={`${passo.noId}-${index}`} className="text-sm">
-                  <p className="text-slate-400">{no.narrativa}</p>
+                  <p className="text-ink-2">{no.narrativa}</p>
 
                   {passo.opcaoEscolhida && (
                     <>
-                      <p className="mt-2 font-medium text-blue-400">
+                      <p className="mt-2 font-medium text-accent">
                         → {passo.opcaoEscolhida.texto}
                       </p>
-                      <p className="mt-1 italic text-slate-500">
+                      <p className="mt-1 italic text-ink-3">
                         {passo.opcaoEscolhida.consequencia}
                       </p>
                     </>
@@ -162,12 +162,12 @@ export default function SimuladorPlayer({ caso }: Props) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8">
-        <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-blue-400">
+      <div className="rounded-xl border border-rule bg-panel p-8">
+        <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">
           {TURNO_LABEL[noAtual.turno]}
         </div>
 
-        <p className="whitespace-pre-line text-lg leading-7 text-slate-200">{noAtual.narrativa}</p>
+        <p className="whitespace-pre-line text-lg leading-7 text-ink-2">{noAtual.narrativa}</p>
 
         {noAtual.turno !== "desfecho" ? (
           <div className="mt-6 flex flex-col gap-3">
@@ -176,36 +176,36 @@ export default function SimuladorPlayer({ caso }: Props) {
                 key={opcao.texto}
                 type="button"
                 onClick={() => escolherOpcao(opcao)}
-                className="rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-left text-sm font-medium text-white transition-colors hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-300"
+                className="rounded-xl border border-rule bg-hover-warm px-5 py-3 text-left text-sm font-medium text-ink transition-colors hover:border-accent hover:bg-accent/10 hover:text-accent"
               >
                 {opcao.texto}
               </button>
             ))}
           </div>
         ) : (
-          <div className="mt-6 border-t border-slate-800 pt-6">
-            <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-blue-400">
+          <div className="mt-6 border-t border-rule pt-6">
+            <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-accent">
               Diagnóstico real
             </div>
 
             {diagnosticoReal ? (
               <Link
                 href={`/diagnosticos/${diagnosticoReal.id}`}
-                className="text-xl font-bold text-white hover:text-blue-400"
+                className="text-xl font-bold text-ink hover:text-accent"
               >
                 {diagnosticoReal.nome} →
               </Link>
             ) : (
-              <h3 className="text-xl font-bold text-white">{caso.diagnosticoRealId}</h3>
+              <h3 className="text-xl font-bold text-ink">{caso.diagnosticoRealId}</h3>
             )}
 
             {opcoesEscolhidas.length > 0 && (
-              <p className="mt-5 text-sm leading-6 text-slate-300">{gerarFeedback(opcoesEscolhidas)}</p>
+              <p className="mt-5 text-sm leading-6 text-ink-2">{gerarFeedback(opcoesEscolhidas)}</p>
             )}
 
             {opcoesEscolhidas.length > 0 && (
               <div className="mt-5">
-                <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
                   Suas decisões neste caso
                 </div>
 
@@ -239,13 +239,13 @@ export default function SimuladorPlayer({ caso }: Props) {
             )}
 
             {caso.inspiracaoExterna && (
-              <p className="mt-5 text-xs text-slate-500">
+              <p className="mt-5 text-xs text-ink-3">
                 Inspirado em:{" "}
                 <a
                   href={caso.inspiracaoExterna.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="underline hover:text-slate-300"
+                  className="underline hover:text-ink-2"
                 >
                   {caso.inspiracaoExterna.titulo}
                 </a>
@@ -262,7 +262,7 @@ export default function SimuladorPlayer({ caso }: Props) {
               <button
                 type="button"
                 onClick={reiniciar}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 ↺ Jogar de novo
               </button>

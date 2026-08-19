@@ -13,19 +13,19 @@ export default function DiagnosticoMiniCard({ diagnostico }: Props) {
   return (
     <Link
       href={`/diagnosticos/${encodeURIComponent(diagnostico.id)}`}
-      className="group block rounded-xl border border-slate-700 bg-slate-950 p-4 transition-colors hover:border-blue-500"
+      className="group block rounded-lg border border-rule bg-paper p-4 transition-colors hover:border-accent"
     >
       <div className="flex items-center justify-between gap-3">
-        <h4 className="font-semibold text-white group-hover:text-blue-400">
-          🧠 {diagnostico.nome}
+        <h4 className="font-semibold text-ink group-hover:text-accent">
+          {diagnostico.nome}
         </h4>
 
-        <span className="whitespace-nowrap text-xs text-slate-500">
+        <span className="whitespace-nowrap text-xs text-ink-3">
           {diagnostico.cid11 ?? diagnostico.cid10 ?? diagnostico.categoria}
         </span>
       </div>
 
-      <p className="mt-2 line-clamp-2 text-sm text-slate-400">{diagnostico.descricao}</p>
+      <p className="mt-2 line-clamp-2 text-sm text-ink-2">{diagnostico.descricao}</p>
     </Link>
   );
 }

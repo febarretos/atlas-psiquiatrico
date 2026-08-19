@@ -31,22 +31,22 @@ const nivelEstilo: Record<
   { borda: string; fundo: string; titulo: string; rotulo: string }
 > = {
   alerta: {
-    borda: "border-red-500/50",
-    fundo: "bg-red-500/10",
-    titulo: "text-red-300",
-    rotulo: "🚨 Alerta",
+    borda: "border-alert-border",
+    fundo: "bg-alert-bg",
+    titulo: "text-alert",
+    rotulo: "Alerta",
   },
   atencao: {
-    borda: "border-yellow-500/50",
-    fundo: "bg-yellow-500/10",
-    titulo: "text-yellow-300",
-    rotulo: "⚠️ Atenção",
+    borda: "border-warn-border",
+    fundo: "bg-warn-bg",
+    titulo: "text-warn",
+    rotulo: "Atenção",
   },
   rotina: {
-    borda: "border-blue-500/50",
-    fundo: "bg-blue-500/10",
-    titulo: "text-blue-300",
-    rotulo: "✅ Conduta de rotina",
+    borda: "border-ok-border",
+    fundo: "bg-ok-bg",
+    titulo: "text-ok",
+    rotulo: "Conduta de rotina",
   },
 };
 
@@ -102,7 +102,7 @@ export default function FluxogramaViewer({
 
   if (!nodeAtual) {
     return (
-      <div className="rounded-2xl border border-red-500/50 bg-red-500/10 p-6 text-red-300">
+      <div className="rounded-xl border border-alert-border bg-alert-bg p-6 text-alert">
         Nó do fluxograma não encontrado. Reinicie o algoritmo.
       </div>
     );
@@ -130,7 +130,7 @@ export default function FluxogramaViewer({
   return (
     <div>
       {entrouPorAtalho && (
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-500/40 bg-blue-500/10 px-5 py-4 text-sm text-blue-200">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-accent-border bg-accent-soft px-5 py-4 text-sm text-accent">
           <span>
             Você entrou direto neste passo, a partir do resultado de uma
             escala — as perguntas de triagem anteriores não foram
@@ -140,7 +140,7 @@ export default function FluxogramaViewer({
           <button
             type="button"
             onClick={reiniciar}
-            className="whitespace-nowrap font-semibold text-blue-100 underline-offset-2 hover:underline"
+            className="whitespace-nowrap font-semibold text-accent-hover underline-offset-2 hover:underline"
           >
             Ver fluxograma completo desde o início
           </button>
@@ -148,8 +148,8 @@ export default function FluxogramaViewer({
       )}
 
       {caminhoPercorrido.length > 0 && (
-        <div className="mb-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <div className="mb-6 rounded-xl border border-rule bg-panel p-5">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Caminho percorrido
           </div>
 
@@ -164,14 +164,14 @@ export default function FluxogramaViewer({
               return (
                 <li
                   key={`${passo.nodeId}-${index}`}
-                  className="text-sm text-slate-400"
+                  className="text-sm text-ink-2"
                 >
-                  <span className="text-slate-500">{index + 1}.</span>{" "}
+                  <span className="text-ink-3">{index + 1}.</span>{" "}
                   {node.texto}
                   {passo.opcaoEscolhida && (
                     <>
                       {" "}
-                      <span className="text-blue-400">
+                      <span className="text-accent">
                         → {passo.opcaoEscolhida}
                       </span>
                     </>
@@ -184,13 +184,13 @@ export default function FluxogramaViewer({
       )}
 
       {nodeAtual.tipo === "pergunta" ? (
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8">
-          <h2 className="text-xl font-semibold text-white">
+        <div className="rounded-xl border border-rule bg-panel p-8">
+          <h2 className="text-xl font-semibold text-ink">
             {nodeAtual.texto}
           </h2>
 
           {nodeAtual.detalhe && (
-            <p className="mt-3 text-sm leading-6 text-slate-400">
+            <p className="mt-3 text-sm leading-6 text-ink-2">
               {nodeAtual.detalhe}
             </p>
           )}
@@ -217,7 +217,7 @@ export default function FluxogramaViewer({
                 key={opcao.label}
                 type="button"
                 onClick={() => escolherOpcao(opcao.label, opcao.proximoNodeId)}
-                className="rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-left text-sm font-medium text-white transition-colors hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-300"
+                className="rounded-lg border border-rule bg-paper px-5 py-3 text-left text-sm font-medium text-ink transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
               >
                 {opcao.label}
               </button>
@@ -226,7 +226,7 @@ export default function FluxogramaViewer({
         </div>
       ) : (
         <div
-          className={`rounded-2xl border p-8 ${nivelEstilo[nodeAtual.nivel ?? "rotina"].borda} ${
+          className={`rounded-xl border p-8 ${nivelEstilo[nodeAtual.nivel ?? "rotina"].borda} ${
             nivelEstilo[nodeAtual.nivel ?? "rotina"].fundo
           }`}
         >
@@ -238,12 +238,12 @@ export default function FluxogramaViewer({
             {nivelEstilo[nodeAtual.nivel ?? "rotina"].rotulo}
           </div>
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-ink">
             {nodeAtual.texto}
           </h2>
 
           {nodeAtual.detalhe && (
-            <p className="mt-3 text-sm leading-6 text-slate-300">
+            <p className="mt-3 text-sm leading-6 text-ink-2">
               {nodeAtual.detalhe}
             </p>
           )}
@@ -287,7 +287,7 @@ export default function FluxogramaViewer({
                   key={opcao.label}
                   type="button"
                   onClick={() => escolherOpcao(opcao.label, opcao.proximoNodeId)}
-                  className="rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-left text-sm font-medium text-white transition-colors hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-300"
+                  className="rounded-lg border border-rule bg-paper px-5 py-3 text-left text-sm font-medium text-ink transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
                 >
                   {opcao.label}
                 </button>
@@ -302,7 +302,7 @@ export default function FluxogramaViewer({
           type="button"
           onClick={voltar}
           disabled={historico.length <= 1}
-          className="rounded-xl border border-slate-700 bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-slate-600 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-lg border border-rule bg-panel px-5 py-2.5 text-sm font-medium text-ink-2 transition-colors hover:border-accent-border hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
         >
           ← Voltar
         </button>
@@ -310,7 +310,7 @@ export default function FluxogramaViewer({
         <button
           type="button"
           onClick={reiniciar}
-          className="rounded-xl border border-slate-700 bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-blue-500 hover:text-blue-300"
+          className="rounded-lg border border-rule bg-panel px-5 py-2.5 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
         >
           ↺ Reiniciar
         </button>

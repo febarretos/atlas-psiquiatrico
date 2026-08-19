@@ -112,11 +112,11 @@ export default function CasosClinicosPage({
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
-          🩺 Casos Clínicos
+        <h1 className="text-4xl font-bold text-ink">
+          Casos Clínicos
         </h1>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           Vinhetas interativas — trabalhe o raciocínio diagnóstico passo a
           passo até a conduta, com diferenciação fina entre hipóteses
           concorrentes.
@@ -125,17 +125,17 @@ export default function CasosClinicosPage({
 
       {casoGerado || casoLivreGerado ? (
         <div className="mb-8">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-900/50 bg-red-500/10 p-4">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-alert-border bg-alert-bg p-4">
             <div>
-              <p className="text-sm font-semibold text-red-300">
+              <p className="text-sm font-semibold text-alert">
                 {fontes.length > 0
-                  ? "⚠️ Caso sintético, inspirado em relato de caso real — não revisado clinicamente."
-                  : "⚠️ Caso sintético gerado por IA — não revisado clinicamente."}{" "}
+                  ? "Caso sintético, inspirado em relato de caso real — não revisado clinicamente."
+                  : "Caso sintético gerado por IA — não revisado clinicamente."}{" "}
                 Pode conter erros. Não usar como referência clínica.
               </p>
 
               {fontes.length > 0 && (
-                <p className="mt-2 text-xs text-red-200/80">
+                <p className="mt-2 text-xs text-alert-muted">
                   Inspirado em:{" "}
                   {fontes.map((f, i) => (
                     <span key={f.url}>
@@ -144,7 +144,7 @@ export default function CasosClinicosPage({
                         href={f.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="underline hover:text-red-100"
+                        className="underline hover:text-alert-deep"
                       >
                         {f.titulo}
                       </a>
@@ -161,7 +161,7 @@ export default function CasosClinicosPage({
                 setCasoLivreGerado(null);
                 setFontes([]);
               }}
-              className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+              className="whitespace-nowrap rounded-lg border border-rule px-3 py-2 text-xs font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
             >
               ← Voltar para os casos
             </button>
@@ -176,21 +176,21 @@ export default function CasosClinicosPage({
       ) : (
         <>
           {GERACAO_IA_ATIVA && (
-          <div className="mb-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
+          <div className="mb-8 rounded-xl border border-rule bg-panel p-6">
             <button
               type="button"
               onClick={() => setPainelAberto((v) => !v)}
               className="flex w-full items-center justify-between text-left"
             >
-              <span className="text-lg font-semibold text-white">
-                🎲 Gerar caso novo
+              <span className="text-lg font-semibold text-ink">
+                Gerar caso novo
               </span>
-              <span className="text-sm text-slate-500">{painelAberto ? "▲" : "▼"}</span>
+              <span className="text-sm text-ink-3">{painelAberto ? "▲" : "▼"}</span>
             </button>
 
             {painelAberto && (
               <div className="mt-5 flex flex-col gap-4">
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-ink-2">
                   Gera um caso clínico sintético via IA, no mesmo formato dos
                   casos curados manualmente — não persiste, não é revisado
                   clinicamente, e pode conter erros.
@@ -198,13 +198,13 @@ export default function CasosClinicosPage({
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-400">
+                    <label className="mb-2 block text-sm font-medium text-ink-2">
                       Diagnóstico (opcional — aleatório se vazio)
                     </label>
                     <select
                       value={diagnosticoEscolhido}
                       onChange={(e) => setDiagnosticoEscolhido(e.target.value)}
-                      className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-white outline-none focus:border-blue-500"
+                      className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-ink outline-none focus:border-accent"
                     >
                       <option value="">Aleatório</option>
                       {diagnosticos.map((d) => (
@@ -216,13 +216,13 @@ export default function CasosClinicosPage({
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-400">
+                    <label className="mb-2 block text-sm font-medium text-ink-2">
                       Dificuldade
                     </label>
                     <select
                       value={dificuldade}
                       onChange={(e) => setDificuldade(e.target.value as Dificuldade)}
-                      className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-white outline-none focus:border-blue-500"
+                      className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-ink outline-none focus:border-accent"
                     >
                       {DIFICULDADES.map((d) => (
                         <option key={d.valor} value={d.valor}>
@@ -234,14 +234,14 @@ export default function CasosClinicosPage({
                 </div>
 
                 {aguardandoSegundos !== null && (
-                  <div className="rounded-lg border border-amber-500/50 bg-amber-500/10 p-3 text-sm text-amber-200">
-                    ⏳ Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
+                  <div className="rounded-lg border border-warn-border bg-warn-bg p-3 text-sm text-warn">
+                    Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
                     tentar de novo...
                   </div>
                 )}
 
                 {erro && (
-                  <div className="rounded-lg border border-red-900/50 bg-red-500/10 p-3 text-sm text-red-300">
+                  <div className="rounded-lg border border-alert-border bg-alert-bg p-3 text-sm text-alert">
                     {erro}
                   </div>
                 )}
@@ -251,26 +251,26 @@ export default function CasosClinicosPage({
                     type="button"
                     onClick={() => gerarCaso("multipla-escolha")}
                     disabled={carregandoModo !== null}
-                    className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {carregandoModo === "multipla-escolha"
                       ? aguardandoSegundos !== null
                         ? `Aguardando ${aguardandoSegundos}s…`
                         : "Gerando…"
-                      : "🎯 Múltipla escolha (2 etapas)"}
+                      : "Múltipla escolha (2 etapas)"}
                   </button>
 
                   <button
                     type="button"
                     onClick={() => gerarCaso("resposta-livre")}
                     disabled={carregandoModo !== null}
-                    className="rounded-xl border border-blue-500 px-5 py-3 text-sm font-semibold text-blue-300 transition-colors hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="rounded-lg border border-accent px-5 py-3 text-sm font-semibold text-accent transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {carregandoModo === "resposta-livre"
                       ? aguardandoSegundos !== null
                         ? `Aguardando ${aguardandoSegundos}s…`
                         : "Gerando…"
-                      : "✍️ Resposta livre (modo difícil)"}
+                      : "Resposta livre (modo difícil)"}
                   </button>
                 </div>
               </div>
@@ -291,13 +291,13 @@ export default function CasosClinicosPage({
               <Link
                 key={c.id}
                 href={`/casos-clinicos/${c.id}`}
-                className="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-blue-500"
+                className="group rounded-xl border border-rule bg-panel p-6 transition-colors hover:border-accent"
               >
-                <h2 className="text-xl font-semibold text-white group-hover:text-blue-400">
+                <h2 className="text-xl font-semibold text-ink group-hover:text-accent">
                   {c.titulo}
                 </h2>
 
-                <p className="mt-2 line-clamp-2 text-sm text-slate-400">
+                <p className="mt-2 line-clamp-2 text-sm text-ink-2">
                   {c.apresentacaoInicial}
                 </p>
 

@@ -25,11 +25,11 @@ export default async function EmergenciaDetalhe({
   }
 
   return (
-    <main className="text-white">
+    <main className="text-ink">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 rounded-xl border border-red-900/40 bg-slate-900 p-8">
-          <h1 className="text-5xl font-bold">
-            🚨 {emergencia.nome}
+        <div className="mb-10 rounded-xl border border-alert-border bg-alert-bg p-8">
+          <h1 className="text-5xl font-bold text-alert-deep">
+            {emergencia.nome}
           </h1>
 
           <div className="mt-5 flex flex-wrap gap-3">
@@ -42,45 +42,45 @@ export default async function EmergenciaDetalhe({
             </Badge>
           </div>
 
-          <p className="mt-6 text-slate-400">
+          <p className="mt-6 text-alert-muted">
             {emergencia.descricao}
           </p>
         </div>
 
-        <Section titulo="🩺 Quadro Clínico">
+        <Section titulo="Quadro Clínico">
           <Lista itens={emergencia.quadroClinico} />
         </Section>
 
         {emergencia.criteriosDiagnosticos && emergencia.criteriosDiagnosticos.length > 0 && (
-          <Section titulo="📋 Critérios / Red Flags">
+          <Section titulo="Critérios / Red Flags">
             <Lista itens={emergencia.criteriosDiagnosticos} />
           </Section>
         )}
 
         {emergencia.causasComuns && emergencia.causasComuns.length > 0 && (
-          <Section titulo="⚠️ Causas Comuns">
+          <Section titulo="Causas Comuns">
             <Lista itens={emergencia.causasComuns} />
           </Section>
         )}
 
-        <Section titulo="🚑 Conduta Imediata">
+        <Section titulo="Conduta Imediata">
           <Lista itens={emergencia.condutaImediata} />
         </Section>
 
         {emergencia.examesComplementares && emergencia.examesComplementares.length > 0 && (
-          <Section titulo="🧪 Exames Complementares">
+          <Section titulo="Exames Complementares">
             <Lista itens={emergencia.examesComplementares} />
           </Section>
         )}
 
         {emergencia.diagnosticoDiferencial && emergencia.diagnosticoDiferencial.length > 0 && (
-          <Section titulo="🔍 Diagnóstico Diferencial">
+          <Section titulo="Diagnóstico Diferencial">
             <Lista itens={emergencia.diagnosticoDiferencial} />
           </Section>
         )}
 
         {emergencia.referencias && emergencia.referencias.length > 0 && (
-          <Section titulo="📚 Referências">
+          <Section titulo="Referências">
             <Lista itens={emergencia.referencias} />
           </Section>
         )}

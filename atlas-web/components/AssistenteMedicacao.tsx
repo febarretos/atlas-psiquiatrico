@@ -100,18 +100,18 @@ export default function AssistenteMedicacao() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap gap-2">
         {[
-          { chave: "sintomas" as const, rotulo: "🧭 Por sintomas" },
-          { chave: "alvos" as const, rotulo: "🎯 Por condições-alvo" },
-          { chave: "manual" as const, rotulo: "⚖️ Comparação manual" },
+          { chave: "sintomas" as const, rotulo: "Por sintomas" },
+          { chave: "alvos" as const, rotulo: "Por condições-alvo" },
+          { chave: "manual" as const, rotulo: "Comparação manual" },
         ].map((m) => (
           <button
             key={m.chave}
             type="button"
             onClick={() => trocarModo(m.chave)}
-            className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${
+            className={`rounded-lg border px-4 py-3 text-sm font-semibold transition-colors ${
               modo === m.chave
-                ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                : "border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-600"
+                ? "border-accent bg-accent-soft text-accent"
+                : "border-rule bg-panel text-ink-2 hover:border-accent-border"
             }`}
           >
             {m.rotulo}
@@ -130,9 +130,9 @@ export default function AssistenteMedicacao() {
       )}
 
       {candidatosBase.length > 0 && (
-        <div className="flex flex-col gap-6 border-t border-slate-800 pt-8">
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-            <p className="mb-3 text-sm font-semibold text-slate-300">
+        <div className="flex flex-col gap-6 border-t border-rule pt-8">
+          <div className="rounded-xl border border-rule bg-panel p-5">
+            <p className="mb-3 text-sm font-semibold text-ink-2">
               Perfil do paciente — o que priorizar/evitar? (opcional,
               reordena os candidatos abaixo)
             </p>
@@ -147,8 +147,8 @@ export default function AssistenteMedicacao() {
                   }
                   className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                     filtros[f.chave]
-                      ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                      : "border-slate-700 bg-slate-950 text-slate-400 hover:border-slate-600"
+                      ? "border-accent bg-accent-soft text-accent"
+                      : "border-rule bg-paper text-ink-2 hover:border-accent-border"
                   }`}
                 >
                   {f.rotulo}
@@ -164,10 +164,10 @@ export default function AssistenteMedicacao() {
                 key={medicamento.id}
                 href={`/medicamentos/${encodeURIComponent(medicamento.nome)}`}
                 target="_blank"
-                className="rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:border-blue-500"
+                className="rounded-xl border border-rule bg-panel p-6 transition-colors hover:border-accent"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h4 className="text-lg font-bold text-white">{medicamento.nome}</h4>
+                  <h4 className="text-lg font-bold text-ink">{medicamento.nome}</h4>
 
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge color="blue">{medicamento.classe}</Badge>
@@ -177,7 +177,7 @@ export default function AssistenteMedicacao() {
                     {badgePrincipal && <Badge color="gray">{badgePrincipal}</Badge>}
                     {evidenciaMinima && (
                       <span
-                        className="inline-flex items-center gap-1.5 text-xs text-slate-500"
+                        className="inline-flex items-center gap-1.5 text-xs text-ink-3"
                         title="Nível de evidência do alvo com menor força entre os cobertos"
                       >
                         evidência mín.
@@ -192,7 +192,7 @@ export default function AssistenteMedicacao() {
                     {detalhes.map((d) => (
                       <li
                         key={d.texto}
-                        className="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-400"
+                        className="flex flex-wrap items-center justify-between gap-2 text-sm text-ink-2"
                       >
                         <span className="flex items-center gap-2">
                           {d.texto}
@@ -210,7 +210,7 @@ export default function AssistenteMedicacao() {
                       {avaliacao.positivos.map((p) => (
                         <span
                           key={p}
-                          className="rounded-full border border-green-900/50 bg-green-500/10 px-3 py-1 text-xs text-green-300"
+                          className="rounded-full border border-ok-border bg-ok-bg px-3 py-1 text-xs text-ok"
                         >
                           ✓ {p}
                         </span>
@@ -218,7 +218,7 @@ export default function AssistenteMedicacao() {
                       {avaliacao.alertas.map((a) => (
                         <span
                           key={a}
-                          className="rounded-full border border-yellow-900/50 bg-yellow-500/10 px-3 py-1 text-xs text-yellow-300"
+                          className="rounded-full border border-warn-border bg-warn-bg px-3 py-1 text-xs text-warn"
                         >
                           ⚠ {a}
                         </span>
@@ -229,8 +229,8 @@ export default function AssistenteMedicacao() {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-            <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="rounded-xl border border-rule bg-panel p-6">
+            <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-ink-3">
               Perfil de efeitos — top {candidatosParaRadar.length}
             </div>
 
@@ -253,7 +253,7 @@ export default function AssistenteMedicacao() {
               <button
                 type="button"
                 onClick={() => setMostrarTabela((v) => !v)}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 {mostrarTabela ? "Ocultar" : "Ver"} tabela comparativa detalhada
               </button>
@@ -270,7 +270,7 @@ export default function AssistenteMedicacao() {
             </div>
           )}
 
-          <p className="text-xs leading-5 text-slate-500">
+          <p className="text-xs leading-5 text-ink-3">
             Lista de candidatos a partir do modo de entrada escolhido acima —
             não substitui avaliação de comorbidades, interações com outros
             medicamentos em uso, custo, disponibilidade e preferência do
@@ -283,7 +283,7 @@ export default function AssistenteMedicacao() {
             <button
               type="button"
               onClick={recomecar}
-              className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+              className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
             >
               Recomeçar
             </button>

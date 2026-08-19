@@ -8,18 +8,18 @@ export default function SimuladorEmergenciaPage() {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">🚨 Simulador de Emergência</h1>
+        <h1 className="text-4xl font-bold text-ink">Simulador de Emergência</h1>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           Jogo de tensão em tempo real — sinais vitais evoluem a cada turno e a conduta certa
           precisa vir rápido. Baseado nos quadros do módulo de Emergências.
         </p>
       </div>
 
       {casosSimuladorEmergencia.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900 p-12 text-center text-slate-400">
+        <div className="rounded-xl border border-dashed border-rule bg-panel p-12 text-center text-ink-2">
           Nenhum caso disponível ainda. Casos são gerados offline com{" "}
-          <code className="rounded bg-slate-800 px-1.5 py-0.5 text-slate-300">
+          <code className="rounded bg-hover-warm px-1.5 py-0.5 text-ink-2">
             npm run gerar-caso-emergencia
           </code>{" "}
           e revisados antes de entrar aqui.

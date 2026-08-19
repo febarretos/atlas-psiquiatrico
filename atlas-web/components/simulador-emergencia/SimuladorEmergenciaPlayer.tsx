@@ -29,9 +29,9 @@ interface Props {
 type Severidade = "normal" | "alerta" | "critico";
 
 const SEVERIDADE_CLASSE: Record<Severidade, string> = {
-  normal: "border-green-500/40 bg-green-500/10 text-green-300",
-  alerta: "border-yellow-500/40 bg-yellow-500/10 text-yellow-300",
-  critico: "border-red-500/50 bg-red-500/10 text-red-300 animate-pulse",
+  normal: "border-ok-border bg-ok-bg text-ok",
+  alerta: "border-warn-border bg-warn-bg text-warn",
+  critico: "border-alert-border bg-alert-bg text-alert animate-pulse",
 };
 
 // Faixas de referência genéricas (não específicas de um caso) só pra
@@ -53,11 +53,11 @@ function severidadeEscala0a10(v: number): Severidade {
 }
 
 const CATEGORIA_LABEL: Record<AcaoDisponivel["categoria"], string> = {
-  medicacao: "💊 Medicação",
-  exame: "🔬 Exame",
-  suporte: "🩹 Suporte",
-  contencao: "🔒 Contenção",
-  comunicacao: "💬 Comunicação",
+  medicacao: "Medicação",
+  exame: "Exame",
+  suporte: "Suporte",
+  contencao: "Contenção",
+  comunicacao: "Comunicação",
 };
 
 function VitalCard({
@@ -182,34 +182,34 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
 
   return (
     <div>
-      <div className="mb-5 rounded-xl border border-orange-900/50 bg-orange-500/10 p-4">
-        <p className="text-sm font-semibold text-orange-300">
-          🚨 Simulação de emergência — dramatização com base fisiológica real, não substitui
+      <div className="mb-5 rounded-lg border border-orange-200 bg-orange-50 p-4">
+        <p className="text-sm font-semibold text-orange-700">
+          Simulação de emergência — dramatização com base fisiológica real, não substitui
           protocolo institucional.
         </p>
       </div>
 
-      <div className="mb-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <div className="mb-6 rounded-xl border border-rule bg-panel p-5">
+        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
           História clínica
         </div>
-        <p className="text-sm leading-6 text-slate-300">{caso.historiaClinica}</p>
+        <p className="text-sm leading-6 text-ink-2">{caso.historiaClinica}</p>
       </div>
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-panel p-4">
         <div className="flex items-center gap-3">
           <Badge color={alarme ? "red" : "gray"}>
-            {alarme ? "🔴 EM ALARME" : "🟢 monitorando"}
+            {alarme ? "EM ALARME" : "monitorando"}
           </Badge>
           {emergencia && <Badge color="gray">{emergencia.nome}</Badge>}
         </div>
 
         <div className="text-right">
-          <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="text-xs font-semibold uppercase tracking-wider text-ink-3">
             Turno
           </div>
-          <div className="text-2xl font-bold text-white">
-            {estado.turnoAtual} <span className="text-slate-500">/ {caso.turnosMaximos}</span>
+          <div className="text-2xl font-bold text-ink">
+            {estado.turnoAtual} <span className="text-ink-3">/ {caso.turnosMaximos}</span>
           </div>
         </div>
       </div>
@@ -217,13 +217,13 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="flex-shrink-0">
           <div className="mb-2 flex items-center justify-between gap-3">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">Monitor</div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-ink-3">Monitor</div>
             <button
               type="button"
               onClick={() => setMudo((atual) => !atual)}
-              className="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1 text-xs text-slate-400 transition-colors hover:border-blue-500 hover:text-white"
+              className="rounded-lg border border-rule bg-panel px-2 py-1 text-xs text-ink-2 transition-colors hover:border-accent hover:text-ink"
             >
-              {mudo ? "🔇 Som desligado" : "🔊 Som ligado"}
+              {mudo ? "Som desligado" : "Som ligado"}
             </button>
           </div>
           <MonitorFisiologico sinais={sinais} emAlarme={alarme} pulso={pulso} mudo={mudo} />
@@ -251,14 +251,14 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
       </div>
 
       {toast && (
-        <div className="mb-6 rounded-xl border border-blue-500/40 bg-blue-500/10 p-4">
-          <div className="text-xs font-semibold uppercase tracking-wider text-blue-300">
+        <div className="mb-6 rounded-lg border border-accent-border bg-accent-soft p-4">
+          <div className="text-xs font-semibold uppercase tracking-wider text-accent">
             {toast.acaoLabel}
           </div>
           {toast.mudancas.length > 0 ? (
-            <p className="mt-1.5 text-sm text-blue-200">{toast.mudancas.join(" · ")}</p>
+            <p className="mt-1.5 text-sm text-accent">{toast.mudancas.join(" · ")}</p>
           ) : (
-            <p className="mt-1.5 text-sm text-blue-200">Sem mudança perceptível nos sinais vitais neste turno.</p>
+            <p className="mt-1.5 text-sm text-accent">Sem mudança perceptível nos sinais vitais neste turno.</p>
           )}
         </div>
       )}
@@ -266,8 +266,8 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
       <div className="grid gap-6 lg:grid-cols-[1fr_340px] lg:items-start">
         <div>
           {!jogoAcabou ? (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-              <div className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <div className="rounded-xl border border-rule bg-panel p-6">
+              <div className="mb-4 text-xs font-semibold uppercase tracking-wider text-ink-3">
                 Conduta
               </div>
 
@@ -285,21 +285,21 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
                       onClick={() => jogar(acao)}
                       className={`rounded-xl border p-4 text-left transition-colors ${
                         bloqueada
-                          ? "cursor-not-allowed border-slate-800 bg-slate-900/60 opacity-50"
-                          : "border-slate-700 bg-slate-800 hover:border-blue-500 hover:bg-blue-500/10"
+                          ? "cursor-not-allowed border-rule bg-hover-warm opacity-50"
+                          : "border-rule bg-hover-warm hover:border-accent hover:bg-accent-soft"
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <span className="font-semibold text-white">
+                        <span className="font-semibold text-ink">
                           {acao.label}
                           {acao.repetivel && vezesUsada > 0 && (
-                            <span className="ml-1.5 font-normal text-blue-300">
+                            <span className="ml-1.5 font-normal text-accent">
                               — {vezesUsada + 1}ª dose
                             </span>
                           )}
                         </span>
                         {acao.custoTempo > 0 && !bloqueada && (
-                          <span className="whitespace-nowrap text-xs text-slate-500">
+                          <span className="whitespace-nowrap text-xs text-ink-3">
                             +{acao.custoTempo} {acao.custoTempo === 1 ? "turno" : "turnos"}
                           </span>
                         )}
@@ -309,7 +309,7 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
                         {bloqueada && <Badge color="green">✓ já feito</Badge>}
                       </div>
                       {acao.condicaoDeUso && !bloqueada && (
-                        <p className="mt-2 text-xs text-slate-500">{acao.condicaoDeUso}</p>
+                        <p className="mt-2 text-xs text-ink-3">{acao.condicaoDeUso}</p>
                       )}
                     </button>
                   );
@@ -325,7 +325,7 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
               <button
                 type="button"
                 onClick={reiniciar}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 ↺ Jogar de novo
               </button>
@@ -333,13 +333,13 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
           )}
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 lg:sticky lg:top-4">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <div className="rounded-xl border border-rule bg-panel p-5 lg:sticky lg:top-4">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Linha do tempo
           </div>
 
           {estado.log.length === 0 ? (
-            <p className="text-sm text-slate-500">Nenhuma conduta ainda — as ações que você tomar aparecem aqui, em ordem.</p>
+            <p className="text-sm text-ink-3">Nenhuma conduta ainda — as ações que você tomar aparecem aqui, em ordem.</p>
           ) : (
             <ol className="max-h-[32rem] space-y-2 overflow-y-auto">
               {estado.log.map((entrada, index) => (
@@ -347,8 +347,8 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
                   key={index}
                   className={`rounded-lg border px-3 py-2 text-sm ${
                     entrada.foiIncorreta
-                      ? "border-red-500/30 bg-red-500/5 text-red-300"
-                      : "border-slate-800 bg-slate-950 text-slate-300"
+                      ? "border-alert-border bg-alert-bg text-alert"
+                      : "border-rule bg-paper text-ink-2"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -357,7 +357,7 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
                   </div>
                   <p className="mt-1">{entrada.acaoLabel}</p>
                   {entrada.resultadoTexto && (
-                    <p className="mt-1.5 text-xs italic text-slate-400">{entrada.resultadoTexto}</p>
+                    <p className="mt-1.5 text-xs italic text-ink-2">{entrada.resultadoTexto}</p>
                   )}
                 </li>
               ))}
@@ -399,13 +399,13 @@ function TelaDesfecho({
     const confirmatorios = camposConfirmatorios(caso, estado.sinaisAtuais, "estabilizacao");
 
     return (
-      <div className="rounded-2xl border border-green-500/40 bg-green-500/10 p-8">
-        <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-green-400">
+      <div className="rounded-xl border border-ok-border bg-ok-bg p-8">
+        <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-ok">
           Desfecho
         </div>
-        <h2 className="text-2xl font-bold text-white">✅ Paciente estabilizado</h2>
+        <h2 className="text-2xl font-bold text-ink">Paciente estabilizado</h2>
 
-        <p className="mt-4 text-sm leading-6 text-slate-300">
+        <p className="mt-4 text-sm leading-6 text-ink-2">
           Risco iminente controlado no turno {estado.turnoAtual} de {caso.turnosMaximos}
           {confirmatorios.length > 0 && (
             <> — parâmetros que confirmam a melhora: {confirmatorios.map((c) => CAMPO_LABEL[c] ?? c).join(", ")}.</>
@@ -428,15 +428,15 @@ function TelaDesfecho({
   const foiObito = desfecho === "obito";
 
   return (
-    <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-8">
-      <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-red-400">
+    <div className="rounded-xl border border-alert-border bg-alert-bg p-8">
+      <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-alert">
         Desfecho
       </div>
-      <h2 className="text-2xl font-bold text-white">
-        {foiObito ? "☠️ Óbito do paciente" : "⏱️ Tempo esgotado sem estabilizar"}
+      <h2 className="text-2xl font-bold text-ink">
+        {foiObito ? "Óbito do paciente" : "Tempo esgotado sem estabilizar"}
       </h2>
 
-      <p className="mt-4 text-sm leading-6 text-slate-300">
+      <p className="mt-4 text-sm leading-6 text-ink-2">
         {foiObito
           ? "Este é um desfecho de treino, não um julgamento — a ideia é entender exatamente o que na fisiopatologia levou até aqui, pra reconhecer o padrão na prática real."
           : "O quadro não chegou a se estabilizar dentro do prazo simulado. Veja abaixo o que teria acelerado a resposta."}
@@ -453,8 +453,8 @@ function TelaDesfecho({
       )}
 
       {condutasNaoTomadas.length > 0 && (
-        <div className="mt-6 border-t border-red-500/20 pt-6">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="mt-6 border-t border-alert/20 pt-6">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-2">
             A conduta correta teria incluído
           </div>
           <ul className="space-y-3">
@@ -463,7 +463,7 @@ function TelaDesfecho({
                 ? medicamentos.find((m) => m.id === acao.medicamentoId)
                 : undefined;
               return (
-                <li key={acao.id} className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm text-slate-300">
+                <li key={acao.id} className="rounded-lg border border-rule bg-paper p-4 text-sm text-ink-2">
                   {acao.label}
                   {medicamento && (
                     <div className="mt-3">
@@ -488,8 +488,8 @@ function BlocoFisiopatologia({
   emergenciaNome: string | undefined;
 }) {
   return (
-    <div className="mt-6 border-t border-white/10 pt-6">
-      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+    <div className="mt-6 border-t border-ink/10 pt-6">
+      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-2">
         A fisiopatologia por trás do caso
       </div>
 
@@ -497,14 +497,14 @@ function BlocoFisiopatologia({
         <>
           <Link
             href={`/emergencias/${emergencia.id}`}
-            className="text-lg font-bold text-white hover:text-blue-400"
+            className="text-lg font-bold text-ink hover:text-accent"
           >
             {emergencia.nome} →
           </Link>
-          <p className="mt-2 text-sm leading-6 text-slate-300">{emergencia.descricao}</p>
+          <p className="mt-2 text-sm leading-6 text-ink-2">{emergencia.descricao}</p>
         </>
       ) : (
-        <p className="text-sm text-slate-400">{emergenciaNome}</p>
+        <p className="text-sm text-ink-2">{emergenciaNome}</p>
       )}
     </div>
   );
@@ -520,8 +520,8 @@ function BlocoCondutas({
   tomBom: boolean;
 }) {
   return (
-    <div className="mt-6 border-t border-white/10 pt-6">
-      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+    <div className="mt-6 border-t border-ink/10 pt-6">
+      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-2">
         {titulo}
       </div>
       <ul className="space-y-2">
@@ -530,8 +530,8 @@ function BlocoCondutas({
             key={index}
             className={`rounded-lg border px-3 py-2 text-sm ${
               tomBom
-                ? "border-green-500/30 bg-green-500/5 text-green-200"
-                : "border-red-500/30 bg-red-500/5 text-red-200"
+                ? "border-ok-border bg-ok-bg text-ok"
+                : "border-alert-border bg-alert-bg text-alert"
             }`}
           >
             Turno {entrada.turno}: {entrada.acaoLabel}

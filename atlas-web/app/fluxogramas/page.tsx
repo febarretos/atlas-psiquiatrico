@@ -7,9 +7,9 @@ export default function Fluxogramas() {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">🌳 Fluxogramas</h1>
+        <h1 className="text-4xl font-bold text-ink">Fluxogramas</h1>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           Algoritmos de decisão clínica interativos: responda passo a passo
           até chegar a uma conduta.
         </p>

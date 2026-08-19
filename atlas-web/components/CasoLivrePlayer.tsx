@@ -133,12 +133,12 @@ export default function CasoLivrePlayer({ caso }: Props) {
 
   return (
     <div>
-      <div className="mb-6 rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-400">
+      <div className="mb-6 rounded-xl border border-rule bg-panel p-6">
+        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
           Apresentação do caso
         </div>
 
-        <p className="text-slate-200">{caso.vinheta}</p>
+        <p className="text-ink-2">{caso.vinheta}</p>
       </div>
 
       <div className="space-y-6">
@@ -151,31 +151,31 @@ export default function CasoLivrePlayer({ caso }: Props) {
           return (
             <div
               key={`${p.etapa}-${i}`}
-              className="rounded-2xl border border-slate-800 bg-slate-900 p-6"
+              className="rounded-xl border border-rule bg-panel p-6"
             >
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-400">
+              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
                 {p.etapa}
               </div>
 
               {p.contextoAdicional && (
-                <p className="mb-4 rounded-xl border-l-4 border-blue-500 bg-slate-800/50 p-4 text-sm italic text-slate-300">
+                <p className="mb-4 rounded-xl border-l-4 border-accent bg-accent-soft p-4 text-sm italic text-ink-2">
                   {p.contextoAdicional}
                 </p>
               )}
 
-              <h3 className="mb-4 text-lg font-semibold text-white">{p.pergunta}</h3>
+              <h3 className="mb-4 text-lg font-semibold text-ink">{p.pergunta}</h3>
 
               {tentativasDaEtapa.map((t, idx) => (
                 <div key={idx} className="mb-3 space-y-2">
-                  <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-slate-200">
+                  <div className="rounded-xl border border-rule bg-paper p-4 text-ink-2">
                     {t.resposta}
                   </div>
 
                   <div
-                    className={`rounded-xl border p-4 text-sm leading-6 ${
+                    className={`rounded-lg border p-4 text-sm leading-6 ${
                       t.avaliacao.correto
-                        ? "border-green-500 bg-green-500/10 text-green-200"
-                        : "border-amber-500/60 bg-amber-500/10 text-amber-200"
+                        ? "border-ok-border bg-ok-bg text-ok"
+                        : "border-warn-border bg-warn-bg text-warn"
                     }`}
                   >
                     <span className="mb-1 block text-xs font-semibold uppercase tracking-wider">
@@ -185,8 +185,8 @@ export default function CasoLivrePlayer({ caso }: Props) {
                   </div>
 
                   {!t.avaliacao.correto && (
-                    <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 text-slate-300">
-                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <div className="rounded-xl border border-rule bg-paper p-4 text-sm leading-6 text-ink-2">
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-ink-3">
                         Resposta esperada
                       </span>
                       {t.avaliacao.gabaritoInterno ?? p.gabaritoInterno}
@@ -203,18 +203,18 @@ export default function CasoLivrePlayer({ caso }: Props) {
                     rows={4}
                     placeholder="Escreva sua resposta..."
                     disabled={enviando}
-                    className="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-white outline-none focus:border-blue-500"
+                    className="w-full rounded-lg border border-rule bg-paper p-4 text-ink outline-none focus:border-accent"
                   />
 
                   {aguardandoSegundos !== null && (
-                    <div className="mt-2 rounded-lg border border-amber-500/50 bg-amber-500/10 p-3 text-sm text-amber-200">
-                      ⏳ Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
+                    <div className="mt-2 rounded-lg border border-warn-border bg-warn-bg p-3 text-sm text-warn">
+                      Muitas gerações seguidas — aguardando {aguardandoSegundos}s antes de
                       tentar de novo...
                     </div>
                   )}
 
                   {erro && (
-                    <div className="mt-2 rounded-lg border border-red-900/50 bg-red-500/10 p-3 text-sm text-red-300">
+                    <div className="mt-2 rounded-lg border border-alert-border bg-alert-bg p-3 text-sm text-alert">
                       {erro}
                     </div>
                   )}
@@ -223,7 +223,7 @@ export default function CasoLivrePlayer({ caso }: Props) {
                     type="button"
                     onClick={enviarResposta}
                     disabled={enviando || !rascunho.trim()}
-                    className="mt-3 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="mt-3 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {enviando
                       ? aguardandoSegundos !== null
@@ -238,7 +238,7 @@ export default function CasoLivrePlayer({ caso }: Props) {
                 <button
                   type="button"
                   onClick={avancar}
-                  className="mt-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+                  className="mt-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                 >
                   {ultimaEtapa ? "Ver síntese do caso →" : "Próxima etapa →"}
                 </button>
@@ -249,42 +249,42 @@ export default function CasoLivrePlayer({ caso }: Props) {
       </div>
 
       {concluido && (
-        <div className="mt-6 rounded-2xl border border-blue-500/40 bg-slate-900 p-6">
-          <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-blue-400">
+        <div className="mt-6 rounded-xl border border-accent-border bg-panel p-6">
+          <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-accent">
             Síntese do caso
           </div>
 
-          <h3 className="mb-4 text-xl font-bold text-white">{caso.diagnosticoFinal}</h3>
+          <h3 className="mb-4 text-xl font-bold text-ink">{caso.diagnosticoFinal}</h3>
 
           {(diagnosticoLink || medicamentosLink.length > 0 || achadosLink.length > 0) && (
             <div className="mb-5 flex flex-wrap gap-2">
               {diagnosticoLink && (
                 <Link href={`/diagnosticos/${diagnosticoLink.id}`}>
-                  <Badge color="blue">📖 {diagnosticoLink.nome}</Badge>
+                  <Badge color="blue">{diagnosticoLink.nome}</Badge>
                 </Link>
               )}
 
               {medicamentosLink.map((m) => (
                 <Link key={m.id} href={`/medicamentos/${encodeURIComponent(m.nome)}`}>
-                  <Badge color="green">💊 {m.nome}</Badge>
+                  <Badge color="green">{m.nome}</Badge>
                 </Link>
               ))}
 
               {achadosLink.map(({ dominio, achado }) => (
                 <Link key={achado.id} href={`/psicopatologia/${dominio.id}`}>
-                  <Badge color="gray">🧩 {achado.nome}</Badge>
+                  <Badge color="gray">{achado.nome}</Badge>
                 </Link>
               ))}
             </div>
           )}
 
           {respostasIncorretas.length === 0 ? (
-            <div className="mb-5 rounded-xl border border-green-500/40 bg-green-500/10 p-4 text-sm font-medium text-green-200">
-              🎉 Você acertou todas as etapas de primeira — nenhum erro para revisar.
+            <div className="mb-5 rounded-lg border border-ok-border bg-ok-bg p-4 text-sm font-medium text-ok">
+              Você acertou todas as etapas de primeira — nenhum erro para revisar.
             </div>
           ) : (
             <div className="mb-5">
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
                 Revisão dos erros ({respostasIncorretas.length})
               </div>
 
@@ -292,25 +292,25 @@ export default function CasoLivrePlayer({ caso }: Props) {
                 {respostasIncorretas.map((r, idx) => (
                   <div
                     key={idx}
-                    className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4"
+                    className="rounded-lg border border-warn-border bg-warn-bg p-4"
                   >
-                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-amber-300">
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-warn">
                       {r.etapa}
                     </div>
 
-                    <p className="mb-2 text-sm font-medium text-white">{r.perguntaFeita}</p>
+                    <p className="mb-2 text-sm font-medium text-ink">{r.perguntaFeita}</p>
 
-                    <p className="mb-2 text-sm text-slate-400">
-                      <span className="font-semibold text-slate-300">Sua resposta: </span>
+                    <p className="mb-2 text-sm text-ink-2">
+                      <span className="font-semibold text-ink-2">Sua resposta: </span>
                       {r.respostaDoUsuario}
                     </p>
 
-                    <p className="mb-2 text-sm text-slate-300">
-                      <span className="font-semibold text-slate-200">Resposta esperada: </span>
+                    <p className="mb-2 text-sm text-ink-2">
+                      <span className="font-semibold text-ink-2">Resposta esperada: </span>
                       {r.gabaritoInterno}
                     </p>
 
-                    <p className="text-sm leading-6 text-amber-200">
+                    <p className="text-sm leading-6 text-warn">
                       <span className="font-semibold">Feedback: </span>
                       {r.feedback}
                     </p>
@@ -320,11 +320,11 @@ export default function CasoLivrePlayer({ caso }: Props) {
             </div>
           )}
 
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Pontos de ensino
           </div>
 
-          <ul className="mb-5 list-disc space-y-1.5 pl-6 text-slate-300">
+          <ul className="mb-5 list-disc space-y-1.5 pl-6 text-ink-2">
             {caso.pontosDeEnsino.map((p) => (
               <li key={p}>{p}</li>
             ))}
@@ -333,9 +333,9 @@ export default function CasoLivrePlayer({ caso }: Props) {
           <button
             type="button"
             onClick={reiniciar}
-            className="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-blue-500 hover:text-blue-400"
+            className="rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
           >
-            🔄 Refazer caso
+            Refazer caso
           </button>
         </div>
       )}

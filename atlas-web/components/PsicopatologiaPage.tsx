@@ -35,11 +35,11 @@ export default function PsicopatologiaPage({
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
-          🧩 Psicopatologia
+        <h1 className="text-4xl font-bold text-ink">
+          Psicopatologia
         </h1>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           Semiologia psiquiátrica por domínio — definições precisas,
           diferenciação fina entre achados semelhantes e vinhetas clínicas.
         </p>
@@ -58,13 +58,13 @@ export default function PsicopatologiaPage({
           <Link
             key={d.id}
             href={`/psicopatologia/${d.id}`}
-            className="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-blue-500"
+            className="group rounded-xl border border-rule bg-panel p-6 transition-colors hover:border-accent"
           >
-            <h2 className="text-xl font-semibold text-white group-hover:text-blue-400">
+            <h2 className="text-xl font-semibold text-ink group-hover:text-accent">
               {d.nome}
             </h2>
 
-            <p className="mt-2 line-clamp-2 text-sm text-slate-400">
+            <p className="mt-2 line-clamp-2 text-sm text-ink-2">
               {d.descricao}
             </p>
 

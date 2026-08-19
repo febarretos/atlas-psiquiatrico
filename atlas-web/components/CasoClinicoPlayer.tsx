@@ -59,12 +59,12 @@ export default function CasoClinicoPlayer({ caso }: Props) {
 
   return (
     <div>
-      <div className="mb-6 rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-400">
+      <div className="mb-6 rounded-xl border border-rule bg-panel p-6">
+        <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
           Apresentação do caso
         </div>
 
-        <p className="text-slate-200">{caso.apresentacaoInicial}</p>
+        <p className="text-ink-2">{caso.apresentacaoInicial}</p>
       </div>
 
       <div className="space-y-6">
@@ -76,15 +76,15 @@ export default function CasoClinicoPlayer({ caso }: Props) {
           return (
             <div
               key={etapa.id}
-              className="rounded-2xl border border-slate-800 bg-slate-900 p-6"
+              className="rounded-xl border border-rule bg-panel p-6"
             >
               {etapa.narrativaAdicional && (
-                <p className="mb-4 rounded-xl border-l-4 border-blue-500 bg-slate-800/50 p-4 text-sm italic text-slate-300">
+                <p className="mb-4 rounded-lg border-l-4 border-accent bg-accent-soft p-4 text-sm italic text-ink-2">
                   {etapa.narrativaAdicional}
                 </p>
               )}
 
-              <h3 className="mb-4 text-lg font-semibold text-white">
+              <h3 className="mb-4 text-lg font-semibold text-ink">
                 {etapa.pergunta}
               </h3>
 
@@ -101,23 +101,23 @@ export default function CasoClinicoPlayer({ caso }: Props) {
                         type="button"
                         disabled={respondida}
                         onClick={() => responder(etapa.id, idx)}
-                        className={`w-full rounded-xl border p-4 text-left transition ${
+                        className={`w-full rounded-lg border p-4 text-left transition-colors ${
                           mostrarCorreta
-                            ? "border-green-500 bg-green-500/10"
+                            ? "border-ok bg-ok-bg"
                             : mostrarErradaSelecionada
-                              ? "border-red-500 bg-red-500/10"
+                              ? "border-alert bg-alert-bg"
                               : respondida
-                                ? "border-slate-800 bg-slate-950"
-                                : "border-slate-700 bg-slate-950 hover:border-blue-500"
+                                ? "border-rule bg-paper"
+                                : "border-rule bg-paper hover:border-accent"
                         }`}
                       >
                         <span
                           className={
                             mostrarCorreta
-                              ? "text-green-300"
+                              ? "text-ok"
                               : mostrarErradaSelecionada
-                                ? "text-red-300"
-                                : "text-slate-200"
+                                ? "text-alert"
+                                : "text-ink-2"
                           }
                         >
                           {opcao.texto}
@@ -125,7 +125,7 @@ export default function CasoClinicoPlayer({ caso }: Props) {
                       </button>
 
                       {respondida && (mostrarCorreta || selecionada) && (
-                        <p className="mt-2 px-1 text-sm leading-6 text-slate-400">
+                        <p className="mt-2 px-1 text-sm leading-6 text-ink-2">
                           {opcao.explicacao}
                         </p>
                       )}
@@ -139,12 +139,12 @@ export default function CasoClinicoPlayer({ caso }: Props) {
       </div>
 
       {concluido && (
-        <div className="mt-6 rounded-2xl border border-blue-500/40 bg-slate-900 p-6">
-          <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-blue-400">
+        <div className="mt-6 rounded-xl border border-accent-border bg-panel p-6">
+          <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-accent">
             Síntese do caso — {acertos}/{caso.etapas.length} corretas
           </div>
 
-          <h3 className="mb-4 text-xl font-bold text-white">
+          <h3 className="mb-4 text-xl font-bold text-ink">
             {caso.diagnosticoFinal}
           </h3>
 
@@ -152,29 +152,29 @@ export default function CasoClinicoPlayer({ caso }: Props) {
             <div className="mb-5 flex flex-wrap gap-2">
               {diagnosticoLink && (
                 <Link href={`/diagnosticos/${diagnosticoLink.id}`}>
-                  <Badge color="blue">📖 {diagnosticoLink.nome}</Badge>
+                  <Badge color="blue">{diagnosticoLink.nome}</Badge>
                 </Link>
               )}
 
               {medicamentosLink.map((m) => (
                 <Link key={m.id} href={`/medicamentos/${encodeURIComponent(m.nome)}`}>
-                  <Badge color="green">💊 {m.nome}</Badge>
+                  <Badge color="green">{m.nome}</Badge>
                 </Link>
               ))}
 
               {achadosLink.map(({ dominio, achado }) => (
                 <Link key={achado.id} href={`/psicopatologia/${dominio.id}`}>
-                  <Badge color="gray">🧩 {achado.nome}</Badge>
+                  <Badge color="gray">{achado.nome}</Badge>
                 </Link>
               ))}
             </div>
           )}
 
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Pontos de ensino
           </div>
 
-          <ul className="mb-5 list-disc space-y-1.5 pl-6 text-slate-300">
+          <ul className="mb-5 list-disc space-y-1.5 pl-6 text-ink-2">
             {caso.pontosDeEnsino.map((p) => (
               <li key={p}>{p}</li>
             ))}
@@ -182,11 +182,11 @@ export default function CasoClinicoPlayer({ caso }: Props) {
 
           {caso.referencias && caso.referencias.length > 0 && (
             <>
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
                 Referências
               </div>
 
-              <ul className="mb-5 list-disc space-y-1 pl-6 text-sm text-slate-500">
+              <ul className="mb-5 list-disc space-y-1 pl-6 text-sm text-ink-3">
                 {caso.referencias.map((r) => (
                   <li key={r}>{r}</li>
                 ))}
@@ -197,9 +197,9 @@ export default function CasoClinicoPlayer({ caso }: Props) {
           <button
             type="button"
             onClick={reiniciar}
-            className="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-blue-500 hover:text-blue-400"
+            className="rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
           >
-            🔄 Refazer caso
+            Refazer caso
           </button>
         </div>
       )}

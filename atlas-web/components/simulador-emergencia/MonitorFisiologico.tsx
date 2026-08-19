@@ -87,7 +87,7 @@ export default function MonitorFisiologico({ sinais, emAlarme, pulso, mudo }: Pr
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden rounded-xl border border-slate-800"
+      className="overflow-hidden rounded-xl border border-rule"
       style={{ width: LARGURA_MONITOR, maxWidth: "100%" }}
     />
   );

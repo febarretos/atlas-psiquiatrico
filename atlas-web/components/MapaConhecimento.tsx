@@ -21,10 +21,10 @@ const CORES: Record<TipoNo, string> = {
 };
 
 const ROTULOS: Record<TipoNo, string> = {
-  diagnostico: "🧠 Diagnósticos",
-  medicamento: "💊 Medicamentos",
-  escala: "📋 Escalas",
-  fluxograma: "🌳 Fluxogramas",
+  diagnostico: "Diagnósticos",
+  medicamento: "Medicamentos",
+  escala: "Escalas",
+  fluxograma: "Fluxogramas",
 };
 
 const TODOS_TIPOS: TipoNo[] = ["diagnostico", "medicamento", "escala", "fluxograma"];
@@ -167,8 +167,8 @@ export default function MapaConhecimento({ grafo }: Props) {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white">🕸️ Mapa de Conhecimento</h1>
-        <p className="mt-3 text-slate-400">
+        <h1 className="text-4xl font-bold text-ink">Mapa de Conhecimento</h1>
+        <p className="mt-3 text-ink-2">
           Grafo interativo de todas as conexões já cadastradas no Atlas entre diagnósticos,
           medicamentos, escalas e fluxogramas. Clique num nó pra destacar as conexões diretas dele,
           ou arraste pra reorganizar. Só aparecem aqui nós que têm pelo menos uma conexão real nos
@@ -182,7 +182,7 @@ export default function MapaConhecimento({ grafo }: Props) {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar um nó pelo nome..."
-          className="rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+          className="rounded-lg border border-rule bg-panel px-4 py-2 text-sm text-ink placeholder-ink-3 focus:border-accent focus:outline-none"
         />
 
         {TODOS_TIPOS.map((tipo) => {
@@ -194,8 +194,8 @@ export default function MapaConhecimento({ grafo }: Props) {
               onClick={() => alternarTipo(tipo)}
               className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                 ativo
-                  ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                  : "border-slate-700 bg-slate-900 text-slate-500"
+                  ? ""
+                  : "border-rule bg-panel text-ink-3"
               }`}
               style={ativo ? { borderColor: CORES[tipo], color: CORES[tipo] } : undefined}
             >
@@ -209,8 +209,8 @@ export default function MapaConhecimento({ grafo }: Props) {
           onClick={() => setMostrarPrimeiraLinha((v) => !v)}
           className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
             mostrarPrimeiraLinha
-              ? "border-blue-500 bg-blue-500/10 text-blue-300"
-              : "border-slate-700 bg-slate-900 text-slate-500"
+              ? "border-accent bg-accent-soft text-accent"
+              : "border-rule bg-panel text-ink-3"
           }`}
         >
           {mostrarPrimeiraLinha ? "✓" : "☐"} Vínculos diagnóstico→medicamento (primeira linha)
@@ -218,7 +218,7 @@ export default function MapaConhecimento({ grafo }: Props) {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-        <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
+        <div className="overflow-hidden rounded-xl border border-rule bg-panel">
           <svg
             ref={svgRef}
             viewBox={`0 0 ${LARGURA} ${ALTURA}`}
@@ -237,7 +237,7 @@ export default function MapaConhecimento({ grafo }: Props) {
                   y1={p1.y}
                   x2={p2.x}
                   y2={p2.y}
-                  stroke={a.tipoAresta === "fluxograma" ? "#94a3b8" : "#475569"}
+                  stroke={a.tipoAresta === "fluxograma" ? "#A9ADB4" : "#C5C1B8"}
                   strokeWidth={a.tipoAresta === "fluxograma" ? 1.4 : 1}
                   opacity={opacidadeAresta(a)}
                 />
@@ -261,7 +261,7 @@ export default function MapaConhecimento({ grafo }: Props) {
                   <circle
                     r={raio}
                     fill={CORES[no.tipo]}
-                    stroke={emFoco ? "#fff" : "none"}
+                    stroke={emFoco ? "#191B1E" : "none"}
                     strokeWidth={2}
                   />
                   {(raio > 12 || emFoco) && (
@@ -269,7 +269,7 @@ export default function MapaConhecimento({ grafo }: Props) {
                       y={raio + 12}
                       textAnchor="middle"
                       fontSize={11}
-                      fill="#cbd5e1"
+                      fill="#5C6067"
                       className="pointer-events-none select-none"
                     >
                       {no.label.length > 22 ? no.label.slice(0, 21) + "…" : no.label}
@@ -281,7 +281,7 @@ export default function MapaConhecimento({ grafo }: Props) {
           </svg>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <div className="rounded-xl border border-rule bg-panel p-5">
           {noSelecionado ? (
             <div>
               <div className="mb-1 flex items-center gap-2">
@@ -289,21 +289,21 @@ export default function MapaConhecimento({ grafo }: Props) {
                   className="h-3 w-3 rounded-full"
                   style={{ backgroundColor: CORES[noSelecionado.tipo] }}
                 />
-                <span className="text-xs uppercase tracking-wider text-slate-500">
+                <span className="text-xs uppercase tracking-wider text-ink-3">
                   {ROTULOS[noSelecionado.tipo]}
                 </span>
               </div>
 
-              <h2 className="mb-4 text-lg font-bold text-white">{noSelecionado.label}</h2>
+              <h2 className="mb-4 text-lg font-bold text-ink">{noSelecionado.label}</h2>
 
               <Link
                 href={noSelecionado.href}
-                className="mb-5 inline-block rounded-lg border border-slate-700 px-3 py-2 text-sm font-medium text-blue-400 transition-colors hover:border-blue-500 hover:text-blue-300"
+                className="mb-5 inline-block rounded-lg border border-rule px-3 py-2 text-sm font-medium text-accent transition-colors hover:border-accent"
               >
                 Ver página completa →
               </Link>
 
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
                 Conectado com ({vizinhos.size})
               </h3>
               <ul className="space-y-1">
@@ -315,7 +315,7 @@ export default function MapaConhecimento({ grafo }: Props) {
                       <button
                         type="button"
                         onClick={() => setSelecionado(idVizinho)}
-                        className="flex items-center gap-2 text-left text-sm text-slate-300 hover:text-blue-400"
+                        className="flex items-center gap-2 text-left text-sm text-ink-2 hover:text-accent"
                       >
                         <span
                           className="h-2 w-2 flex-shrink-0 rounded-full"
@@ -329,7 +329,7 @@ export default function MapaConhecimento({ grafo }: Props) {
               </ul>
             </div>
           ) : (
-            <div className="text-sm text-slate-400">
+            <div className="text-sm text-ink-2">
               <p className="mb-4">
                 Clique num nó do grafo pra ver os detalhes e as conexões diretas dele.
               </p>

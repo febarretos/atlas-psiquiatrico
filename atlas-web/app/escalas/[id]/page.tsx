@@ -23,9 +23,9 @@ export default async function EscalaPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-7xl">
-      <div className="mb-10 rounded-xl border border-slate-800 bg-slate-900 p-8 print:hidden">
-        <h1 className="text-4xl font-bold text-white">
-          📋 {escala.nome}
+      <div className="mb-10 rounded-xl border border-rule bg-panel p-8 print:hidden">
+        <h1 className="text-4xl font-bold text-ink">
+          {escala.nome}
         </h1>
 
         <div className="mt-5 flex flex-wrap gap-3">
@@ -33,7 +33,7 @@ export default async function EscalaPage({ params }: Props) {
           <Badge color="gray">{escala.categoria}</Badge>
         </div>
 
-        <p className="mt-6 text-slate-400">{escala.descricao}</p>
+        <p className="mt-6 text-ink-2">{escala.descricao}</p>
       </div>
 
       {/* Cabeçalho enxuto exibido apenas na impressão/PDF */}
@@ -41,22 +41,22 @@ export default async function EscalaPage({ params }: Props) {
         <h1 className="text-2xl font-bold">
           {escala.nome} ({escala.sigla})
         </h1>
-        <p className="text-sm text-slate-700">
+        <p className="text-sm text-ink-3">
           Aplicada em {new Date().toLocaleDateString("pt-BR")}
         </p>
       </div>
 
-      <Section titulo="🖊️ Instruções">
-        <p className="text-slate-300 print:text-black">{escala.instrucoes}</p>
+      <Section titulo="Instruções">
+        <p className="text-ink-2 print:text-black">{escala.instrucoes}</p>
       </Section>
 
-      <Section titulo="✅ Formulário de avaliação">
+      <Section titulo="Formulário de avaliação">
         <EscalaForm escala={escala} />
       </Section>
 
       {escala.referencias && escala.referencias.length > 0 && (
-        <Section titulo="📚 Referências">
-          <ul className="list-disc space-y-2 pl-6 text-sm text-slate-400">
+        <Section titulo="Referências">
+          <ul className="list-disc space-y-2 pl-6 text-sm text-ink-2">
             {escala.referencias.map((ref) => (
               <li key={ref}>{ref}</li>
             ))}

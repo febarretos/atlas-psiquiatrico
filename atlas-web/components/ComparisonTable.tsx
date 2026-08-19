@@ -35,7 +35,7 @@ export default function ComparisonTable({
                 {p.indicacao}
               </div>
 
-              <div className="text-sm text-slate-400">
+              <div className="text-sm text-ink-2">
                 {p.doseInicial} → {p.doseUsual} (máx. {p.doseMaxima})
               </div>
             </div>
@@ -77,7 +77,7 @@ export default function ComparisonTable({
         m.sintomasExtrapiramidais ? (
           <Rating value={m.sintomasExtrapiramidais} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -86,7 +86,7 @@ export default function ComparisonTable({
         m.hiperprolactinemia ? (
           <Rating value={m.hiperprolactinemia} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -95,7 +95,7 @@ export default function ComparisonTable({
         m.riscoMetabolico ? (
           <Rating value={m.riscoMetabolico} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -104,7 +104,7 @@ export default function ComparisonTable({
         m.hipotensaoOrtostatica ? (
           <Rating value={m.hipotensaoOrtostatica} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -113,7 +113,7 @@ export default function ComparisonTable({
         m.riscoConvulsivo ? (
           <Rating value={m.riscoConvulsivo} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -122,14 +122,14 @@ export default function ComparisonTable({
         m.sintomasDescontinuacao ? (
           <Rating value={m.sintomasDescontinuacao} />
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
       titulo: "Atividade serotoninérgica",
       render: (m: Medicamento) =>
         m.serotoninergico === undefined ? (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ) : (
           <Badge color={m.serotoninergico ? "yellow" : "gray"}>
             {m.serotoninergico ? "Serotoninérgico" : "Não serotoninérgico"}
@@ -144,7 +144,7 @@ export default function ComparisonTable({
             {m.cargaAnticolinergica}
           </Badge>
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -155,7 +155,7 @@ export default function ComparisonTable({
             {rotuloGravidez[m.gravidezCategoria]}
           </Badge>
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
@@ -166,14 +166,14 @@ export default function ComparisonTable({
             {rotuloLactacao[m.lactacaoCategoria]}
           </Badge>
         ) : (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ),
     },
     {
       titulo: "Insuficiência renal",
       render: (m: Medicamento) =>
         m.ajusteRenalNecessario === undefined ? (
-          <span className="text-slate-600">—</span>
+          <span className="text-ink-4">—</span>
         ) : (
           <Badge color={m.ajusteRenalNecessario ? "yellow" : "green"}>
             {m.ajusteRenalNecessario ? "Requer ajuste/cautela" : "Sem ajuste necessário"}
@@ -183,18 +183,18 @@ export default function ComparisonTable({
   ];
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900">
+    <div className="overflow-x-auto rounded-2xl border border-rule bg-panel">
       <table className="min-w-full border-collapse">
         <thead>
-          <tr className="border-b border-slate-800">
-            <th className="px-6 py-4 text-left text-sm font-semibold text-slate-400">
+          <tr className="border-b border-rule">
+            <th className="px-6 py-4 text-left text-sm font-semibold text-ink-2">
               Característica
             </th>
 
             {medicamentos.map((m) => (
               <th
                 key={m.id}
-                className="px-6 py-4 text-left text-lg font-bold text-white"
+                className="px-6 py-4 text-left text-lg font-bold text-ink"
               >
                 {m.nome}
               </th>
@@ -206,16 +206,16 @@ export default function ComparisonTable({
           {linhas.map((linha) => (
             <tr
               key={linha.titulo}
-              className="border-t border-slate-800"
+              className="border-t border-rule"
             >
-              <td className="whitespace-nowrap px-6 py-4 font-medium text-slate-400">
+              <td className="whitespace-nowrap px-6 py-4 font-medium text-ink-2">
                 {linha.titulo}
               </td>
 
               {medicamentos.map((m) => (
                 <td
                   key={`${m.id}-${linha.titulo}`}
-                  className="px-6 py-4 align-top text-white"
+                  className="px-6 py-4 align-top text-ink"
                 >
                   {linha.render(m)}
                 </td>

@@ -81,9 +81,9 @@ export default function Escalas() {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">📋 Escalas</h1>
+        <h1 className="text-4xl font-bold text-ink">Escalas</h1>
 
-        <p className="mt-3 text-slate-400">
+        <p className="mt-3 text-ink-2">
           {lista.length} escala(s) e instrumento(s) de avaliação clínica.
           Ordenados por frequência de uso em consultório ambulatorial.
         </p>
@@ -98,14 +98,14 @@ export default function Escalas() {
       </div>
 
       {lista.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900 p-12 text-center text-slate-400">
+        <div className="rounded-xl border border-dashed border-rule bg-panel p-12 text-center text-ink-3">
           Nenhuma escala encontrada para &quot;{busca}&quot;.
         </div>
       ) : (
         <div className="flex flex-col gap-10">
           {categorias.map((categoria) => (
             <div key={categoria}>
-              <h2 className="mb-4 text-lg font-semibold text-slate-300">
+              <h2 className="mb-4 text-lg font-semibold text-ink-2">
                 {categoria}
               </h2>
 

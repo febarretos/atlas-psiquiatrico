@@ -84,16 +84,16 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
       <button
         type="button"
         onClick={() => setAberto(true)}
-        className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+        className="rounded-lg border border-rule bg-panel px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
       >
-        📋 Copiar pro prontuário
+        Copiar pro prontuário
       </button>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-950/60 p-5">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+    <div className="rounded-xl border border-rule bg-panel p-5">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
         Texto (revise antes de copiar)
       </p>
 
@@ -101,16 +101,16 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}
-        className="w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-sm text-white outline-none focus:border-blue-500"
+        className="w-full rounded-lg border border-rule bg-paper p-3 text-sm text-ink outline-none focus:border-accent"
       />
 
       {escalasDoNode.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-slate-800 pt-3">
+        <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-rule-soft pt-3">
           {escalasDoNode.length > 1 && (
             <select
               value={escalaSelecionadaId}
               onChange={(e) => setEscalaSelecionadaId(e.target.value)}
-              className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-blue-500"
+              className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
             >
               {escalasDoNode.map((e) => (
                 <option key={e.id} value={e.id}>
@@ -121,7 +121,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
           )}
 
           {pacientes.length === 0 ? (
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-ink-3">
               Nenhum histórico salvo ainda pra{" "}
               {escalasDoNode.find((e) => e.id === escalaSelecionadaId)?.sigla} — sem tendência
               pra adicionar.
@@ -131,7 +131,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
               <select
                 value={pacienteSelecionado}
                 onChange={(e) => setPacienteSelecionado(e.target.value)}
-                className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-blue-500"
+                className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
               >
                 {pacientes.map((p) => (
                   <option key={p} value={p}>
@@ -149,7 +149,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
                     ? "Precisa de pelo menos 2 aplicações salvas para este paciente"
                     : undefined
                 }
-                className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-lg border border-rule bg-paper px-3 py-2 text-xs font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
               >
                 + Adicionar tendência da escala
               </button>
@@ -164,7 +164,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
         <button
           type="button"
           onClick={() => setAberto(false)}
-          className="text-sm text-slate-400 hover:text-white"
+          className="text-sm text-ink-2 hover:text-ink"
         >
           Fechar
         </button>

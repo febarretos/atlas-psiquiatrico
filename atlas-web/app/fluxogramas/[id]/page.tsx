@@ -33,26 +33,26 @@ export default async function FluxogramaPage({ params, searchParams }: Props) {
   return (
     <main className="mx-auto max-w-7xl">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
-          🌳 {fluxograma.titulo}
+        <h1 className="text-4xl font-bold text-ink">
+          {fluxograma.titulo}
         </h1>
 
         <div className="mt-4">
           <Badge color="blue">{fluxograma.categoria}</Badge>
         </div>
 
-        <p className="mt-4 text-slate-400">{fluxograma.descricao}</p>
+        <p className="mt-4 text-ink-2">{fluxograma.descricao}</p>
       </div>
 
       <FluxogramaViewer fluxograma={fluxograma} nodeInicialId={nodeInicialId} />
 
       {fluxograma.referencias && fluxograma.referencias.length > 0 && (
-        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-6">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <div className="mt-10 rounded-xl border border-rule bg-panel p-6">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Referências
           </div>
 
-          <ul className="space-y-2 text-sm text-slate-400">
+          <ul className="space-y-2 text-sm text-ink-2">
             {fluxograma.referencias.map((referencia) => (
               <li key={referencia}>{referencia}</li>
             ))}

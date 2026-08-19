@@ -34,16 +34,16 @@ export default async function LoginPage({ searchParams }: Props) {
   const { from = "/", error } = await searchParams;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-paper px-4">
       <form
         action={login}
-        className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900 p-8"
+        className="w-full max-w-sm rounded-xl border border-rule bg-panel p-8"
       >
-        <h1 className="text-2xl font-bold text-white">
-          🧠 Atlas Psiquiátrico
+        <h1 className="font-serif text-2xl font-medium text-ink">
+          Atlas Psiquiátrico
         </h1>
 
-        <p className="mt-2 text-sm text-slate-400">
+        <p className="mt-2 text-sm text-ink-2">
           Acesso restrito. Informe a senha para continuar.
         </p>
 
@@ -55,16 +55,16 @@ export default async function LoginPage({ searchParams }: Props) {
           placeholder="Senha"
           autoFocus
           required
-          className="mt-6 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2 text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none"
+          className="mt-6 w-full rounded-lg border border-rule bg-paper px-4 py-2 text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
         />
 
         {error && (
-          <p className="mt-3 text-sm text-red-400">Senha incorreta.</p>
+          <p className="mt-3 text-sm text-alert">Senha incorreta.</p>
         )}
 
         <button
           type="submit"
-          className="mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600"
+          className="mt-4 w-full rounded-lg bg-accent px-4 py-2 font-medium text-white hover:bg-accent-hover"
         >
           Entrar
         </button>

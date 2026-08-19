@@ -65,11 +65,11 @@ export default function EstudoApp() {
               type="button"
               onClick={() => iniciar(b.id)}
               disabled={quantidade === 0}
-              className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left transition hover:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-xl border border-rule bg-panel p-6 text-left transition-colors hover:border-accent disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <h3 className="text-lg font-bold text-white">{b.nome}</h3>
-              <p className="mt-1 text-sm text-slate-400">{b.descricao}</p>
-              <p className="mt-2 text-xs text-slate-500">{quantidade} carta(s)</p>
+              <h3 className="text-lg font-bold text-ink">{b.nome}</h3>
+              <p className="mt-1 text-sm text-ink-2">{b.descricao}</p>
+              <p className="mt-2 text-xs text-ink-3">{quantidade} carta(s)</p>
             </button>
           );
         })}
@@ -79,23 +79,23 @@ export default function EstudoApp() {
 
   if (fila.length === 0) {
     return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-10 text-center">
-        <p className="text-xl font-bold text-white">🎉 Baralho concluído!</p>
-        <p className="mt-2 text-slate-400">
+      <div className="rounded-xl border border-rule bg-panel p-10 text-center">
+        <p className="text-xl font-bold text-ink">Baralho concluído!</p>
+        <p className="mt-2 text-ink-2">
           {dominados} de {total} carta(s) marcada(s) como &quot;sabia&quot; nesta sessão.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
             type="button"
             onClick={() => iniciar(baralho.id)}
-            className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
             Repetir baralho
           </button>
           <button
             type="button"
             onClick={trocarBaralho}
-            className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+            className="rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
           >
             Escolher outro baralho
           </button>
@@ -109,8 +109,8 @@ export default function EstudoApp() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm font-semibold text-slate-300">{baralho.nome}</p>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm font-semibold text-ink-2">{baralho.nome}</p>
+        <p className="text-sm text-ink-3">
           {dominados} de {total} dominada(s) — {fila.length} na fila
         </p>
       </div>
@@ -118,10 +118,10 @@ export default function EstudoApp() {
       <button
         type="button"
         onClick={() => setRevelado((r) => !r)}
-        className="flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 p-8 text-center transition hover:border-blue-500"
+        className="flex min-h-[220px] flex-col items-center justify-center rounded-xl border border-rule bg-panel p-8 text-center transition-colors hover:border-accent"
       >
-        <p className="text-lg text-white">{revelado ? carta.verso : carta.frente}</p>
-        <p className="mt-4 text-xs text-slate-500">
+        <p className="text-lg text-ink">{revelado ? carta.verso : carta.frente}</p>
+        <p className="mt-4 text-xs text-ink-3">
           {revelado ? "Clique para ver a pergunta" : "Clique para revelar a resposta"}
         </p>
       </button>
@@ -131,14 +131,14 @@ export default function EstudoApp() {
           <button
             type="button"
             onClick={marcarNaoSabia}
-            className="rounded-xl border border-red-900/50 bg-red-500/5 px-5 py-3 text-sm font-semibold text-red-300 transition-colors hover:border-red-500"
+            className="rounded-lg border border-alert-border bg-alert-bg px-5 py-3 text-sm font-semibold text-alert transition-colors hover:border-alert"
           >
             ✗ Não sabia
           </button>
           <button
             type="button"
             onClick={marcarSabia}
-            className="rounded-xl border border-green-900/50 bg-green-500/5 px-5 py-3 text-sm font-semibold text-green-300 transition-colors hover:border-green-500"
+            className="rounded-lg border border-ok-border bg-ok-bg px-5 py-3 text-sm font-semibold text-ok transition-colors hover:border-ok"
           >
             ✓ Sabia
           </button>
@@ -148,7 +148,7 @@ export default function EstudoApp() {
       <button
         type="button"
         onClick={trocarBaralho}
-        className="self-start text-sm text-slate-500 transition-colors hover:text-slate-300"
+        className="self-start text-sm text-ink-3 transition-colors hover:text-ink-2"
       >
         ← Trocar de baralho
       </button>

@@ -91,16 +91,16 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
 
   return (
     <main className="mx-auto max-w-7xl">
-      <div className="mb-8 rounded-xl border border-slate-800 bg-slate-900 p-8">
-        <h1 className="text-4xl font-bold text-white">🗂️ Entrevista Diagnóstica Estruturada</h1>
+      <div className="mb-8 rounded-xl border border-rule bg-panel p-8">
+        <h1 className="text-4xl font-bold text-ink">Entrevista Diagnóstica Estruturada</h1>
 
-        <p className="mt-4 text-slate-400">
+        <p className="mt-4 text-ink-2">
           Checklist de apoio à entrevista clínica, organizado por módulos diagnósticos, com os
           critérios diagnósticos do DSM-5-TR já cadastrados no Atlas. Use como apoio de memória
           durante a entrevista.
         </p>
 
-        <p className="mt-3 text-sm text-slate-500">
+        <p className="mt-3 text-sm text-ink-3">
           Marcar um item aqui não calcula automaticamente se o diagnóstico &quot;fecha&quot; — a contagem
           mínima exigida, itens obrigatórios e critérios de exclusão variam por transtorno e estão
           descritos no próprio texto de cada item. A leitura clínica final é sempre sua.
@@ -117,7 +117,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm text-slate-400">{totalMarcados} item(ns) marcado(s)</span>
+          <span className="text-sm text-ink-2">{totalMarcados} item(ns) marcado(s)</span>
 
           {totalMarcados > 0 && (
             <>
@@ -125,7 +125,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
               <button
                 type="button"
                 onClick={() => setMarcados(new Set())}
-                className="whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 transition-colors hover:border-blue-500 hover:text-white"
+                className="whitespace-nowrap rounded-lg border border-rule px-3 py-2 text-xs font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 Limpar marcações
               </button>
@@ -138,14 +138,11 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
         {modulos.map(({ categoria, diagnosticos: listaDoModulo }) => (
           <section
             key={categoria}
-            className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm print:border-none print:bg-white print:p-0 print:text-black print:shadow-none"
+            className="rounded-xl border border-rule bg-panel p-6 print:border-none print:bg-white print:p-0 print:text-black print:shadow-none"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-6 w-1 rounded-full bg-blue-500 print:hidden" />
-              <h2 className="text-xl font-bold text-white print:text-black">
-                Módulo — {categoria}
-              </h2>
-            </div>
+            <h2 className="mb-4 text-xl font-bold text-ink print:text-black">
+              Módulo — {categoria}
+            </h2>
 
             <div className="space-y-3">
               {listaDoModulo.map((d) => {
@@ -155,13 +152,13 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
                 ).length;
 
                 return (
-                  <div key={d.id} className="rounded-xl border border-slate-800 bg-slate-950/50">
+                  <div key={d.id} className="rounded-lg border border-rule bg-paper">
                     <button
                       type="button"
                       onClick={() => alternarAberto(d.id)}
                       className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
                     >
-                      <span className="font-medium text-white">{d.nome}</span>
+                      <span className="font-medium text-ink">{d.nome}</span>
 
                       <span className="flex items-center gap-3">
                         {marcadosNoDiagnostico > 0 && (
@@ -172,16 +169,16 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
                         <Link
                           href={`/diagnosticos/${d.id}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="text-xs text-slate-500 hover:text-blue-400 print:hidden"
+                          className="text-xs text-ink-3 hover:text-accent print:hidden"
                         >
                           ver diagnóstico ↗
                         </Link>
-                        <span className="text-slate-500 print:hidden">{aberto ? "▲" : "▼"}</span>
+                        <span className="text-ink-3 print:hidden">{aberto ? "▲" : "▼"}</span>
                       </span>
                     </button>
 
                     {(aberto || marcadosNoDiagnostico > 0) && (
-                      <ul className="space-y-2 border-t border-slate-800 px-4 py-3">
+                      <ul className="space-y-2 border-t border-rule-soft px-4 py-3">
                         {d.criteriosDiagnosticos.map((item, indice) => {
                           const marcado = marcados.has(chaveItem(d.id, indice));
 
@@ -192,12 +189,10 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
                                   type="checkbox"
                                   checked={marcado}
                                   onChange={() => alternarItem(d.id, indice)}
-                                  className="mt-1 h-4 w-4 accent-blue-500 print:hidden"
+                                  className="mt-1 h-4 w-4 accent-accent print:hidden"
                                 />
                                 <span
-                                  className={
-                                    marcado ? "text-white" : "text-slate-300 print:text-black"
-                                  }
+                                  className={marcado ? "text-ink" : "text-ink-2 print:text-black"}
                                 >
                                   {item}
                                 </span>
