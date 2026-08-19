@@ -5,6 +5,8 @@ import { emergencias } from "../data/emergencias";
 import { fluxogramas } from "../data/fluxogramas";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
 import { casosClinicos } from "../data/casos-clinicos";
+import { casosSimulador } from "../data/simulador";
+import { casosSimuladorEmergencia } from "../data/simulador-emergencia";
 import { normalizarBusca } from "./normalizarBusca";
 
 export interface ItemBusca {
@@ -70,6 +72,24 @@ export function getIndiceBusca(): ItemBusca[] {
       sub: c.categoria,
       href: `/casos-clinicos/${c.id}`,
     })),
+    ...casosSimulador.map((c) => ({
+      tipo: "Simulador",
+      nome: c.tituloAnedotico,
+      sub: "Caso interativo",
+      href: `/simulador/${c.id}`,
+    })),
+    ...casosSimuladorEmergencia.map((c) => ({
+      tipo: "Simulador de Emergência",
+      nome: c.nomeAnedotico,
+      sub: "Caso interativo",
+      href: `/simulador-emergencia/${c.id}`,
+    })),
+    {
+      tipo: "Ferramenta",
+      nome: "Entrevista Estruturada",
+      sub: "Checklist de critérios diagnósticos",
+      href: "/entrevista-estruturada",
+    },
   ];
 
   return indiceCache;

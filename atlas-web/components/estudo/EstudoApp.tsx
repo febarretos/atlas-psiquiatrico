@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { baralhos, type Flashcard } from "../../lib/flashcards";
+import {
+  carregarProgresso,
+  limparProgresso,
+  salvarProgresso,
+} from "../../lib/estudoProgresso";
 
 function embaralhar<T>(itens: T[]): T[] {
   const copia = [...itens];
@@ -22,6 +27,29 @@ export default function EstudoApp() {
 
   const baralho = baralhos.find((b) => b.id === baralhoId) ?? null;
 
+  // Restaura o baralho em andamento, se houver, depois da montagem (o
+  // localStorage não existe durante o SSR).
+  useEffect(() => {
+    const progresso = carregarProgresso();
+    if (!progresso) return;
+
+    const b = baralhos.find((x) => x.id === progresso.baralhoId);
+    if (!b) return;
+
+    const cartasPorId = new Map(b.gerar().map((c) => [c.id, c]));
+    const filaRestaurada = progresso.filaIds
+      .map((id) => cartasPorId.get(id))
+      .filter((c): c is Flashcard => c !== undefined);
+
+    if (filaRestaurada.length === 0) return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincronizando com localStorage (indisponível durante SSR)
+    setBaralhoId(progresso.baralhoId);
+    setFila(filaRestaurada);
+    setTotal(progresso.total);
+    setDominados(progresso.dominados);
+  }, []);
+
   function iniciar(id: string) {
     const b = baralhos.find((x) => x.id === id);
     if (!b) return;
@@ -32,18 +60,53 @@ export default function EstudoApp() {
     setTotal(cartas.length);
     setDominados(0);
     setRevelado(false);
+    salvarProgresso({
+      baralhoId: id,
+      filaIds: cartas.map((c) => c.id),
+      dominados: 0,
+      total: cartas.length,
+    });
   }
 
   function marcarSabia() {
-    setFila((atual) => atual.slice(1));
+    setFila((atual) => {
+      const nova = atual.slice(1);
+      const novosDominados = dominados + 1;
+
+      if (nova.length === 0 || !baralhoId) {
+        limparProgresso();
+      } else {
+        salvarProgresso({
+          baralhoId,
+          filaIds: nova.map((c) => c.id),
+          dominados: novosDominados,
+          total,
+        });
+      }
+
+      return nova;
+    });
     setDominados((d) => d + 1);
     setRevelado(false);
   }
 
   function marcarNaoSabia() {
     // A carta volta para o fim da fila da sessão atual, para reforço
-    // imediato — nada persiste entre sessões (sem localStorage).
-    setFila((atual) => (atual.length > 1 ? [...atual.slice(1), atual[0]] : atual));
+    // imediato.
+    setFila((atual) => {
+      const nova = atual.length > 1 ? [...atual.slice(1), atual[0]] : atual;
+
+      if (baralhoId) {
+        salvarProgresso({
+          baralhoId,
+          filaIds: nova.map((c) => c.id),
+          dominados,
+          total,
+        });
+      }
+
+      return nova;
+    });
     setRevelado(false);
   }
 
@@ -51,6 +114,7 @@ export default function EstudoApp() {
     setBaralhoId(null);
     setFila([]);
     setRevelado(false);
+    limparProgresso();
   }
 
   if (!baralho) {

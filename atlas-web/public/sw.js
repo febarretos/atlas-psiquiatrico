@@ -26,7 +26,12 @@ self.addEventListener("activate", (event) => {
 // Disparado pela página (ServiceWorkerRegister) só depois de autenticado,
 // pra baixar todo o conteúdo de uma vez e o app funcionar offline completo
 // desde o primeiro uso, sem precisar visitar cada página manualmente antes.
-async function precacheAll() {
+// Falhas individuais de fetch/cache não abortam o precache como um todo
+// (uma página fora do ar não deve impedir as demais de ficarem
+// disponíveis offline), mas precisam ser contadas e reportadas de volta
+// à aba — antes eram engolidas em silêncio e o app anunciava cobertura
+// offline completa mesmo quando parte do precache tinha falhado.
+async function precacheAll(client) {
   const cache = await caches.open(CACHE_NAME);
 
   let pageUrls;
@@ -34,16 +39,21 @@ async function precacheAll() {
     const res = await fetch("/offline-urls.json");
     pageUrls = await res.json();
   } catch {
+    client?.postMessage({ type: "PRECACHE_DONE", total: 0, falhas: 0, erro: true });
     return;
   }
 
+  let falhas = 0;
   const assetUrls = new Set();
 
   await Promise.all(
     pageUrls.map((url) =>
       fetch(url)
         .then(async (res) => {
-          if (!res.ok) return;
+          if (!res.ok) {
+            falhas++;
+            return;
+          }
 
           const texto = await res.clone().text();
           for (const match of texto.matchAll(ASSET_URL_PATTERN)) {
@@ -52,7 +62,9 @@ async function precacheAll() {
 
           return cache.put(url, res);
         })
-        .catch(() => {})
+        .catch(() => {
+          falhas++;
+        })
     )
   );
 
@@ -65,11 +77,13 @@ async function precacheAll() {
         .catch(() => {})
     )
   );
+
+  client?.postMessage({ type: "PRECACHE_DONE", total: pageUrls.length, falhas });
 }
 
 self.addEventListener("message", (event) => {
   if (event.data?.type === "PRECACHE_ALL") {
-    event.waitUntil(precacheAll());
+    event.waitUntil(precacheAll(event.source));
   }
 });
 

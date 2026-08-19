@@ -69,7 +69,7 @@ export const clozapina: Medicamento = {
   ],
 
   desvantagens: [
-    "Risco de agranulocitose, exigindo monitorização hematológica obrigatória e rigorosa (hemograma semanal nas primeiras 18 semanas, depois mensal)",
+    "Risco de agranulocitose, exigindo monitorização hematológica obrigatória e rigorosa (hemograma semanal nas primeiras 18 semanas, depois quinzenal e mensal)",
     "Risco de miocardite, especialmente nas primeiras semanas de tratamento",
     "Convulsões dose-dependentes",
     "Sialorreia intensa e constipação grave, com risco de íleo paralítico",

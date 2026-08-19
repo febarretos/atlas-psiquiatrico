@@ -8,7 +8,7 @@ export default function EstudoPage() {
         <p className="mt-3 text-ink-2">
           Flashcards gerados a partir do conteúdo já cadastrado no Atlas —
           sintomas-chave, faixas de escalas, diferenciais e pérolas
-          clínicas. Nada é salvo entre sessões.
+          clínicas. O baralho em andamento é salvo neste navegador.
         </p>
       </div>
 

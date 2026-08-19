@@ -28,6 +28,10 @@ export function GET() {
     "/estudo",
     "/simulador",
     "/simulador-emergencia",
+    // Idem: botões de primeira linha ao lado da busca em Medicamentos e
+    // Diagnósticos, mas ausentes desta lista — mesma classe de bug.
+    "/medicamentos/classes",
+    "/diagnosticos/categorias",
     ...medicamentos.map((m) => `/medicamentos/${encodeURIComponent(m.nome)}`),
     ...diagnosticos.map((d) => `/diagnosticos/${encodeURIComponent(d.id)}`),
     ...escalas.map((e) => `/escalas/${encodeURIComponent(e.id)}`),
