@@ -18,7 +18,6 @@ const ROTULOS_SEGMENTO: Record<string, string> = {
   fluxogramas: "Fluxogramas",
   assistente: "Assistente de Medicação",
   "entrevista-estruturada": "Entrevista Diagnóstica Estruturada",
-  mapa: "Mapa de Conhecimento",
   "casos-clinicos": "Casos Clínicos",
   simulador: "Simulador",
   "simulador-emergencia": "Simulador de Emergência",

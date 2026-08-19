@@ -109,12 +109,21 @@ export default function MedicamentosPage({
           </p>
         </div>
 
-        <Link
-          href="/medicamentos/classes"
-          className="whitespace-nowrap rounded-md border border-rule bg-panel px-3 py-[7px] font-mono text-[11px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
-        >
-          por classe
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/medicamentos/classes"
+            className="whitespace-nowrap rounded-md border border-rule bg-panel px-3 py-[7px] font-mono text-[11px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
+          >
+            por classe
+          </Link>
+          <Link
+            href="/assistente"
+            title="Comparação lado a lado está no Assistente de Medicação, modo manual"
+            className="whitespace-nowrap rounded-md border border-rule bg-panel px-3 py-[7px] font-mono text-[11px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
+          >
+            comparar
+          </Link>
+        </div>
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-2.5">

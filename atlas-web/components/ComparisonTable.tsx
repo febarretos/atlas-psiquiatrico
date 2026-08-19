@@ -183,7 +183,7 @@ export default function ComparisonTable({
   ];
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-rule bg-panel">
+    <div className="overflow-x-auto rounded-xl border border-rule bg-panel">
       <table className="min-w-full border-collapse">
         <thead>
           <tr className="border-b border-rule">
