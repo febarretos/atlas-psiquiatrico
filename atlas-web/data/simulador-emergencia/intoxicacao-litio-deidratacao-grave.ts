@@ -102,6 +102,7 @@ export const intoxicacaoLitioDeidratacaoGrave: CasoSimuladorEmergencia = {
       "id": "lorazepam-iv",
       "label": "Administrar Lorazepam 2mg IV para abalos mioclônicos",
       "categoria": "medicacao",
+      "medicamentoId": "lorazepam",
       "custoTempo": 1,
       "efeitoImediato": {
         "agitacaoPsicomotora": -2,
@@ -116,6 +117,7 @@ export const intoxicacaoLitioDeidratacaoGrave: CasoSimuladorEmergencia = {
       "id": "administrar-haloperidol-erro",
       "label": "Administrar Haloperidol 5mg IV para conter agitação",
       "categoria": "medicacao",
+      "medicamentoId": "haloperidol",
       "custoTempo": 1,
       "efeitoImediato": {},
       "condicaoDeUso": "Tentador se a agitação e a confusão forem interpretadas como quadro psicótico isolado — é a conduta ERRADA na intoxicação por lítio: a associação lítio + haloperidol tem relatos de neurotoxicidade grave e potencialmente irreversível, além do antipsicótico reduzir o limiar convulsivo.",

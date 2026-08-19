@@ -151,6 +151,7 @@ export const catatoniaMalignaPlantao: CasoSimuladorEmergencia = {
       "id": "administrar-dantroleno",
       "label": "Administrar Dantroleno 1 mg/kg IV",
       "categoria": "medicacao",
+      "medicamentoId": "dantroleno",
       "custoTempo": 1,
       "efeitoImediato": {
         "temperatura": -0.5,

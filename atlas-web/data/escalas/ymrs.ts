@@ -305,7 +305,7 @@ export const ymrs: Escala = {
   ],
 
   notaInterpretacao:
-    "Pontuação máxima possível: 60 (4 itens de peso simples de 0-4 = 28, somados a 4 itens de peso dobrado de 0-8 = 32). Os pontos de corte são aproximados e devem ser interpretados em conjunto com o quadro clínico.",
+    "Pontuação máxima possível: 60 (7 itens de peso simples de 0-4 = 28, somados a 4 itens de peso dobrado de 0-8 = 32). Os pontos de corte são aproximados e devem ser interpretados em conjunto com o quadro clínico.",
 
   referencias: [
     "Young RC, Biggs JT, Ziegler VE, Meyer DA. A rating scale for mania: reliability, validity and sensitivity. Br J Psychiatry. 1978.",

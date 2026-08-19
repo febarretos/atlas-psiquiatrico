@@ -81,7 +81,7 @@ export interface AcaoDisponivel {
   categoria: "medicacao" | "exame" | "suporte" | "contencao" | "comunicacao";
 
   // Id de data/medicamentos — omitir quando o fármaco correto não está
-  // modelado no app (ex.: dantroleno, bromocriptina), sem inventar um id.
+  // modelado no app (ex.: bromocriptina), sem inventar um id.
   medicamentoId?: string;
 
   custoTempo: number; // turnos consumidos ao escolher esta ação

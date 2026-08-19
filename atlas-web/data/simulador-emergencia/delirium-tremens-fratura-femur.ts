@@ -40,7 +40,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
 
   acoesDisponiveis: [
     {
-      id: "beneodiazepinico-titulado",
+      id: "benzodiazepinico-titulado",
       label: "Benzodiazepínico em dose ajustada à gravidade (guiado por CIWA-Ar)",
       categoria: "medicacao",
       medicamentoId: "diazepam",

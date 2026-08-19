@@ -354,7 +354,7 @@ export const casoBorderlineAltaFuncionalidade: CasoSimulador = {
       "opcoes": [
         {
           "texto": "Aumentar a dose do lítio alegando que a persistência do sentimento de vazio é sinal de mania mista não controlada.",
-          "consequencia": "Surgem sinais de toxicidade leve por lítio (temores grosseiros e disartria), exigindo suspensão de emergência.",
+          "consequencia": "Surgem sinais de toxicidade leve por lítio (tremores grosseiros e disartria), exigindo suspensão de emergência.",
           "medicamentoId": "litio",
           "proximoNoId": "desfecho-ruim-iatrogenia",
           "qualidadeDecisao": "problematica"

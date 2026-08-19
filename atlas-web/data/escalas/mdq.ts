@@ -24,75 +24,75 @@ export const mdq: Escala = {
     {
       id: "mdq-1",
       texto:
-        "Estava tão irritado(a) que gritava com as pessoas ou iniciava brigas ou discussões",
+        "Sentia-se tão bem ou tão 'elétrico(a)' que outras pessoas achavam que não estava normal, ou ficou tão 'elétrico(a)' que se meteu em problemas",
       opcoes: simNao,
     },
     {
       id: "mdq-2",
-      texto: "Sentia-se muito mais autoconfiante que o habitual",
+      texto:
+        "Estava tão irritado(a) que gritava com as pessoas ou iniciava brigas ou discussões",
       opcoes: simNao,
     },
     {
       id: "mdq-3",
+      texto: "Sentia-se muito mais autoconfiante que o habitual",
+      opcoes: simNao,
+    },
+    {
+      id: "mdq-4",
       texto:
         "Dormia muito menos que o habitual e não sentia falta desse sono",
       opcoes: simNao,
     },
     {
-      id: "mdq-4",
-      texto: "Estava muito mais falante ou falava mais rápido que o habitual",
-      opcoes: simNao,
-    },
-    {
       id: "mdq-5",
-      texto:
-        "Os pensamentos corriam na cabeça ou não conseguia diminuir o ritmo da mente",
+      texto: "Estava muito mais falante ou falava mais rápido que o habitual",
       opcoes: simNao,
     },
     {
       id: "mdq-6",
       texto:
-        "Distraía-se tão facilmente por coisas ao redor que tinha dificuldade em manter o foco",
+        "Os pensamentos corriam na cabeça ou não conseguia diminuir o ritmo da mente",
       opcoes: simNao,
     },
     {
       id: "mdq-7",
-      texto: "Tinha muito mais energia que o habitual",
+      texto:
+        "Distraía-se tão facilmente por coisas ao redor que tinha dificuldade em manter o foco",
       opcoes: simNao,
     },
     {
       id: "mdq-8",
-      texto:
-        "Estava muito mais ativo(a) ou fazia muito mais coisas que o habitual",
+      texto: "Tinha muito mais energia que o habitual",
       opcoes: simNao,
     },
     {
       id: "mdq-9",
       texto:
-        "Estava muito mais sociável ou extrovertido(a), por exemplo, telefonando para amigos no meio da noite",
+        "Estava muito mais ativo(a) ou fazia muito mais coisas que o habitual",
       opcoes: simNao,
     },
     {
       id: "mdq-10",
-      texto: "Estava muito mais interessado(a) em sexo que o habitual",
+      texto:
+        "Estava muito mais sociável ou extrovertido(a), por exemplo, telefonando para amigos no meio da noite",
       opcoes: simNao,
     },
     {
       id: "mdq-11",
-      texto:
-        "Fazia coisas incomuns para si ou que outras pessoas poderiam considerar excessivas, tolas ou arriscadas",
+      texto: "Estava muito mais interessado(a) em sexo que o habitual",
       opcoes: simNao,
     },
     {
       id: "mdq-12",
       texto:
-        "Gastar dinheiro trouxe problemas para o paciente ou sua família",
+        "Fazia coisas incomuns para si ou que outras pessoas poderiam considerar excessivas, tolas ou arriscadas",
       opcoes: simNao,
     },
     {
       id: "mdq-13",
       texto:
-        "Em algum desses períodos, sentiu-se especialmente mais criativo(a), produtivo(a) ou eufórico(a)",
+        "Gastar dinheiro trouxe problemas para o paciente ou sua família",
       opcoes: simNao,
     },
   ],

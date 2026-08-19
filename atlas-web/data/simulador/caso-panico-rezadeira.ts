@@ -172,6 +172,7 @@ export const casoPanicoRezadeira: CasoSimulador = {
         {
           "texto": "Prescrever Amitriptilina 75 mg/dia à noite como primeira escolha para o pânico.",
           "consequencia": "Tricíclico com forte carga anticolinérgica e sedativa que causa boca seca intensa, taquicardia reflexa e hipotensão ortostática na paciente.",
+          "medicamentoId": "amitriptilina",
           "proximoNoId": "evolucao-ruim",
           "qualidadeDecisao": "problematica"
         },
