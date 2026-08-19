@@ -12,6 +12,7 @@ import { tdahAdultos } from "./tdah-adultos";
 import { transtornosAlimentares } from "./transtornos-alimentares";
 import { manejoInsonia } from "./manejo-insonia";
 import { manejoTept } from "./manejo-tept";
+import { manejoTabagismo } from "./manejo-tabagismo";
 
 export const fluxogramas = [
   riscoSuicidio,
@@ -28,4 +29,5 @@ export const fluxogramas = [
   transtornosAlimentares,
   manejoInsonia,
   manejoTept,
+  manejoTabagismo,
 ];

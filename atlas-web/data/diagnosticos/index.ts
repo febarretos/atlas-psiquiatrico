@@ -22,6 +22,7 @@ import { ciclotimia } from "./ciclotimia";
 import { anorexiaNervosa } from "./anorexia-nervosa";
 import { bulimiaNervosa } from "./bulimia-nervosa";
 import { transtornoUsoAlcool } from "./transtorno-uso-alcool";
+import { transtornoUsoTabaco } from "./transtorno-uso-tabaco";
 import { insonia } from "./insonia";
 import { tdah } from "./tdah";
 import { tea } from "./tea";
@@ -56,6 +57,7 @@ export const diagnosticos = [
   anorexiaNervosa,
   bulimiaNervosa,
   transtornoUsoAlcool,
+  transtornoUsoTabaco,
   insonia,
   tdah,
   tea,
