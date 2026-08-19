@@ -101,7 +101,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}
-        className="w-full rounded-lg border border-rule bg-paper p-3 text-sm text-ink outline-none focus:border-accent"
+        className="w-full rounded-lg border border-rule bg-paper p-3 text-[16px] text-ink outline-none focus:border-accent"
       />
 
       {escalasDoNode.length > 0 && (
@@ -110,7 +110,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
             <select
               value={escalaSelecionadaId}
               onChange={(e) => setEscalaSelecionadaId(e.target.value)}
-              className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
+              className="rounded-lg border border-rule bg-paper px-3 py-2 text-[16px] text-ink outline-none focus:border-accent"
             >
               {escalasDoNode.map((e) => (
                 <option key={e.id} value={e.id}>
@@ -131,7 +131,7 @@ export default function CondutaProntuarioPanel({ node, trilhaDeDecisoes }: Props
               <select
                 value={pacienteSelecionado}
                 onChange={(e) => setPacienteSelecionado(e.target.value)}
-                className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
+                className="rounded-lg border border-rule bg-paper px-3 py-2 text-[16px] text-ink outline-none focus:border-accent"
               >
                 {pacientes.map((p) => (
                   <option key={p} value={p}>

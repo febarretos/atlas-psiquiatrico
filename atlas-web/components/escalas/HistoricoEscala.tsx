@@ -121,7 +121,7 @@ export default function HistoricoEscala({
           <select
             value={pacienteSelecionado}
             onChange={(e) => setPacienteSelecionado(e.target.value)}
-            className="rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
+            className="rounded-lg border border-rule bg-paper px-3 py-2 text-[16px] text-ink outline-none focus:border-accent"
           >
             {pacientes.map((p) => (
               <option key={p} value={p}>

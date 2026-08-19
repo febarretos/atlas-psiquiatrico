@@ -34,7 +34,7 @@ export default async function LoginPage({ searchParams }: Props) {
   const { from = "/", error } = await searchParams;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-paper px-4">
+    <main className="flex min-h-dvh items-center justify-center bg-paper px-4">
       <form
         action={login}
         className="w-full max-w-sm rounded-xl border border-rule bg-panel p-8"

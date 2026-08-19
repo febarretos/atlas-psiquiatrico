@@ -123,7 +123,7 @@ export default function MedicamentosPage({
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             placeholder="Nome genérico, comercial ou classe"
-            className="w-full rounded-lg border border-rule bg-panel px-3.5 py-2.5 text-[14px] text-ink outline-none placeholder:text-ink-3 focus:border-accent"
+            className="w-full rounded-lg border border-rule bg-panel px-3.5 py-2.5 text-[16px] text-ink outline-none placeholder:text-ink-3 focus:border-accent"
           />
         </div>
 
@@ -151,7 +151,7 @@ export default function MedicamentosPage({
       ) : (
         <>
           {/* Tabela densa — telas médias/grandes */}
-          <div className="mt-5 hidden overflow-hidden rounded-xl border border-rule bg-panel md:block">
+          <div className="mt-5 hidden overflow-hidden rounded-xl border border-rule bg-panel tab:block">
             <div className="sticky top-0 z-[5] grid grid-cols-[2.1fr_1.5fr_0.9fr_0.9fr_0.9fr_1.1fr] gap-4 rounded-t-[11px] border-b border-rule bg-sticky-head px-5 py-[11px] font-mono text-[9.5px] tracking-[0.13em] uppercase text-ink-3 shadow-[0_6px_14px_-10px_rgba(25,27,30,0.35)]">
               <div>Fármaco</div>
               <div>Classe</div>
@@ -191,7 +191,7 @@ export default function MedicamentosPage({
           </div>
 
           {/* Lista empilhada — telas pequenas */}
-          <div className="mt-5 flex flex-col gap-2.5 md:hidden">
+          <div className="mt-5 flex flex-col gap-2.5 tab:hidden">
             {lista.map((m) => (
               <Link
                 key={m.id}

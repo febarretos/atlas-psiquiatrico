@@ -38,7 +38,7 @@ export default function Topbar({ onAbrirMenu, onAbrirBusca }: Props) {
           type="button"
           onClick={onAbrirMenu}
           aria-label="Abrir menu"
-          className="rounded-md border border-rule p-1.5 text-ink-3 transition-colors hover:border-accent hover:text-accent md:hidden"
+          className="rounded-md border border-rule p-2.5 text-ink-3 transition-colors hover:border-accent hover:text-accent active:bg-hover-warm md:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ export default function Topbar({ onAbrirMenu, onAbrirBusca }: Props) {
         <button
           type="button"
           onClick={onAbrirBusca}
-          className="rounded-md border border-rule bg-panel px-2.5 py-[5px] font-mono text-[11px] text-ink-3 transition-colors hover:border-accent hover:text-accent"
+          className="rounded-md border border-rule bg-panel px-3 py-2 font-mono text-[11px] text-ink-3 transition-colors hover:border-accent hover:text-accent active:bg-hover-warm"
         >
           buscar
         </button>

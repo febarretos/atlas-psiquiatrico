@@ -44,12 +44,20 @@ export default function MonitorFisiologico({ sinais, emAlarme, pulso, mudo }: Pr
       const cena = new Cena(sinaisIniciaisRef.current, emAlarmeInicialRef.current);
       const game = new Phaser.Game({
         type: Phaser.AUTO,
-        width: LARGURA_MONITOR,
-        height: ALTURA_MONITOR,
         parent: containerRef.current,
         backgroundColor: "#0b1220",
         scene: cena,
         audio: { disableWebAudio: false },
+        // FIT reescala o canvas via CSS pra caber na largura real do
+        // container (que encolhe em telas pequenas via aspect-ratio no
+        // wrapper abaixo) — sem isso o canvas ficava com os 640px fixos
+        // do config e era cortado pelo overflow-hidden em telas de celular.
+        scale: {
+          mode: Phaser.Scale.FIT,
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+          width: LARGURA_MONITOR,
+          height: ALTURA_MONITOR,
+        },
       });
 
       gameRef.current = game;
@@ -88,7 +96,11 @@ export default function MonitorFisiologico({ sinais, emAlarme, pulso, mudo }: Pr
     <div
       ref={containerRef}
       className="overflow-hidden rounded-xl border border-rule"
-      style={{ width: LARGURA_MONITOR, maxWidth: "100%" }}
+      style={{
+        width: LARGURA_MONITOR,
+        maxWidth: "100%",
+        aspectRatio: `${LARGURA_MONITOR} / ${ALTURA_MONITOR}`,
+      }}
     />
   );
 }

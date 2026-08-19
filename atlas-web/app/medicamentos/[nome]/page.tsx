@@ -183,7 +183,9 @@ export default async function Medicamento({
 
       <div className="mt-9">
         <h2 className="mb-3.5 font-serif text-2xl font-medium text-ink">Posologia</h2>
-        <div className="overflow-hidden rounded-xl border border-rule bg-panel">
+
+        {/* Tabela densa — telas largas o bastante pra 5 colunas com conforto */}
+        <div className="hidden overflow-hidden rounded-xl border border-rule bg-panel tab:block">
           <div className="grid grid-cols-[2.2fr_1fr_1.1fr_1fr_1.1fr] gap-3.5 border-b border-rule bg-paper px-[18px] py-2.5 font-mono text-[9.5px] tracking-[0.13em] uppercase text-ink-3">
             <div>Indicação</div>
             <div>Inicial</div>
@@ -211,6 +213,40 @@ export default async function Medicamento({
             </div>
           ))}
         </div>
+
+        {/* Cartões empilhados — telas estreitas, uma indicação por bloco */}
+        <div className="flex flex-col gap-2.5 tab:hidden">
+          {medicamento.posologias.map((p) => (
+            <div
+              key={p.indicacao}
+              className="rounded-lg border border-rule bg-panel p-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-[13.5px] font-medium text-ink">{p.indicacao}</div>
+                {p.nivelEvidencia ? (
+                  <EvidenciaStars nivel={p.nivelEvidencia} />
+                ) : (
+                  <span className="text-ink-4">—</span>
+                )}
+              </div>
+              <div className="mt-2.5 grid grid-cols-3 gap-2 font-mono text-[12px]">
+                <div>
+                  <div className="text-[9.5px] uppercase tracking-wider text-ink-4">Inicial</div>
+                  <div className="mt-0.5 text-ink-2">{p.doseInicial}</div>
+                </div>
+                <div>
+                  <div className="text-[9.5px] uppercase tracking-wider text-ink-4">Usual</div>
+                  <div className="mt-0.5 text-ink">{p.doseUsual}</div>
+                </div>
+                <div>
+                  <div className="text-[9.5px] uppercase tracking-wider text-ink-4">Máxima</div>
+                  <div className="mt-0.5 text-ink-2">{p.doseMaxima}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
         <p className="mt-2.5 text-[11.5px] text-ink-4">
           Evidência para a indicação específica: 5 = primeira linha com forte recomendação; 1 =
           off-label com evidência restrita.

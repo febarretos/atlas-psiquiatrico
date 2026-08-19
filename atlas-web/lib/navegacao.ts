@@ -33,7 +33,6 @@ export const grupos: GrupoMenu[] = [
     itens: [
       { nome: "Assistente de Medicação", href: "/assistente" },
       { nome: "Entrevista Estruturada", href: "/entrevista-estruturada" },
-      { nome: "Mapa de Conhecimento", href: "/mapa" },
     ],
   },
   {

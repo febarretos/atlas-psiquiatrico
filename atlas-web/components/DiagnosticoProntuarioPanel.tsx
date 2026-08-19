@@ -82,7 +82,7 @@ export default function DiagnosticoProntuarioPanel({ diagnostico }: Props) {
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}
-        className="w-full rounded-lg border border-rule bg-paper p-3 text-sm text-ink outline-none focus:border-accent"
+        className="w-full rounded-lg border border-rule bg-paper p-3 text-[16px] text-ink outline-none focus:border-accent"
       />
 
       <div className="mt-3 flex items-center gap-3">

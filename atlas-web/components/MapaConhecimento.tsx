@@ -182,7 +182,7 @@ export default function MapaConhecimento({ grafo }: Props) {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar um nó pelo nome..."
-          className="rounded-lg border border-rule bg-panel px-4 py-2 text-sm text-ink placeholder-ink-3 focus:border-accent focus:outline-none"
+          className="rounded-lg border border-rule bg-panel px-4 py-2 text-[16px] text-ink placeholder-ink-3 focus:border-accent focus:outline-none"
         />
 
         {TODOS_TIPOS.map((tipo) => {

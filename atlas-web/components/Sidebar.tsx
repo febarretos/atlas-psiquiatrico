@@ -28,7 +28,7 @@ export default function Sidebar({ aberto, onFechar, onAbrirBusca }: Props) {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-[272px] min-h-screen -translate-x-full transform flex-col overflow-y-auto border-r border-rule bg-panel transition-transform duration-200 ease-out print:hidden md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-[272px] min-h-dvh -translate-x-full transform flex-col overflow-y-auto border-r border-rule bg-panel transition-transform duration-200 ease-out print:hidden md:static md:translate-x-0 ${
           aberto ? "translate-x-0" : ""
         }`}
       >
@@ -49,7 +49,7 @@ export default function Sidebar({ aberto, onFechar, onAbrirBusca }: Props) {
           <button
             type="button"
             onClick={onAbrirBusca}
-            className="group flex w-full items-center justify-between gap-2.5 rounded-lg border border-rule bg-paper px-3 py-2.5 text-ink-3 transition-colors hover:border-accent hover:text-accent"
+            className="group flex w-full items-center justify-between gap-2.5 rounded-lg border border-rule bg-paper px-3 py-2.5 text-ink-3 transition-colors hover:border-accent hover:text-accent active:bg-hover-warm"
           >
             <span className="text-[13px]">Buscar em tudo…</span>
             <span className="rounded border border-rule bg-panel px-[5px] py-px font-mono text-[10px] group-hover:border-accent-border">
@@ -102,8 +102,8 @@ function ItemLink({
     <Link
       href={item.href}
       onClick={onClick}
-      className={`flex items-center gap-2.5 rounded-md px-2 py-[7px] transition-colors ${
-        ativo ? "bg-accent-soft text-accent" : "text-ink hover:bg-hover-warm"
+      className={`flex items-center gap-2.5 rounded-md px-2.5 py-2.5 transition-colors ${
+        ativo ? "bg-accent-soft text-accent" : "text-ink hover:bg-hover-warm active:bg-hover-warm"
       }`}
       style={ativo ? { fontWeight: 500 } : undefined}
     >

@@ -34,7 +34,7 @@ export default function AppShell({ children }: Props) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-paper">
+    <div className="flex h-dvh overflow-hidden bg-paper">
       <Sidebar
         aberto={menuAberto}
         onFechar={() => setMenuAberto(false)}

@@ -5,6 +5,11 @@
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
+  /* Breakpoint próprio (900px) para a troca tabela/lista de Medicamentos e
+     da Posologia — nenhum breakpoint padrão do Tailwind (md=768/lg=1024)
+     cai onde a tabela densa realmente para de caber com conforto. */
+  --breakpoint-tab: 56.25rem;
+
   --color-paper: #fbfaf7;
   --color-panel: #ffffff;
   --color-rule: #e6e2d9;
