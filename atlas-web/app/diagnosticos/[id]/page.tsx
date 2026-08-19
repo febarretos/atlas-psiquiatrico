@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { diagnosticos } from "../../../data/diagnosticos";
+import { medicamentos } from "../../../data/medicamentos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
@@ -26,6 +27,10 @@ export default async function DiagnosticoDetalhe({
   if (!diagnostico) {
     notFound();
   }
+
+  const medicamentosPrimeiraLinha = (diagnostico.medicamentosPrimeiraLinha ?? [])
+    .map((id) => medicamentos.find((m) => m.id === id))
+    .filter((m): m is NonNullable<typeof m> => Boolean(m));
 
   return (
     <div className="mx-auto max-w-[980px] animate-atlas-rise pt-[38px]">
@@ -115,6 +120,21 @@ export default async function DiagnosticoDetalhe({
         </h2>
         <div className="rounded-xl border border-rule bg-panel p-6">
           <Lista itens={diagnostico.tratamentoPrimeiraLinha} />
+
+          {medicamentosPrimeiraLinha.length > 0 && (
+            <div className="mt-5 border-t border-rule-soft pt-5">
+              <div className="mb-2.5 font-mono text-[9.5px] tracking-[0.13em] uppercase text-ink-4">
+                Medicamentos de primeira linha
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {medicamentosPrimeiraLinha.map((m) => (
+                  <Link key={m.id} href={`/medicamentos/${encodeURIComponent(m.nome)}`}>
+                    <Badge color="blue">{m.nome}</Badge>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
