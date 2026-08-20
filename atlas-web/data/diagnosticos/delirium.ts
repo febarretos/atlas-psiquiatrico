@@ -92,9 +92,11 @@ export const delirium: Diagnostico = {
     algoritmo: {
       contagemMinima: 3,
       itensContaveis: ["a", "b", "c"],
-      duracaoMinima: "Instalação aguda (horas a poucos dias), com curso flutuante ao longo do dia — já capturado no item de rastreio/critério B acima",
+      // Sem duracaoMinima: instalação aguda e curso flutuante já são
+      // perguntados diretamente no item "b" (critério B) — repetir como
+      // texto livre seria redundante com um item que já é checkbox.
       observacaoExclusao:
-        "D: as perturbações não são mais bem explicadas por outro transtorno neurocognitivo preexistente/em evolução (ver módulo Transtorno Neurocognitivo Maior — lembrando que delirium pode se sobrepor a uma demência de base, exigindo atenção à mudança aguda em relação ao basal), e não ocorrem em contexto de nível gravemente reduzido de consciência (coma). E (etiologia — SEMPRE investigar, delirium é emergência médica): evidência de que a perturbação é consequência fisiológica direta de condição médica, intoxicação/abstinência de substância, exposição a toxina, ou múltiplas etiologias. Investigação sistemática obrigatória: infecção, distúrbio metabólico/hidroeletrolítico, hipóxia, medicamentos recentes, retenção urinária/fecal, dor não controlada, abstinência de substâncias. Usar CAM (Confusion Assessment Method) como rastreio à beira-leito. Avaliar especificador hipoativo/hiperativo/misto e agudo/persistente.",
+        "ATENÇÃO — risco de segurança: delirium é uma EMERGÊNCIA MÉDICA com risco de morbimortalidade se a causa não for identificada e tratada a tempo — investigação etiológica sistemática é a prioridade imediata, não um item a mais no diferencial. D: as perturbações não são mais bem explicadas por outro transtorno neurocognitivo preexistente/em evolução (ver módulo Transtorno Neurocognitivo Maior — lembrando que delirium pode se sobrepor a uma demência de base, exigindo atenção à mudança aguda em relação ao basal), e não ocorrem em contexto de nível gravemente reduzido de consciência (coma). E (etiologia — SEMPRE investigar): evidência de que a perturbação é consequência fisiológica direta de condição médica, intoxicação/abstinência de substância, exposição a toxina, ou múltiplas etiologias. Investigação sistemática obrigatória: infecção, distúrbio metabólico/hidroeletrolítico, hipóxia, medicamentos recentes, retenção urinária/fecal, dor não controlada, abstinência de substâncias. Usar CAM (Confusion Assessment Method) como rastreio à beira-leito. Avaliar especificador hipoativo/hiperativo/misto e agudo/persistente.",
     },
   },
 };

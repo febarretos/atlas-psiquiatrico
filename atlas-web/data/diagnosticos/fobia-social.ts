@@ -98,12 +98,11 @@ export const fobiaSocial: Diagnostico = {
       { id: "c", pergunta: "Essas situações sociais quase sempre provocam medo ou ansiedade em você?" },
       { id: "d", pergunta: "Você evita essas situações, ou as enfrenta com muito medo ou ansiedade?" },
       { id: "e", pergunta: "Esse medo parece desproporcional em relação ao risco real da situação, considerando também seu contexto sociocultural?" },
-      { id: "f", pergunta: "Esse medo, ansiedade ou evitação já dura 6 meses ou mais?" },
     ],
     algoritmo: {
-      contagemMinima: 6,
-      itensContaveis: ["a", "b", "c", "d", "e", "f"],
-      duracaoMinima: "Geralmente 6 meses ou mais",
+      contagemMinima: 5,
+      itensContaveis: ["a", "b", "c", "d", "e"],
+      duracaoMinima: "O medo, ansiedade ou evitação (critério F) dura, tipicamente, 6 meses ou mais",
       observacaoExclusao:
         "G: sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. H: não atribuível a efeito fisiológico de substância ou outra condição médica. I: não mais bem explicado por outro transtorno mental (pânico, transtorno dismórfico corporal, transtorno do espectro autista). J: se há outra condição médica presente, o medo é claramente não relacionado a ela ou é excessivo. Especificador: avaliar se restrito a desempenho (falar/apresentar-se em público).",
     },

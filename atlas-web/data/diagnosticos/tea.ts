@@ -109,7 +109,10 @@ export const tea: Diagnostico = {
       { id: "d", pergunta: "Esses sintomas causam prejuízo significativo no seu funcionamento social, ocupacional ou em outras áreas importantes da vida?" },
     ],
     algoritmo: {
-      itensContaveis: ["a1", "a2", "a3", "b1", "b2", "b3", "b4", "d"],
+      // "d" (prejuízo funcional) fica de fora de itensContaveis: é gate
+      // obrigatório via gruposObrigatorios, não um sintoma que soma na
+      // contagem exibida — mesmo padrão usado em tdah.ts.
+      itensContaveis: ["a1", "a2", "a3", "b1", "b2", "b3", "b4"],
       gruposObrigatorios: [["d"]],
       subgruposComMinimo: [
         { itens: ["a1", "a2", "a3"], minimo: 3 },

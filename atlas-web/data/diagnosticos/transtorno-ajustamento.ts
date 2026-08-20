@@ -88,7 +88,13 @@ export const transtornoAjustamento: Diagnostico = {
       { id: "b2", pergunta: "Esses sintomas estão prejudicando de forma significativa seu funcionamento social, no trabalho ou em outras áreas importantes da vida?", grupo: "B" },
     ],
     algoritmo: {
-      itensContaveis: ["b1", "b2"],
+      // b1/b2 (sofrimento/prejuízo funcional) ficam de fora de
+      // itensContaveis: é gate obrigatório via gruposObrigatorios (>=1 dos
+      // 2), não uma contagem de sintomas — mesmo padrão de tdah.ts. Sem
+      // itens contáveis reais neste diagnóstico (não há lista de sintomas
+      // numerados no DSM pra Transtorno de Ajustamento), o badge mostra só
+      // atingido/não atingido, sem fração — mesmo tratamento do TEPT.
+      itensContaveis: [],
       gruposObrigatorios: [["b1", "b2"]],
       duracaoMinima: "Início dentro de 3 meses do estressor; se o estressor e suas consequências cessaram, os sintomas não devem persistir por mais de 6 meses adicionais (exceto no especificador persistente/crônico, ligado a estressor de efeito contínuo)",
       observacaoExclusao:

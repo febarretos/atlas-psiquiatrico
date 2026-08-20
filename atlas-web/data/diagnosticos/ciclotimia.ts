@@ -80,8 +80,8 @@ export const ciclotimia: Diagnostico = {
   entrevistaEstruturada: {
     criteriosRastreioIds: ["hipo", "dep"],
     criterios: [
-      { id: "hipo", pergunta: "Ao longo dos últimos 2 anos, você teve vários períodos com sintomas leves de humor elevado ou energia aumentada, que não chegaram a ser um episódio hipomaníaco completo?" },
-      { id: "dep", pergunta: "Nesse mesmo período, você também teve vários períodos com sintomas depressivos leves, que não chegaram a ser um episódio depressivo maior completo?" },
+      { id: "hipo", pergunta: "Ao longo dos últimos 2 anos, você teve vários períodos com humor mais elevado, mais energia ou mais disposição do que o habitual, mesmo que por pouco tempo ou de forma leve?" },
+      { id: "dep", pergunta: "Nesse mesmo período, você também teve vários períodos com humor mais baixo, tristeza ou desânimo, mesmo que por pouco tempo ou de forma leve?" },
     ],
     algoritmo: {
       contagemMinima: 2,

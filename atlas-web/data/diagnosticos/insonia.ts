@@ -97,7 +97,10 @@ export const insonia: Diagnostico = {
       { id: "b", pergunta: "Essa dificuldade de sono causa sofrimento significativo ou atrapalha seu funcionamento social, no trabalho, na escola ou em outras áreas importantes?" },
     ],
     algoritmo: {
-      itensContaveis: ["a1", "a2", "a3", "b"],
+      // "b" (prejuízo funcional) fica de fora de itensContaveis: é gate
+      // obrigatório via gruposObrigatorios, não um sintoma que soma na
+      // contagem exibida — mesmo padrão usado em tdah.ts.
+      itensContaveis: ["a1", "a2", "a3"],
       gruposObrigatorios: [["a1", "a2", "a3"], ["b"]],
       duracaoMinima: "Pelo menos 3 noites por semana, por pelo menos 3 meses",
       observacaoExclusao:

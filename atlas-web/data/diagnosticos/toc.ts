@@ -90,7 +90,10 @@ export const toc: Diagnostico = {
       { id: "b", pergunta: "Essas obsessões ou compulsões tomam mais de 1 hora do seu dia, ou causam sofrimento significativo, ou atrapalham seu funcionamento social, no trabalho ou em outras áreas importantes?" },
     ],
     algoritmo: {
-      itensContaveis: ["a1", "a2", "b"],
+      // "b" (tempo consumido/prejuízo funcional) fica de fora de
+      // itensContaveis: é gate obrigatório via gruposObrigatorios, não um
+      // sintoma que soma na contagem exibida — mesmo padrão de tdah.ts.
+      itensContaveis: ["a1", "a2"],
       gruposObrigatorios: [["a1", "a2"], ["b"]],
       duracaoMinima: "Não há duração mínima formal exigida — o critério é consumir tempo significativo (mais de 1h/dia) ou causar prejuízo funcional",
       observacaoExclusao:

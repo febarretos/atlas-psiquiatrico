@@ -89,7 +89,7 @@ export const bulimiaNervosa: Diagnostico = {
       itensContaveis: ["a", "b", "d"],
       duracaoMinima: "Compulsão alimentar e comportamentos compensatórios inadequados, em média, pelo menos 1 vez por semana, durante 3 meses",
       observacaoExclusao:
-        "E: a perturbação não ocorre exclusivamente durante episódios de anorexia nervosa — se ocorrer nesse contexto, o diagnóstico é anorexia nervosa tipo compulsão alimentar purgativa, não bulimia. Avaliar especificador de gravidade pela frequência média de comportamentos compensatórios por semana (leve 1-3; moderada 4-7; grave 8-13; extrema 14+) e remissão. Monitorizar eletrólitos (potássio, magnésio) em purgação frequente.",
+        "ATENÇÃO — risco de segurança: purgação frequente pode causar desequilíbrios eletrolíticos (hipocalemia) com risco de arritmia cardíaca, além de erosão dentária, esofagite e, em casos raros, ruptura esofágica ou gástrica — monitorizar eletrólitos (potássio, magnésio) e considerar avaliação clínica/cardiológica se purgação frequente ou sinais de instabilidade. E: a perturbação não ocorre exclusivamente durante episódios de anorexia nervosa — se ocorrer nesse contexto, o diagnóstico é anorexia nervosa tipo compulsão alimentar purgativa, não bulimia. Avaliar especificador de gravidade pela frequência média de comportamentos compensatórios por semana (leve 1-3; moderada 4-7; grave 8-13; extrema 14+) e remissão.",
     },
   },
 };
