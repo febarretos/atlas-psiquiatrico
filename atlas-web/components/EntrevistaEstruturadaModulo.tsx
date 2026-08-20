@@ -68,9 +68,19 @@ export default function EntrevistaEstruturadaModulo({
   const criteriosRastreio = entrevista.criterios.filter((c) =>
     entrevista.criteriosRastreioIds.includes(c.id)
   );
-  const criteriosRestantes = entrevista.criterios.filter(
-    (c) => !entrevista.criteriosRastreioIds.includes(c.id)
-  );
+  // Depois que o rastreio abre o módulo (basta 1 item positivo — ver
+  // avaliarRastreio), os DEMAIS critérios de rastreio que ainda não foram
+  // respondidos continuam aparecendo aqui como checkbox normal — senão
+  // ficariam travados como "não respondido" pra sempre, o que tornaria
+  // impossível fechar diagnósticos onde o algoritmo exige mais de 1 item
+  // de rastreio positivo (ex.: Ciclotimia precisa de hipo E dep; vários
+  // Transtornos de Personalidade usam todos os itens como rastreio, com
+  // contagemMinima > 1). Só oculta o(s) item(ns) de rastreio que JÁ têm
+  // resposta, pra não repetir a mesma pergunta duas vezes na tela.
+  const criteriosRestantes = entrevista.criterios.filter((c) => {
+    if (!entrevista.criteriosRastreioIds.includes(c.id)) return true;
+    return respostasCriterios.get(c.id) === undefined;
+  });
 
   const resultado = avaliarAlgoritmo(respostasCriterios, entrevista.algoritmo);
   const totalContavel = entrevista.algoritmo.itensContaveis.length;

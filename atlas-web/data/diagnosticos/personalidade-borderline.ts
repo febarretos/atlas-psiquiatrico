@@ -85,4 +85,26 @@ export const personalidadeBorderline: Diagnostico = {
     "Zanarini MC et al. - McLean Study of Adult Development (curso longitudinal)",
     "CID-11 (OMS) - Modelo dimensional de transtornos de personalidade",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"],
+    criterios: [
+      { id: "b1", pergunta: "Você faz esforços desesperados para evitar ser abandonado(a), de verdade ou só na sua imaginação (sem contar comportamento suicida ou de se machucar, que é outro item)?" },
+      { id: "b2", pergunta: "Seus relacionamentos costumam alternar entre idealizar a pessoa (achar ela perfeita) e desvalorizar ela (achar ela péssima)?" },
+      { id: "b3", pergunta: "Você sente uma instabilidade marcante em quem você é ou em como se vê como pessoa?" },
+      { id: "b4", pergunta: "Você age de forma impulsiva em pelo menos 2 áreas que podem te prejudicar (gastos, sexo, uso de substâncias, direção perigosa, compulsão alimentar), sem contar comportamento suicida/automutilação?" },
+      { id: "b5", pergunta: "Você já teve comportamentos, gestos ou ameaças de suicídio, ou já se machucou de propósito, de forma recorrente?" },
+      { id: "b6", pergunta: "Seu humor muda muito rápido e de forma intensa — episódios de tristeza, irritação ou ansiedade que duram horas, raramente mais que alguns dias?" },
+      { id: "b7", pergunta: "Você sente um vazio crônico?" },
+      { id: "b8", pergunta: "Você sente raiva intensa ou desproporcional, ou tem dificuldade para controlar a raiva?" },
+      { id: "b9", pergunta: "Em momentos de estresse, você já teve ideias paranoides passageiras ou sintomas dissociativos graves (ex.: sensação de estar fora do próprio corpo)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta (traços podem já ser observados na adolescência)",
+      observacaoExclusao:
+        "ATENÇÃO — risco de segurança: risco de suicídio consumado estimado em 8-10% ao longo da vida — monitorização ativa e contínua de ideação/comportamento suicida é obrigatória independentemente da resposta isolada ao item 5, com plano de segurança estruturado. Diferenciar de Transtorno Bipolar tipo II (a instabilidade afetiva aqui é reativa a gatilhos interpessoais e dura horas; episódios de humor bipolares são mais sustentados e menos reativos situacionalmente), de outros Transtornos de Personalidade do Cluster B (histriônica, narcisista, antissocial), de TEPT Complexo (centralidade do trauma e sintomas de reexperiência/hipervigilância), e de instabilidade/impulsividade secundária a uso ativo de substâncias.",
+    },
+  },
 };

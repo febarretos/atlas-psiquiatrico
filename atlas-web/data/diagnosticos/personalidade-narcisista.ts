@@ -62,4 +62,26 @@ export const personalidadeNarcisista: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n9"],
+    criterios: [
+      { id: "n1", pergunta: "Você tem um sentimento grandioso da própria importância (ex.: exagera conquistas e talentos, espera ser visto como superior sem realizações que justifiquem isso)?" },
+      { id: "n2", pergunta: "Você fica preocupado(a) com fantasias de sucesso ilimitado, poder, brilho, beleza ou amor ideal?" },
+      { id: "n3", pergunta: "Você se sente uma pessoa especial e única, que só pode ser compreendida por (ou deveria se associar a) pessoas ou instituições especiais/de alto status?" },
+      { id: "n4", pergunta: "Você sente uma necessidade excessiva de ser admirado(a)?" },
+      { id: "n5", pergunta: "Você sente que merece um tratamento especial, ou espera que seus desejos sejam automaticamente atendidos?" },
+      { id: "n6", pergunta: "Você se aproveita dos outros para conseguir o que quer?" },
+      { id: "n7", pergunta: "Você tem dificuldade para reconhecer ou se importar com os sentimentos e necessidades dos outros?" },
+      { id: "n8", pergunta: "Você sente inveja dos outros, ou acha que os outros têm inveja de você?" },
+      { id: "n9", pergunta: "Você é visto(a) como arrogante ou com atitudes de superioridade?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n9"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta",
+      observacaoExclusao:
+        "ATENÇÃO — risco de segurança: vulnerabilidade acentuada a crises depressivas e ideação suicida diante de fracassos, envelhecimento ou perdas que ameacem a autoimagem grandiosa ('ferida narcísica') — rastrear ativamente nesses contextos. Diferenciar de Personalidade Antissocial (desconsideração instrumental com violação de normas/leis, impulsividade e agressividade, menos centrada em grandiosidade/admiração), de Personalidade Histriônica (busca de atenção com emotividade exagerada, sem grandiosidade/superioridade centrais), de Personalidade Borderline (instabilidade afetiva/da autoimagem mais acentuada, medo de abandono proeminente, distinto da autoimagem grandiosa mais estável ainda que frágil), e de episódio maníaco/hipomaníaco (grandiosidade episódica associada a outros sintomas de humor elevado, não um padrão estável de longa data).",
+    },
+  },
 };

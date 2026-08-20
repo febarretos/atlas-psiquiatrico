@@ -66,4 +66,27 @@ export const personalidadeAntissocial: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2", "a3", "a4", "a5", "a6", "a7"],
+    criterios: [
+      { id: "a1", pergunta: "Você já teve dificuldade repetida em seguir as leis, a ponto de ser detido(a) ou preso(a) várias vezes?" },
+      { id: "a2", pergunta: "Você mente com frequência, usa nomes falsos, ou engana outras pessoas para ganhar vantagem ou por prazer?" },
+      { id: "a3", pergunta: "Você age por impulso ou tem dificuldade para planejar o futuro?" },
+      { id: "a4", pergunta: "Você se envolve em brigas físicas ou agressões com frequência, ou é uma pessoa irritável e agressiva?" },
+      { id: "a5", pergunta: "Você desrespeita a própria segurança ou a segurança de outras pessoas?" },
+      { id: "a6", pergunta: "Você tem dificuldade persistente para manter um emprego ou honrar compromissos financeiros?" },
+      { id: "a7", pergunta: "Você sente pouco ou nenhum remorso depois de machucar, maltratar ou roubar alguém?" },
+      { id: "b", pergunta: "Você tem 18 anos ou mais?" },
+      { id: "c", pergunta: "Antes dos 15 anos, você já teve um padrão de comportamento como violar regras, agredir pessoas ou animais, destruir propriedade, mentir ou roubar de forma repetida (transtorno de conduta)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["a1", "a2", "a3", "a4", "a5", "a6", "a7"],
+      gruposObrigatorios: [["b"], ["c"]],
+      duracaoMinima: "Padrão presente desde os 15 anos (como Transtorno de Conduta); diagnóstico formal de Transtorno de Personalidade Antissocial só é feito a partir dos 18 anos",
+      observacaoExclusao:
+        "D: o comportamento antissocial não deve ocorrer exclusivamente durante o curso de Esquizofrenia ou Transtorno Bipolar. Diferenciar de Transtorno por Uso de Substâncias (comportamento antissocial exclusivo do contexto de uso ativo, sem padrão desde a adolescência), de Personalidade Narcisista (grandiosidade e busca de admiração predominam sobre agressividade/violação de normas), de Personalidade Borderline (impulsividade centrada em relacionamentos/autoimagem, não em desconsideração instrumental pelos direitos alheios), e de comportamento antissocial esperado em determinado contexto socioeconômico/de grupo (deve haver disfunção que extrapole o esperado para o contexto). Traços psicopáticos (frieza afetiva, manipulação instrumental) associam-se a maior gravidade, embora não sejam especificador formal do DSM-5-TR.",
+    },
+  },
 };

@@ -61,4 +61,25 @@ export const personalidadeHistrionica: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"],
+    criterios: [
+      { id: "h1", pergunta: "Você se sente desconfortável quando não é o centro das atenções?" },
+      { id: "h2", pergunta: "Sua forma de interagir com os outros costuma ser sexualmente sedutora ou provocante, mesmo quando isso não é apropriado?" },
+      { id: "h3", pergunta: "Sua expressão emocional muda rápido e parece superficial?" },
+      { id: "h4", pergunta: "Você usa bastante sua aparência física para chamar atenção para você?" },
+      { id: "h5", pergunta: "Seu jeito de falar é muito impressionista, sem entrar em detalhes?" },
+      { id: "h6", pergunta: "Você se autodramatiza, é teatral, ou expressa emoções de forma exagerada?" },
+      { id: "h7", pergunta: "Você é facilmente influenciado(a) pelos outros ou pelas circunstâncias?" },
+      { id: "h8", pergunta: "Você considera seus relacionamentos mais íntimos do que eles realmente são?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta",
+      observacaoExclusao:
+        "ATENÇÃO — risco de segurança: risco aumentado de comportamento suicida como forma de busca de atenção — gestos que exigem avaliação cuidadosa da letalidade real, nunca minimizados por parecerem manipulativos. Diferenciar de Personalidade Borderline (instabilidade afetiva mais intensa, autolesão/impulsividade autodestrutiva mais proeminente, vazio crônico — ausentes de forma central aqui), de Personalidade Narcisista (busca de admiração ligada a grandiosidade/superioridade, mais do que desejo de ser cuidado/notado), de Personalidade Dependente (busca de aprovação sem a teatralidade/emotividade exagerada), e de mudança de personalidade devido a outra condição médica.",
+    },
+  },
 };
