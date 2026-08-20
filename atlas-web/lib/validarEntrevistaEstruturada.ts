@@ -56,5 +56,26 @@ export function validarIntegridadeEntrevista(entrevista: EntrevistaEstruturada):
     }
   });
 
+  (algoritmo.subgruposComMinimo ?? []).forEach((sg, indice) => {
+    if (sg.itens.length === 0) {
+      problemas.push(`algoritmo.subgruposComMinimo[${indice}] não tem itens`);
+      return;
+    }
+
+    if (sg.minimo > sg.itens.length) {
+      problemas.push(
+        `algoritmo.subgruposComMinimo[${indice}].minimo (${sg.minimo}) é maior que o total de itens do subgrupo (${sg.itens.length}) — nunca seria satisfeito`
+      );
+    }
+
+    for (const id of sg.itens) {
+      if (!idsCriterios.has(id)) {
+        problemas.push(
+          `algoritmo.subgruposComMinimo[${indice}] referencia "${id}", que não existe entre os critérios`
+        );
+      }
+    }
+  });
+
   return problemas;
 }

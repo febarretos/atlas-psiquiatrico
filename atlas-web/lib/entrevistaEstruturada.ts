@@ -32,6 +32,7 @@ export interface ResultadoAlgoritmo {
   contagemPositiva: number;
   contagemMinimaAtingida: boolean;
   gruposObrigatoriosAtingidos: boolean;
+  subgruposComMinimoAtingidos: boolean;
   criteriosFormaisAtingidos: boolean;
 }
 
@@ -55,10 +56,16 @@ export function avaliarAlgoritmo(
     (grupo) => grupo.some((id) => respostas.get(id) === true)
   );
 
+  const subgruposComMinimoAtingidos = (algoritmo.subgruposComMinimo ?? []).every(
+    (sg) => sg.itens.filter((id) => respostas.get(id) === true).length >= sg.minimo
+  );
+
   return {
     contagemPositiva,
     contagemMinimaAtingida,
     gruposObrigatoriosAtingidos,
-    criteriosFormaisAtingidos: contagemMinimaAtingida && gruposObrigatoriosAtingidos,
+    subgruposComMinimoAtingidos,
+    criteriosFormaisAtingidos:
+      contagemMinimaAtingida && gruposObrigatoriosAtingidos && subgruposComMinimoAtingidos,
   };
 }

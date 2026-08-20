@@ -91,4 +91,26 @@ export const tag: Diagnostico = {
     "CID-11 (OMS)",
     "Associação Brasileira de Psiquiatria (ABP)/Associação Médica Brasileira (AMB). Transtornos de Ansiedade: Diagnóstico e Tratamento",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Nos últimos 6 meses, você tem se sentido excessivamente ansioso(a) ou preocupado(a), na maioria dos dias, com várias coisas diferentes (trabalho, saúde, família, finanças)?" },
+      { id: "b", pergunta: "Você tem dificuldade para controlar essa preocupação, mesmo tentando?" },
+      { id: "c1", pergunta: "Você se sente inquieto(a) ou com os nervos à flor da pele?" },
+      { id: "c2", pergunta: "Você se cansa com facilidade?" },
+      { id: "c3", pergunta: "Você tem dificuldade de concentração ou sensação de \"branco\" na mente?" },
+      { id: "c4", pergunta: "Você está mais irritável do que o habitual?" },
+      { id: "c5", pergunta: "Você sente tensão muscular?" },
+      { id: "c6", pergunta: "Você tem dificuldade para dormir, ou o sono não é reparador?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["c1", "c2", "c3", "c4", "c5", "c6"],
+      gruposObrigatorios: [["b"]],
+      duracaoMinima: "Maioria dos dias, por pelo menos 6 meses. Em crianças, exige-se apenas 1 dos 6 sintomas do critério C (não 3).",
+      observacaoExclusao:
+        "D: sofrimento clinicamente significativo ou prejuízo funcional. E: não atribuível a efeito fisiológico de substância ou outra condição médica (ex.: hipertireoidismo). F: não mais bem explicado por outro transtorno mental (ansiedade de separação, pânico, fobia social, TOC, TEPT — rastrear ativamente com os módulos correspondentes).",
+    },
+  },
 };

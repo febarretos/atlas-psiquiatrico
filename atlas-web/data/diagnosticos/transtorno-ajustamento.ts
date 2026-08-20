@@ -79,4 +79,20 @@ export const transtornoAjustamento: Diagnostico = {
     "Strain JJ, Friedman MJ - Revisões sobre transtornos de ajustamento em psiquiatria de ligação",
     "NICE Guideline - Common mental health problems in primary care (referência adjacente)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você desenvolveu sintomas emocionais ou comportamentais dentro dos últimos 3 meses, em resposta a um ou mais eventos/estressores identificáveis na sua vida?" },
+      { id: "b1", pergunta: "Esses sintomas parecem desproporcionalmente intensos, considerando a gravidade real do estressor e o seu contexto?", grupo: "B" },
+      { id: "b2", pergunta: "Esses sintomas estão prejudicando de forma significativa seu funcionamento social, no trabalho ou em outras áreas importantes da vida?", grupo: "B" },
+    ],
+    algoritmo: {
+      itensContaveis: ["b1", "b2"],
+      gruposObrigatorios: [["b1", "b2"]],
+      duracaoMinima: "Início dentro de 3 meses do estressor; se o estressor e suas consequências cessaram, os sintomas não devem persistir por mais de 6 meses adicionais (exceto no especificador persistente/crônico, ligado a estressor de efeito contínuo)",
+      observacaoExclusao:
+        "C: a perturbação não satisfaz critérios para outro transtorno mental específico e não é apenas exacerbação de um transtorno preexistente (se preencher critérios completos de outro transtorno — ex.: depressão maior, TAG — reclassificar, não é ajustamento). D: os sintomas não representam luto normal e não são mais bem explicados por transtorno de luto prolongado. Avaliar especificador predominante (humor deprimido, ansiedade, misto, perturbação de conduta, misto de emoções e conduta) e se é agudo (<6 meses) ou persistente/crônico (>=6 meses, geralmente com estressor de efeito contínuo).",
+    },
+  },
 };

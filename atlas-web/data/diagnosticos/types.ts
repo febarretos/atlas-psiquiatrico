@@ -93,6 +93,14 @@ export interface RegraAlgoritmoEntrevista {
   // os arrays, OR dentro de cada um).
   gruposObrigatorios?: string[][];
 
+  // Generalização de gruposObrigatorios pra quando o mínimo exigido no
+  // subgrupo é maior que 1 (ex: TEPT exige >=2 dos 7 itens do critério D,
+  // e >=2 dos 6 itens do critério E, cada um avaliado separadamente — não
+  // dá pra expressar isso só com gruposObrigatorios, que é sempre >=1).
+  // Todos os subgrupos listados aqui são obrigatórios (AND entre eles);
+  // dentro de cada um, o mínimo é local a esse subgrupo, não ao total.
+  subgruposComMinimo?: { itens: string[]; minimo: number }[];
+
   // Duração mínima exigida pelo DSM (ex: "2 semanas", "6 meses") — texto
   // livre, NUNCA avaliada automaticamente pelo motor: é responsabilidade
   // do clínico confirmar durante a entrevista.

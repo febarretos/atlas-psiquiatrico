@@ -81,4 +81,20 @@ export const toc: Diagnostico = {
     "CID-11 (OMS)",
     "Associação Brasileira de Psiquiatria (ABP)/Associação Médica Brasileira (AMB). Diretriz: Transtorno Obsessivo-Compulsivo — Diagnóstico e Tratamento",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2"],
+    criterios: [
+      { id: "a1", pergunta: "Você tem pensamentos, impulsos ou imagens repetitivos e indesejados que causam ansiedade, e que você tenta ignorar, suprimir ou neutralizar com algum pensamento ou ação?", grupo: "obsessoes" },
+      { id: "a2", pergunta: "Você sente necessidade de repetir certos comportamentos (como lavar as mãos, verificar, organizar) ou atos mentais (como rezar, contar, repetir palavras) para reduzir a ansiedade ou evitar algo ruim, mesmo sabendo que isso é excessivo ou sem relação lógica com o que teme?", grupo: "compulsoes" },
+      { id: "b", pergunta: "Essas obsessões ou compulsões tomam mais de 1 hora do seu dia, ou causam sofrimento significativo, ou atrapalham seu funcionamento social, no trabalho ou em outras áreas importantes?" },
+    ],
+    algoritmo: {
+      itensContaveis: ["a1", "a2", "b"],
+      gruposObrigatorios: [["a1", "a2"], ["b"]],
+      duracaoMinima: "Não há duração mínima formal exigida — o critério é consumir tempo significativo (mais de 1h/dia) ou causar prejuízo funcional",
+      observacaoExclusao:
+        "C: não atribuível a efeito fisiológico de substância ou outra condição médica. D: não mais bem explicado por outro transtorno mental (preocupações do TAG, preocupação com aparência no transtorno dismórfico corporal, ritual alimentar em transtorno alimentar, acumulação, tricotilomania). Avaliar especificador de insight (bom/razoável, pobre, ausente/crenças delirantes — diferenciar de delírio primário) e relação com transtorno de tique.",
+    },
+  },
 };

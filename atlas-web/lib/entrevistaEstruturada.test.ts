@@ -191,6 +191,78 @@ test("avaliarRastreio: segundo item positivo depois do primeiro negativo — pos
   assert.equal(avaliarRastreio(marcados([["a1", false], ["a2", true]]), ["a1", "a2"]), "positivo");
 });
 
+// ─────────────────────────────────────────────────────────────
+// subgruposComMinimo — generalização de gruposObrigatorios com
+// mínimo > 1 (ex: TEPT exige >=2 de 7 no critério D).
+// ─────────────────────────────────────────────────────────────
+
+test("avaliarAlgoritmo: subgruposComMinimo não atingido (1 de 2 exigidos) bloqueia o fechamento mesmo com contagem geral OK", () => {
+  const algoritmo = {
+    itensContaveis: ["d1", "d2", "d3"],
+    contagemMinima: 1,
+    subgruposComMinimo: [{ itens: ["d1", "d2", "d3"], minimo: 2 }],
+  };
+  const resultado = avaliarAlgoritmo(marcados([["d1", true], ["d2", false], ["d3", false]]), algoritmo);
+  assert.equal(resultado.contagemMinimaAtingida, true);
+  assert.equal(resultado.subgruposComMinimoAtingidos, false);
+  assert.equal(resultado.criteriosFormaisAtingidos, false);
+});
+
+test("avaliarAlgoritmo: subgruposComMinimo atingido quando o mínimo do subgrupo é alcançado", () => {
+  const algoritmo = {
+    itensContaveis: ["d1", "d2", "d3"],
+    subgruposComMinimo: [{ itens: ["d1", "d2", "d3"], minimo: 2 }],
+  };
+  const resultado = avaliarAlgoritmo(marcados([["d1", true], ["d2", true], ["d3", false]]), algoritmo);
+  assert.equal(resultado.subgruposComMinimoAtingidos, true);
+  assert.equal(resultado.criteriosFormaisAtingidos, true);
+});
+
+test("avaliarAlgoritmo: múltiplos subgruposComMinimo exigem AND entre eles (cada um com seu próprio mínimo)", () => {
+  const algoritmo = {
+    itensContaveis: [],
+    subgruposComMinimo: [
+      { itens: ["d1", "d2"], minimo: 2 },
+      { itens: ["e1", "e2", "e3"], minimo: 2 },
+    ],
+  };
+  const soUmSubgrupo = avaliarAlgoritmo(
+    marcados([["d1", true], ["d2", true], ["e1", true], ["e2", false], ["e3", false]]),
+    algoritmo
+  );
+  assert.equal(soUmSubgrupo.subgruposComMinimoAtingidos, false);
+
+  const ambosSubgrupos = avaliarAlgoritmo(
+    marcados([["d1", true], ["d2", true], ["e1", true], ["e2", true], ["e3", false]]),
+    algoritmo
+  );
+  assert.equal(ambosSubgrupos.subgruposComMinimoAtingidos, true);
+});
+
+test("validarIntegridadeEntrevista: pega subgruposComMinimo com minimo maior que o total de itens do subgrupo", () => {
+  const quebrada: EntrevistaEstruturada = {
+    ...entrevistaBase,
+    algoritmo: {
+      ...entrevistaBase.algoritmo,
+      subgruposComMinimo: [{ itens: ["b", "c"], minimo: 5 }],
+    },
+  };
+  const problemas = validarIntegridadeEntrevista(quebrada);
+  assert.ok(problemas.some((p) => p.includes("subgruposComMinimo") && p.includes("minimo")));
+});
+
+test("validarIntegridadeEntrevista: pega subgruposComMinimo referenciando critério inexistente", () => {
+  const quebrada: EntrevistaEstruturada = {
+    ...entrevistaBase,
+    algoritmo: {
+      ...entrevistaBase.algoritmo,
+      subgruposComMinimo: [{ itens: ["fantasma"], minimo: 1 }],
+    },
+  };
+  const problemas = validarIntegridadeEntrevista(quebrada);
+  assert.ok(problemas.some((p) => p.includes("subgruposComMinimo") && p.includes("fantasma")));
+});
+
 test("avaliarAlgoritmo: item não respondido conta como negativo, não lança erro", () => {
   const resultado = avaliarAlgoritmo(new Map(), entrevistaBase.algoritmo);
   assert.equal(resultado.contagemPositiva, 0);

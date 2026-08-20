@@ -89,4 +89,23 @@ export const fobiaSocial: Diagnostico = {
     "CID-11 (OMS)",
     "Diretrizes da Associação Médica Brasileira (AMB/ABP) para o Tratamento do Transtorno de Ansiedade Social. Rev Bras Psiquiatr. 2011",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você sente medo ou ansiedade marcante em uma ou mais situações sociais em que pode ser avaliado(a) por outras pessoas (conversar, ser observado, se apresentar)?" },
+      { id: "b", pergunta: "Você teme que, ao demonstrar sinais de ansiedade, seja humilhado(a), constrangido(a), rejeitado(a) ou ofenda alguém?" },
+      { id: "c", pergunta: "Essas situações sociais quase sempre provocam medo ou ansiedade em você?" },
+      { id: "d", pergunta: "Você evita essas situações, ou as enfrenta com muito medo ou ansiedade?" },
+      { id: "e", pergunta: "Esse medo parece desproporcional em relação ao risco real da situação, considerando também seu contexto sociocultural?" },
+      { id: "f", pergunta: "Esse medo, ansiedade ou evitação já dura 6 meses ou mais?" },
+    ],
+    algoritmo: {
+      contagemMinima: 6,
+      itensContaveis: ["a", "b", "c", "d", "e", "f"],
+      duracaoMinima: "Geralmente 6 meses ou mais",
+      observacaoExclusao:
+        "G: sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. H: não atribuível a efeito fisiológico de substância ou outra condição médica. I: não mais bem explicado por outro transtorno mental (pânico, transtorno dismórfico corporal, transtorno do espectro autista). J: se há outra condição médica presente, o medo é claramente não relacionado a ela ou é excessivo. Especificador: avaliar se restrito a desempenho (falar/apresentar-se em público).",
+    },
+  },
 };

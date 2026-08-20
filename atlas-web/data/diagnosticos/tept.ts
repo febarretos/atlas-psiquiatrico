@@ -84,4 +84,43 @@ export const tept: Diagnostico = {
     "VA/DoD Clinical Practice Guideline for PTSD",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você já viveu, testemunhou pessoalmente, ou soube que aconteceu com alguém próximo, um evento de morte real ou ameaça de morte, lesão grave ou violência sexual (ou teve exposição repetida a detalhes extremos de eventos assim, ex.: por trabalho)?" },
+      { id: "b1", pergunta: "Você tem memórias intrusivas e angustiantes do evento, que voltam sem você querer?", grupo: "B" },
+      { id: "b2", pergunta: "Você tem sonhos angustiantes recorrentes relacionados ao evento?", grupo: "B" },
+      { id: "b3", pergunta: "Você já teve a sensação de reviver o evento, como um flashback (agir ou sentir como se estivesse acontecendo de novo)?", grupo: "B" },
+      { id: "b4", pergunta: "Você sente sofrimento psicológico intenso quando é exposto(a) a algo que lembra o evento?", grupo: "B" },
+      { id: "b5", pergunta: "Você tem reações físicas fortes (coração acelerado, suor, falta de ar) quando lembrado(a) do evento?", grupo: "B" },
+      { id: "c1", pergunta: "Você evita pensamentos, sentimentos ou lembranças relacionadas ao evento?", grupo: "C" },
+      { id: "c2", pergunta: "Você evita pessoas, lugares, conversas, atividades ou objetos que lembram o evento?", grupo: "C" },
+      { id: "d1", pergunta: "Você tem dificuldade para lembrar de partes importantes do evento?", grupo: "D" },
+      { id: "d2", pergunta: "Você passou a ter crenças ou expectativas negativas exageradas sobre si mesmo(a), outras pessoas ou o mundo (ex.: \"sou uma pessoa má\", \"o mundo é totalmente perigoso\")?", grupo: "D" },
+      { id: "d3", pergunta: "Você se culpa, ou culpa outras pessoas, de forma distorcida pelo evento ou suas consequências?", grupo: "D" },
+      { id: "d4", pergunta: "Você tem sentido um estado emocional negativo persistente (medo, horror, raiva, culpa, vergonha)?", grupo: "D" },
+      { id: "d5", pergunta: "Seu interesse em atividades que você gostava diminuiu bastante?", grupo: "D" },
+      { id: "d6", pergunta: "Você se sente distante ou desconectado(a) das outras pessoas?", grupo: "D" },
+      { id: "d7", pergunta: "Você tem dificuldade persistente para sentir emoções positivas (felicidade, satisfação, amor)?", grupo: "D" },
+      { id: "e1", pergunta: "Você fica irritado(a) com facilidade ou tem explosões de raiva?", grupo: "E" },
+      { id: "e2", pergunta: "Você tem se comportado de forma imprudente ou autodestrutiva?", grupo: "E" },
+      { id: "e3", pergunta: "Você fica hipervigilante, sempre alerta a possíveis perigos?", grupo: "E" },
+      { id: "e4", pergunta: "Você se assusta com facilidade, com reações de sobressalto exageradas?", grupo: "E" },
+      { id: "e5", pergunta: "Você tem tido problemas de concentração?", grupo: "E" },
+      { id: "e6", pergunta: "Você tem tido problemas para dormir?", grupo: "E" },
+    ],
+    algoritmo: {
+      itensContaveis: [],
+      subgruposComMinimo: [
+        { itens: ["b1", "b2", "b3", "b4", "b5"], minimo: 1 },
+        { itens: ["c1", "c2"], minimo: 1 },
+        { itens: ["d1", "d2", "d3", "d4", "d5", "d6", "d7"], minimo: 2 },
+        { itens: ["e1", "e2", "e3", "e4", "e5", "e6"], minimo: 2 },
+      ],
+      duracaoMinima: "A perturbação (critérios B, C, D e E) persiste por mais de 1 mês",
+      observacaoExclusao:
+        "G: sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. H: não atribuível a efeito fisiológico de substância ou outra condição médica. Diferenciar de Transtorno de Estresse Agudo (mesma sintomatologia, duração entre 3 dias e 1 mês). Avaliar especificadores: com sintomas dissociativos (despersonalização/desrealização) e com expressão tardia (critérios plenos só satisfeitos 6+ meses após o evento).",
+    },
+  },
 };

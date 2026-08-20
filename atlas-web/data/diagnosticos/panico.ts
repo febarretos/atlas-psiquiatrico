@@ -98,4 +98,34 @@ export const panico: Diagnostico = {
     "CID-11 (OMS)",
     "Associação Brasileira de Psiquiatria (ABP)/Associação Médica Brasileira (AMB). Transtornos de Ansiedade: Diagnóstico e Tratamento",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você já teve crises de pânico recorrentes e inesperadas — surtos abruptos de medo ou desconforto intenso que atingem o pico em minutos?" },
+      { id: "a1", pergunta: "Durante as crises, você sente palpitações ou o coração acelerado?" },
+      { id: "a2", pergunta: "Você sua muito durante as crises?" },
+      { id: "a3", pergunta: "Você treme ou tem abalos musculares?" },
+      { id: "a4", pergunta: "Você sente falta de ar ou sensação de sufocamento?" },
+      { id: "a5", pergunta: "Você sente como se estivesse engasgando?" },
+      { id: "a6", pergunta: "Você sente dor ou desconforto no peito?" },
+      { id: "a7", pergunta: "Você sente náusea ou desconforto abdominal?" },
+      { id: "a8", pergunta: "Você sente tontura, instabilidade ou sensação de desmaio?" },
+      { id: "a9", pergunta: "Você sente calafrios ou ondas de calor?" },
+      { id: "a10", pergunta: "Você sente dormência ou formigamento?" },
+      { id: "a11", pergunta: "Você sente que as coisas ao redor não são reais, ou que está distanciado(a) de si mesmo(a)?" },
+      { id: "a12", pergunta: "Você tem medo de perder o controle ou enlouquecer durante as crises?" },
+      { id: "a13", pergunta: "Você tem medo de morrer durante as crises?" },
+      { id: "b1", pergunta: "Depois de pelo menos uma crise, você ficou preocupado(a) persistentemente com a possibilidade de ter novas crises ou com suas consequências (ex.: medo de infarto, de enlouquecer)?" },
+      { id: "b2", pergunta: "Você mudou seu comportamento de forma significativa por causa das crises (ex.: evitar exercícios, evitar lugares desconhecidos)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 4,
+      itensContaveis: ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13"],
+      gruposObrigatorios: [["b1", "b2"]],
+      duracaoMinima: "Pelo menos uma crise seguida, por 1 mês ou mais, de preocupação persistente ou mudança comportamental",
+      observacaoExclusao:
+        "C: não atribuível a efeito fisiológico de substância ou outra condição médica (hipertireoidismo, arritmias cardíacas, hipoglicemia). D: não mais bem explicado por outro transtorno mental — as crises não devem ocorrer apenas em resposta a situações temidas específicas (fobia social/específica), obsessões (TOC) ou lembranças de trauma (TEPT). Especificador: avaliar agorafobia comórbida (codificada separadamente).",
+    },
+  },
 };
