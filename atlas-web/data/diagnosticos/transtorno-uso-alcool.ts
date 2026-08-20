@@ -91,4 +91,28 @@ export const transtornoUsoAlcool: Diagnostico = {
     "SAMHSA TIP 49 - Incorporating Alcohol Pharmacotherapies into Medical Practice",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11"],
+    criterios: [
+      { id: "c1", pergunta: "Você percebeu que consome álcool em quantidades maiores ou por mais tempo do que pretendia?" },
+      { id: "c2", pergunta: "Você tem desejo persistente ou já tentou sem sucesso reduzir ou controlar o uso de álcool?" },
+      { id: "c3", pergunta: "Você gasta muito tempo obtendo álcool, bebendo, ou se recuperando dos efeitos?" },
+      { id: "c4", pergunta: "Você sente fissura — um desejo forte ou necessidade de beber?" },
+      { id: "c5", pergunta: "O uso de álcool já fez você falhar em cumprir obrigações importantes no trabalho, na escola ou em casa?" },
+      { id: "c6", pergunta: "Você continua bebendo apesar de problemas sociais ou interpessoais causados ou piorados pelo álcool?" },
+      { id: "c7", pergunta: "Você abandonou ou reduziu atividades sociais, profissionais ou de lazer importantes por causa do álcool?" },
+      { id: "c8", pergunta: "Você já usou álcool repetidamente em situações fisicamente arriscadas (ex.: dirigir)?" },
+      { id: "c9", pergunta: "Você continua bebendo mesmo sabendo que tem um problema físico ou psicológico causado ou piorado pelo álcool?" },
+      { id: "c10", pergunta: "Você precisa de quantidades cada vez maiores de álcool pra sentir o efeito, ou sente menos efeito com a mesma quantidade (tolerância)?" },
+      { id: "c11", pergunta: "Você já teve sintomas de abstinência ao parar ou reduzir o álcool, ou bebeu (ou usou outra substância, como benzodiazepínico) para aliviar ou evitar esses sintomas?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11"],
+      duracaoMinima: "Pelo menos 2 dos 11 critérios presentes dentro do mesmo período de 12 meses",
+      observacaoExclusao:
+        "Gravidade conforme número de critérios positivos: leve (2-3), moderada (4-5), grave (6 ou mais). Diferenciar de uso de risco/nocivo sem critérios plenos, de transtornos induzidos por álcool (intoxicação, abstinência, psicótico, depressivo, ansioso — devem ser diferenciados de transtornos primários independentes), e de automedicação de transtorno depressivo/ansioso primário. Rastrear poliuso de substâncias ativamente. Avaliar especificador de remissão (inicial: nenhum critério por 3-12 meses exceto craving; sustentada: 12+ meses) e ambiente controlado.",
+    },
+  },
 };

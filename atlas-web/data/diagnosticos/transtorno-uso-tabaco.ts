@@ -92,4 +92,28 @@ export const transtornoUsoTabaco: Diagnostico = {
     "Rigotti NA, Kruse GR, Livingstone-Banks J, Hartmann-Boyce J. Treatment of Tobacco Smoking: A Review. JAMA. 2022.",
     "Cahill K, Lindson-Hawley N, Thomas KH, et al. Nicotine receptor partial agonists for smoking cessation. Cochrane Database Syst Rev. 2016.",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11"],
+    criterios: [
+      { id: "c1", pergunta: "Você percebeu que consome tabaco em quantidades maiores ou por mais tempo do que pretendia?" },
+      { id: "c2", pergunta: "Você tem desejo persistente ou já tentou sem sucesso reduzir ou controlar o uso de tabaco?" },
+      { id: "c3", pergunta: "Você gasta muito tempo obtendo tabaco, fumando, ou se recuperando dos efeitos?" },
+      { id: "c4", pergunta: "Você sente fissura — um desejo forte ou necessidade de usar tabaco?" },
+      { id: "c5", pergunta: "O uso de tabaco já fez você falhar em cumprir obrigações importantes no trabalho, na escola ou em casa?" },
+      { id: "c6", pergunta: "Você continua usando tabaco apesar de problemas sociais ou interpessoais causados ou piorados por ele?" },
+      { id: "c7", pergunta: "Você abandonou ou reduziu atividades sociais, profissionais ou de lazer importantes por causa do tabaco?" },
+      { id: "c8", pergunta: "Você já usou tabaco em situações que representam perigo físico (ex.: perto de fontes de oxigênio, dirigindo)?" },
+      { id: "c9", pergunta: "Você continua fumando mesmo sabendo que tem um problema físico ou psicológico causado ou piorado pelo tabaco (ex.: tosse crônica)?" },
+      { id: "c10", pergunta: "Você precisa de quantidades cada vez maiores de tabaco pra sentir o efeito, ou sente menos efeito com a mesma quantidade (tolerância)?" },
+      { id: "c11", pergunta: "Você já teve sintomas de abstinência ao parar ou reduzir o tabaco (irritabilidade, ansiedade, dificuldade de concentração, aumento do apetite, inquietação, humor deprimido, insônia), ou usou tabaco/nicotina para aliviar ou evitar esses sintomas?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11"],
+      duracaoMinima: "Pelo menos 2 dos 11 critérios presentes dentro do mesmo período de 12 meses",
+      observacaoExclusao:
+        "Diferenciar de uso recreativo/social sem critérios plenos. Rastrear outros transtornos por uso de substâncias concomitantes (poliuso é comum), TDAH e transtornos de ansiedade/humor com automedicação por nicotina. Atenção clínica: a fumaça do tabaco (não a nicotina) induz CYP1A2 — cessação abrupta pode elevar níveis séricos de clozapina/olanzapina. Avaliar especificador de remissão (inicial: 3-12 meses sem critérios exceto craving; sustentada: 12+ meses), terapia de manutenção com nicotina, e ambiente controlado.",
+    },
+  },
 };

@@ -91,4 +91,23 @@ export const esquizofrenia: Diagnostico = {
     "CID-11 (OMS)",
     "Associação Brasileira de Psiquiatria (ABP) / Associação Médica Brasileira (AMB). Diretriz: Esquizofrenia — Diagnóstico",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2", "a3"],
+    criterios: [
+      { id: "a1", pergunta: "Você tem tido crenças fixas que não condizem com a realidade, mesmo diante de evidências contrárias (delírios)?" },
+      { id: "a2", pergunta: "Você tem ouvido, visto ou sentido coisas que outras pessoas não percebem (alucinações)?" },
+      { id: "a3", pergunta: "As pessoas notaram que seu jeito de falar ficou desorganizado ou difícil de acompanhar?" },
+      { id: "a4", pergunta: "Seu comportamento tem ficado marcadamente desorganizado, ou você teve episódios de catatonia (imobilidade ou agitação extremas)?" },
+      { id: "a5", pergunta: "Você notou uma redução importante na expressão de emoções, na fala ou na motivação/iniciativa para atividades (sintomas negativos)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["a1", "a2", "a3", "a4", "a5"],
+      gruposObrigatorios: [["a1", "a2", "a3"]],
+      duracaoMinima: "Sinais contínuos por pelo menos 6 meses, incluindo ao menos 1 mês de sintomas da fase ativa (ou menos se tratado com sucesso); o restante do período de 6 meses pode incluir fase prodrômica ou residual, com sintomas negativos isolados ou 2+ sintomas do Critério A de forma atenuada",
+      observacaoExclusao:
+        "B: prejuízo funcional acentuado desde o início da perturbação (trabalho, relações interpessoais, autocuidado) — ou fracasso em atingir o nível esperado, se início na infância/adolescência. D: transtorno esquizoafetivo e transtorno depressivo/bipolar com características psicóticas devem ser descartados (episódios de humor concomitantes à fase ativa, se existentes, presentes por minoria da duração total). E: não atribuível a efeito fisiológico de substância ou outra condição médica. F: se história de TEA/transtorno de comunicação de início na infância, exige delírios ou alucinações proeminentes por pelo menos 1 mês, além dos demais sintomas.",
+    },
+  },
 };
