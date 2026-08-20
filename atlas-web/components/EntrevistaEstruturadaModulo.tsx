@@ -69,18 +69,20 @@ export default function EntrevistaEstruturadaModulo({
     entrevista.criteriosRastreioIds.includes(c.id)
   );
   // Depois que o rastreio abre o módulo (basta 1 item positivo — ver
-  // avaliarRastreio), os DEMAIS critérios de rastreio que ainda não foram
-  // respondidos continuam aparecendo aqui como checkbox normal — senão
-  // ficariam travados como "não respondido" pra sempre, o que tornaria
-  // impossível fechar diagnósticos onde o algoritmo exige mais de 1 item
-  // de rastreio positivo (ex.: Ciclotimia precisa de hipo E dep; vários
-  // Transtornos de Personalidade usam todos os itens como rastreio, com
-  // contagemMinima > 1). Só oculta o(s) item(ns) de rastreio que JÁ têm
-  // resposta, pra não repetir a mesma pergunta duas vezes na tela.
-  const criteriosRestantes = entrevista.criterios.filter((c) => {
-    if (!entrevista.criteriosRastreioIds.includes(c.id)) return true;
-    return respostasCriterios.get(c.id) === undefined;
-  });
+  // avaliarRastreio), os DEMAIS critérios de rastreio continuam aparecendo
+  // aqui como checkbox normal, junto com todos os outros. O bloco de
+  // rastreio (estadoRastreio === "pendente") e este checklist
+  // (estadoRastreio === "positivo") nunca renderizam ao mesmo tempo, então
+  // não há risco de repetir a mesma pergunta duas vezes na tela — não é
+  // preciso (nem correto) esconder os itens de rastreio já respondidos.
+  const criteriosRestantes = entrevista.criterios;
+  // Se o rastreio foi desfeito (direto no checklist ou via "revisar
+  // rastreio"/"reabrir") depois de já haver critérios marcados, essas
+  // respostas continuam no Map — só ficam fora de vista até o módulo
+  // reabrir. Avisa que existem pra não parecerem perdidas.
+  const respostasPreservadas = entrevista.criterios.filter(
+    (c) => respostasCriterios.get(c.id) === true
+  ).length;
 
   const resultado = avaliarAlgoritmo(respostasCriterios, entrevista.algoritmo);
   const totalContavel = entrevista.algoritmo.itensContaveis.length;
@@ -109,19 +111,33 @@ export default function EntrevistaEstruturadaModulo({
                 />
               </div>
             ))}
+            {respostasPreservadas > 0 && (
+              <p className="text-xs text-ink-3">
+                {respostasPreservadas} resposta(s) já marcada(s) neste módulo foram preservadas —
+                responda &ldquo;Sim&rdquo; a algum item acima para vê-las de novo.
+              </p>
+            )}
           </div>
         )}
 
         {estadoRastreio === "pulado" && (
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-sm text-ink-3">Rastreio negativo — módulo encerrado.</p>
-            <button
-              type="button"
-              onClick={() => criteriosRastreio.forEach((c) => onResponderCriterio(c.id, undefined))}
-              className="text-xs text-ink-3 transition-colors hover:text-accent print:hidden"
-            >
-              reabrir
-            </button>
+          <div className="flex flex-col gap-1 pb-1">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm text-ink-3">Rastreio negativo — módulo encerrado.</p>
+              <button
+                type="button"
+                onClick={() => criteriosRastreio.forEach((c) => onResponderCriterio(c.id, undefined))}
+                className="text-xs text-ink-3 transition-colors hover:text-accent print:hidden"
+              >
+                reabrir
+              </button>
+            </div>
+            {respostasPreservadas > 0 && (
+              <p className="text-xs text-ink-3">
+                {respostasPreservadas} resposta(s) já marcada(s) neste módulo foram preservadas —
+                clique &ldquo;reabrir&rdquo; para vê-las de novo.
+              </p>
+            )}
           </div>
         )}
 
@@ -164,16 +180,20 @@ export default function EntrevistaEstruturadaModulo({
 
             <div>
               <Badge color={resultado.criteriosFormaisAtingidos ? "yellow" : "gray"}>
-                Critérios formais: {resultado.contagemPositiva}/{totalContavel}
-                {resultado.criteriosFormaisAtingidos ? " — atingidos" : ""}
+                Critérios formais:
+                {totalContavel > 0 ? ` ${resultado.contagemPositiva}/${totalContavel}` : ""}
+                {resultado.criteriosFormaisAtingidos ? " — atingidos" : " — não atingidos"}
               </Badge>
             </div>
 
-            {resultado.criteriosFormaisAtingidos && (
+            {(entrevista.algoritmo.duracaoMinima ||
+              entrevista.algoritmo.observacaoExclusao ||
+              diagnostico.diagnosticoDiferencial.length > 0) && (
               <div className="rounded-lg border border-rule-soft bg-panel p-3 text-xs text-ink-3">
                 <p>
-                  Contagem/subgrupos formais atingidos — isto não é um diagnóstico confirmado.
-                  Confira antes de considerar o diagnóstico:
+                  {resultado.criteriosFormaisAtingidos
+                    ? "Contagem/subgrupos formais atingidos — isto não é um diagnóstico confirmado. Confira antes de considerar o diagnóstico:"
+                    : "Referência para a entrevista, independentemente da contagem formal — inclusive itens de segurança que exigem avaliação mesmo com poucos critérios marcados:"}
                 </p>
                 <ul className="mt-1.5 list-disc space-y-1 pl-4">
                   {entrevista.algoritmo.duracaoMinima && (

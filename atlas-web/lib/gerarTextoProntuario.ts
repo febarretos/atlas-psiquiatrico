@@ -175,10 +175,11 @@ export function gerarTextoEntrevistaEstruturada(modulos: RespostaModuloEntrevist
       const entrevista = m.diagnostico.entrevistaEstruturada!;
       const resultado = avaliarAlgoritmo(m.respostasCriterios, entrevista.algoritmo);
       const total = entrevista.algoritmo.itensContaveis.length;
+      const contagem = total > 0 ? ` (${resultado.contagemPositiva}/${total})` : "";
 
       const status = resultado.criteriosFormaisAtingidos
-        ? `critérios formais atingidos (${resultado.contagemPositiva}/${total}) — confirmar duração e exclusões antes de considerar o diagnóstico`
-        : `critérios formais não atingidos (${resultado.contagemPositiva}/${total})`;
+        ? `critérios formais atingidos${contagem} — confirmar duração e exclusões antes de considerar o diagnóstico`
+        : `critérios formais não atingidos${contagem}`;
 
       linhas.push(`${m.diagnostico.nome}: ${status}`);
 
@@ -186,6 +187,13 @@ export function gerarTextoEntrevistaEstruturada(modulos: RespostaModuloEntrevist
         if (m.respostasCriterios.get(criterio.id)) {
           linhas.push(`  [x] ${criterio.pergunta}`);
         }
+      }
+
+      if (entrevista.algoritmo.duracaoMinima) {
+        linhas.push(`  Duração mínima exigida: ${entrevista.algoritmo.duracaoMinima}`);
+      }
+      if (entrevista.algoritmo.observacaoExclusao) {
+        linhas.push(`  ${entrevista.algoritmo.observacaoExclusao}`);
       }
 
       linhas.push("");

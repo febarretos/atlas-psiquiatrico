@@ -130,7 +130,7 @@ export const depressaoMaior: Diagnostico = {
       { id: "a6", pergunta: "Você tem se sentido cansado(a) ou sem energia quase todos os dias?" },
       { id: "a7", pergunta: "Você tem se sentido inútil ou com culpa excessiva ou inadequada quase todos os dias?" },
       { id: "a8", pergunta: "Você tem tido dificuldade para pensar, se concentrar ou tomar decisões quase todos os dias?" },
-      { id: "a9", pergunta: "Você tem tido pensamentos recorrentes de morte, de que seria melhor não estar vivo(a), ou chegou a pensar em se machucar?" },
+      { id: "a9", pergunta: "Você tem tido pensamentos recorrentes sobre morte, chegou a pensar em se matar (mesmo sem um plano), ou chegou a fazer um plano ou uma tentativa de suicídio?" },
     ],
     algoritmo: {
       contagemMinima: 5,
@@ -138,7 +138,7 @@ export const depressaoMaior: Diagnostico = {
       gruposObrigatorios: [["a1", "a2"]],
       duracaoMinima: "Mesmo período de 2 semanas consecutivas, representando mudança em relação ao funcionamento anterior",
       observacaoExclusao:
-        "B: sofrimento clinicamente significativo ou prejuízo funcional. C: não atribuível a efeito fisiológico de substância ou outra condição médica. D: não mais bem explicado por transtorno esquizoafetivo, esquizofrenia ou outro transtorno do espectro psicótico. E: nunca houve episódio maníaco ou hipomaníaco (rastrear ativamente antes de firmar o diagnóstico — ver módulos de Transtorno Bipolar).",
+        "ATENÇÃO — risco de segurança: item A9 cobre ideação de morte, ideação suicida, plano ou tentativa. Se positivo, avalie risco ativamente (ex.: escala C-SSRS) independentemente de os demais critérios formais terem fechado. B: sofrimento clinicamente significativo ou prejuízo funcional. C: não atribuível a efeito fisiológico de substância ou outra condição médica. D: não mais bem explicado por transtorno esquizoafetivo, esquizofrenia ou outro transtorno do espectro psicótico. E: nunca houve episódio maníaco ou hipomaníaco (rastrear ativamente antes de firmar o diagnóstico — ver módulos de Transtorno Bipolar).",
     },
   },
 };

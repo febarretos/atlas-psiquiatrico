@@ -88,7 +88,7 @@ export const anorexiaNervosa: Diagnostico = {
       itensContaveis: ["a", "b", "c"],
       duracaoMinima: "Não há duração mínima formal — o especificador de subtipo (restritivo vs. compulsão alimentar/purgativo) considera os últimos 3 meses de comportamento",
       observacaoExclusao:
-        "Investigar e excluir (ou considerar concomitantes) causas médicas de perda de peso (doenças gastrointestinais, hipertireoidismo, neoplasias). Avaliar risco de síndrome de realimentação antes de iniciar reabilitação nutricional supervisionada. Avaliar especificador de subtipo (restritivo vs. compulsão/purgativo, últimos 3 meses), remissão (parcial/completa) e gravidade por IMC (leve >=17; moderada 16-16,99; grave 15-15,99; extrema <15).",
+        "ATENÇÃO — risco de segurança: anorexia nervosa tem uma das maiores taxas de mortalidade entre transtornos psiquiátricos, por complicações clínicas (bradicardia, distúrbio eletrolítico, arritmia) e por suicídio — risco de suicídio elevado independentemente do IMC atual, rastrear ativamente (ex.: escala C-SSRS). Avaliar risco de síndrome de realimentação antes de iniciar reabilitação nutricional supervisionada; considerar avaliação clínica/cardiológica urgente se baixo peso extremo ou sinais de instabilidade. Investigar e excluir (ou considerar concomitantes) causas médicas de perda de peso (doenças gastrointestinais, hipertireoidismo, neoplasias). Avaliar especificador de subtipo (restritivo vs. compulsão/purgativo, últimos 3 meses), remissão (parcial/completa) e gravidade por IMC (leve >=17; moderada 16-16,99; grave 15-15,99; extrema <15).",
     },
   },
 };
