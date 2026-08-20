@@ -58,4 +58,24 @@ export const personalidadeEsquizoide: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["e1", "e2", "e3", "e4", "e5", "e6", "e7"],
+    criterios: [
+      { id: "e1", pergunta: "Você não deseja nem gosta de ter relações íntimas, nem mesmo fazer parte de uma família?" },
+      { id: "e2", pergunta: "Você quase sempre escolhe atividades solitárias?" },
+      { id: "e3", pergunta: "Você tem pouco ou nenhum interesse em ter experiências sexuais com outra pessoa?" },
+      { id: "e4", pergunta: "Você sente prazer em poucas ou nenhuma atividade?" },
+      { id: "e5", pergunta: "Você não tem amigos próximos ou confidentes, além de parentes de primeiro grau?" },
+      { id: "e6", pergunta: "Você se mostra indiferente a elogios ou críticas dos outros?" },
+      { id: "e7", pergunta: "As pessoas te veem como frio(a) emocionalmente, distante ou com pouca expressão de afeto?" },
+    ],
+    algoritmo: {
+      contagemMinima: 4,
+      itensContaveis: ["e1", "e2", "e3", "e4", "e5", "e6", "e7"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta, presente em vários contextos",
+      observacaoExclusao:
+        "Excluir Transtorno do Espectro Autista (déficits na comunicação social desde a infância, comportamentos/interesses restritos e repetitivos) e Esquizofrenia/Transtorno Delirante (delírios/alucinações). Diferenciar de Personalidade Esquizotípica (distorções cognitivo-perceptivas e excentricidade adicionais), de Personalidade Esquiva (desejo de vínculo presente, inibido por medo de rejeição, diferente do desinteresse genuíno aqui), e de anedonia/retraimento secundários a episódio depressivo (não é um padrão estável de longa data).",
+    },
+  },
 };

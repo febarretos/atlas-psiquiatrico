@@ -63,4 +63,24 @@ export const personalidadeParanoide: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["p1", "p2", "p3", "p4", "p5", "p6", "p7"],
+    criterios: [
+      { id: "p1", pergunta: "Você desconfia, sem motivo suficiente, que as pessoas estão te explorando, prejudicando ou enganando?" },
+      { id: "p2", pergunta: "Você tem dúvidas injustificadas sobre a lealdade ou confiabilidade de amigos ou colegas?" },
+      { id: "p3", pergunta: "Você reluta em confiar nas pessoas por medo de que usem informações contra você?" },
+      { id: "p4", pergunta: "Você enxerga significados ocultos, humilhantes ou ameaçadores em comentários ou situações inofensivas?" },
+      { id: "p5", pergunta: "Você guarda rancor por muito tempo, sem perdoar insultos ou desprezos?" },
+      { id: "p6", pergunta: "Você sente que atacam seu caráter ou reputação, mesmo quando outros não percebem isso, e reage rápido com raiva ou contra-ataque?" },
+      { id: "p7", pergunta: "Você tem suspeitas recorrentes e injustificadas sobre a fidelidade do seu parceiro(a)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 4,
+      itensContaveis: ["p1", "p2", "p3", "p4", "p5", "p6", "p7"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta, presente em vários contextos",
+      observacaoExclusao:
+        "Excluir sintomas psicóticos francos (delírios, alucinações — ver Esquizofrenia/Transtorno Delirante). Diferenciar de ideação paranoide transitória e reativa a estresse (mais típica de Transtorno de Personalidade Borderline), de excentricidade/distorções perceptivas (Personalidade Esquizotípica), de evitação por medo de rejeição sem desconfiança das intenções alheias (Personalidade Esquiva), e de mudança de personalidade devido a condição médica ou substância.",
+    },
+  },
 };

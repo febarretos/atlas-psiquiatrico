@@ -63,4 +63,26 @@ export const personalidadeEsquizotipica: Diagnostico = {
     "CID-10 (OMS) — classificado como F21, no espectro da esquizofrenia",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["et1", "et2", "et3", "et4", "et5", "et6", "et7", "et8", "et9"],
+    criterios: [
+      { id: "et1", pergunta: "Você tem a sensação de que eventos neutros têm um significado especial dirigido a você (ideias de referência, sem chegar a ser um delírio)?" },
+      { id: "et2", pergunta: "Você tem crenças estranhas ou pensamento mágico que influenciam seu comportamento e não são comuns no seu meio cultural (ex.: telepatia, sexto sentido, superstições fora do comum)?" },
+      { id: "et3", pergunta: "Você já teve experiências perceptivas incomuns, incluindo sensações estranhas no próprio corpo?" },
+      { id: "et4", pergunta: "Seu jeito de pensar ou falar é visto como estranho, vago, elaborado demais ou difícil de seguir?" },
+      { id: "et5", pergunta: "Você é desconfiado(a) ou tem ideias paranoides?" },
+      { id: "et6", pergunta: "Seu afeto é considerado inadequado ao contexto ou muito contido?" },
+      { id: "et7", pergunta: "Seu comportamento ou aparência é visto como estranho, excêntrico ou peculiar?" },
+      { id: "et8", pergunta: "Você não tem amigos próximos ou confidentes, além de parentes de primeiro grau?" },
+      { id: "et9", pergunta: "Você sente ansiedade social excessiva que não diminui com a familiaridade e vem mais de medos paranoides do que de se sentir mal avaliado(a)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["et1", "et2", "et3", "et4", "et5", "et6", "et7", "et8", "et9"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta (traços frequentemente observáveis já na infância), presente em vários contextos",
+      observacaoExclusao:
+        "Excluir Esquizofrenia, Transtorno Esquizofreniforme e Transtorno Delirante (sintomas psicóticos persistentes — delírios francos, alucinações, discurso/comportamento grosseiramente desorganizado — ausentes ou só transitórios aqui). Diferenciar de Transtorno do Espectro Autista (sem as distorções cognitivo-perceptivas típicas), de Personalidade Esquizoide (sem excentricidade/distorções perceptivas), de Personalidade Paranoide (desconfiança predominante, sem as distorções perceptivas/excentricidade) e de Personalidade Borderline (ideação paranoide/sintomas dissociativos aqui são transitórios e reativos a estresse, diferente do padrão mais estável da esquizotípica). ATENÇÃO — risco de segurança: monitorar ativamente tanto o risco elevado de conversão para transtorno psicótico franco (especialmente com história familiar de esquizofrenia) quanto o risco aumentado de comportamento suicida associado a este transtorno — rastrear ideação suicida ativamente, não apenas sintomas psicóticos.",
+    },
+  },
 };

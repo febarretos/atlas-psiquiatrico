@@ -60,4 +60,25 @@ export const personalidadeObsessivoCompulsiva: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["o1", "o2", "o3", "o4", "o5", "o6", "o7", "o8"],
+    criterios: [
+      { id: "o1", pergunta: "Você se preocupa tanto com detalhes, regras, listas, ordem ou organização que perde de vista o objetivo principal da atividade?" },
+      { id: "o2", pergunta: "Seu perfeccionismo atrapalha você terminar tarefas (ex.: não consegue concluir um projeto porque não atinge seus próprios padrões)?" },
+      { id: "o3", pergunta: "Você se dedica excessivamente ao trabalho e à produtividade, a ponto de deixar de lado lazer e amizades (sem ser por necessidade financeira)?" },
+      { id: "o4", pergunta: "Você é excessivamente rígido(a) ou escrupuloso(a) em questões de moral, ética ou valores (sem ser por motivo religioso/cultural)?" },
+      { id: "o5", pergunta: "Você tem dificuldade para jogar fora objetos gastos ou sem valor, mesmo sem apego sentimental?" },
+      { id: "o6", pergunta: "Você reluta em delegar tarefas ou trabalhar com outras pessoas, a menos que façam exatamente do seu jeito?" },
+      { id: "o7", pergunta: "Você é mesquinho(a) consigo mesmo(a) e com os outros, guardando dinheiro para catástrofes futuras?" },
+      { id: "o8", pergunta: "Você é visto(a) como rígido(a) e teimoso(a)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 4,
+      itensContaveis: ["o1", "o2", "o3", "o4", "o5", "o6", "o7", "o8"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta, presente em vários contextos",
+      observacaoExclusao:
+        "Diferenciar de Transtorno Obsessivo-Compulsivo/TOC (presença de obsessões e/ou compulsões verdadeiras, tipicamente egodistônicas e com sofrimento significativo — podem coexistir, comorbidade em até 20-30% dos casos de TOC; ver módulo TOC), de Transtorno de Acumulação (quando o acúmulo de objetos é o quadro predominante e clinicamente significativo por si só), de Transtorno do Espectro Autista (rigidez/apego a rotinas associados a déficits de comunicação social desde a infância), e de traços obsessivo-compulsivos adaptativos sem sofrimento ou prejuízo funcional (não preenche critério de transtorno).",
+    },
+  },
 };

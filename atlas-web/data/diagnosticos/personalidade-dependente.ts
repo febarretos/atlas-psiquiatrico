@@ -62,4 +62,25 @@ export const personalidadeDependente: Diagnostico = {
     "CID-10 (OMS)",
     "APA Practice Guideline for the Treatment of Patients with Personality Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"],
+    criterios: [
+      { id: "d1", pergunta: "Você tem dificuldade para tomar decisões do dia a dia sem muito conselho e apoio de outras pessoas?" },
+      { id: "d2", pergunta: "Você precisa que outras pessoas assumam a responsabilidade pelas áreas mais importantes da sua vida?" },
+      { id: "d3", pergunta: "Você tem dificuldade para discordar dos outros por medo de perder apoio ou aprovação?" },
+      { id: "d4", pergunta: "Você tem dificuldade para começar projetos ou fazer coisas sozinho(a), por falta de autoconfiança?" },
+      { id: "d5", pergunta: "Você já foi longe demais para conseguir carinho ou apoio de alguém, a ponto de se oferecer para fazer coisas desagradáveis?" },
+      { id: "d6", pergunta: "Você se sente desconfortável ou desamparado(a) quando está sozinho(a), por medo de não conseguir cuidar de si mesmo(a)?" },
+      { id: "d7", pergunta: "Quando um relacionamento próximo termina, você busca urgentemente outro para te cuidar e apoiar?" },
+      { id: "d8", pergunta: "Você tem um medo exagerado e pouco realista de ser abandonado(a) e ter que cuidar de si mesmo(a)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"],
+      duracaoMinima: "Padrão estável de longa duração, com início identificável no início da idade adulta, presente em vários contextos",
+      observacaoExclusao:
+        "Diferenciar de comportamento dependente adaptativo em contextos culturais que valorizam interdependência familiar/coletiva. Diferenciar de Personalidade Borderline (busca de cuidado acompanhada de instabilidade afetiva marcante, raiva intensa e autolesão, ausentes aqui), de Personalidade Esquiva (inibição para INICIAR relacionamentos, diferente da busca ativa de cuidado em relacionamentos já estabelecidos — podem coexistir), de Personalidade Histriônica (busca de atenção com teatralidade, mais do que necessidade de ser cuidado/dirigido), de dependência funcional secundária a condição médica/incapacidade física real (deve haver componente psicológico que extrapole a necessidade objetiva de cuidado), e de Agorafobia (evitação centrada em situações específicas de onde a fuga seria difícil, não em padrão amplo de submissão e busca de cuidado interpessoal).",
+    },
+  },
 };
