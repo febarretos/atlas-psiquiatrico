@@ -5,7 +5,10 @@ import Link from "next/link";
 import Badge from "./Badge";
 
 import type { Diagnostico } from "../data/diagnosticos/types";
-import { avaliarAlgoritmo, avaliarRastreio } from "../lib/entrevistaEstruturada";
+import { alertasSeguranca } from "../lib/alertasSeguranca";
+import { avaliarAlgoritmo, avaliarRastreio, contagemExibivel } from "../lib/entrevistaEstruturada";
+
+const alertaRiscoSuicidio = alertasSeguranca.find((a) => a.id === "risco-suicidio")!;
 
 interface Props {
   diagnostico: Diagnostico; // precisa ter entrevistaEstruturada definido — checar antes de renderizar
@@ -85,7 +88,18 @@ export default function EntrevistaEstruturadaModulo({
   ).length;
 
   const resultado = avaliarAlgoritmo(respostasCriterios, entrevista.algoritmo);
-  const totalContavel = entrevista.algoritmo.itensContaveis.length;
+  const { contagem: contagemExibida, total: totalContavel } = contagemExibivel(
+    respostasCriterios,
+    entrevista.algoritmo
+  );
+
+  // Mesmo alerta de risco de suicídio usado no Assistente de Sintomas
+  // (lib/alertasSeguranca.ts), disparado aqui por item de critério marcado
+  // como `sinalizaRisco` — não pelo vocabulário de EstadoSintoma do
+  // Assistente, que não existe neste módulo.
+  const riscoSuicidioSinalizado = entrevista.criterios.some(
+    (c) => c.sinalizaRisco && respostasCriterios.get(c.id) === true
+  );
 
   return (
     <div className="rounded-lg border border-rule bg-paper">
@@ -98,6 +112,20 @@ export default function EntrevistaEstruturadaModulo({
           ver diagnóstico ↗
         </Link>
       </div>
+
+      {riscoSuicidioSinalizado && (
+        <div className="mx-4 mt-3 rounded-xl border border-alert-border bg-alert-bg p-4">
+          <p className="text-sm font-semibold text-alert">{alertaRiscoSuicidio.titulo}</p>
+          <p className="mt-1 text-sm leading-6 text-alert">{alertaRiscoSuicidio.descricao}</p>
+          <Link
+            href={alertaRiscoSuicidio.href}
+            target="_blank"
+            className="mt-2 inline-block text-sm font-medium text-alert hover:text-alert-deep print:hidden"
+          >
+            {alertaRiscoSuicidio.linkLabel} →
+          </Link>
+        </div>
+      )}
 
       <div className="border-t border-rule-soft px-4 py-3">
         {estadoRastreio === "pendente" && (
@@ -181,7 +209,7 @@ export default function EntrevistaEstruturadaModulo({
             <div>
               <Badge color={resultado.criteriosFormaisAtingidos ? "yellow" : "gray"}>
                 Critérios formais:
-                {totalContavel > 0 ? ` ${resultado.contagemPositiva}/${totalContavel}` : ""}
+                {totalContavel > 0 ? ` ${contagemExibida}/${totalContavel}` : ""}
                 {resultado.criteriosFormaisAtingidos ? " — atingidos" : " — não atingidos"}
               </Badge>
             </div>

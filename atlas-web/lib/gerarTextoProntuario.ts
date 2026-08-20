@@ -4,7 +4,7 @@ import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
 import type { CasoSimulador, OpcaoSimulador } from "../data/simulador/types";
 import type { EntradaHistorico } from "./historicoEscalas";
-import { avaliarAlgoritmo, avaliarRastreio } from "./entrevistaEstruturada";
+import { avaliarAlgoritmo, avaliarRastreio, contagemExibivel } from "./entrevistaEstruturada";
 
 // Geração de texto pronto pra colar em prontuário eletrônico — cada
 // função aqui produz uma frase redigida como nota clínica real, nunca um
@@ -174,8 +174,8 @@ export function gerarTextoEntrevistaEstruturada(modulos: RespostaModuloEntrevist
     for (const m of lista) {
       const entrevista = m.diagnostico.entrevistaEstruturada!;
       const resultado = avaliarAlgoritmo(m.respostasCriterios, entrevista.algoritmo);
-      const total = entrevista.algoritmo.itensContaveis.length;
-      const contagem = total > 0 ? ` (${resultado.contagemPositiva}/${total})` : "";
+      const { contagem: contagemExibida, total } = contagemExibivel(m.respostasCriterios, entrevista.algoritmo);
+      const contagem = total > 0 ? ` (${contagemExibida}/${total})` : "";
 
       const status = resultado.criteriosFormaisAtingidos
         ? `critérios formais atingidos${contagem} — confirmar duração e exclusões antes de considerar o diagnóstico`

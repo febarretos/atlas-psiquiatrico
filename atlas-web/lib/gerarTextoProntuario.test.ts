@@ -8,11 +8,13 @@ import {
   gerarTextoConduta,
   gerarTextoSimulador,
   gerarTextoTendenciaEscala,
+  gerarTextoEntrevistaEstruturada,
   limparRotuloParaTrilha,
+  type RespostaModuloEntrevista,
 } from "./gerarTextoProntuario.ts";
 
 import type { Medicamento } from "../data/types.ts";
-import type { Diagnostico } from "../data/diagnosticos/types.ts";
+import type { Diagnostico, EntrevistaEstruturada } from "../data/diagnosticos/types.ts";
 import type { Escala } from "../data/escalas/types.ts";
 import type { FluxogramaNode } from "../data/fluxogramas/types.ts";
 import type { EntradaHistorico } from "./historicoEscalas.ts";
@@ -265,6 +267,94 @@ test("gerarTextoTendenciaEscala: com menos de 2 entradas, devolve string vazia",
     gerarTextoTendenciaEscala("CIWA-Ar", [entradaCiwaFixture(10, "2026-08-05T10:00:00.000Z")]),
     ""
   );
+});
+
+// ─────────────────────────────────────────────────────────────
+// gerarTextoEntrevistaEstruturada — nota gerada a partir dos módulos de
+// Entrevista Estruturada (SCID) respondidos.
+// ─────────────────────────────────────────────────────────────
+
+function diagnosticoComEntrevistaFixture(overrides: Partial<EntrevistaEstruturada> = {}): Diagnostico {
+  return {
+    ...depressaoMaiorDiagnosticoFixture,
+    entrevistaEstruturada: {
+      criteriosRastreioIds: ["a1"],
+      criterios: [
+        { id: "a1", pergunta: "Humor deprimido na maior parte do dia?" },
+        { id: "a2", pergunta: "Perda de interesse ou prazer?" },
+      ],
+      algoritmo: {
+        contagemMinima: 2,
+        itensContaveis: ["a1", "a2"],
+        duracaoMinima: "2 semanas",
+        observacaoExclusao: "Não atribuível a efeito de substância.",
+      },
+      ...overrides,
+    },
+  };
+}
+
+test("gerarTextoEntrevistaEstruturada: sem módulos com rastreio positivo, devolve string vazia", () => {
+  const modulos: RespostaModuloEntrevista[] = [
+    { diagnostico: diagnosticoComEntrevistaFixture(), respostasCriterios: new Map([["a1", false]]) },
+  ];
+  assert.equal(gerarTextoEntrevistaEstruturada(modulos), "");
+});
+
+test("gerarTextoEntrevistaEstruturada: módulo aberto mas critérios formais não atingidos — sem a frase de confirmação", () => {
+  const modulos: RespostaModuloEntrevista[] = [
+    { diagnostico: diagnosticoComEntrevistaFixture(), respostasCriterios: new Map([["a1", true]]) },
+  ];
+  const texto = gerarTextoEntrevistaEstruturada(modulos);
+  console.log("\n[entrevista, não atingidos]\n" + texto);
+
+  assert.ok(texto.includes("critérios formais não atingidos (1/2)"));
+  assert.ok(texto.includes("[x] Humor deprimido na maior parte do dia?"));
+  assert.ok(!texto.includes("[x] Perda de interesse"));
+  assert.ok(texto.includes("Duração mínima exigida: 2 semanas"));
+  assert.ok(texto.includes("Não atribuível a efeito de substância."));
+});
+
+test("gerarTextoEntrevistaEstruturada: critérios formais atingidos — inclui contagem e lembrete de confirmação", () => {
+  const modulos: RespostaModuloEntrevista[] = [
+    {
+      diagnostico: diagnosticoComEntrevistaFixture(),
+      respostasCriterios: new Map([["a1", true], ["a2", true]]),
+    },
+  ];
+  const texto = gerarTextoEntrevistaEstruturada(modulos);
+  console.log("\n[entrevista, atingidos]\n" + texto);
+
+  assert.ok(texto.includes("critérios formais atingidos (2/2) — confirmar duração e exclusões"));
+});
+
+test("gerarTextoEntrevistaEstruturada: itensContaveis vazio (ex.: TEPT) não mostra contagem tipo 0/0", () => {
+  const diagnostico = diagnosticoComEntrevistaFixture({
+    algoritmo: {
+      itensContaveis: [],
+      gruposObrigatorios: [["a1"]],
+    },
+  });
+  const modulos: RespostaModuloEntrevista[] = [
+    { diagnostico, respostasCriterios: new Map([["a1", true]]) },
+  ];
+  const texto = gerarTextoEntrevistaEstruturada(modulos);
+  console.log("\n[entrevista, sem itensContaveis]\n" + texto);
+
+  assert.ok(!texto.includes("0/0"));
+  assert.ok(texto.includes("critérios formais atingidos —"));
+});
+
+test("gerarTextoEntrevistaEstruturada: agrupa por categoria e ignora módulos sem entrevistaEstruturada", () => {
+  const modulos: RespostaModuloEntrevista[] = [
+    { diagnostico: diagnosticoComEntrevistaFixture(), respostasCriterios: new Map([["a1", true]]) },
+    { diagnostico: depressaoMaiorDiagnosticoFixture, respostasCriterios: new Map() },
+  ];
+  const texto = gerarTextoEntrevistaEstruturada(modulos);
+
+  assert.ok(texto.startsWith("ENTREVISTA ESTRUTURADA — módulos com rastreio positivo:"));
+  assert.ok(texto.includes("## Transtornos do Humor"));
+  assert.equal(texto.match(/Transtorno Depressivo Maior:/g)?.length, 1);
 });
 
 test("limparRotuloParaTrilha: remove prefixo sim/não e ajusta caixa", () => {

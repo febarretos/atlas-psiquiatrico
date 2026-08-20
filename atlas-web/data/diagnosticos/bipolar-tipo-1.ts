@@ -125,7 +125,7 @@ export const bipolarTipo1: Diagnostico = {
       itensContaveis: ["b1", "b2", "b3", "b4", "b5", "b6", "b7"],
       duracaoMinima: "Pelo menos 1 semana (qualquer duração se houver hospitalização)",
       observacaoExclusao:
-        "A contagem mínima passa a ser 4 (não 3) se o humor do período for exclusivamente irritável, sem elação/expansividade — julgamento clínico. C: a perturbação precisa ser grave o bastante para causar prejuízo acentuado, exigir hospitalização, ou cursar com características psicóticas. D: não atribuível a efeito fisiológico de substância/condição médica — exceto se emergir plenamente durante tratamento antidepressivo e persistir além do efeito fisiológico esperado do tratamento, caso em que ainda conta para o diagnóstico.",
+        "ATENÇÃO — risco de segurança: risco de suicídio substancialmente elevado em relação à população geral, inclusive fora de episódios agudos — rastrear ativamente (ex.: escala C-SSRS) independentemente da fase do quadro (maníaca, depressiva ou mista). A contagem mínima passa a ser 4 (não 3) se o humor do período for exclusivamente irritável, sem elação/expansividade — julgamento clínico. C: a perturbação precisa ser grave o bastante para causar prejuízo acentuado, exigir hospitalização, ou cursar com características psicóticas. D: não atribuível a efeito fisiológico de substância/condição médica — exceto se emergir plenamente durante tratamento antidepressivo e persistir além do efeito fisiológico esperado do tratamento, caso em que ainda conta para o diagnóstico.",
     },
   },
 };

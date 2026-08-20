@@ -77,7 +77,11 @@ export const anorexiaNervosa: Diagnostico = {
   ],
 
   entrevistaEstruturada: {
-    criteriosRastreioIds: ["a"],
+    // Rastreio por a, b OU c (não só a): baixo insight sobre o próprio peso é
+    // parte do quadro clínico (critério C), então exigir só "a" pra abrir o
+    // módulo poderia deixar de fora quem nega o peso baixo mas reconhece o
+    // medo de engordar ou a distorção de autoimagem.
+    criteriosRastreioIds: ["a", "b", "c"],
     criterios: [
       { id: "a", pergunta: "Você tem restringido sua alimentação a ponto de estar com um peso significativamente abaixo do esperado para sua idade, sexo e altura?" },
       { id: "b", pergunta: "Você sente medo intenso de ganhar peso ou de engordar, ou faz coisas para impedir o ganho de peso, mesmo estando com peso baixo?" },

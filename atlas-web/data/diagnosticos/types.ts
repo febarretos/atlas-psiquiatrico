@@ -74,6 +74,14 @@ export interface CriterioEntrevista {
   // "pelo menos 1 positivo dentre os itens do grupo A". Omitir quando o
   // item não pertence a nenhum subgrupo obrigatório (só conta pro total).
   grupo?: string;
+
+  // Marca item cuja pergunta cobre ideação/comportamento suicida ou
+  // autolesão de forma direta (não um lembrete geral de risco em prosa).
+  // Quando true e a resposta for positiva, a UI da Entrevista Estruturada
+  // mostra o alerta de risco de suicídio (mesmo mecanismo de
+  // lib/alertasSeguranca.ts) com link direto pra C-SSRS. Usar com
+  // parcimônia — só nos itens que literalmente perguntam isso.
+  sinalizaRisco?: boolean;
 }
 
 export interface RegraAlgoritmoEntrevista {

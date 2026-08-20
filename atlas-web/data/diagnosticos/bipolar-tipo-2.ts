@@ -105,13 +105,15 @@ export const bipolarTipo2: Diagnostico = {
       { id: "b5", pergunta: "Você ficou muito mais facilmente distraído(a)?" },
       { id: "b6", pergunta: "Você ficou muito mais ativo(a) do que o habitual ou muito agitado(a)?" },
       { id: "b7", pergunta: "Você se envolveu em atividades arriscadas com alto potencial de consequências ruins?" },
+      { id: "edm", pergunta: "Você já teve, em algum momento da vida, um período de pelo menos 2 semanas com humor deprimido ou perda de interesse/prazer na maior parte do tempo (ver módulo Depressão Maior)?" },
     ],
     algoritmo: {
       contagemMinima: 3,
       itensContaveis: ["b1", "b2", "b3", "b4", "b5", "b6", "b7"],
-      duracaoMinima: "Pelo menos 4 dias consecutivos",
+      gruposObrigatorios: [["edm"]],
+      duracaoMinima: "Pelo menos 4 dias consecutivos (episódio hipomaníaco); história de pelo menos 1 episódio depressivo maior também é exigida",
       observacaoExclusao:
-        "Contagem mínima passa a 4 (não 3) se o humor for exclusivamente irritável. C/D (episódio hipomaníaco): a mudança precisa ser observável por terceiros, mas SEM prejuízo acentuado, SEM necessidade de hospitalização e SEM características psicóticas — se algum desses estiver presente, o episódio é maníaco, não hipomaníaco (reclassifica como Bipolar I). F (episódio): não atribuível a substância/condição médica. Um episódio hipomaníaco isolado não fecha Bipolar II: exige também história de pelo menos 1 episódio depressivo maior (ver módulo Depressão Maior) e ausência de qualquer episódio maníaco pleno ao longo da vida. C (nível transtorno — não confundir com o C/D do episódio acima): a ocorrência dos episódios hipomaníaco(s) e depressivo(s) maior(es) não pode ser mais bem explicada por transtorno esquizoafetivo, esquizofrenia, transtorno esquizofreniforme, transtorno delirante ou outro transtorno do espectro psicótico. D (nível transtorno): os sintomas depressivos ou a imprevisibilidade causada pela alternância frequente entre episódios causam sofrimento clinicamente significativo ou prejuízo funcional.",
+        "ATENÇÃO — risco de segurança: risco de suicídio igual ou até superior ao do Transtorno Bipolar Tipo I, apesar de a fase hipomaníaca não exigir hospitalização — rastrear ativamente (ex.: escala C-SSRS), especialmente durante os episódios depressivos, que predominam no curso deste transtorno. Contagem mínima passa a 4 (não 3) se o humor for exclusivamente irritável. C/D (episódio hipomaníaco): a mudança precisa ser observável por terceiros, mas SEM prejuízo acentuado, SEM necessidade de hospitalização e SEM características psicóticas — se algum desses estiver presente, o episódio é maníaco, não hipomaníaco (reclassifica como Bipolar I). F (episódio): não atribuível a substância/condição médica. Um episódio hipomaníaco isolado não fecha Bipolar II: exige também história de pelo menos 1 episódio depressivo maior (ver módulo Depressão Maior) e ausência de qualquer episódio maníaco pleno ao longo da vida. C (nível transtorno — não confundir com o C/D do episódio acima): a ocorrência dos episódios hipomaníaco(s) e depressivo(s) maior(es) não pode ser mais bem explicada por transtorno esquizoafetivo, esquizofrenia, transtorno esquizofreniforme, transtorno delirante ou outro transtorno do espectro psicótico. D (nível transtorno): os sintomas depressivos ou a imprevisibilidade causada pela alternância frequente entre episódios causam sofrimento clinicamente significativo ou prejuízo funcional.",
     },
   },
 };

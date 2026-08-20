@@ -93,7 +93,7 @@ export const personalidadeBorderline: Diagnostico = {
       { id: "b2", pergunta: "Seus relacionamentos costumam alternar entre idealizar a pessoa (achar ela perfeita) e desvalorizar ela (achar ela péssima)?" },
       { id: "b3", pergunta: "Você sente uma instabilidade marcante em quem você é ou em como se vê como pessoa?" },
       { id: "b4", pergunta: "Você age de forma impulsiva em pelo menos 2 áreas que podem te prejudicar (gastos, sexo, uso de substâncias, direção perigosa, compulsão alimentar), sem contar comportamento suicida/automutilação?" },
-      { id: "b5", pergunta: "Você já teve comportamentos, gestos ou ameaças de suicídio, ou já se machucou de propósito, de forma recorrente?" },
+      { id: "b5", pergunta: "Você já teve comportamentos, gestos ou ameaças de suicídio, ou já se machucou de propósito, de forma recorrente?", sinalizaRisco: true },
       { id: "b6", pergunta: "Seu humor muda muito rápido e de forma intensa — episódios de tristeza, irritação ou ansiedade que duram horas, raramente mais que alguns dias?" },
       { id: "b7", pergunta: "Você sente um vazio crônico?" },
       { id: "b8", pergunta: "Você sente raiva intensa ou desproporcional, ou tem dificuldade para controlar a raiva?" },

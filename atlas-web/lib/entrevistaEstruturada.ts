@@ -83,3 +83,28 @@ export function avaliarAlgoritmo(
       alternativasAtingidas,
   };
 }
+
+// Contagem pra exibir ao usuário (badge/nota), não pra decidir fechamento.
+// Quando o algoritmo usa `alternativas` (ex.: TDAH — fecha com >=6 de 9 em
+// desatenção OU >=6 de 9 em hiperatividade, nunca somando os dois), somar
+// tudo no `itensContaveis` do nível pai mistura os 2 subgrupos e produz um
+// total enganoso (ex.: "6/18") mesmo quando nenhum subgrupo isolado bateu o
+// limiar. Nesses casos, retorna o subgrupo com mais itens positivos — o
+// mais perto de fechar — em vez da soma cega dos 2.
+export function contagemExibivel(
+  respostas: Map<string, boolean>,
+  algoritmo: RegraAlgoritmoEntrevista
+): { contagem: number; total: number } {
+  if (algoritmo.alternativas && algoritmo.alternativas.length > 0) {
+    return algoritmo.alternativas
+      .map((alt) => ({
+        contagem: avaliarAlgoritmo(respostas, alt).contagemPositiva,
+        total: alt.itensContaveis.length,
+      }))
+      .sort((a, b) => b.contagem - a.contagem)[0];
+  }
+  return {
+    contagem: algoritmo.itensContaveis.filter((id) => respostas.get(id) === true).length,
+    total: algoritmo.itensContaveis.length,
+  };
+}

@@ -89,7 +89,14 @@ export const tdah: Diagnostico = {
   ],
 
   entrevistaEstruturada: {
-    criteriosRastreioIds: ["i2", "h1"],
+    // Rastreio por qualquer um dos 18 itens de desatenção/hiperatividade
+    // (não só i2/h1 isolados, que eram uma escolha arbitrária): como o
+    // Critério A fecha por 2 subgrupos independentes (ver `alternativas`
+    // abaixo), abrir o módulo com qualquer sintoma reconhecido de qualquer
+    // um dos 2 domínios é o que reflete a lógica clínica real — os gates
+    // "c" (pervasividade) e "d" (prejuízo funcional) ficam de fora do
+    // rastreio por serem confirmações posteriores, não sintomas de entrada.
+    criteriosRastreioIds: ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9"],
     criterios: [
       { id: "i1", pergunta: "Você comete erros por descuido ou deixa passar detalhes em tarefas ou atividades?", grupo: "desatencao" },
       { id: "i2", pergunta: "Você tem dificuldade para manter atenção em tarefas ou atividades, mesmo as que gosta?", grupo: "desatencao" },

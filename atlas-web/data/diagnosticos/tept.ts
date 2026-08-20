@@ -120,7 +120,7 @@ export const tept: Diagnostico = {
       ],
       duracaoMinima: "A perturbação (critérios B, C, D e E) persiste por mais de 1 mês",
       observacaoExclusao:
-        "G: sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. H: não atribuível a efeito fisiológico de substância ou outra condição médica. Diferenciar de Transtorno de Estresse Agudo (mesma sintomatologia, duração entre 3 dias e 1 mês). Avaliar especificadores: com sintomas dissociativos (despersonalização/desrealização) e com expressão tardia (critérios plenos só satisfeitos 6+ meses após o evento).",
+        "ATENÇÃO — risco de segurança: risco aumentado de comportamento suicida — rastrear ativamente (ex.: escala C-SSRS), especialmente diante de exacerbação por lembretes ou estressores adicionais. G: sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. H: não atribuível a efeito fisiológico de substância ou outra condição médica. Diferenciar de Transtorno de Estresse Agudo (mesma sintomatologia, duração entre 3 dias e 1 mês). Avaliar especificadores: com sintomas dissociativos (despersonalização/desrealização) e com expressão tardia (critérios plenos só satisfeitos 6+ meses após o evento).",
     },
   },
 };

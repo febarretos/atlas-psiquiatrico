@@ -130,7 +130,7 @@ export const depressaoMaior: Diagnostico = {
       { id: "a6", pergunta: "Você tem se sentido cansado(a) ou sem energia quase todos os dias?" },
       { id: "a7", pergunta: "Você tem se sentido inútil ou com culpa excessiva ou inadequada quase todos os dias?" },
       { id: "a8", pergunta: "Você tem tido dificuldade para pensar, se concentrar ou tomar decisões quase todos os dias?" },
-      { id: "a9", pergunta: "Você tem tido pensamentos recorrentes sobre morte, chegou a pensar em se matar (mesmo sem um plano), ou chegou a fazer um plano ou uma tentativa de suicídio?" },
+      { id: "a9", pergunta: "Você tem tido pensamentos recorrentes sobre morte, chegou a pensar em se matar (mesmo sem um plano), ou chegou a fazer um plano ou uma tentativa de suicídio?", sinalizaRisco: true },
     ],
     algoritmo: {
       contagemMinima: 5,

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { diagnosticos } from "../data/diagnosticos/index.ts";
 import type { EntrevistaEstruturada } from "../data/diagnosticos/types.ts";
-import { avaliarAlgoritmo, avaliarRastreio } from "./entrevistaEstruturada.ts";
+import { avaliarAlgoritmo, avaliarRastreio, contagemExibivel } from "./entrevistaEstruturada.ts";
 import { validarIntegridadeEntrevista } from "./validarEntrevistaEstruturada.ts";
 
 // ─────────────────────────────────────────────────────────────
@@ -16,6 +16,34 @@ for (const diagnostico of diagnosticos) {
   test(`${diagnostico.id}: entrevistaEstruturada passa na validação de integridade`, () => {
     const problemas = validarIntegridadeEntrevista(diagnostico.entrevistaEstruturada!);
     assert.deepEqual(problemas, [], problemas.join("\n"));
+  });
+
+  // Invariante de satisfatibilidade: respondendo TODOS os critérios como
+  // positivos, o algoritmo formal precisa necessariamente fechar. Se não
+  // fechar, há um erro estrutural (id referenciado errado, contagemMinima
+  // .../subgrupo mal calibrado) que a validação de integridade sozinha não
+  // pega — foi assim que os bugs de TOC/TAG/TDAH desta mesma base foram
+  // encontrados manualmente; este teste automatiza essa checagem pros 33.
+  test(`${diagnostico.id}: entrevistaEstruturada é satisfazível (todos os critérios positivos fecha o algoritmo formal)`, () => {
+    const entrevista = diagnostico.entrevistaEstruturada!;
+    const todosPositivos = new Map(entrevista.criterios.map((c) => [c.id, true]));
+    const resultado = avaliarAlgoritmo(todosPositivos, entrevista.algoritmo);
+    assert.equal(
+      resultado.criteriosFormaisAtingidos,
+      true,
+      `com todos os ${entrevista.criterios.length} critérios positivos, o algoritmo formal deveria fechar`
+    );
+  });
+
+  // Invariante de rastreio: pelo menos 1 critério de rastreio precisa
+  // conseguir, sozinho, abrir o módulo (avaliarRastreio "positivo") — já
+  // garantido estruturalmente por criteriosRastreioIds não vazio (checado
+  // pelo validador), mas este teste exercita avaliarRastreio de verdade.
+  test(`${diagnostico.id}: pelo menos 1 critério de rastreio abre o módulo sozinho`, () => {
+    const entrevista = diagnostico.entrevistaEstruturada!;
+    const primeiroRastreioId = entrevista.criteriosRastreioIds[0];
+    const estado = avaliarRastreio(new Map([[primeiroRastreioId, true]]), entrevista.criteriosRastreioIds);
+    assert.equal(estado, "positivo");
   });
 }
 
@@ -331,4 +359,48 @@ test("avaliarAlgoritmo: item não respondido conta como negativo, não lança er
   const resultado = avaliarAlgoritmo(new Map(), entrevistaBase.algoritmo);
   assert.equal(resultado.contagemPositiva, 0);
   assert.equal(resultado.criteriosFormaisAtingidos, false);
+});
+
+// ─────────────────────────────────────────────────────────────
+// contagemExibivel — contagem pra exibição (badge/nota), distinta de
+// contagemPositiva usada internamente pra fechar o algoritmo. Sem
+// `alternativas`, é igual à contagem simples; com `alternativas` (ex.:
+// TDAH), soma cega dos 2 subgrupos seria enganosa (ex.: "6/18" sem
+// nenhum subgrupo isolado bater 6) — usa o subgrupo com mais positivos.
+// ─────────────────────────────────────────────────────────────
+
+test("contagemExibivel: sem alternativas, é igual à contagem simples de itensContaveis", () => {
+  const resultado = contagemExibivel(marcados([["a1", true], ["a2", false], ["b", true]]), entrevistaBase.algoritmo);
+  assert.deepEqual(resultado, { contagem: 2, total: 4 });
+});
+
+test("contagemExibivel: com alternativas, mostra o subgrupo com mais positivos (não a soma cega)", () => {
+  const algoritmo = {
+    itensContaveis: ["i1", "i2", "i3", "h1", "h2", "h3"],
+    alternativas: [
+      { itensContaveis: ["i1", "i2", "i3"], contagemMinima: 3 },
+      { itensContaveis: ["h1", "h2", "h3"], contagemMinima: 3 },
+    ],
+  };
+  // 2 de cada grupo = 4 na soma cega, mas nenhum subgrupo isolado bate 3.
+  const resultado = contagemExibivel(
+    marcados([["i1", true], ["i2", true], ["h1", true], ["h2", true]]),
+    algoritmo
+  );
+  assert.deepEqual(resultado, { contagem: 2, total: 3 });
+});
+
+test("contagemExibivel: com alternativas, reflete o subgrupo que efetivamente fechou", () => {
+  const algoritmo = {
+    itensContaveis: ["i1", "i2", "i3", "h1", "h2", "h3"],
+    alternativas: [
+      { itensContaveis: ["i1", "i2", "i3"], contagemMinima: 3 },
+      { itensContaveis: ["h1", "h2", "h3"], contagemMinima: 3 },
+    ],
+  };
+  const resultado = contagemExibivel(
+    marcados([["i1", true], ["i2", true], ["i3", true], ["h1", true]]),
+    algoritmo
+  );
+  assert.deepEqual(resultado, { contagem: 3, total: 3 });
 });
