@@ -87,4 +87,41 @@ export const tdah: Diagnostico = {
     "CID-11 (OMS)",
     "Ministério da Saúde (Brasil). Protocolo Clínico e Diretrizes Terapêuticas (PCDT) — Transtorno do Déficit de Atenção com Hiperatividade (TDAH) (gov.br/saude)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["i2", "h1"],
+    criterios: [
+      { id: "i1", pergunta: "Você comete erros por descuido ou deixa passar detalhes em tarefas ou atividades?", grupo: "desatencao" },
+      { id: "i2", pergunta: "Você tem dificuldade para manter atenção em tarefas ou atividades, mesmo as que gosta?", grupo: "desatencao" },
+      { id: "i3", pergunta: "Parece que você não está ouvindo quando falam diretamente com você?", grupo: "desatencao" },
+      { id: "i4", pergunta: "Você não segue instruções até o fim ou não termina tarefas (trabalho, escola, afazeres)?", grupo: "desatencao" },
+      { id: "i5", pergunta: "Você tem dificuldade para organizar tarefas e atividades?", grupo: "desatencao" },
+      { id: "i6", pergunta: "Você evita ou reluta em fazer tarefas que exigem esforço mental prolongado (relatórios, formulários longos)?", grupo: "desatencao" },
+      { id: "i7", pergunta: "Você perde objetos necessários para tarefas (chaves, óculos, documentos, celular)?", grupo: "desatencao" },
+      { id: "i8", pergunta: "Você se distrai facilmente com estímulos ao redor?", grupo: "desatencao" },
+      { id: "i9", pergunta: "Você esquece compromissos ou atividades do dia a dia?", grupo: "desatencao" },
+      { id: "h1", pergunta: "Você remexe as mãos ou os pés, ou se contorce na cadeira?", grupo: "hiperatividade" },
+      { id: "h2", pergunta: "Você se levanta em situações em que deveria continuar sentado(a)?", grupo: "hiperatividade" },
+      { id: "h3", pergunta: "Você sente uma inquietação interna difícil de controlar (ou, quando criança, corria/subia em lugares inadequados)?", grupo: "hiperatividade" },
+      { id: "h4", pergunta: "Você tem dificuldade para fazer atividades de lazer calmamente?", grupo: "hiperatividade" },
+      { id: "h5", pergunta: "Você se sente frequentemente \"a mil\" ou \"com o motor ligado\"?", grupo: "hiperatividade" },
+      { id: "h6", pergunta: "Você fala em excesso?", grupo: "hiperatividade" },
+      { id: "h7", pergunta: "Você responde a perguntas antes que terminem de ser feitas?", grupo: "hiperatividade" },
+      { id: "h8", pergunta: "Você tem dificuldade para esperar sua vez?", grupo: "hiperatividade" },
+      { id: "h9", pergunta: "Você interrompe ou se intromete em conversas, jogos ou atividades de outras pessoas?", grupo: "hiperatividade" },
+      { id: "c", pergunta: "Esses sintomas aparecem em pelo menos 2 ambientes diferentes da sua vida (casa, trabalho, escola, com amigos/família)?" },
+      { id: "d", pergunta: "Há evidências claras de que esses sintomas atrapalham seu funcionamento social, acadêmico ou profissional?" },
+    ],
+    algoritmo: {
+      itensContaveis: ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9"],
+      gruposObrigatorios: [["c"], ["d"]],
+      alternativas: [
+        { itensContaveis: ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9"], contagemMinima: 6 },
+        { itensContaveis: ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9"], contagemMinima: 6 },
+      ],
+      duracaoMinima: "Sintomas presentes por pelo menos 6 meses; vários sintomas devem estar presentes antes dos 12 anos de idade. Em adolescentes >=17 anos e adultos, o limiar de contagem cai para 5 (não 6) por lista — o algoritmo usa 6 fixo; se o paciente tiver >=17 anos, considerar fechado também com 5 num único subgrupo.",
+      observacaoExclusao:
+        "O Critério A fecha com >=6 de 9 itens (>=5 se >=17 anos, avaliar manualmente essa exceção) NO MESMO subgrupo — desatenção OU hiperatividade-impulsividade, nunca somando os dois (modelado via `alternativas`, que avalia cada subgrupo isoladamente). E: os sintomas não ocorrem exclusivamente durante esquizofrenia/outro transtorno psicótico, e não são mais bem explicados por outro transtorno mental (humor, ansiedade, dissociativo, personalidade, intoxicação/abstinência de substância). Avaliar especificador de apresentação (combinada — ambos os subgrupos batem o limiar —, predominantemente desatenta, ou predominantemente hiperativa-impulsiva) e gravidade.",
+    },
+  },
 };

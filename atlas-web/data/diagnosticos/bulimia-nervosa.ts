@@ -76,4 +76,20 @@ export const bulimiaNervosa: Diagnostico = {
     "Fluoxetine Bulimia Nervosa Collaborative Study Group",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a", "b"],
+    criterios: [
+      { id: "a", pergunta: "Você já teve episódios em que comeu, num período curto de tempo (ex.: 2 horas), uma quantidade de comida claramente maior do que a maioria das pessoas comeria, com sensação de não conseguir parar ou controlar o que ou quanto estava comendo?" },
+      { id: "b", pergunta: "Depois desses episódios, você fez algo para evitar ganhar peso, como vômito autoinduzido, uso de laxantes ou diuréticos, jejum ou exercício físico excessivo?" },
+      { id: "d", pergunta: "Seu peso ou forma corporal influenciam muito como você se avalia como pessoa?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["a", "b", "d"],
+      duracaoMinima: "Compulsão alimentar e comportamentos compensatórios inadequados, em média, pelo menos 1 vez por semana, durante 3 meses",
+      observacaoExclusao:
+        "E: a perturbação não ocorre exclusivamente durante episódios de anorexia nervosa — se ocorrer nesse contexto, o diagnóstico é anorexia nervosa tipo compulsão alimentar purgativa, não bulimia. Avaliar especificador de gravidade pela frequência média de comportamentos compensatórios por semana (leve 1-3; moderada 4-7; grave 8-13; extrema 14+) e remissão. Monitorizar eletrólitos (potássio, magnésio) em purgação frequente.",
+    },
+  },
 };

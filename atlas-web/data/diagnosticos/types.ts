@@ -101,6 +101,20 @@ export interface RegraAlgoritmoEntrevista {
   // dentro de cada um, o mínimo é local a esse subgrupo, não ao total.
   subgruposComMinimo?: { itens: string[]; minimo: number }[];
 
+  // Generalização máxima: quando um diagnóstico é satisfeito por
+  // subtipos alternativos e mutuamente independentes (ex: TDAH fecha o
+  // Critério A com >=6 de 9 itens de desatenção OU >=6 de 9 itens de
+  // hiperatividade-impulsividade — nunca somando os dois grupos) — cada
+  // alternativa é uma RegraAlgoritmoEntrevista completa, avaliada
+  // recursivamente com as MESMAS respostas; basta 1 alternativa fechar
+  // sozinha (OR entre alternativas). Os demais campos deste nível
+  // (contagemMinima/itensContaveis/gruposObrigatorios/subgruposComMinimo)
+  // continuam válidos e se combinam via AND com o resultado das
+  // alternativas, quando ambos estão presentes — na prática, a maioria
+  // dos diagnósticos com `alternativas` deixa os demais campos vazios/
+  // omitidos neste nível, delegando toda a lógica pras alternativas.
+  alternativas?: RegraAlgoritmoEntrevista[];
+
   // Duração mínima exigida pelo DSM (ex: "2 semanas", "6 meses") — texto
   // livre, NUNCA avaliada automaticamente pelo motor: é responsabilidade
   // do clínico confirmar durante a entrevista.

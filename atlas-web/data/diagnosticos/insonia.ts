@@ -87,4 +87,21 @@ export const insonia: Diagnostico = {
     "NICE Guideline NG223 - Insomnia",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2", "a3"],
+    criterios: [
+      { id: "a1", pergunta: "Você tem dificuldade para iniciar o sono?", grupo: "A" },
+      { id: "a2", pergunta: "Você tem dificuldade para manter o sono, com despertares frequentes ou dificuldade para voltar a dormir depois de acordar?", grupo: "A" },
+      { id: "a3", pergunta: "Você acorda muito cedo pela manhã e não consegue voltar a dormir?", grupo: "A" },
+      { id: "b", pergunta: "Essa dificuldade de sono causa sofrimento significativo ou atrapalha seu funcionamento social, no trabalho, na escola ou em outras áreas importantes?" },
+    ],
+    algoritmo: {
+      itensContaveis: ["a1", "a2", "a3", "b"],
+      gruposObrigatorios: [["a1", "a2", "a3"], ["b"]],
+      duracaoMinima: "Pelo menos 3 noites por semana, por pelo menos 3 meses",
+      observacaoExclusao:
+        "E: ocorre apesar de oportunidade adequada para dormir. F: não mais bem explicada por outro transtorno do sono-vigília (narcolepsia, apneia do sono, transtorno do ritmo circadiano, parassonia) e não ocorre exclusivamente durante o curso desse outro transtorno. G: não atribuível a efeito fisiológico de substância ou medicamento. H: a coexistência de transtornos mentais/condições médicas não explica adequadamente a queixa predominante de insônia. Avaliar especificador episódico (1 a <3 meses), persistente (>=3 meses) ou recorrente (2+ episódios/ano).",
+    },
+  },
 };

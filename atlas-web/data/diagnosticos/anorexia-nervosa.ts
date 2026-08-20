@@ -75,4 +75,20 @@ export const anorexiaNervosa: Diagnostico = {
     "Royal College of Psychiatrists - MARSIPAN: Management of Really Sick Patients with Anorexia Nervosa",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você tem restringido sua alimentação a ponto de estar com um peso significativamente abaixo do esperado para sua idade, sexo e altura?" },
+      { id: "b", pergunta: "Você sente medo intenso de ganhar peso ou de engordar, ou faz coisas para impedir o ganho de peso, mesmo estando com peso baixo?" },
+      { id: "c", pergunta: "Você enxerga seu peso ou sua forma corporal de um jeito distorcido, deixa seu peso/forma influenciar muito como você se avalia, ou não reconhece a gravidade do seu baixo peso atual?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["a", "b", "c"],
+      duracaoMinima: "Não há duração mínima formal — o especificador de subtipo (restritivo vs. compulsão alimentar/purgativo) considera os últimos 3 meses de comportamento",
+      observacaoExclusao:
+        "Investigar e excluir (ou considerar concomitantes) causas médicas de perda de peso (doenças gastrointestinais, hipertireoidismo, neoplasias). Avaliar risco de síndrome de realimentação antes de iniciar reabilitação nutricional supervisionada. Avaliar especificador de subtipo (restritivo vs. compulsão/purgativo, últimos 3 meses), remissão (parcial/completa) e gravidade por IMC (leve >=17; moderada 16-16,99; grave 15-15,99; extrema <15).",
+    },
+  },
 };

@@ -33,6 +33,7 @@ export interface ResultadoAlgoritmo {
   contagemMinimaAtingida: boolean;
   gruposObrigatoriosAtingidos: boolean;
   subgruposComMinimoAtingidos: boolean;
+  alternativasAtingidas: boolean;
   criteriosFormaisAtingidos: boolean;
 }
 
@@ -40,6 +41,10 @@ export interface ResultadoAlgoritmo {
 // diferencial (RegraAlgoritmoEntrevista.duracaoMinima/observacaoExclusao)
 // são deliberadamente texto livre, nunca avaliados aqui: permanecem
 // julgamento clínico humano, mesma filosofia de CriteriosChecklist.tsx.
+// Recursiva por causa de `alternativas` (ex: TDAH fecha com >=6 de 9 em
+// desatenção OU >=6 de 9 em hiperatividade — nunca somando os dois
+// grupos; sem isso, uma contagem global permitiria fechar com itens
+// misturados dos dois grupos, o que violaria o DSM).
 export function avaliarAlgoritmo(
   respostas: Map<string, boolean>,
   algoritmo: RegraAlgoritmoEntrevista
@@ -60,12 +65,21 @@ export function avaliarAlgoritmo(
     (sg) => sg.itens.filter((id) => respostas.get(id) === true).length >= sg.minimo
   );
 
+  const alternativasAtingidas =
+    algoritmo.alternativas === undefined ||
+    algoritmo.alternativas.length === 0 ||
+    algoritmo.alternativas.some((alt) => avaliarAlgoritmo(respostas, alt).criteriosFormaisAtingidos);
+
   return {
     contagemPositiva,
     contagemMinimaAtingida,
     gruposObrigatoriosAtingidos,
     subgruposComMinimoAtingidos,
+    alternativasAtingidas,
     criteriosFormaisAtingidos:
-      contagemMinimaAtingida && gruposObrigatoriosAtingidos && subgruposComMinimoAtingidos,
+      contagemMinimaAtingida &&
+      gruposObrigatoriosAtingidos &&
+      subgruposComMinimoAtingidos &&
+      alternativasAtingidas,
   };
 }

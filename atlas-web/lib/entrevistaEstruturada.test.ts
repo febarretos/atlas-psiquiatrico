@@ -263,6 +263,70 @@ test("validarIntegridadeEntrevista: pega subgruposComMinimo referenciando crité
   assert.ok(problemas.some((p) => p.includes("subgruposComMinimo") && p.includes("fantasma")));
 });
 
+// ─────────────────────────────────────────────────────────────
+// alternativas — OR recursivo entre sub-regras completas (ex: TDAH
+// fecha com >=6 de 9 em desatenção OU >=6 de 9 em hiperatividade, nunca
+// somando os dois grupos).
+// ─────────────────────────────────────────────────────────────
+
+test("avaliarAlgoritmo: alternativas — nenhuma bate, não fecha (ainda que a soma global bateria)", () => {
+  const algoritmo = {
+    itensContaveis: [],
+    alternativas: [
+      { itensContaveis: ["i1", "i2", "i3"], contagemMinima: 3 },
+      { itensContaveis: ["h1", "h2", "h3"], contagemMinima: 3 },
+    ],
+  };
+  // 2 de cada grupo = 4 no total, mas nenhum grupo isolado bate 3.
+  const resultado = avaliarAlgoritmo(
+    marcados([["i1", true], ["i2", true], ["h1", true], ["h2", true]]),
+    algoritmo
+  );
+  assert.equal(resultado.alternativasAtingidas, false);
+  assert.equal(resultado.criteriosFormaisAtingidos, false);
+});
+
+test("avaliarAlgoritmo: alternativas — uma bate sozinha, fecha", () => {
+  const algoritmo = {
+    itensContaveis: [],
+    alternativas: [
+      { itensContaveis: ["i1", "i2", "i3"], contagemMinima: 3 },
+      { itensContaveis: ["h1", "h2", "h3"], contagemMinima: 3 },
+    ],
+  };
+  const resultado = avaliarAlgoritmo(
+    marcados([["i1", true], ["i2", true], ["i3", true], ["h1", true]]),
+    algoritmo
+  );
+  assert.equal(resultado.alternativasAtingidas, true);
+  assert.equal(resultado.criteriosFormaisAtingidos, true);
+});
+
+test("avaliarAlgoritmo: alternativas combinam via AND com gruposObrigatorios do mesmo nível", () => {
+  const algoritmo = {
+    itensContaveis: [],
+    gruposObrigatorios: [["prejuizo"]],
+    alternativas: [{ itensContaveis: ["i1"], contagemMinima: 1 }],
+  };
+  const semPrejuizo = avaliarAlgoritmo(marcados([["i1", true], ["prejuizo", false]]), algoritmo);
+  assert.equal(semPrejuizo.criteriosFormaisAtingidos, false);
+
+  const comPrejuizo = avaliarAlgoritmo(marcados([["i1", true], ["prejuizo", true]]), algoritmo);
+  assert.equal(comPrejuizo.criteriosFormaisAtingidos, true);
+});
+
+test("validarIntegridadeEntrevista: pega id inexistente dentro de uma alternativa", () => {
+  const quebrada: EntrevistaEstruturada = {
+    ...entrevistaBase,
+    algoritmo: {
+      ...entrevistaBase.algoritmo,
+      alternativas: [{ itensContaveis: ["fantasma"], contagemMinima: 1 }],
+    },
+  };
+  const problemas = validarIntegridadeEntrevista(quebrada);
+  assert.ok(problemas.some((p) => p.includes("alternativas[0]") && p.includes("fantasma")));
+});
+
 test("avaliarAlgoritmo: item não respondido conta como negativo, não lança erro", () => {
   const resultado = avaliarAlgoritmo(new Map(), entrevistaBase.algoritmo);
   assert.equal(resultado.contagemPositiva, 0);

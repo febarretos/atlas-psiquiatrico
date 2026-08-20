@@ -95,4 +95,29 @@ export const tea: Diagnostico = {
     "American Academy of Pediatrics - Clinical Report on Identification, Evaluation, and Management of Autism Spectrum Disorder",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2", "a3"],
+    criterios: [
+      { id: "a1", pergunta: "Você tem dificuldade em iniciar interações sociais, compartilhar interesses/emoções com outras pessoas, ou manter uma conversa de forma recíproca?", grupo: "A" },
+      { id: "a2", pergunta: "Você tem dificuldade com comunicação não-verbal — contato visual, expressões faciais, gestos ou linguagem corporal — na interação social?", grupo: "A" },
+      { id: "a3", pergunta: "Você tem dificuldade para desenvolver, manter ou entender relacionamentos (ajustar comportamento a diferentes contextos sociais, fazer amizades, interesse por outras pessoas)?", grupo: "A" },
+      { id: "b1", pergunta: "Você tem movimentos, uso de objetos ou fala repetitivos ou estereotipados?", grupo: "B" },
+      { id: "b2", pergunta: "Você tem insistência nas mesmas rotinas, ou sofre muito com pequenas mudanças ou transições?", grupo: "B" },
+      { id: "b3", pergunta: "Você tem interesses muito fixos e restritos, incomuns em intensidade ou foco?", grupo: "B" },
+      { id: "b4", pergunta: "Você reage de forma muito intensa (ou muito pouco) a estímulos sensoriais — sons, texturas, luzes, dor, temperatura?", grupo: "B" },
+      { id: "d", pergunta: "Esses sintomas causam prejuízo significativo no seu funcionamento social, ocupacional ou em outras áreas importantes da vida?" },
+    ],
+    algoritmo: {
+      itensContaveis: ["a1", "a2", "a3", "b1", "b2", "b3", "b4", "d"],
+      gruposObrigatorios: [["d"]],
+      subgruposComMinimo: [
+        { itens: ["a1", "a2", "a3"], minimo: 3 },
+        { itens: ["b1", "b2", "b3", "b4"], minimo: 2 },
+      ],
+      duracaoMinima: "Sintomas presentes desde o período de desenvolvimento inicial (mesmo que só reconhecidos plenamente mais tarde, quando as demandas sociais excedem as capacidades, ou mascarados por estratégias aprendidas)",
+      observacaoExclusao:
+        "E: não mais bem explicado por deficiência intelectual ou atraso global do desenvolvimento isolados (podem ser comórbidos, mas nesse caso a comunicação social deve estar abaixo do esperado para o nível geral de desenvolvimento). Avaliar especificador de nível de suporte necessário (1, 2 ou 3) para cada domínio separadamente, e comorbidade intelectual/de linguagem.",
+    },
+  },
 };
