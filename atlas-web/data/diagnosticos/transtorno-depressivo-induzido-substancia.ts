@@ -72,4 +72,19 @@ export const transtornoDepressivoInduzidoSubstancia: Diagnostico = {
     "Sadock's Comprehensive Textbook of Psychiatry - capítulo sobre transtornos induzidos por substância/medicamento",
     "APA Practice Guideline for the Treatment of Patients with Substance Use Disorders",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você tem se sentido com humor deprimido, ou perdeu o interesse/prazer nas coisas de forma marcante, predominando no seu quadro atual?" },
+      { id: "b", pergunta: "Esses sintomas começaram durante ou logo depois do uso, da intoxicação ou da abstinência de alguma substância, ou depois de começar a usar algum medicamento — e essa substância/medicamento é conhecida por poder causar esse tipo de sintoma?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["a", "b"],
+      duracaoMinima: "Não há limiar numérico formal para este diagnóstico (diferente dos demais do lote); a única referência temporal relevante é diferencial (ver critério C em observacaoExclusao: ~1 mês de persistência após cessação da abstinência aguda/intoxicação grave sugere transtorno independente, não induzido)",
+      observacaoExclusao:
+        "C (o critério mais importante deste diagnóstico, sempre julgamento clínico): a perturbação NÃO deve ser mais bem explicada por um transtorno depressivo independente. Sustentam transtorno independente (não induzido): sintomas que precederam o início do uso da substância/medicamento; sintomas que persistem por período substancial (sugerido ~1 mês) após cessação da abstinência aguda/intoxicação grave; ou história de episódios depressivos prévios recorrentes não relacionados a substâncias. D: a perturbação não ocorre exclusivamente durante delirium. E: a perturbação causa sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes. Substâncias/medicamentos mais implicados: álcool, corticosteroides sistêmicos, interferon, betabloqueadores, metildopa, isotretinoína, abstinência de estimulantes.",
+    },
+  },
 };

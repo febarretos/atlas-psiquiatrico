@@ -5,28 +5,34 @@ import Link from "next/link";
 
 import Badge from "./Badge";
 import BotaoCopiarProntuario from "./BotaoCopiarProntuario";
+import EntrevistaEstruturadaModulo from "./EntrevistaEstruturadaModulo";
 import SearchBar from "./SearchBar";
 
 import { Diagnostico } from "../data/diagnosticos/types";
+import { chaveCriterio } from "../lib/entrevistaEstruturada";
+import { gerarTextoEntrevistaEstruturada, type RespostaModuloEntrevista } from "../lib/gerarTextoProntuario";
 
 interface Props {
   diagnosticos: Diagnostico[];
 }
 
-// Chave estável pra identificar um item marcado: id do diagnóstico + índice
-// do critério dentro de criteriosDiagnosticos.
-function chaveItem(diagnosticoId: string, indice: number): string {
+// Chave estável pra um item marcado no checklist LEGADO (diagnósticos sem
+// entrevistaEstruturada ainda autorada) — id do diagnóstico + índice do
+// critério dentro de criteriosDiagnosticos.
+function chaveItemLegado(diagnosticoId: string, indice: number): string {
   return `${diagnosticoId}::${indice}`;
 }
 
 export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) {
   const [busca, setBusca] = useState("");
-  const [marcados, setMarcados] = useState<Set<string>>(new Set());
+  const [pacienteLabel, setPacienteLabel] = useState("");
+  const [marcadosLegado, setMarcadosLegado] = useState<Set<string>>(new Set());
   const [abertos, setAbertos] = useState<Set<string>>(new Set());
+  const [respostasEstruturadas, setRespostasEstruturadas] = useState<Map<string, boolean>>(new Map());
 
-  function alternarItem(diagnosticoId: string, indice: number) {
-    const chave = chaveItem(diagnosticoId, indice);
-    setMarcados((atual) => {
+  function alternarItemLegado(diagnosticoId: string, indice: number) {
+    const chave = chaveItemLegado(diagnosticoId, indice);
+    setMarcadosLegado((atual) => {
       const novo = new Set(atual);
       if (novo.has(chave)) novo.delete(chave);
       else novo.add(chave);
@@ -41,6 +47,36 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
       else novo.add(diagnosticoId);
       return novo;
     });
+  }
+
+  function responderCriterioEstruturado(
+    diagnosticoId: string,
+    criterioId: string,
+    valor: boolean | undefined
+  ) {
+    setRespostasEstruturadas((atual) => {
+      const novo = new Map(atual);
+      const chave = chaveCriterio(diagnosticoId, criterioId);
+      if (valor === undefined) novo.delete(chave);
+      else novo.set(chave, valor);
+      return novo;
+    });
+  }
+
+  // Extrai, do Map global (chave composta), só as respostas de 1
+  // diagnóstico, com a chave "crua" que o motor/algoritmo espera.
+  function respostasDoModulo(diagnosticoId: string): Map<string, boolean> {
+    const prefixo = `${diagnosticoId}::`;
+    const resultado = new Map<string, boolean>();
+    for (const [chave, valor] of respostasEstruturadas) {
+      if (chave.startsWith(prefixo)) resultado.set(chave.slice(prefixo.length), valor);
+    }
+    return resultado;
+  }
+
+  function limparMarcacoes() {
+    setMarcadosLegado(new Set());
+    setRespostasEstruturadas(new Map());
   }
 
   const modulos = useMemo(() => {
@@ -63,31 +99,61 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
       .sort((a, b) => a.categoria.localeCompare(b.categoria));
   }, [diagnosticos, busca]);
 
-  const totalMarcados = marcados.size;
+  const totalMarcados =
+    marcadosLegado.size + [...respostasEstruturadas.values()].filter(Boolean).length;
 
+  // Texto final SEMPRE construído a partir de `diagnosticos` (lista
+  // completa, não a `modulos` filtrada pela busca) — pra nunca perder um
+  // item marcado que saiu do filtro de busca no meio da sessão.
   const textoResumo = useMemo(() => {
     if (totalMarcados === 0) return "";
 
-    const linhas: string[] = ["ENTREVISTA ESTRUTURADA (checklist DSM-5-TR) — itens positivos:", ""];
+    const blocos: string[] = [];
 
-    for (const { categoria, diagnosticos: listaDoModulo } of modulos) {
-      const diagnosticosComMarcado = listaDoModulo.filter((d) =>
-        d.criteriosDiagnosticos.some((_, i) => marcados.has(chaveItem(d.id, i)))
+    const modulosEstruturados: RespostaModuloEntrevista[] = diagnosticos
+      .filter((d) => d.entrevistaEstruturada)
+      .map((d) => ({
+        diagnostico: d,
+        respostasCriterios: respostasDoModulo(d.id),
+      }));
+
+    const textoEstruturado = gerarTextoEntrevistaEstruturada(modulosEstruturados);
+    if (textoEstruturado) blocos.push(textoEstruturado);
+
+    const porCategoriaLegado = new Map<string, Diagnostico[]>();
+    for (const d of diagnosticos) {
+      if (d.entrevistaEstruturada) continue;
+      const lista = porCategoriaLegado.get(d.categoria) ?? [];
+      lista.push(d);
+      porCategoriaLegado.set(d.categoria, lista);
+    }
+
+    const linhasLegado: string[] = [];
+    for (const [categoria, lista] of porCategoriaLegado) {
+      const comMarcado = lista.filter((d) =>
+        d.criteriosDiagnosticos.some((_, i) => marcadosLegado.has(chaveItemLegado(d.id, i)))
       );
-      if (diagnosticosComMarcado.length === 0) continue;
+      if (comMarcado.length === 0) continue;
 
-      linhas.push(`## ${categoria}`);
-      for (const d of diagnosticosComMarcado) {
-        linhas.push(`${d.nome}:`);
+      linhasLegado.push(`## ${categoria}`);
+      for (const d of comMarcado) {
+        linhasLegado.push(`${d.nome}:`);
         d.criteriosDiagnosticos.forEach((item, i) => {
-          if (marcados.has(chaveItem(d.id, i))) linhas.push(`  [x] ${item}`);
+          if (marcadosLegado.has(chaveItemLegado(d.id, i))) linhasLegado.push(`  [x] ${item}`);
         });
-        linhas.push("");
+        linhasLegado.push("");
       }
     }
 
-    return linhas.join("\n").trim();
-  }, [modulos, marcados, totalMarcados]);
+    if (linhasLegado.length > 0) {
+      blocos.push(
+        ["CHECKLIST SIMPLES (sem algoritmo formal) — itens marcados:", "", ...linhasLegado].join("\n").trim()
+      );
+    }
+
+    return blocos.join("\n\n");
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- respostasDoModulo depende só de respostasEstruturadas, já listado
+  }, [diagnosticos, respostasEstruturadas, marcadosLegado, totalMarcados]);
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -95,16 +161,30 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
         <h1 className="text-4xl font-bold text-ink">Entrevista Diagnóstica Estruturada</h1>
 
         <p className="mt-4 text-ink-2">
-          Checklist de apoio à entrevista clínica, organizado por módulos diagnósticos, com os
-          critérios diagnósticos do DSM-5-TR já cadastrados no Atlas. Use como apoio de memória
-          durante a entrevista.
+          Entrevista tipo SCID: pergunta de rastreio por módulo (pula o módulo inteiro se
+          negativa) e cálculo ao vivo da contagem/subgrupos formais do DSM-5-TR. Diagnósticos
+          ainda não migrados pro formato estruturado aparecem como checklist simples, sem
+          algoritmo.
         </p>
 
         <p className="mt-3 text-sm text-ink-3">
-          Marcar um item aqui não calcula automaticamente se o diagnóstico &quot;fecha&quot; — a contagem
-          mínima exigida, itens obrigatórios e critérios de exclusão variam por transtorno e estão
-          descritos no próprio texto de cada item. A leitura clínica final é sempre sua.
+          O cálculo formal não substitui o julgamento clínico — duração, exclusões e diferencial
+          continuam sendo sua responsabilidade conferir. Nada aqui é salvo entre sessões nem
+          compartilhado com a ficha do diagnóstico.
         </p>
+
+        <div className="mt-5 max-w-sm print:hidden">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-3">
+            Paciente (rótulo, opcional)
+          </label>
+          <input
+            type="text"
+            value={pacienteLabel}
+            onChange={(e) => setPacienteLabel(e.target.value)}
+            placeholder="ex: iniciais ou nº de atendimento"
+            className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-accent"
+          />
+        </div>
       </div>
 
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between print:hidden">
@@ -121,10 +201,12 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
 
           {totalMarcados > 0 && (
             <>
-              <BotaoCopiarProntuario texto={textoResumo} />
+              <BotaoCopiarProntuario
+                texto={pacienteLabel ? `Paciente: ${pacienteLabel}\n\n${textoResumo}` : textoResumo}
+              />
               <button
                 type="button"
-                onClick={() => setMarcados(new Set())}
+                onClick={limparMarcacoes}
                 className="whitespace-nowrap rounded-lg border border-rule px-3 py-2 text-xs font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
               >
                 Limpar marcações
@@ -146,9 +228,22 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
 
             <div className="space-y-3">
               {listaDoModulo.map((d) => {
+                if (d.entrevistaEstruturada) {
+                  return (
+                    <EntrevistaEstruturadaModulo
+                      key={d.id}
+                      diagnostico={d}
+                      respostasCriterios={respostasDoModulo(d.id)}
+                      onResponderCriterio={(criterioId, valor) =>
+                        responderCriterioEstruturado(d.id, criterioId, valor)
+                      }
+                    />
+                  );
+                }
+
                 const aberto = abertos.has(d.id);
                 const marcadosNoDiagnostico = d.criteriosDiagnosticos.filter((_, i) =>
-                  marcados.has(chaveItem(d.id, i))
+                  marcadosLegado.has(chaveItemLegado(d.id, i))
                 ).length;
 
                 return (
@@ -180,7 +275,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
                     {(aberto || marcadosNoDiagnostico > 0) && (
                       <ul className="space-y-2 border-t border-rule-soft px-4 py-3">
                         {d.criteriosDiagnosticos.map((item, indice) => {
-                          const marcado = marcados.has(chaveItem(d.id, indice));
+                          const marcado = marcadosLegado.has(chaveItemLegado(d.id, indice));
 
                           return (
                             <li key={indice}>
@@ -188,7 +283,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
                                 <input
                                   type="checkbox"
                                   checked={marcado}
-                                  onChange={() => alternarItem(d.id, indice)}
+                                  onChange={() => alternarItemLegado(d.id, indice)}
                                   className="mt-1 h-4 w-4 accent-accent print:hidden"
                                 />
                                 <span

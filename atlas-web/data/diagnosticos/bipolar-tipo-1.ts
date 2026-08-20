@@ -107,4 +107,25 @@ export const bipolarTipo1: Diagnostico = {
     "CID-11 (OMS)",
     "Ministério da Saúde (Brasil). Protocolo Clínico e Diretrizes Terapêuticas (PCDT) — Transtorno Afetivo Bipolar do Tipo I (gov.br/saude)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você já teve um período de pelo menos 1 semana (ou de qualquer duração, se precisou ser internado) em que se sentiu anormalmente elevado(a), expansivo(a) ou irritável, com muito mais energia ou disposição do que o habitual, na maior parte do dia, quase todos os dias?" },
+      { id: "b1", pergunta: "Durante esse período, você se sentiu com autoestima muito maior que o normal, ou com ideias de grandiosidade?" },
+      { id: "b2", pergunta: "Você sentiu menos necessidade de dormir (ex.: descansado(a) com poucas horas de sono)?" },
+      { id: "b3", pergunta: "Você ficou muito mais falante do que o habitual, ou sentiu necessidade de continuar falando?" },
+      { id: "b4", pergunta: "Seus pensamentos pareciam acelerados, ou várias ideias vinham à cabeça ao mesmo tempo?" },
+      { id: "b5", pergunta: "Você ficou muito mais facilmente distraído(a) por coisas ao redor?" },
+      { id: "b6", pergunta: "Você ficou muito mais ativo(a) do que o habitual (no trabalho, socialmente, sexualmente) ou muito agitado(a)?" },
+      { id: "b7", pergunta: "Você se envolveu em atividades arriscadas com alto potencial de consequências ruins (gastos excessivos, decisões financeiras insensatas, indiscrições sexuais)?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["b1", "b2", "b3", "b4", "b5", "b6", "b7"],
+      duracaoMinima: "Pelo menos 1 semana (qualquer duração se houver hospitalização)",
+      observacaoExclusao:
+        "A contagem mínima passa a ser 4 (não 3) se o humor do período for exclusivamente irritável, sem elação/expansividade — julgamento clínico. C: a perturbação precisa ser grave o bastante para causar prejuízo acentuado, exigir hospitalização, ou cursar com características psicóticas. D: não atribuível a efeito fisiológico de substância/condição médica — exceto se emergir plenamente durante tratamento antidepressivo e persistir além do efeito fisiológico esperado do tratamento, caso em que ainda conta para o diagnóstico.",
+    },
+  },
 };

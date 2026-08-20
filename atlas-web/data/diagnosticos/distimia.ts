@@ -105,4 +105,24 @@ export const distimia: Diagnostico = {
     "Keller MB et al. - Estudos sobre depressão dupla e depressão crônica",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você tem se sentido triste ou deprimido(a) na maior parte do dia, na maioria dos dias, há pelo menos 2 anos?" },
+      { id: "b1", pergunta: "Durante esses períodos de humor deprimido, seu apetite tem estado diminuído ou aumentado?" },
+      { id: "b2", pergunta: "Você tem tido insônia ou dormido demais nesses períodos?" },
+      { id: "b3", pergunta: "Você tem se sentido com pouca energia ou cansado(a)?" },
+      { id: "b4", pergunta: "Sua autoestima tem estado baixa?" },
+      { id: "b5", pergunta: "Você tem tido dificuldade de concentração ou de tomar decisões?" },
+      { id: "b6", pergunta: "Você tem se sentido sem esperança?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["b1", "b2", "b3", "b4", "b5", "b6"],
+      duracaoMinima: "Pelo menos 2 anos em adultos (1 ano em crianças/adolescentes), sem intervalo livre de sintomas superior a 2 meses consecutivos",
+      observacaoExclusao:
+        "D: os critérios de episódio depressivo maior podem estar continuamente presentes pelos 2 anos ('depressão dupla' se sobrepuser a um episódio maior — codificar ambos). E: nunca houve episódio maníaco/hipomaníaco, nem critérios de ciclotimia já satisfeitos. F: não mais bem explicado por espectro psicótico. G: não atribuível a efeito fisiológico de substância ou outra condição médica. H: os sintomas causam sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes.",
+    },
+  },
 };

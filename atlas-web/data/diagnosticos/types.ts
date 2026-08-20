@@ -46,4 +46,78 @@ export interface Diagnostico {
   medicamentosPrimeiraLinha?: string[];
 
   referencias?: string[];
+
+  // entrevistaEstruturada: versão estruturada (tipo SCID) dos critérios
+  // deste diagnóstico, usada pelo módulo /entrevista-estruturada. Distinta
+  // de `criteriosDiagnosticos` (texto livre, pra leitura clínica na ficha
+  // do diagnóstico) — aqui cada critério é roteirizado pra pergunta ao
+  // paciente, e o algoritmo permite calcular objetivamente se a contagem/
+  // subgrupos formais do DSM-5-TR foram atingidos. Opcional: diagnósticos
+  // sem este campo continuam usando o checklist simples de
+  // `criteriosDiagnosticos` no módulo de entrevista (fallback).
+  entrevistaEstruturada?: EntrevistaEstruturada;
+}
+
+export interface CriterioEntrevista {
+  // Id curto e estável dentro do diagnóstico (ex: "a1", "a2", "b") —
+  // referenciado por RegraAlgoritmoEntrevista.itensContaveis/gruposObrigatorios
+  // e por CriterioRastreioId.
+  id: string;
+
+  // Pergunta roteirizada, pra ler ao paciente — diferente do texto do
+  // critério em `criteriosDiagnosticos`, que é escrito pra julgamento
+  // clínico, não pra leitura literal numa entrevista.
+  pergunta: string;
+
+  // Rótulo do subgrupo DSM ao qual este item pertence (ex: "A"), usado
+  // junto com RegraAlgoritmoEntrevista.gruposObrigatorios pra expressar
+  // "pelo menos 1 positivo dentre os itens do grupo A". Omitir quando o
+  // item não pertence a nenhum subgrupo obrigatório (só conta pro total).
+  grupo?: string;
+}
+
+export interface RegraAlgoritmoEntrevista {
+  // Contagem mínima de itens positivos (dentre `itensContaveis`) exigida
+  // pelo DSM-5-TR pra esse diagnóstico (ex: 5 em depressão maior). Omitir
+  // quando o diagnóstico não usa esse formato de contagem.
+  contagemMinima?: number;
+
+  // Subconjunto de ids de CriterioEntrevista que contam pra
+  // `contagemMinima`. Nem todo critério listado precisa contar pro total
+  // (ex: critérios de exclusão/duração não entram aqui).
+  itensContaveis: string[];
+
+  // Cada array interno é um subgrupo do qual pelo menos 1 item precisa
+  // ser positivo (ex: [["a1","a2"]] pra "pelo menos 1 de A1 ou A2" em
+  // depressão maior). Vários subgrupos são todos obrigatórios (AND entre
+  // os arrays, OR dentro de cada um).
+  gruposObrigatorios?: string[][];
+
+  // Duração mínima exigida pelo DSM (ex: "2 semanas", "6 meses") — texto
+  // livre, NUNCA avaliada automaticamente pelo motor: é responsabilidade
+  // do clínico confirmar durante a entrevista.
+  duracaoMinima?: string;
+
+  // Lembrete de texto sobre critérios de exclusão/diferencial do DSM (ex:
+  // "não melhor explicado por efeito fisiológico de substância ou outra
+  // condição médica") — NUNCA avaliado automaticamente: é sempre
+  // julgamento clínico humano.
+  observacaoExclusao?: string;
+}
+
+export interface EntrevistaEstruturada {
+  // Ids de CriterioEntrevista (dentro de `criterios`) que funcionam como
+  // rastreio de entrada do módulo — se NENHUM deles for positivo, o
+  // módulo inteiro é pulado (skip-out). É um OR entre eles, não um AND:
+  // basta 1 positivo pra abrir o módulo inteiro. Isso reflete o SCID de
+  // verdade — vários módulos (ex: depressão maior) rastreiam com 2
+  // perguntas em paralelo (humor deprimido OU perda de interesse), não 1
+  // só. As perguntas de rastreio já são os próprios itens de `criterios`
+  // (não há campo de texto separado) — evita perguntar a mesma coisa
+  // duas vezes.
+  criteriosRastreioIds: string[];
+
+  criterios: CriterioEntrevista[];
+
+  algoritmo: RegraAlgoritmoEntrevista;
 }

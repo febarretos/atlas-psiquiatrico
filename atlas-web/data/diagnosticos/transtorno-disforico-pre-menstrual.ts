@@ -73,4 +73,29 @@ export const transtornoDisforicoPreMenstrual: Diagnostico = {
     "ACOG Clinical Guidance - Premenstrual Syndrome and Premenstrual Dysphoric Disorder",
     "International Association for Premenstrual Disorders (IAPMD) - Clinical guidance",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["b1", "b2", "b3", "b4"],
+    criterios: [
+      { id: "b1", pergunta: "Na semana antes da menstruação, você costuma ter mudanças bruscas de humor, vontade de chorar do nada, ou fica mais sensível à rejeição?", grupo: "B" },
+      { id: "b2", pergunta: "Você fica mais irritada ou com mais raiva do que o normal, ou tem mais conflitos com outras pessoas nessa fase?", grupo: "B" },
+      { id: "b3", pergunta: "Você se sente mais triste, sem esperança, ou se critica mais nessa fase?", grupo: "B" },
+      { id: "b4", pergunta: "Você se sente mais ansiosa, tensa ou \"no limite\" nessa fase?", grupo: "B" },
+      { id: "c1", pergunta: "Seu interesse pelas atividades que você gosta diminui nessa fase?" },
+      { id: "c2", pergunta: "Você sente dificuldade de concentração nessa fase?" },
+      { id: "c3", pergunta: "Você se sente mais cansada ou sem energia nessa fase?" },
+      { id: "c4", pergunta: "Seu apetite muda muito ou você sente desejo forte por certos alimentos nessa fase?" },
+      { id: "c5", pergunta: "Você dorme muito mais ou tem dificuldade para dormir nessa fase?" },
+      { id: "c6", pergunta: "Você se sente sobrecarregada ou fora de controle nessa fase?" },
+      { id: "c7", pergunta: "Você sente dor nos seios, dor no corpo, inchaço ou ganho de peso nessa fase?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "c5", "c6", "c7"],
+      gruposObrigatorios: [["b1", "b2", "b3", "b4"]],
+      duracaoMinima: "Presente na maioria dos ciclos do último ano, começando a melhorar dias após o início do fluxo e mínimo/ausente na semana pós-menstrual — confirmação ideal por avaliação prospectiva diária durante pelo menos 2 ciclos consecutivos, não apenas relato retrospectivo",
+      observacaoExclusao:
+        "D: os sintomas estão associados a sofrimento clinicamente significativo ou interferência notável no trabalho, escola, atividades sociais habituais ou relacionamentos. E: a perturbação não pode ser mera exacerbação pré-menstrual de outro transtorno já presente fora da fase lútea (depressão maior, pânico, distimia, transtorno de personalidade) — nesses casos os sintomas basais já existem e só se intensificam antes da menstruação, o que descaracteriza TDPM como diagnóstico primário. G: não atribuível a efeito fisiológico de substância ou outra condição médica.",
+    },
+  },
 };

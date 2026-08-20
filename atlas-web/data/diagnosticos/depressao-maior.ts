@@ -118,4 +118,27 @@ export const depressaoMaior: Diagnostico = {
     "CID-11 (OMS)",
     "Diretrizes da Associação Brasileira de Psiquiatria (ABP) com a Associação Médica Brasileira (AMB) para o Tratamento da Depressão — Projeto Diretrizes AMB/CFM",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a1", "a2"],
+    criterios: [
+      { id: "a1", pergunta: "Nas últimas 2 semanas, você se sentiu triste, deprimido(a) ou sem esperança na maior parte do dia, quase todos os dias?", grupo: "A" },
+      { id: "a2", pergunta: "Nas últimas 2 semanas, você perdeu o interesse ou o prazer nas coisas que normalmente gosta de fazer, na maior parte do dia, quase todos os dias?", grupo: "A" },
+      { id: "a3", pergunta: "Você notou uma mudança importante no seu apetite ou no seu peso (para mais ou para menos), sem estar tentando, nas últimas semanas?" },
+      { id: "a4", pergunta: "Você tem tido dificuldade para dormir, ou dormido muito mais que o habitual, quase todas as noites?" },
+      { id: "a5", pergunta: "Outras pessoas notaram você mais agitado(a) ou mais lento(a) do que o habitual, quase todos os dias?" },
+      { id: "a6", pergunta: "Você tem se sentido cansado(a) ou sem energia quase todos os dias?" },
+      { id: "a7", pergunta: "Você tem se sentido inútil ou com culpa excessiva ou inadequada quase todos os dias?" },
+      { id: "a8", pergunta: "Você tem tido dificuldade para pensar, se concentrar ou tomar decisões quase todos os dias?" },
+      { id: "a9", pergunta: "Você tem tido pensamentos recorrentes de morte, de que seria melhor não estar vivo(a), ou chegou a pensar em se machucar?" },
+    ],
+    algoritmo: {
+      contagemMinima: 5,
+      itensContaveis: ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9"],
+      gruposObrigatorios: [["a1", "a2"]],
+      duracaoMinima: "Mesmo período de 2 semanas consecutivas, representando mudança em relação ao funcionamento anterior",
+      observacaoExclusao:
+        "B: sofrimento clinicamente significativo ou prejuízo funcional. C: não atribuível a efeito fisiológico de substância ou outra condição médica. D: não mais bem explicado por transtorno esquizoafetivo, esquizofrenia ou outro transtorno do espectro psicótico. E: nunca houve episódio maníaco ou hipomaníaco (rastrear ativamente antes de firmar o diagnóstico — ver módulos de Transtorno Bipolar).",
+    },
+  },
 };

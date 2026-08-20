@@ -4,6 +4,7 @@ import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
 import type { CasoSimulador, OpcaoSimulador } from "../data/simulador/types";
 import type { EntradaHistorico } from "./historicoEscalas";
+import { avaliarAlgoritmo, avaliarRastreio } from "./entrevistaEstruturada";
 
 // Geração de texto pronto pra colar em prontuário eletrônico — cada
 // função aqui produz uma frase redigida como nota clínica real, nunca um
@@ -132,6 +133,66 @@ export function gerarTextoConduta(
   }
 
   return `${base} Baseado em avaliação de ${trilhaDeDecisoes.join(", ")}.`;
+}
+
+export interface RespostaModuloEntrevista {
+  diagnostico: Diagnostico;
+  // Ids brutos de CriterioEntrevista (não a chave composta usada na UI) -> resposta.
+  respostasCriterios: Map<string, boolean>;
+}
+
+// Nota de entrevista estruturada — só inclui módulos com rastreio positivo
+// (os negativos foram pulados, não têm o que registrar; "pendente" também
+// fica de fora, pois o módulo ainda não foi respondido o suficiente pra
+// saber se abre ou pula). Recebe a lista completa de módulos respondidos
+// (não filtrada por busca), pra nunca perder um item marcado que saiu de
+// um filtro de UI no meio da sessão. Nunca declara diagnóstico fechado:
+// reporta a contagem formal do algoritmo e lembra explicitamente de
+// confirmar duração/exclusões.
+export function gerarTextoEntrevistaEstruturada(modulos: RespostaModuloEntrevista[]): string {
+  const comRastreioPositivo = modulos.filter(
+    (m) =>
+      m.diagnostico.entrevistaEstruturada &&
+      avaliarRastreio(m.respostasCriterios, m.diagnostico.entrevistaEstruturada.criteriosRastreioIds) ===
+        "positivo"
+  );
+
+  if (comRastreioPositivo.length === 0) return "";
+
+  const porCategoria = new Map<string, RespostaModuloEntrevista[]>();
+  for (const m of comRastreioPositivo) {
+    const lista = porCategoria.get(m.diagnostico.categoria) ?? [];
+    lista.push(m);
+    porCategoria.set(m.diagnostico.categoria, lista);
+  }
+
+  const linhas: string[] = ["ENTREVISTA ESTRUTURADA — módulos com rastreio positivo:", ""];
+
+  for (const [categoria, lista] of porCategoria) {
+    linhas.push(`## ${categoria}`);
+
+    for (const m of lista) {
+      const entrevista = m.diagnostico.entrevistaEstruturada!;
+      const resultado = avaliarAlgoritmo(m.respostasCriterios, entrevista.algoritmo);
+      const total = entrevista.algoritmo.itensContaveis.length;
+
+      const status = resultado.criteriosFormaisAtingidos
+        ? `critérios formais atingidos (${resultado.contagemPositiva}/${total}) — confirmar duração e exclusões antes de considerar o diagnóstico`
+        : `critérios formais não atingidos (${resultado.contagemPositiva}/${total})`;
+
+      linhas.push(`${m.diagnostico.nome}: ${status}`);
+
+      for (const criterio of entrevista.criterios) {
+        if (m.respostasCriterios.get(criterio.id)) {
+          linhas.push(`  [x] ${criterio.pergunta}`);
+        }
+      }
+
+      linhas.push("");
+    }
+  }
+
+  return linhas.join("\n").trim();
 }
 
 // Resumo do caso jogado no Simulador de Psiquiatria, como uma nota de

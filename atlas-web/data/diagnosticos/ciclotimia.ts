@@ -76,4 +76,19 @@ export const ciclotimia: Diagnostico = {
     "Van Meter AR et al. - Revisões sobre epidemiologia e curso do transtorno ciclotímico",
     "CID-11 (OMS)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["hipo", "dep"],
+    criterios: [
+      { id: "hipo", pergunta: "Ao longo dos últimos 2 anos, você teve vários períodos com sintomas leves de humor elevado ou energia aumentada, que não chegaram a ser um episódio hipomaníaco completo?" },
+      { id: "dep", pergunta: "Nesse mesmo período, você também teve vários períodos com sintomas depressivos leves, que não chegaram a ser um episódio depressivo maior completo?" },
+    ],
+    algoritmo: {
+      contagemMinima: 2,
+      itensContaveis: ["hipo", "dep"],
+      duracaoMinima: "Pelo menos 2 anos em adultos (1 ano em crianças/adolescentes), com sintomas presentes pelo menos metade do tempo e sem intervalo livre de sintomas superior a 2 meses consecutivos",
+      observacaoExclusao:
+        "C: os critérios completos de episódio depressivo maior, maníaco ou hipomaníaco NUNCA podem ter sido satisfeitos — se algum já foi, reclassificar como Bipolar I/II ou Depressão Maior, não Ciclotimia (rastrear ativamente com os módulos correspondentes). D: não mais bem explicado por transtorno esquizoafetivo, esquizofrenia ou outro transtorno do espectro psicótico. E: não atribuível a efeito fisiológico de substância ou outra condição médica. F: os sintomas causam sofrimento clinicamente significativo ou prejuízo no funcionamento social, ocupacional ou em outras áreas importantes.",
+    },
+  },
 };
