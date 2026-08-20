@@ -89,4 +89,20 @@ export const transtornoNeurocognitivoMaior: Diagnostico = {
     "NICE Guideline NG97 - Dementia: assessment, management and support",
     "Alzheimer's Association Clinical Practice Guidelines",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "Você (ou alguém que te conhece bem) notou um declínio significativo em relação ao que você era antes, em memória, atenção, linguagem, capacidade de organizar/planejar, em habilidades visuoespaciais, ou no comportamento social (ex.: perda de tato/empatia, desinibição)?" },
+      { id: "b", pergunta: "Esse declínio foi confirmado por uma avaliação formal (testes cognitivos ou avaliação clínica estruturada), e não é apenas uma impressão sem confirmação objetiva?" },
+      { id: "c", pergunta: "Esse declínio já é suficiente para atrapalhar sua independência nas atividades do dia a dia — por exemplo, precisar de ajuda para gerenciar finanças, tomar remédios corretamente, ou fazer tarefas complexas que você fazia sozinho(a) antes?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["a", "b", "c"],
+      duracaoMinima: "Não há duração mínima formal — o quadro é definido pela evidência de declínio em relação a nível prévio de funcionamento, tipicamente instalado de forma insidiosa e progressiva (exceto etiologia vascular, que pode ter início mais abrupto)",
+      observacaoExclusao:
+        "D: os déficits não ocorrem exclusivamente no contexto de um delirium — se houver flutuação aguda da atenção/consciência, investigar e tratar delirium primeiro (ver módulo Delirium), inclusive se sobreposto a demência preexistente. E: não mais bem explicado por outro transtorno mental (Transtorno Depressivo Maior — 'pseudodemência depressiva' — ou Esquizofrenia). Antes de assumir etiologia neurodegenerativa irreversível, investigar e excluir causas potencialmente reversíveis: hipotireoidismo, deficiência de B12, neurossífilis, hidrocefalia de pressão normal, hematoma subdural, uso de substâncias/efeito cumulativo de anticolinérgicos ou benzodiazepínicos. Avaliar especificador etiológico (Alzheimer, vascular, corpos de Lewy, frontotemporal etc.) e gravidade (leve/moderada/grave).",
+    },
+  },
 };

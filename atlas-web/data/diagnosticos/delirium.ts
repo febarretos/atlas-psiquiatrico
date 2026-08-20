@@ -81,4 +81,20 @@ export const delirium: Diagnostico = {
     "American Geriatrics Society - Clinical Practice Guideline for Postoperative Delirium in Older Adults",
     "Inouye SK et al. - Confusion Assessment Method (CAM)",
   ],
+
+  entrevistaEstruturada: {
+    criteriosRastreioIds: ["a"],
+    criterios: [
+      { id: "a", pergunta: "O paciente está com a atenção prejudicada — dificuldade para focar, manter ou mudar o foco — e com a consciência do ambiente reduzida (menos desperto, orientado ou responsivo do que o habitual)?" },
+      { id: "b", pergunta: "Essa alteração começou de forma aguda (horas a poucos dias), representa uma mudança clara em relação ao estado basal do paciente, e varia de intensidade ao longo do dia (geralmente pior à noite)?" },
+      { id: "c", pergunta: "Há alguma alteração cognitiva adicional — problema de memória, desorientação, alteração de linguagem, ou dificuldade visuoespacial/perceptiva?" },
+    ],
+    algoritmo: {
+      contagemMinima: 3,
+      itensContaveis: ["a", "b", "c"],
+      duracaoMinima: "Instalação aguda (horas a poucos dias), com curso flutuante ao longo do dia — já capturado no item de rastreio/critério B acima",
+      observacaoExclusao:
+        "D: as perturbações não são mais bem explicadas por outro transtorno neurocognitivo preexistente/em evolução (ver módulo Transtorno Neurocognitivo Maior — lembrando que delirium pode se sobrepor a uma demência de base, exigindo atenção à mudança aguda em relação ao basal), e não ocorrem em contexto de nível gravemente reduzido de consciência (coma). E (etiologia — SEMPRE investigar, delirium é emergência médica): evidência de que a perturbação é consequência fisiológica direta de condição médica, intoxicação/abstinência de substância, exposição a toxina, ou múltiplas etiologias. Investigação sistemática obrigatória: infecção, distúrbio metabólico/hidroeletrolítico, hipóxia, medicamentos recentes, retenção urinária/fecal, dor não controlada, abstinência de substâncias. Usar CAM (Confusion Assessment Method) como rastreio à beira-leito. Avaliar especificador hipoativo/hiperativo/misto e agudo/persistente.",
+    },
+  },
 };
