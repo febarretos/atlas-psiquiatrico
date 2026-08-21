@@ -13,6 +13,145 @@ export const afetividadeHumor: DominioPsicopatologico = {
 
   achados: [
     {
+      id: "hipotimia",
+      nome: "Hipotimia (humor deprimido)",
+      sinonimos: ["Humor deprimido", "Tristeza patológica"],
+      definicao:
+        "Rebaixamento sustentado do humor basal abaixo do habitual do indivíduo, com tristeza desproporcional ao contexto, autônoma (persiste independentemente de mudanças situacionais) e pervasiva (colore a experiência como um todo) — os três critérios que a distinguem da tristeza normal (ver 'normalidade' deste domínio).",
+      caracteristicas: [
+        "Tristeza sustentada na maior parte do dia, quase todos os dias — não apenas um episódio pontual de mau humor",
+        "Frequentemente acompanhada de anedonia, mas os dois são fenômenos distintos (achado próprio 'Anedonia' abaixo) — um paciente pode ter hipotimia sem anedonia significativa e vice-versa",
+        "Em crianças e idosos pode se apresentar como irritabilidade em vez de tristeza declarada (ver Disforia)",
+      ],
+      exemploClinico:
+        "Paciente que relata estar 'triste sem motivo' há semanas, mesmo em situações que antes trariam algum alívio (encontrar os netos, um dia de sol), com a tristeza presente já ao acordar e persistindo ao longo de todo o dia.",
+      transtornosAssociados: [
+        "Transtorno Depressivo Maior (sintoma nuclear)",
+        "Transtorno Depressivo Persistente (Distimia)",
+        "Transtorno Bipolar (fase depressiva)",
+        "Transtorno de Ajustamento com humor deprimido",
+      ],
+    },
+    {
+      id: "hipertimia",
+      nome: "Hipertimia (humor elevado, eufórico ou expansivo)",
+      sinonimos: ["Humor elevado", "Euforia patológica"],
+      definicao:
+        "Elevação sustentada do humor basal acima do habitual do indivíduo, podendo se expressar como euforia (exaltação prazerosa, contentamento intenso e contagiante) ou como expansividade (autoestima inflada, grandiosidade, desinibição social, otimismo exagerado) — frequentemente as duas coexistem.",
+      caracteristicas: [
+        "Qualitativamente diferente da alegria normal: desproporcional ao contexto, instável (pode virar irritabilidade abruptamente diante de contrariedade — ver Disforia), e associada a julgamento prejudicado",
+        "Costuma vir acompanhada de outros sinais do polo maníaco: aumento de energia, redução da necessidade de sono, fuga de ideias, aumento da autoestima",
+        "Nem toda hipertimia é prazerosa — mania disfórica (irritável, tensa) é apresentação comum e por vezes predominante",
+      ],
+      exemploClinico:
+        "Paciente que chega à consulta contando piadas ininterruptamente, afirma que 'nunca se sentiu tão bem na vida' e revela ter feito compras muito acima do orçamento na última semana 'porque tudo vai dar certo'.",
+      transtornosAssociados: [
+        "Episódio Maníaco",
+        "Episódio Hipomaníaco",
+        "Quadros orgânicos (lesões frontais, hipertireoidismo)",
+        "Intoxicação por estimulantes",
+      ],
+    },
+    {
+      id: "disforia",
+      nome: "Disforia (irritabilidade patológica)",
+      definicao:
+        "Humor desagradável marcado por irritabilidade, impaciência, tensão interna e baixa tolerância à frustração — um estado afetivo displacenteiro que não se encaixa nem em tristeza nem em euforia clássicas, mas que pode ser a apresentação predominante de ambas.",
+      caracteristicas: [
+        "Pode ser a forma de apresentação de um episódio depressivo (especialmente em crianças, adolescentes e homens) em vez da tristeza clássica",
+        "Pode colorir um episódio maníaco ('mania disfórica/mista') — paciente com energia e atividade aumentadas, mas o tom predominante é irritabilidade e tensão, não euforia",
+        "Deve ser diferenciada de irritabilidade situacional normal pela intensidade, persistência e desproporcionalidade ao estímulo",
+      ],
+      exemploClinico:
+        "Adolescente trazido pelos pais por 'estar impossível' há um mês — hostil, respondendo com hostilidade a qualquer pedido, sem o relato espontâneo de tristeza que se esperaria de um quadro depressivo típico.",
+      transtornosAssociados: [
+        "Transtorno Depressivo Maior (especialmente em adolescentes)",
+        "Episódio Maníaco/Misto com características disfóricas",
+        "Transtorno Disruptivo da Desregulação do Humor",
+        "Abstinência de substâncias",
+      ],
+    },
+    {
+      id: "angustia",
+      nome: "Angústia (humor ansioso)",
+      definicao:
+        "Estado afetivo displacenteiro de apreensão difusa, tensão interna e expectativa de perigo iminente, frequentemente acompanhado de correlatos somáticos (aperto/opressão no peito, sensação de sufocamento, mal-estar epigástrico) — a tradição fenomenológica distingue a angústia, mais visceral e corporificada, da ansiedade cognitiva (preocupação antecipatória verbalizável).",
+      caracteristicas: [
+        "Pode ser sintomática (ligada a um objeto/situação identificável) ou flutuante/livre (sem objeto claro, 'algo ruim vai acontecer' sem saber o quê)",
+        "Componente somático proeminente é frequentemente o motivo de busca por atendimento de emergência clínica antes do psiquiátrico",
+        "Coexiste com frequência com hipotimia (depressão ansiosa) e com humor delirante em fases prodrômicas de surto psicótico (ver Humor delirante)",
+      ],
+      exemploClinico:
+        "Paciente que descreve uma sensação constante de 'aperto no peito e vontade de sair correndo, como se algo terrível fosse acontecer', sem conseguir identificar o que exatamente teme.",
+      transtornosAssociados: [
+        "Transtorno de Ansiedade Generalizada",
+        "Transtorno de Pânico",
+        "Depressão ansiosa",
+        "Abstinência de álcool/benzodiazepínicos",
+      ],
+    },
+    {
+      id: "apatia",
+      nome: "Apatia (indiferença afetiva)",
+      definicao:
+        "Redução global da reatividade emocional, do interesse e da iniciativa, com desinteresse e ausência de resposta emocional frente a eventos que normalmente gerariam alguma reação — distinta de tristeza por não haver, tipicamente, sofrimento subjetivo associado.",
+      caracteristicas: [
+        "O paciente frequentemente não se incomoda com a própria apatia ('não sinto falta de nada') — ao contrário do sofrimento ativo da anestesia psíquica dolorosa (ver achado abaixo)",
+        "Quando de causa orgânica/frontal, tende a vir acompanhada de outros sinais de disfunção executiva e não responde a estímulo motivacional externo do mesmo modo que a depressão",
+        "Diferenciar de depressão grave: na depressão há sofrimento subjetivo mesmo quando a expressão está reduzida; na apatia pura, a ausência de reação é acompanhada de ausência de sofrimento por essa ausência",
+      ],
+      exemploClinico:
+        "Familiar relata que o paciente 'não se importa com mais nada' — nem com notícias boas, nem más — e o próprio paciente, quando questionado, concorda com indiferença: 'é, eu não sinto muita coisa, mas também não me incomoda'.",
+      transtornosAssociados: [
+        "Transtorno Neurocognitivo Maior (especialmente variante frontal/comportamental da Demência Frontotemporal)",
+        "Lesões frontais",
+        "Esquizofrenia (componente do polo negativo, junto de avolição)",
+        "Depressão grave (apatia secundária)",
+      ],
+    },
+    {
+      id: "anestesia-psiquica-dolorosa",
+      nome: "Anestesia psíquica dolorosa",
+      sinonimos: ["Anaesthesia psychica dolorosa", "Sentimento de falta de sentimento"],
+      definicao:
+        "Vivência dolorosa e egodistônica de incapacidade de sentir qualquer emoção — inclusive tristeza —, na qual o próprio paciente sofre intensamente pela sensação de estar emocionalmente 'morto' ou vazio por dentro. Classicamente descrita na melancolia grave.",
+      caracteristicas: [
+        "O sofrimento associado à incapacidade de sentir é, paradoxalmente, o que a diferencia do embotamento — aqui a ausência de afeto é ela mesma fonte de angústia intensa",
+        "O paciente frequentemente relata sentir mais falta de tristeza 'de verdade' do que a própria tristeza — quer conseguir chorar e sentir, mas não consegue",
+        "Achado de gravidade — associado a maior risco de suicídio quando presente em depressão melancólica",
+      ],
+      exemploClinico:
+        "Paciente que, ao ser perguntado sobre a morte do próprio pai, diz angustiado: 'Eu deveria estar destruído, e o pior é que eu não sinto nada — nem tristeza, nem nada. Isso é o que mais me atormenta.'",
+      diferencialFino: [
+        {
+          comparadoCom: "Embotamento afetivo",
+          distincao:
+            "Na anestesia psíquica dolorosa há sofrimento subjetivo intenso e egodistônico pela própria incapacidade de sentir (o paciente sabe que não sente e isso o angustia); no embotamento afetivo esquizofrênico a redução da expressão tipicamente não vem acompanhada desse sofrimento correspondente — a ausência de reação emocional é, ela mesma, mais neutra/menos vivenciada como perda dolorosa.",
+        },
+      ],
+      transtornosAssociados: [
+        "Depressão Maior com características melancólicas (grave)",
+      ],
+    },
+    {
+      id: "humor-delirante",
+      nome: "Humor delirante (Wahnstimmung)",
+      sinonimos: ["Trema", "Estado pré-delirante"],
+      definicao:
+        "Estado afetivo prodrômico de perplexidade, apreensão difusa e sensação de que algo estranho, ameaçador ou profundamente significativo está prestes a acontecer, sem que ainda exista um conteúdo delirante definido — descrito por Conrad como 'trema', a fase que tipicamente precede e prepara a cristalização de um delírio primário.",
+      caracteristicas: [
+        "Geralmente breve e intensamente angustiante — o paciente sente que 'algo mudou' no mundo ao redor sem conseguir nomear o quê",
+        "Fenomenologicamente é uma alteração do humor/afeto, não ainda um delírio — o conteúdo delirante propriamente dito surge depois, muitas vezes como forma de dar sentido a essa apreensão insuportável (ver mecanismos formadores do delírio primário, domínio Conteúdo do Pensamento)",
+        "Reconhecer esse estado clinicamente é valioso porque antecede o surto psicótico franco — uma janela de intervenção precoce",
+      ],
+      exemploClinico:
+        "Paciente que, dias antes de desenvolver um delírio persecutório estruturado, relata sentir que 'o ar estava diferente, as pessoas na rua olhavam de um jeito estranho, como se algo grande estivesse prestes a acontecer', sem conseguir explicar exatamente o quê.",
+      transtornosAssociados: [
+        "Fase prodrômica de surto psicótico (Esquizofrenia, Transtorno Esquizoafetivo)",
+        "Fase prodrômica de episódio maníaco ou depressivo com sintomas psicóticos",
+      ],
+    },
+    {
       id: "embotamento-afetivo",
       nome: "Embotamento afetivo",
       sinonimos: ["Achatamento afetivo", "Afeto embotado"],
@@ -36,6 +175,11 @@ export const afetividadeHumor: DominioPsicopatologico = {
           comparadoCom: "Parkinsonismo induzido por antipsicótico",
           distincao:
             "Ambos produzem hipomimia facial; o parkinsonismo medicamentoso tipicamente vem acompanhado de outros sinais extrapiramidais (rigidez, tremor de repouso, bradicinesia generalizada, não restrita à expressão facial) e tem relação temporal com início/aumento de dose de antipsicótico — sempre investigar cronologia da medicação e exame motor completo antes de atribuir hipomimia isolada a sintoma negativo primário.",
+        },
+        {
+          comparadoCom: "Anestesia psíquica dolorosa",
+          distincao:
+            "Ambos reduzem a expressão/vivência afetiva, mas por mecanismos e vivências opostas: no embotamento (esquizofrênico) a redução tipicamente não é acompanhada de sofrimento subjetivo correspondente; na anestesia psíquica dolorosa (melancolia grave) o paciente sofre intensamente pela própria incapacidade de sentir — o sofrimento pela ausência é o que a caracteriza.",
         },
       ],
       transtornosAssociados: [
@@ -83,6 +227,7 @@ export const afetividadeHumor: DominioPsicopatologico = {
         "Paciente que sorri e ri levemente ao relatar detalhes de um episódio de automutilação grave, sem qualquer expressão de sofrimento aparente compatível com o conteúdo relatado.",
       transtornosAssociados: [
         "Esquizofrenia (especialmente subtipo desorganizado, historicamente denominado hebefrênico)",
+        "Episódio maníaco com sintomas psicóticos",
       ],
     },
     {
@@ -112,10 +257,20 @@ export const afetividadeHumor: DominioPsicopatologico = {
       ],
       exemploClinico:
         "Paciente que descreve sentir, ao mesmo tempo e com igual intensidade, amor profundo e desejo de nunca mais ver o próprio cônjuge, sem conseguir integrar ou resolver esse conflito interno.",
+      diferencialFino: [
+        {
+          comparadoCom: "Cisão (splitting) no Transtorno de Personalidade Borderline",
+          distincao:
+            "São mecanismos opostos, não sinônimos: na ambivalência bleuleriana os polos opostos são vivenciados SIMULTANEAMENTE, com intensidade, gerando paralisia; na cisão do TPB, os polos (idealização/desvalorização) são mantidos ATIVAMENTE SEPARADOS — o paciente alterna entre um e outro, sem os vivenciar ao mesmo tempo. É por isso que o TPB é descrito como relações que 'alternam' entre extremos, não como amor e ódio sentidos simultaneamente.",
+        },
+        {
+          comparadoCom: "Dúvida obsessiva e ambitendência (TOC/catatonia)",
+          distincao:
+            "A dúvida obsessiva do TOC é um conflito entre cognições/impulsos concorrentes ligado a rituais e verificação (ex.: 'tranquei a porta ou não?'), egodistônica e resistida — não é a coexistência de dois AFETOS opostos dirigidos à mesma pessoa/objeto que define a ambivalência afetiva. Quando o fenômeno aparece no plano motor (o paciente inicia um movimento em uma direção e o interrompe para iniciar o oposto), o termo mais preciso é ambitendência, achado do domínio Psicomotricidade.",
+        },
+      ],
       transtornosAssociados: [
-        "Esquizofrenia",
-        "Transtorno de Personalidade Borderline (relações interpessoais instáveis, alternância entre idealização e desvalorização)",
-        "Transtorno Obsessivo-Compulsivo (ambivalência ligada a rituais/dúvidas)",
+        "Esquizofrenia (um dos '4 As' de Bleuler)",
       ],
     },
     {
@@ -138,6 +293,7 @@ export const afetividadeHumor: DominioPsicopatologico = {
       ],
       transtornosAssociados: [
         "Esquizofrenia",
+        "Quadros dissociativos",
       ],
     },
     {

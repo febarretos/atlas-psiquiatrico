@@ -14,14 +14,14 @@ export const catatoniaMaligna: Emergencia = {
 
   quadroClinico: [
     "Estupor, mutismo, negativismo (resistência a instruções ou tentativas de mobilização)",
-    "Catalepsia e flexibilidade cérea (manutenção passiva de posturas impostas)",
+    "Catalepsia e flexibilidade cérea (manutenção passiva de posturas impostas pelo examinador) e postura/posturing (manutenção ativa e espontânea de postura incomum contra a gravidade, sem indução do examinador)",
     "Ecolalia, ecopraxia, maneirismos, estereotipias, careteio",
     "Catatonia excitada: agitação sem propósito externo aparente",
     "Forma maligna: hipertermia, instabilidade autonômica (labilidade de PA e FC) e rigidez, com risco de vida",
   ],
 
   criteriosDiagnosticos: [
-    "Presença de pelo menos 3 dos seguintes: estupor, catalepsia, flexibilidade cérea, mutismo, negativismo, maneirismos, estereotipias, agitação sem propósito externo, careteio, ecolalia ou ecopraxia",
+    "Presença de pelo menos 3 dos 12 sinais do DSM-5-TR: estupor, catalepsia, flexibilidade cérea, mutismo, negativismo, postura (manutenção espontânea e ativa de postura contra a gravidade), maneirismos, estereotipias, agitação sem propósito externo, careteio, ecolalia ou ecopraxia",
   ],
 
   causasComuns: [

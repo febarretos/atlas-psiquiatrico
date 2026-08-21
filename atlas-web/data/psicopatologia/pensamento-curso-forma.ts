@@ -205,6 +205,49 @@ export const pensamentoCursoForma: DominioPsicopatologico = {
         "Lesões cerebrais estruturais (frontais)",
       ],
     },
+    {
+      id: "alogia",
+      nome: "Alogia (pobreza do pensamento e do discurso)",
+      definicao:
+        "Redução da quantidade espontânea de fala e do conteúdo informativo do discurso — respostas breves, lacônicas, com pouca elaboração espontânea mesmo quando o paciente é encorajado a falar mais, sem que isso se deva a rebaixamento do nível de consciência ou a recusa deliberada.",
+      caracteristicas: [
+        "Respostas curtas, monossilábicas ou quase, com pouco ou nenhum detalhe espontâneo além do estritamente solicitado",
+        "Sintoma negativo formal da esquizofrenia (DSM-5-TR, Critério A) — contrapartida direta do polo positivo/florido (fuga de ideias, afrouxamento de associações) já coberto neste domínio",
+        "Diferente de bradipsiquismo: a alogia é sobre a QUANTIDADE/conteúdo do discurso, não necessariamente sobre a velocidade — um discurso pode ser pobre em conteúdo mesmo em ritmo normal",
+      ],
+      exemploClinico:
+        "Paciente que, questionado sobre como foi seu fim de semana, responde apenas 'bem' e, mesmo diante de perguntas de seguimento encorajando elaboração, não acrescenta nenhum detalhe espontâneo.",
+      diferencialFino: [
+        {
+          comparadoCom: "Bradipsiquismo",
+          distincao:
+            "O bradipsiquismo é a lentificação da VELOCIDADE do pensamento/discurso (latência aumentada, ritmo lento); a alogia é a pobreza do CONTEÚDO/quantidade do discurso, que pode ocorrer em ritmo normal. Podem coexistir (comum em depressão grave), mas descrevem eixos diferentes e devem ser avaliados separadamente.",
+        },
+      ],
+      transtornosAssociados: [
+        "Esquizofrenia (sintoma negativo formal, Critério A)",
+        "Depressão Maior (grave)",
+      ],
+    },
+    {
+      id: "concretismo",
+      nome: "Concretismo (pensamento concreto)",
+      definicao:
+        "Redução ou perda da capacidade de pensamento abstrato — dificuldade em compreender metáforas, provérbios, analogias e categorias gerais, com interpretação literal, ao pé da letra, de conteúdos que exigiriam abstração.",
+      caracteristicas: [
+        "Testado classicamente pedindo ao paciente que interprete provérbios ('cavalo dado não se olha os dentes') ou identifique semelhanças entre pares de objetos/conceitos — respostas concretas descrevem características literais em vez da categoria abstrata comum",
+        "Interpretação literal de expressões figuradas no discurso espontâneo ('quebrar o galho' interpretado como quebrar um pedaço de árvore)",
+        "Também pode refletir baixa escolaridade ou diferença cultural — sempre interpretar o achado no contexto do nível educacional e sociocultural do paciente antes de atribuí-lo a patologia",
+      ],
+      exemploClinico:
+        "Paciente questionado sobre o significado de 'em casa de ferreiro, o espeto é de pau' responde apenas 'porque o ferreiro não tem espeto de metal em casa', sem alcançar o sentido abstrato de negligenciar o próprio ofício.",
+      transtornosAssociados: [
+        "Esquizofrenia (função executiva e abstração prejudicadas)",
+        "Transtorno Neurocognitivo Maior",
+        "Transtorno do Espectro Autista",
+        "Deficiência Intelectual",
+      ],
+    },
   ],
 
   referencias: [

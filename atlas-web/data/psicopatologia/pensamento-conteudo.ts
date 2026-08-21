@@ -6,7 +6,7 @@ export const pensamentoConteudo: DominioPsicopatologico = {
   nome: "Transtornos do Pensamento — Conteúdo (Delírios)",
 
   descricao:
-    "O conteúdo do pensamento refere-se àquilo que é pensado — em contraste com o curso e a forma (como o pensamento flui e se estrutura). O delírio, alteração central deste domínio, é classicamente definido pelos critérios de Jaspers: crença falsa, mantida com convicção inabalável, incorrigível por argumentação lógica ou evidência contrária, e incompatível com o contexto sociocultural do indivíduo.",
+    "O conteúdo do pensamento refere-se àquilo que é pensado — em contraste com o curso e a forma (como o pensamento flui e se estrutura). O delírio, alteração central deste domínio, é classicamente definido pelos três caracteres externos de Jaspers: certeza subjetiva extraordinária (convicção inabalável, sustentada com uma qualidade de certeza incomum), impermeabilidade à experiência e à contra-argumentação lógica, e impossibilidade do conteúdo (o conteúdo é falso ou não corresponde à realidade). A ressalva de incompatibilidade com o contexto sociocultural do indivíduo é um acréscimo posterior (herdado do DSM-IV, não um critério jasperiano original), mas continua clinicamente relevante para não patologizar crenças culturalmente/religiosamente compartilhadas.",
 
   normalidade:
     "O juízo normal sobre a realidade é permeável à evidência e ao diálogo: mesmo crenças fortemente sustentadas (religiosas, políticas, existenciais) mantêm, em condições normais, alguma abertura a serem discutidas ou reconsideradas, ou ao menos toleram a divergência alheia sem ruptura completa com a realidade compartilhada. Preocupações intensas — com a saúde, o futuro profissional, um relacionamento — são parte normal da vida psíquica e só se tornam patológicas quando adquirem a rigidez, a incorrigibilidade e a incompatibilidade com o contexto sociocultural que caracterizam o delírio. Dalgalarrondo enfatiza que uma crença compartilhada por um grupo cultural ou religioso específico não deve ser tomada como delirante apenas por parecer estranha a um observador de fora — o critério não é o conteúdo em si, mas a forma como a crença é sustentada (rigidez, isolamento social da crença, ausência de qualquer permeabilidade à argumentação) e sua compatibilidade com o contexto do próprio indivíduo. Cheniaux reforça a importância de investigar se a crença surgiu de forma compreensível a partir da história e do estado afetivo da pessoa (o que aponta para normalidade ou, no máximo, ideia sobrevalorizada) ou de forma abrupta e sem qualquer conexão compreensível (mais sugestivo de fenômeno primário/delirante).",
@@ -145,6 +145,45 @@ export const pensamentoConteudo: DominioPsicopatologico = {
         "Depressão Maior com sintomas psicóticos (associação clássica)",
         "Transtorno Neurocognitivo Maior",
         "Esquizofrenia (mais raro)",
+      ],
+    },
+    {
+      id: "ideacao-suicida",
+      nome: "Ideação suicida e ideias de morte",
+      definicao:
+        "Conteúdo do pensamento relacionado à própria morte, variando em gravidade ao longo de um espectro: desde o desejo passivo de não estar vivo ou de 'não acordar', passando pela ideação suicida ativa sem plano definido, até ideação com plano estruturado, intenção declarada e comportamento preparatório/ensaio.",
+      caracteristicas: [
+        "Gradação semiológica: ideias de morte passivas ('seria mais fácil não acordar') → ideação suicida passiva (desejo de estar morto, sem pensar em causar a própria morte ativamente) → ideação ativa sem plano → ideação com plano → com intenção → com comportamento preparatório/ensaio",
+        "AUSÊNCIA DE PLANO NÃO É AUSÊNCIA DE RISCO — ideação passiva persistente e ideação sem plano ainda exigem avaliação estruturada de risco, não apenas registro passivo",
+        "A avaliação estruturada (gradação, fatores de risco/proteção e conduta) é feita pela escala C-SSRS (módulo Escalas) e pelos módulos de Risco de Suicídio (Emergências e Fluxogramas) — este achado descreve o fenômeno semiológico, a avaliação de risco propriamente dita está nesses módulos dedicados",
+        "Deve ser pesquisada ativamente e diretamente em toda entrevista psiquiátrica, independentemente do motivo de consulta — perguntar sobre ideação suicida não induz o comportamento",
+      ],
+      exemploClinico:
+        "Paciente com depressão grave que, quando questionado diretamente, admite que 'às vezes penso que seria mais fácil não acordar', mas nega ter chegado a pensar em um método específico ou ter feito qualquer preparação.",
+      diferencialFino: [
+        {
+          comparadoCom: "Ideias de morte no luto normal ou no idoso",
+          distincao:
+            "Pensamentos ocasionais sobre a própria mortalidade ou desejo transitório de 'juntar-se' a um ente querido falecido podem ocorrer no luto normal e no envelhecimento sem configurar ideação suicida patológica — a distinção está na presença de desejo ATIVO de causar a própria morte, na persistência, e na dissociação de um contexto de luto agudo recente. Na dúvida, investigar ativamente é sempre a conduta mais segura.",
+        },
+        {
+          comparadoCom: "Autolesão não suicida",
+          distincao:
+            "A autolesão não suicida (cortes superficiais, queimaduras) tipicamente tem função de regulação afetiva (aliviar tensão/dissociação interna), SEM intenção de morte — o paciente frequentemente nega desejo de morrer e pode inclusive descrever a autolesão como forma de 'continuar vivo'. Não deve ser presumida como equivalente a risco suicida, mas também não o exclui — os dois podem coexistir e ambos exigem avaliação.",
+        },
+        {
+          comparadoCom: "Raptus suicida",
+          distincao:
+            "Ver 'Impulsividade e atos impulsivos (raptus)' no domínio Psicomotricidade — o raptus é a execução súbita e impulsiva do ato, sem o processo cognitivo prévio de ideação prolongada; a ideação suicida descrita aqui é o fenômeno cognitivo que, na maioria dos casos, precede o ato (ainda que no raptus essa fase possa ser extremamente breve ou não verbalizada antes do ato).",
+        },
+      ],
+      transtornosAssociados: [
+        "Transtorno Depressivo Maior",
+        "Transtorno Bipolar (fases depressiva e mista)",
+        "Transtorno de Personalidade Borderline",
+        "Transtorno por Uso de Substâncias",
+        "Esquizofrenia",
+        "Transtornos de Ansiedade e Trauma (fator de risco associado)",
       ],
     },
     {

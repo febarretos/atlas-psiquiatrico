@@ -71,6 +71,7 @@ export const conscienciaDoEu: DominioPsicopatologico = {
         "O paciente não apenas relata a experiência (bloqueio, pensamento estranho), mas atribui-a especificamente a uma força/agente EXTERNO — este é o elemento delirante central",
         "Classificados classicamente como sintomas de primeira ordem de Schneider, historicamente considerados de alto valor (embora não patognomônico) para esquizofrenia",
         "Deve-se distinguir cuidadosamente de uma simples queixa de 'não conseguir controlar os pensamentos', comum em ansiedade e TOC, que não envolve atribuição a um agente externo",
+        "Transdiagnóstico: aumenta a probabilidade de esquizofrenia, mas não fecha diagnóstico sozinho — o DSM-5 removeu deliberadamente o peso especial que edições anteriores davam aos sintomas de primeira ordem, por baixa especificidade; a diferenciação real se faz pelo curso longitudinal e pela relação temporal com um episódio de humor, não pelo sintoma isolado",
       ],
       exemploClinico:
         "Inserção: paciente que afirma com convicção que pensamentos sobre matar sua família não são seus, mas foram colocados em sua mente por um vizinho através de um dispositivo eletrônico. Roubo: paciente que, no meio de uma conversa, para abruptamente e explica que 'eles tiraram o pensamento da minha cabeça antes que eu terminasse de pensar'.",
@@ -83,6 +84,9 @@ export const conscienciaDoEu: DominioPsicopatologico = {
       ],
       transtornosAssociados: [
         "Esquizofrenia",
+        "Episódio maníaco com sintomas psicóticos",
+        "Depressão psicótica",
+        "Psicose induzida por substâncias",
       ],
     },
     {
@@ -93,7 +97,7 @@ export const conscienciaDoEu: DominioPsicopatologico = {
       caracteristicas: [
         "Irradiação (difusão): crença de que os pensamentos são conhecidos por outros à distância, sem qualquer meio de comunicação convencional",
         "Sonorização (eco do pensamento): experiência de ouvir os próprios pensamentos como se fossem falados em voz alta, no momento exato em que são pensados",
-        "Também um sintoma de primeira ordem de Schneider",
+        "Também um sintoma de primeira ordem de Schneider — transdiagnóstico, não exclusivo de esquizofrenia (ver nota em Inserção e roubo do pensamento)",
       ],
       exemploClinico:
         "Paciente que afirma que todos ao seu redor conseguem saber exatamente o que está pensando, 'como se meus pensamentos fossem transmitidos pelo ar', mesmo sem ter falado nada em voz alta.",
@@ -106,6 +110,9 @@ export const conscienciaDoEu: DominioPsicopatologico = {
       ],
       transtornosAssociados: [
         "Esquizofrenia",
+        "Episódio maníaco com sintomas psicóticos",
+        "Depressão psicótica",
+        "Epilepsia de lobo temporal",
       ],
     },
     {
@@ -116,7 +123,7 @@ export const conscienciaDoEu: DominioPsicopatologico = {
       caracteristicas: [
         "O paciente vivencia a AÇÃO ou SENSAÇÃO como real e presente, mas nega ser o autor/agente dela — atribui o controle a algo externo",
         "Pode envolver movimentos corporais ('meu braço se moveu, mas não fui eu que o movi'), emoções ('colocaram essa raiva em mim') ou impulsos ('me fizeram fazer isso')",
-        "Também classificados como sintomas de primeira ordem de Schneider",
+        "Também classificados como sintomas de primeira ordem de Schneider — transdiagnóstico, não exclusivo de esquizofrenia (ver nota em Inserção e roubo do pensamento)",
       ],
       exemploClinico:
         "Paciente que relata que, durante um episódio, seu corpo caminhou até a cozinha e pegou uma faca 'controlado por forças alienígenas', descrevendo o movimento como real, mas afirmando categoricamente não ter sido ele quem decidiu ou executou a ação voluntariamente.",
@@ -129,6 +136,10 @@ export const conscienciaDoEu: DominioPsicopatologico = {
       ],
       transtornosAssociados: [
         "Esquizofrenia",
+        "Episódio maníaco com sintomas psicóticos",
+        "Depressão psicótica",
+        "Psicose induzida por substâncias",
+        "Epilepsia de lobo temporal",
       ],
     },
     {
@@ -145,6 +156,8 @@ export const conscienciaDoEu: DominioPsicopatologico = {
         "Paciente que, ao ser questionado se ouve vozes, nega para si mesmo, mas afirma convictamente que é o colega de quarto do hospital quem está ouvindo vozes — quando, na verdade, é o próprio paciente quem apresenta o sintoma.",
       transtornosAssociados: [
         "Esquizofrenia",
+        "Episódio maníaco com sintomas psicóticos",
+        "Depressão psicótica",
       ],
     },
   ],

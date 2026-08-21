@@ -104,10 +104,11 @@ export const sensopercepcao: DominioPsicopatologico = {
         "Localização no espaço interno/subjetivo, não no espaço externo objetivo",
         "Nitidez sensorial geralmente um pouco menor que a alucinação verdadeira, embora ainda vívida",
         "Crítica variável — pode ou não estar presente",
-        "Termo com uso heterogêneo entre autores; deve-se sempre investigar explicitamente a localização espacial referida pelo paciente",
+        "Termo com uso heterogêneo entre autores e de confiabilidade discutida na literatura — deve-se sempre investigar explicitamente a localização espacial referida pelo paciente, mas essa localização isolada não deve ser usada, sozinha, para rebaixar o peso diagnóstico do achado (ver nota abaixo)",
+        "ATENÇÃO: uma parcela relevante de pacientes com esquizofrenia descreve alucinações auditivas verdadeiras como vozes 'dentro da cabeça', com plena corporeidade e convicção de realidade — a localização intracraniana isolada NÃO caracteriza pseudoalucinação nem reduz o valor diagnóstico do achado; o que define a alucinação verdadeira é a corporeidade e a convicção de realidade (ver achado 'Alucinação verdadeira' acima), não apenas onde o som é referido como localizado",
       ],
       exemploClinico:
-        "Paciente que relata 'ouvir vozes na minha cabeça, não pelos ouvidos', descrevendo uma experiência auditiva vívida, mas claramente diferenciada de sons externos reais.",
+        "Paciente que descreve ouvir, dentro da própria cabeça, um pensamento formulado com voz que não reconhece como sua, sem qualquer dúvida ou estranhamento quanto a essa vivência ser real — mantendo, ainda assim, alguma noção de que a fonte não é um som do ambiente físico ao seu redor.",
       diferencialFino: [
         {
           comparadoCom: "Pensamento sonoro / eco do pensamento (sonorização)",

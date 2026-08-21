@@ -6,7 +6,7 @@ export const atencaoOrientacao: DominioPsicopatologico = {
   nome: "Transtornos da Atenção e da Orientação",
 
   descricao:
-    "A atenção (capacidade de focalizar e sustentar a percepção sobre um estímulo) e a orientação (localização do indivíduo no tempo, espaço e em relação a si mesmo) são funções dependentes do nível de consciência e frequentemente as primeiras a se alterar em quadros orgânicos agudos, precedendo alterações mais evidentes de outras funções psíquicas.",
+    "A atenção (capacidade de focalizar e sustentar a percepção sobre um estímulo) e a orientação (localização do indivíduo no tempo, espaço e em relação a si mesmo) são funções dependentes do nível de consciência e frequentemente as primeiras a se alterar em quadros orgânicos agudos, precedendo alterações mais evidentes de outras funções psíquicas. Dalgalarrondo estrutura a atenção em dois eixos independentes — vigilância (capacidade de dirigir a atenção a um estímulo novo, captura involuntária) e tenacidade (capacidade de fixar e manter o foco voluntariamente) — e é a combinação desses dois eixos, não um único continuum, que diferencia os quadros clínicos de alteração atencional (ver Distratibilidade abaixo).",
 
   normalidade:
     "A atenção normal alterna, de forma equilibrada, entre foco voluntário (dirigido intencionalmente a uma tarefa) e captura involuntária por estímulos relevantes do ambiente — um mecanismo adaptativo, não um defeito. É esperado que a atenção flutue ao longo do dia conforme fadiga, motivação, interesse pelo assunto e nível de estimulação externa: dificuldade de concentração ao ler um texto enfadonho tarde da noite, ou distração momentânea diante de um barulho inesperado, fazem parte da experiência cotidiana e não configuram patologia. A orientação, por sua vez, costuma ser automática — na maior parte do tempo não 'calculamos' conscientemente em que dia estamos ou onde estamos. Dalgalarrondo situa a orientação normal como um pano de fundo silencioso da consciência, que só se torna tema de atenção deliberada em situações incomuns (acordar em lugar desconhecido, viagens longas com fuso horário). Cheniaux destaca que uma breve confusão sobre o dia da semana ao acordar, corrigida em segundos, não tem o mesmo peso clínico de uma desorientação persistente e não corrigível mesmo diante de pistas do ambiente.",
@@ -39,14 +39,15 @@ export const atencaoOrientacao: DominioPsicopatologico = {
       ],
     },
     {
-      id: "hiperprosexia",
-      nome: "Hiperprosexia (distratibilidade)",
+      id: "distratibilidade",
+      nome: "Distratibilidade (hipervigilância com hipotenacidade)",
       definicao:
-        "Aumento patológico da mobilidade da atenção, com dificuldade em sustentar o foco por ser constantemente capturado por estímulos novos e irrelevantes do ambiente — a atenção é intensa, porém extremamente instável.",
+        "Padrão de alteração atencional em que a vigilância está aumentada (captura fácil e constante por qualquer estímulo novo do ambiente) enquanto a tenacidade está reduzida (incapacidade de sustentar o foco voluntariamente) — a combinação dos dois eixos, não apenas 'mais' ou 'menos' atenção, é o que produz a distratibilidade clinicamente observada.",
       caracteristicas: [
-        "Atenção facilmente capturada por qualquer estímulo do ambiente (visual, sonoro)",
-        "Discurso frequentemente interrompido por comentários sobre estímulos incidentais",
-        "Associa-se tipicamente à aceleração do curso do pensamento",
+        "Atenção facilmente capturada por qualquer estímulo do ambiente (visual, sonoro), com discurso frequentemente interrompido por comentários sobre estímulos incidentais",
+        "É o padrão clássico da mania: hipervigilância + hipotenacidade — daí a distratibilidade ser um dos sete critérios sintomáticos do episódio maníaco/hipomaníaco no DSM-5-TR",
+        "Também o padrão atencional do TDAH e do delirium — nesses casos sem a aceleração do curso do pensamento que acompanha a mania",
+        "Associa-se tipicamente à aceleração do curso do pensamento quando de causa maníaca",
       ],
       exemploClinico:
         "Paciente em mania que, no meio de uma frase, interrompe-se para comentar sobre o barulho do ar-condicionado, depois sobre a cor da blusa do entrevistador, sem retomar o tópico original.",
@@ -54,12 +55,30 @@ export const atencaoOrientacao: DominioPsicopatologico = {
         {
           comparadoCom: "Fuga de ideias",
           distincao:
-            "A hiperprosexia é a alteração do foco atencional em si (o que captura a atenção do paciente); a fuga de ideias é a alteração do curso do pensamento resultante — associações rápidas entre ideias, por vezes por conexões superficiais (assonância, trocadilhos) — os dois tipicamente coexistem na mania, mas descrevem fenômenos distintos.",
+            "A distratibilidade é a alteração do foco atencional em si (o que captura a atenção do paciente); a fuga de ideias é a alteração do curso do pensamento resultante — associações rápidas entre ideias, por vezes por conexões superficiais (assonância, trocadilhos) — os dois tipicamente coexistem na mania, mas descrevem fenômenos distintos.",
         },
       ],
       transtornosAssociados: [
-        "Episódio Maníaco",
-        "TDAH (predominância hiperativa/impulsiva)",
+        "Episódio Maníaco/Hipomaníaco",
+        "TDAH",
+        "Delirium",
+      ],
+    },
+    {
+      id: "hiperprosexia",
+      nome: "Hiperprosexia",
+      definicao:
+        "Aumento global da capacidade atencional com tendência a perseverar indefinidamente sobre um mesmo conteúdo, sem os sinais habituais de fadiga atencional — hipervigilância E hipertenacidade simultâneas.",
+      caracteristicas: [
+        "Termo de uso disputado na literatura: como vigilância e tenacidade raramente estão exacerbadas ao mesmo tempo na prática clínica, alguns autores consideram o estado 'puro' pouco frequente e reservam o termo para uma concentração intensa e perseverante sobre um foco restrito — diferente da distratibilidade (achado acima), que é o padrão clínico realmente comum e frequentemente confundido com hiperprosexia",
+        "Quando presente, tipicamente restrita a um conteúdo específico (um tema de preocupação, uma ruminação), não à atenção de forma global e flutuante",
+      ],
+      exemploClinico:
+        "Paciente com transtorno de ansiedade de doença que consegue prestar atenção continuamente, por horas, apenas em sinais corporais e sintomas físicos, com dificuldade de desviar o foco desse conteúdo mesmo quando tenta conscientemente.",
+      transtornosAssociados: [
+        "Estados paranoides (hipervigilância a sinais de ameaça)",
+        "Hipocondria / Transtorno de Ansiedade de Doença",
+        "Intoxicação por estimulantes",
       ],
     },
     {
