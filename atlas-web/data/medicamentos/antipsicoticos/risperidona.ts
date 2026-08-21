@@ -22,7 +22,7 @@ export const risperidona: Medicamento = {
       indicacao: "Esquizofrenia",
       doseInicial: "1–2 mg/dia",
       doseUsual: "2–6 mg/dia",
-      doseMaxima: "16 mg/dia",
+      doseMaxima: "16 mg/dia (raramente usada — acima de 6 mg/dia o risco de sintomas extrapiramidais se aproxima de um antipsicótico típico, ver pérola clínica)",
       nivelEvidencia: 5,
     },
     {
@@ -63,6 +63,7 @@ export const risperidona: Medicamento = {
   contraIndicacoes: [
     "Hipersensibilidade à risperidona ou paliperidona",
     "Demência com corpos de Lewy (maior sensibilidade a efeitos extrapiramidais)",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [
@@ -107,7 +108,7 @@ export const risperidona: Medicamento = {
 
   sexual: "Alta",
 
-  qt: "Baixo",
+  qt: "Moderado",
 
   sintomasExtrapiramidais: "Moderado",
 

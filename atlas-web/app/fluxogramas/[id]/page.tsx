@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
+import BotaoFavoritar from "../../../components/BotaoFavoritar";
 import FluxogramaViewer from "../../../components/fluxogramas/FluxogramaViewer";
+import VisitaTracker from "../../../components/VisitaTracker";
 
 import { fluxogramas } from "../../../data/fluxogramas";
 
@@ -32,10 +34,26 @@ export default async function FluxogramaPage({ params, searchParams }: Props) {
 
   return (
     <main className="mx-auto max-w-7xl">
+      <VisitaTracker
+        tipo="fluxograma"
+        id={fluxograma.id}
+        nome={fluxograma.titulo}
+        href={`/fluxogramas/${encodeURIComponent(fluxograma.id)}`}
+      />
+
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-ink">
-          {fluxograma.titulo}
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h1 className="text-4xl font-bold text-ink">
+            {fluxograma.titulo}
+          </h1>
+
+          <BotaoFavoritar
+            tipo="fluxograma"
+            id={fluxograma.id}
+            nome={fluxograma.titulo}
+            href={`/fluxogramas/${encodeURIComponent(fluxograma.id)}`}
+          />
+        </div>
 
         <div className="mt-4">
           <Badge color="blue">{fluxograma.categoria}</Badge>

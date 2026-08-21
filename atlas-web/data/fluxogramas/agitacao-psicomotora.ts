@@ -105,6 +105,7 @@ export const agitacaoPsicomotora: Fluxograma = {
         "Antipsicótico por via oral (ex. risperidona 1-2 mg ou olanzapina 5-10 mg VO), associado a benzodiazepínico oral (ex. lorazepam 1-2 mg) se necessário.",
       detalhe: "Reavaliar a resposta clínica em 30 a 60 minutos.",
       medicamentosRelacionados: ["risperidona", "olanzapina", "lorazepam"],
+      diagnosticosRelacionados: ["esquizofrenia", "bipolar-tipo-1"],
     },
     {
       id: "conduta-oral-benzodiazepinico",

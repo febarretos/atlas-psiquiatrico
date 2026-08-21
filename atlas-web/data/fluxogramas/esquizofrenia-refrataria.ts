@@ -77,6 +77,7 @@ export const esquizofreniaRefrataria: Fluxograma = {
       detalhe:
         "Monitorar sintomas extrapiramidais e hiperprolactinemia, aos quais pacientes em primeiro episódio são mais sensíveis. Iniciar com dose baixa e titular gradualmente até a dose eficaz mínima.",
       medicamentosRelacionados: ["risperidona"],
+      diagnosticosRelacionados: ["esquizofrenia"],
       opcoes: [
         { label: "Antipsicótico iniciado, aguardar resposta", proximoNodeId: "resposta-primeiro-episodio" },
       ],

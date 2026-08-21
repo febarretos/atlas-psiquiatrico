@@ -50,14 +50,12 @@ export default function AppShell({ children }: Props) {
         <main className="flex-1 overflow-y-auto bg-paper px-4 pb-20 md:px-10">
           {children}
 
-          {pathname === "/" && (
-            <footer className="mx-auto mt-11 max-w-[1060px] border-t border-rule pt-[18px] text-xs leading-[1.7] text-ink-3 print:hidden">
-              Conteúdo destinado a profissionais de saúde como ferramenta de
-              apoio à decisão clínica. Não substitui o julgamento médico,
-              a avaliação individualizada do paciente nem as bulas e
-              diretrizes oficiais vigentes.
-            </footer>
-          )}
+          <footer className="mx-auto mt-11 max-w-[1060px] border-t border-rule pt-[18px] text-xs leading-[1.7] text-ink-3">
+            Conteúdo destinado a profissionais de saúde como ferramenta de
+            apoio à decisão clínica. Não substitui o julgamento médico,
+            a avaliação individualizada do paciente nem as bulas e
+            diretrizes oficiais vigentes.
+          </footer>
         </main>
       </div>
 

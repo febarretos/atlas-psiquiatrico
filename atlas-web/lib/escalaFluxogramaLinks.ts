@@ -26,6 +26,30 @@ export const vinculosEscalaFluxograma: VinculoEscalaFluxograma[] = [
     fluxogramaId: "risco-suicidio",
     nodeId: "risco-alto",
   },
+  {
+    escalaId: "phq9",
+    corFaixa: "red",
+    fluxogramaId: "depressao-maior",
+    nodeId: "conduta-combinado-padrao",
+  },
+  {
+    escalaId: "gad7",
+    corFaixa: "red",
+    fluxogramaId: "manejo-ansiedade",
+    nodeId: "conduta-tag-padrao",
+  },
+  {
+    escalaId: "ymrs",
+    corFaixa: "red",
+    fluxogramaId: "mania-aguda",
+    nodeId: "conduta-estabilizador-padrao",
+  },
+  {
+    escalaId: "ybocs",
+    corFaixa: "red",
+    fluxogramaId: "manejo-toc",
+    nodeId: "conduta-toc-grave-padrao",
+  },
 ];
 
 export function encontrarVinculoEscalaFluxograma(

@@ -87,7 +87,12 @@ export const litio: Medicamento = {
     "Leucocitose benigna",
   ],
 
-  serotoninergico: true,
+  // Não tem mecanismo serotoninérgico direto (inibição de recaptação/IMAO) —
+  // o campo é sobre o mecanismo do próprio fármaco, não sobre risco de
+  // interação. O potencial de potencializar síndrome serotoninérgica em
+  // combinação com ISRS/outros serotoninérgicos está documentado em prosa
+  // em `interacoes` abaixo.
+  serotoninergico: false,
 
   cargaAnticolinergica: "Nenhuma",
 

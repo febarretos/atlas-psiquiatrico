@@ -98,6 +98,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
       detalhe:
         "A meia-vida longa do diazepam (e de seu metabólito ativo) permite um desmame mais suave e autolimitado, sendo por isso a escolha clássica quando não há hepatopatia ou risco de acúmulo relevante. Associar tiamina oral em dose adequada antes ou junto da reposição calórica/glicose. Orientar sinais de alarme para buscar atendimento de urgência.",
       medicamentosRelacionados: ["diazepam", "tiamina"],
+      diagnosticosRelacionados: ["transtorno-uso-alcool"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
       ],

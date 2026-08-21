@@ -25,6 +25,7 @@ export default function EscalaForm({ escala }: Props) {
   const [pacienteLabel, setPacienteLabel] = useState("");
   const [historicoVersao, setHistoricoVersao] = useState(0);
   const [salvo, setSalvo] = useState(false);
+  const [escolaridadeAnos, setEscolaridadeAnos] = useState<number | undefined>(undefined);
 
   function responder(itemId: string, indiceOpcao: number) {
     setRespostas((atual) => ({
@@ -37,6 +38,7 @@ export default function EscalaForm({ escala }: Props) {
   function reiniciar() {
     setRespostas({});
     setSalvo(false);
+    setEscolaridadeAnos(undefined);
   }
 
   const totalItens = escala.itens.length;
@@ -64,13 +66,30 @@ export default function EscalaForm({ escala }: Props) {
     return valores.reduce((soma, valor) => soma + valor, 0);
   }, [escala.itens, escala.modoDePontuacao, respostas]);
 
+  const faixaEscolaridade = useMemo(() => {
+    if (!escala.ajusteEscolaridade || escolaridadeAnos === undefined) return undefined;
+    return escala.ajusteEscolaridade.find(
+      (f) => escolaridadeAnos >= f.anosMin && escolaridadeAnos <= f.anosMax
+    );
+  }, [escala.ajusteEscolaridade, escolaridadeAnos]);
+
+  // Exige escolaridade antes de calcular a faixa sempre que a escala declara
+  // `ajusteEscolaridade` — o corte de escalas como MEEM/MoCA depende
+  // documentadamente da escolaridade do paciente, e mostrar uma faixa
+  // calculada sobre a pontuação bruta sem esse ajuste pode gerar
+  // falso-positivo/falso-negativo no selo de interpretação.
+  const aguardandoEscolaridade =
+    escala.ajusteEscolaridade !== undefined && escolaridadeAnos === undefined;
+
+  const pontuacaoInterpretada = pontuacao + (faixaEscolaridade?.ajuste ?? 0);
+
   const faixa = useMemo(() => {
-    if (!completo) return undefined;
+    if (!completo || aguardandoEscolaridade) return undefined;
 
     return escala.faixas.find(
-      (f) => pontuacao >= f.min && pontuacao <= f.max
+      (f) => pontuacaoInterpretada >= f.min && pontuacaoInterpretada <= f.max
     );
-  }, [completo, escala.faixas, pontuacao]);
+  }, [completo, aguardandoEscolaridade, escala.faixas, pontuacaoInterpretada]);
 
   const pontuacaoMaxima = useMemo(
     () => Math.max(0, ...escala.faixas.map((f) => f.max)),
@@ -216,6 +235,28 @@ export default function EscalaForm({ escala }: Props) {
           </div>
         </div>
 
+        {completo && escala.ajusteEscolaridade && (
+          <div className="mb-5 print:hidden">
+            <label className="mb-2 block text-sm font-medium text-ink-2">
+              Escolaridade do paciente (necessária para calcular a faixa corretamente)
+            </label>
+            <select
+              value={escolaridadeAnos ?? ""}
+              onChange={(e) =>
+                setEscolaridadeAnos(e.target.value === "" ? undefined : Number(e.target.value))
+              }
+              className="w-full max-w-xs rounded-lg border border-rule bg-paper px-4 py-2.5 text-ink outline-none transition-colors focus:border-accent md:w-auto"
+            >
+              <option value="">Selecionar anos de estudo...</option>
+              {escala.ajusteEscolaridade.map((f) => (
+                <option key={f.rotulo} value={f.anosMin}>
+                  {f.rotulo}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         {completo ? (
           <div className="grid gap-5 md:grid-cols-2">
             <InfoCard
@@ -230,7 +271,12 @@ export default function EscalaForm({ escala }: Props) {
             <InfoCard
               titulo="Interpretação"
               valor={
-                faixa ? (
+                aguardandoEscolaridade ? (
+                  <span className="text-sm text-ink-2">
+                    Informe a escolaridade acima para calcular a faixa — o ponto de corte desta
+                    escala depende dela.
+                  </span>
+                ) : faixa ? (
                   <div className="flex flex-col gap-2">
                     <Badge color={faixa.cor}>{faixa.label}</Badge>
 

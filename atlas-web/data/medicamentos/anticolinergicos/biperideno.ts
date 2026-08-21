@@ -129,7 +129,7 @@ export const biperideno: Medicamento = {
   perolasClinicas: [
     "Diante de distonia aguda, a via parenteral (IM/IV) tem resposta em minutos — não esperar o efeito oral em uma emergência, já que a distonia laríngea, embora rara, pode comprometer a via aérea.",
     "Reavaliar periodicamente (a cada poucas semanas/meses) a real necessidade de manutenção — muitos pacientes seguem recebendo biperideno cronicamente após o antipsicótico já ter sido trocado ou a dose reduzida, sem reavaliação se ainda é necessário.",
-    "Não usar como tratamento de acatisia — é ineficaz para esse sintoma específico (que tem base predominantemente serotoninérgica/noradrenérgica, não colinérgica); propranolol ou benzodiazepínico são as opções corretas para acatisia.",
+    "Eficácia limitada como tratamento de acatisia isolada — não é primeira linha; propranolol ou benzodiazepínico são as opções corretas para acatisia pura. Reservar para quando há parkinsonismo/sintomas extrapiramidais concomitantes.",
     "O efeito euforizante leve percebido por alguns pacientes é a base do potencial de abuso — ficar atento a pedidos de aumento de dose sem sintomas extrapiramidais objetivos correspondentes.",
   ],
 

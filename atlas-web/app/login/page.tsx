@@ -1,7 +1,7 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { SESSION_COOKIE, expectedSessionValue } from "../../lib/auth";
+import { SESSION_COOKIE, expectedSessionValue, excedeuLimiteDeTentativas } from "../../lib/auth";
 
 interface Props {
   searchParams: Promise<{ from?: string; error?: string }>;
@@ -13,6 +13,13 @@ async function login(formData: FormData) {
   const senha = String(formData.get("senha") ?? "");
   const from = String(formData.get("from") ?? "/");
   const expected = expectedSessionValue();
+
+  const cabecalhos = await headers();
+  const chaveThrottle = cabecalhos.get("x-forwarded-for") ?? "sem-ip";
+
+  if (excedeuLimiteDeTentativas(chaveThrottle)) {
+    redirect(`/login?error=limite&from=${encodeURIComponent(from)}`);
+  }
 
   if (!expected || senha !== process.env.SITE_PASSWORD) {
     redirect(`/login?error=1&from=${encodeURIComponent(from)}`);
@@ -58,7 +65,13 @@ export default async function LoginPage({ searchParams }: Props) {
           className="mt-6 w-full rounded-lg border border-rule bg-paper px-4 py-2 text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
         />
 
-        {error && (
+        {error === "limite" && (
+          <p className="mt-3 text-sm text-alert">
+            Muitas tentativas seguidas. Aguarde alguns minutos antes de tentar de novo.
+          </p>
+        )}
+
+        {error && error !== "limite" && (
           <p className="mt-3 text-sm text-alert">Senha incorreta.</p>
         )}
 

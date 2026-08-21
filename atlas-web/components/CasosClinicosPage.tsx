@@ -256,7 +256,7 @@ export default function CasosClinicosPage({
                       ? aguardandoSegundos !== null
                         ? `Aguardando ${aguardandoSegundos}s…`
                         : "Gerando…"
-                      : "Múltipla escolha (2 etapas)"}
+                      : "Múltipla escolha (4-5 etapas)"}
                   </button>
 
                   <button

@@ -39,12 +39,13 @@ export const acatisiaGrave: Emergencia = {
     "Reduzir a dose do agente causador ou trocar por antipsicótico com menor risco de sintomas extrapiramidais, quando clinicamente possível",
     "Propranolol como primeira linha farmacológica adjuvante: 10-20 mg 2-3x/dia, podendo titular até 30-80 mg/dia (dose máxima 120 mg/dia) — checar contraindicações cardiovasculares e respiratórias antes de prescrever",
     "Benzodiazepínico (ex.: lorazepam) como alternativa ou adjuvante, especialmente em quadros graves",
-    "NÃO usar anticolinérgico (biperideno) como tratamento da acatisia — é ineficaz para esse sintoma específico, cujo mecanismo é predominantemente não colinérgico",
+    "Anticolinérgico (biperideno) tem eficácia limitada e não é tratamento de primeira linha para acatisia isolada — reservar para quando há parkinsonismo/sintomas extrapiramidais concomitantes, situação em que pode agregar benefício",
     "Em tempestade acatísica com risco de suicídio ou agressão associado, tratar como emergência comportamental: avaliação de segurança imediata e considerar internação (ver 'Risco de Suicídio Agudo' e 'Agitação Psicomotora Aguda' neste módulo)",
   ],
 
-  // Nota: biperideno é explicitamente contraindicado como tratamento da
-  // acatisia (ver condutaImediata acima) — não incluído aqui de propósito.
+  // Nota: biperideno tem eficácia limitada para acatisia isolada (ver
+  // condutaImediata acima) — não incluído aqui de propósito; propranolol e
+  // benzodiazepínico são as opções de resgate corretas para esse sintoma.
   medicamentosResgate: ["propranolol", "lorazepam"],
 
   examesComplementares: [

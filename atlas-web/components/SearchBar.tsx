@@ -12,6 +12,7 @@ export default function SearchBar({
   return (
     <div className="relative">
       <svg
+        aria-hidden="true"
         className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-3"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -27,6 +28,8 @@ export default function SearchBar({
       </svg>
 
       <input
+        type="search"
+        aria-label={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}

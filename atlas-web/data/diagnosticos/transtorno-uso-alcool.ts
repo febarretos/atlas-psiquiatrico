@@ -80,9 +80,10 @@ export const transtornoUsoAlcool: Diagnostico = {
     { id: "uso-apesar-problemas", peso: 2 },
   ],
 
-  // Naltrexona, acamprosato e dissulfiram (primeira linha farmacológica
-  // segundo o texto acima) não constam em data/medicamentos/index.ts;
-  // medicamentosPrimeiraLinha omitido para não referenciar ids inexistentes.
+  // Dissulfiram (também primeira linha farmacológica segundo o texto acima)
+  // ainda não consta em data/medicamentos/index.ts — permanece fora desta
+  // lista para não referenciar um id inexistente.
+  medicamentosPrimeiraLinha: ["naltrexona", "acamprosato"],
 
   referencias: [
     "DSM-5-TR (American Psychiatric Association, 2022)",

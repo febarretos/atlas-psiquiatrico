@@ -1,7 +1,13 @@
+import { Suspense } from "react";
+
 import EntrevistaEstruturadaChecklist from "../../components/EntrevistaEstruturadaChecklist";
 
 import { diagnosticos } from "../../data/diagnosticos";
 
 export default function EntrevistaEstruturada() {
-  return <EntrevistaEstruturadaChecklist diagnosticos={diagnosticos} />;
+  return (
+    <Suspense>
+      <EntrevistaEstruturadaChecklist diagnosticos={diagnosticos} />
+    </Suspense>
+  );
 }

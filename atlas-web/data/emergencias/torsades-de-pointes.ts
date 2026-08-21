@@ -30,7 +30,7 @@ export const torsadesDePointes: Emergencia = {
 
   condutaImediata: [
     "Suspender o(s) fármaco(s) prolongador(es) do QT envolvido(s)",
-    "Corrigir distúrbios eletrolíticos com urgência — reposição de potássio e magnésio (sulfato de magnésio IV é o tratamento de escolha na Torsades já instalada, mesmo com magnésio sérico normal)",
+    "Corrigir distúrbios eletrolíticos com urgência — reposição de potássio e magnésio: sulfato de magnésio 2 g IV em bolus lento (1-2 min), podendo repetir em 5-15 min se recorrência; seguir com infusão contínua (3-20 mg/min) se necessário — é o tratamento de escolha na Torsades já instalada, mesmo com magnésio sérico normal",
     "Monitorização cardíaca contínua e ECG seriado com medida do QTc",
     "Nos episódios sustentados/instáveis: cardioversão elétrica; considerar marca-passo transvenoso com overdrive pacing em casos recorrentes",
     "Evitar reintroduzir o agente causador; ao reiniciar tratamento psiquiátrico, preferir fármaco com menor risco cardíaco documentado",

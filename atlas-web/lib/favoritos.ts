@@ -5,6 +5,10 @@
 import { ItemReferencia, TipoItemReferencia } from "./itemReferencia";
 
 const CHAVE_ARMAZENAMENTO = "atlas-psiquiatrico:favoritos";
+// Sem limite natural (é escolha explícita do usuário, diferente de
+// recentes.ts) — mas um teto generoso evita crescimento sem controle do
+// localStorage por bug ou uso anômalo.
+const LIMITE = 200;
 
 function carregarTudo(): ItemReferencia[] {
   if (typeof window === "undefined") return [];
@@ -44,6 +48,6 @@ export function alternarFavorito(item: ItemReferencia): boolean {
     return false;
   }
 
-  salvarTudo([item, ...atuais]);
+  salvarTudo([item, ...atuais].slice(0, LIMITE));
   return true;
 }

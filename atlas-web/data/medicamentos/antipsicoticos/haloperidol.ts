@@ -66,6 +66,7 @@ export const haloperidol: Medicamento = {
     "Depressão grave do SNC ou estados comatosos",
     "Prolongamento de intervalo QT conhecido ou uso concomitante de outros agentes que prolongam QT",
     "Hipersensibilidade ao haloperidol",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [

@@ -70,9 +70,11 @@ export const delirium: Diagnostico = {
     { id: "agitacao-psicomotora", peso: 1 },
   ],
 
-  // Não são tratamento do delirium em si — apenas manejo sintomático de
-  // agitação grave/sofrimento psicótico associado (ver texto acima).
-  medicamentosPrimeiraLinha: ["haloperidol", "risperidona", "quetiapina"],
+  // medicamentosPrimeiraLinha omitido de propósito: haloperidol/risperidona/
+  // quetiapina em dose baixa são manejo sintomático transitório de agitação
+  // grave, nunca "primeira linha" de tratamento do delirium em si (o único
+  // tratamento definitivo é a causa subjacente, ver texto acima) — mesmo
+  // padrão de omissão deliberada usado em personalidade-borderline.ts.
 
   referencias: [
     "DSM-5-TR (American Psychiatric Association, 2022)",

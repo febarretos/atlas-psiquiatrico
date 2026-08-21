@@ -195,7 +195,7 @@ test("gerarTextoEvolucaoCasoInterativo: caminho 'bom' pelo caso real vo-jardim, 
   console.log("\n[caso interativo]\n" + texto);
 
   assert.ok(texto.startsWith('Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim")'));
-  assert.ok(texto.includes("Transtorno Depressivo Maior (CID-11: 6A70)"));
+  assert.ok(texto.includes("Transtorno Depressivo Maior (CID-11: 6A70 (episódio único) / 6A71 (recorrente))"));
   assert.ok(texto.includes("Conduta seguida ao longo do caso:"));
   // Rótulos de opção não devem carregar aspas internas soltas nem os
   // marcadores de qualidadeDecisao — só o texto da escolha em si.
@@ -209,7 +209,7 @@ test("gerarTextoEvolucaoCasoInterativo: sem decisões tomadas ainda, gera só o 
 
   assert.equal(
     texto,
-    'Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim"): diagnóstico Transtorno Depressivo Maior (CID-11: 6A70).'
+    'Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim"): diagnóstico Transtorno Depressivo Maior (CID-11: 6A70 (episódio único) / 6A71 (recorrente)).'
   );
 });
 

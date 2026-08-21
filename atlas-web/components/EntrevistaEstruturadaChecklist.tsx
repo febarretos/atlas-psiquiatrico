@@ -1,9 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-import Badge from "./Badge";
 import BotaoCopiarProntuario from "./BotaoCopiarProntuario";
 import EntrevistaEstruturadaModulo from "./EntrevistaEstruturadaModulo";
 import SearchBar from "./SearchBar";
@@ -17,38 +16,23 @@ interface Props {
   diagnosticos: Diagnostico[];
 }
 
-// Chave estável pra um item marcado no checklist LEGADO (diagnósticos sem
-// entrevistaEstruturada ainda autorada) — id do diagnóstico + índice do
-// critério dentro de criteriosDiagnosticos.
-function chaveItemLegado(diagnosticoId: string, indice: number): string {
-  return `${diagnosticoId}::${indice}`;
-}
-
 export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) {
+  const searchParams = useSearchParams();
   const [busca, setBusca] = useState("");
   const [pacienteLabel, setPacienteLabel] = useState("");
-  const [marcadosLegado, setMarcadosLegado] = useState<Set<string>>(new Set());
-  const [abertos, setAbertos] = useState<Set<string>>(new Set());
   const [respostasEstruturadas, setRespostasEstruturadas] = useState<Map<string, boolean>>(new Map());
 
-  function alternarItemLegado(diagnosticoId: string, indice: number) {
-    const chave = chaveItemLegado(diagnosticoId, indice);
-    setMarcadosLegado((atual) => {
-      const novo = new Set(atual);
-      if (novo.has(chave)) novo.delete(chave);
-      else novo.add(chave);
-      return novo;
-    });
-  }
+  // Deep link a partir da ficha de diagnóstico ("Aplicar como entrevista
+  // estruturada") — filtra direto pro módulo daquele diagnóstico, em vez de
+  // abrir com os 33 módulos simultaneamente.
+  useEffect(() => {
+    const diagnosticoId = searchParams.get("diagnostico");
+    if (!diagnosticoId) return;
 
-  function alternarAberto(diagnosticoId: string) {
-    setAbertos((atual) => {
-      const novo = new Set(atual);
-      if (novo.has(diagnosticoId)) novo.delete(diagnosticoId);
-      else novo.add(diagnosticoId);
-      return novo;
-    });
-  }
+    const diagnostico = diagnosticos.find((d) => d.id === diagnosticoId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincronizando com o parâmetro de URL (só disponível após montagem)
+    if (diagnostico) setBusca(diagnostico.nome);
+  }, [searchParams, diagnosticos]);
 
   function responderCriterioEstruturado(
     diagnosticoId: string,
@@ -76,7 +60,6 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
   }
 
   function limparMarcacoes() {
-    setMarcadosLegado(new Set());
     setRespostasEstruturadas(new Map());
   }
 
@@ -100,8 +83,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
       .sort((a, b) => a.categoria.localeCompare(b.categoria));
   }, [diagnosticos, busca]);
 
-  const totalMarcados =
-    marcadosLegado.size + [...respostasEstruturadas.values()].filter(Boolean).length;
+  const totalMarcados = [...respostasEstruturadas.values()].filter(Boolean).length;
 
   // Texto final SEMPRE construído a partir de `diagnosticos` (lista
   // completa, não a `modulos` filtrada pela busca) — pra nunca perder um
@@ -109,52 +91,14 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
   const textoResumo = useMemo(() => {
     if (totalMarcados === 0) return "";
 
-    const blocos: string[] = [];
+    const modulosEstruturados: RespostaModuloEntrevista[] = diagnosticos.map((d) => ({
+      diagnostico: d,
+      respostasCriterios: respostasDoModulo(d.id),
+    }));
 
-    const modulosEstruturados: RespostaModuloEntrevista[] = diagnosticos
-      .filter((d) => d.entrevistaEstruturada)
-      .map((d) => ({
-        diagnostico: d,
-        respostasCriterios: respostasDoModulo(d.id),
-      }));
-
-    const textoEstruturado = gerarTextoEntrevistaEstruturada(modulosEstruturados);
-    if (textoEstruturado) blocos.push(textoEstruturado);
-
-    const porCategoriaLegado = new Map<string, Diagnostico[]>();
-    for (const d of diagnosticos) {
-      if (d.entrevistaEstruturada) continue;
-      const lista = porCategoriaLegado.get(d.categoria) ?? [];
-      lista.push(d);
-      porCategoriaLegado.set(d.categoria, lista);
-    }
-
-    const linhasLegado: string[] = [];
-    for (const [categoria, lista] of porCategoriaLegado) {
-      const comMarcado = lista.filter((d) =>
-        d.criteriosDiagnosticos.some((_, i) => marcadosLegado.has(chaveItemLegado(d.id, i)))
-      );
-      if (comMarcado.length === 0) continue;
-
-      linhasLegado.push(`## ${categoria}`);
-      for (const d of comMarcado) {
-        linhasLegado.push(`${d.nome}:`);
-        d.criteriosDiagnosticos.forEach((item, i) => {
-          if (marcadosLegado.has(chaveItemLegado(d.id, i))) linhasLegado.push(`  [x] ${item}`);
-        });
-        linhasLegado.push("");
-      }
-    }
-
-    if (linhasLegado.length > 0) {
-      blocos.push(
-        ["CHECKLIST SIMPLES (sem algoritmo formal) — itens marcados:", "", ...linhasLegado].join("\n").trim()
-      );
-    }
-
-    return blocos.join("\n\n");
+    return gerarTextoEntrevistaEstruturada(modulosEstruturados);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- respostasDoModulo depende só de respostasEstruturadas, já listado
-  }, [diagnosticos, respostasEstruturadas, marcadosLegado, totalMarcados]);
+  }, [diagnosticos, respostasEstruturadas, totalMarcados]);
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -163,9 +107,7 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
 
         <p className="mt-4 text-ink-2">
           Entrevista tipo SCID: pergunta de rastreio por módulo (pula o módulo inteiro se
-          negativa) e cálculo ao vivo da contagem/subgrupos formais do DSM-5-TR. Diagnósticos
-          ainda não migrados pro formato estruturado aparecem como checklist simples, sem
-          algoritmo.
+          negativa) e cálculo ao vivo da contagem/subgrupos formais do DSM-5-TR.
         </p>
 
         <p className="mt-3 text-sm text-ink-3">
@@ -228,79 +170,16 @@ export default function EntrevistaEstruturadaChecklist({ diagnosticos }: Props) 
             </h2>
 
             <div className="space-y-3">
-              {listaDoModulo.map((d) => {
-                if (d.entrevistaEstruturada) {
-                  return (
-                    <EntrevistaEstruturadaModulo
-                      key={d.id}
-                      diagnostico={d}
-                      respostasCriterios={respostasDoModulo(d.id)}
-                      onResponderCriterio={(criterioId, valor) =>
-                        responderCriterioEstruturado(d.id, criterioId, valor)
-                      }
-                    />
-                  );
-                }
-
-                const aberto = abertos.has(d.id);
-                const marcadosNoDiagnostico = d.criteriosDiagnosticos.filter((_, i) =>
-                  marcadosLegado.has(chaveItemLegado(d.id, i))
-                ).length;
-
-                return (
-                  <div key={d.id} className="rounded-lg border border-rule bg-paper">
-                    <button
-                      type="button"
-                      onClick={() => alternarAberto(d.id)}
-                      className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
-                    >
-                      <span className="font-medium text-ink">{d.nome}</span>
-
-                      <span className="flex items-center gap-3">
-                        {marcadosNoDiagnostico > 0 && (
-                          <Badge color="blue">
-                            {marcadosNoDiagnostico}/{d.criteriosDiagnosticos.length}
-                          </Badge>
-                        )}
-                        <Link
-                          href={`/diagnosticos/${d.id}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-xs text-ink-3 hover:text-accent print:hidden"
-                        >
-                          ver diagnóstico ↗
-                        </Link>
-                        <span className="text-ink-3 print:hidden">{aberto ? "▲" : "▼"}</span>
-                      </span>
-                    </button>
-
-                    {(aberto || marcadosNoDiagnostico > 0) && (
-                      <ul className="space-y-2 border-t border-rule-soft px-4 py-3">
-                        {d.criteriosDiagnosticos.map((item, indice) => {
-                          const marcado = marcadosLegado.has(chaveItemLegado(d.id, indice));
-
-                          return (
-                            <li key={indice}>
-                              <label className="flex cursor-pointer items-start gap-3 rounded-lg px-2 py-1 print:cursor-default">
-                                <input
-                                  type="checkbox"
-                                  checked={marcado}
-                                  onChange={() => alternarItemLegado(d.id, indice)}
-                                  className="mt-1 h-4 w-4 accent-accent print:hidden"
-                                />
-                                <span
-                                  className={marcado ? "text-ink" : "text-ink-2 print:text-black"}
-                                >
-                                  {item}
-                                </span>
-                              </label>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                );
-              })}
+              {listaDoModulo.map((d) => (
+                <EntrevistaEstruturadaModulo
+                  key={d.id}
+                  diagnostico={d}
+                  respostasCriterios={respostasDoModulo(d.id)}
+                  onResponderCriterio={(criterioId, valor) =>
+                    responderCriterioEstruturado(d.id, criterioId, valor)
+                  }
+                />
+              ))}
             </div>
           </section>
         ))}

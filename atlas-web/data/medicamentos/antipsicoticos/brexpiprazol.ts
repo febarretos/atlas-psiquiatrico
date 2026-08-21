@@ -45,6 +45,7 @@ export const brexpiprazol: Medicamento = {
 
   contraIndicacoes: [
     "Hipersensibilidade ao brexpiprazol",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [

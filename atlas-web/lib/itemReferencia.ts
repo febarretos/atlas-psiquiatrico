@@ -3,7 +3,7 @@
 // precisam apontar de volta pra ficha completa sem depender do módulo de
 // dados de cada um.
 
-export type TipoItemReferencia = "medicamento" | "diagnostico" | "escala" | "emergencia";
+export type TipoItemReferencia = "medicamento" | "diagnostico" | "escala" | "emergencia" | "fluxograma";
 
 export interface ItemReferencia {
   tipo: TipoItemReferencia;

@@ -6,6 +6,8 @@ import { sintomas } from "../data/sintomas";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
 import { condicoesAlvo } from "./condicoesAlvo";
 import { paresAntagonicos } from "./paresAntagonicos";
+import { diagnosticoTermoIngles } from "./diagnosticoTermoIngles";
+import { ORDEM_USO } from "./escalasOrdemUso";
 
 export interface ProblemaIntegridade {
   categoria: string;
@@ -103,6 +105,28 @@ export function auditarIntegridade(): ProblemaIntegridade[] {
           descricao: `"${e.nome}" (${e.id}): lacuna ou sobreposição entre as faixas "${anterior.label}" (até ${anterior.max}) e "${atual.label}" (a partir de ${atual.min}).`,
         });
       }
+    }
+  }
+
+  // Guarda contra as 2 "tabelas paralelas" que já ficaram defasadas do
+  // conteúdo real no passado (achado da auditoria de app inteiro): listas
+  // mantidas à mão em lib/ que precisam cobrir 100% de data/diagnosticos e
+  // data/escalas, mas não são derivadas automaticamente delas.
+  for (const d of diagnosticos) {
+    if (!diagnosticoTermoIngles[d.id]) {
+      problemas.push({
+        categoria: "lib/diagnosticoTermoIngles",
+        descricao: `"${d.nome}" (${d.id}) não tem termo em inglês cadastrado — a geração de caso por IA pula a busca de inspiração externa (Europe PMC) para esse diagnóstico, silenciosamente.`,
+      });
+    }
+  }
+
+  for (const e of escalas) {
+    if (!ORDEM_USO.includes(e.id)) {
+      problemas.push({
+        categoria: "lib/escalasOrdemUso",
+        descricao: `"${e.nome}" (${e.id}) não está em ORDEM_USO — cai para o fim da listagem de /escalas em ordem alfabética em vez da posição por frequência de uso pretendida.`,
+      });
     }
   }
 

@@ -7,7 +7,7 @@ export const depressaoMaior: Diagnostico = {
 
   categoria: "Transtornos Depressivos",
 
-  cid11: "6A70",
+  cid11: "6A70 (episódio único) / 6A71 (recorrente)",
 
   cid10: "F32 / F33",
 

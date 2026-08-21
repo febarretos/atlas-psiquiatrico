@@ -24,7 +24,7 @@ export const imipramina: Medicamento = {
       indicacao: "Transtorno Depressivo Maior",
       doseInicial: "25–50 mg/dia",
       doseUsual: "75–150 mg/dia",
-      doseMaxima: "300 mg/dia",
+      doseMaxima: "150 mg/dia (ambulatorial); até 300 mg/dia apenas sob monitorização hospitalar/especializada, dado o estreito índice terapêutico e o risco de cardiotoxicidade em superdosagem",
       nivelEvidencia: 3,
     },
     {

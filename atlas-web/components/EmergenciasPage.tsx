@@ -21,7 +21,11 @@ export default function EmergenciasPage({
     const termo = normalizarBusca(busca.trim());
 
     return [...emergencias]
-      .filter((e) => normalizarBusca(e.nome + " " + e.categoria).includes(termo))
+      .filter((e) =>
+        normalizarBusca(
+          [e.nome, e.categoria, ...e.quadroClinico, ...(e.criteriosDiagnosticos ?? []), ...(e.causasComuns ?? [])].join(" ")
+        ).includes(termo)
+      )
       .sort((a, b) => a.nome.localeCompare(b.nome));
   }, [busca, emergencias]);
 

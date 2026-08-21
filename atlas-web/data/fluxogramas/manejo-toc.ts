@@ -135,6 +135,7 @@ export const manejoToc: Fluxograma = {
       detalhe:
         "Ambos são ISRS de primeira linha bem tolerados. Doses eficazes no TOC costumam ser mais altas do que na depressão.",
       medicamentosRelacionados: ["sertralina", "escitalopram"],
+      diagnosticosRelacionados: ["toc"],
       opcoes: [
         { label: "Reavaliar resposta após 8-12 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

@@ -62,7 +62,7 @@ export const tept: Diagnostico = {
     "Psicoterapias focadas no trauma como primeira linha com maior nível de evidência: Terapia de Processamento Cognitivo (TPC), Terapia de Exposição Prolongada e EMDR (Dessensibilização e Reprocessamento por Movimentos Oculares)",
     "ISRS (sertralina e paroxetina possuem aprovação específica para TEPT) como primeira linha farmacológica",
     "ISRSN (venlafaxina) como alternativa de primeira linha",
-    "Prazosin como adjuvante com evidência para redução de pesadelos e distúrbios do sono relacionados ao trauma",
+    "Prazosina: usada off-label como adjuvante para pesadelos/insônia relacionados ao trauma, mas com evidência mista — o maior ensaio clínico (Raskind et al., 2018, NEJM) não demonstrou benefício sobre sintomas centrais de TEPT nem sobre pesadelos em veteranos, e as diretrizes VA/DoD dão recomendação fraca contra seu uso rotineiro; considerar apenas em teste terapêutico individualizado e limitado no tempo, não como conduta padrão",
     "Evitar benzodiazepínicos como tratamento primário (não reduzem sintomas nucleares e podem interferir na extinção do medo durante a exposição terapêutica)",
   ],
 

@@ -32,7 +32,10 @@ export const sindromeSerotoninergica: Emergencia = {
     "Suporte clínico: hidratação, controle de agitação e hipertermia (resfriamento ativo, benzodiazepínicos)",
     "Considerar ciproeptadina (antagonista serotoninérgico) em casos moderados a graves",
     "Casos graves (hipertermia >41°C, rigidez importante) requerem UTI, podendo necessitar sedação profunda, bloqueio neuromuscular e intubação orotraqueal",
-    "Evitar antipsicóticos com potente ação anti-histamínica/anticolinérgica no manejo agudo, pois podem mascarar o quadro clínico",
+    "Evitar antipsicóticos com potente ação anti-histamínica/anticolinérgica no manejo agudo — não porque \"mascaram o quadro\", mas porque o efeito anticolinérgico inibe a sudorese, prejudicando a dissipação de calor e agravando a hipertermia",
+    "Antipiréticos (ex.: paracetamol) NÃO são eficazes: a hipertermia é gerada por atividade muscular excessiva, não por alteração do centro hipotalâmico de termorregulação",
+    "Evitar contenção mecânica sempre que possível: a contração isométrica contra a contenção piora a hipertermia e pode precipitar acidose lática — preferir sedação farmacológica para controlar agitação/rigidez",
+    "Bromocriptina e dantroleno NÃO são recomendados na síndrome serotoninérgica (diferente da síndrome neuroléptica maligna, onde são usados): bromocriptina tem atividade serotoninérgica própria e pode agravar o quadro, e dantroleno carece de evidência de benefício aqui",
   ],
 
   medicamentosResgate: ["ciproeptadina"],

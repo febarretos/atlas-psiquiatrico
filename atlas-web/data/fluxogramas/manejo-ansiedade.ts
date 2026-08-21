@@ -96,6 +96,7 @@ export const manejoAnsiedade: Fluxograma = {
       detalhe:
         "Ambos são ISRS de primeira linha bem tolerados para TAG. Reavaliar resposta clínica em 4 a 8 semanas.",
       medicamentosRelacionados: ["escitalopram", "sertralina"],
+      diagnosticosRelacionados: ["tag"],
       opcoes: [
         { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-tag" },
       ],
@@ -181,6 +182,7 @@ export const manejoAnsiedade: Fluxograma = {
       detalhe:
         "Considerar benzodiazepínico por tempo limitado na fase de latência do ISRS em casos muito incapacitantes.",
       medicamentosRelacionados: ["sertralina", "escitalopram"],
+      diagnosticosRelacionados: ["panico"],
       opcoes: [
         { label: "Reavaliar após 4-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-panico" },
       ],

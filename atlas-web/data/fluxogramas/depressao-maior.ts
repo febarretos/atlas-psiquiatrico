@@ -108,6 +108,7 @@ export const depressaoMaior: Fluxograma = {
         "Iniciar psicoterapia baseada em evidência (TCC, ativação comportamental ou terapia interpessoal) como tratamento isolado.",
       detalhe:
         "Farmacoterapia não é obrigatória em episódios leves. Reavaliar resposta clínica em 4 a 6 semanas; se ausência de melhora, considerar associação de antidepressivo.",
+      diagnosticosRelacionados: ["depressao-maior"],
     },
 
     // ─────────────────────────────────────────────────────────────

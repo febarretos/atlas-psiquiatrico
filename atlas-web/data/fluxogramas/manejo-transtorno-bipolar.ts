@@ -75,6 +75,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       texto: "Iniciar estabilizador de humor em monoterapia (lítio ou valproato).",
       detalhe: "Suspender antidepressivo em uso, se houver, de forma gradual salvo contraindicação.",
       medicamentosRelacionados: ["litio", "valproato"],
+      diagnosticosRelacionados: ["bipolar-tipo-1"],
       opcoes: [
         { label: "Reavaliar após 1-2 semanas →", proximoNodeId: "mania-reavaliacao" },
       ],
@@ -220,6 +221,7 @@ export const manejoTranstornoBipolar: Fluxograma = {
       detalhe:
         "Lítio tem a vantagem adicional de evidência específica de redução de risco de suicídio a longo prazo, relevante já na escolha inicial pensando na fase de manutenção subsequente. Solicitar exames basais de função renal e tireoidiana.",
       medicamentosRelacionados: ["litio", "quetiapina"],
+      diagnosticosRelacionados: ["bipolar-tipo-1", "bipolar-tipo-2"],
       opcoes: [
         { label: "Reavaliar após 6-8 semanas de tratamento →", proximoNodeId: "avaliacao-resposta-dep-bipolar" },
       ],

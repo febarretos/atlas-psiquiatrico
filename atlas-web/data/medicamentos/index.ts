@@ -62,6 +62,9 @@ import { rivastigmina } from "./anticolinesterasicos-e-antidemencia/rivastigmina
 import { galantamina } from "./anticolinesterasicos-e-antidemencia/galantamina";
 import { memantina } from "./anticolinesterasicos-e-antidemencia/memantina";
 
+import { naltrexona } from "./uso-de-substancias/naltrexona";
+import { acamprosato } from "./uso-de-substancias/acamprosato";
+
 export const medicamentos = [
   sertralina,
   escitalopram,
@@ -126,4 +129,7 @@ export const medicamentos = [
   rivastigmina,
   galantamina,
   memantina,
+
+  naltrexona,
+  acamprosato,
 ];

@@ -57,7 +57,7 @@ export const olanzapina: Medicamento = {
     "Esquizofrenia",
     "Episódios maníacos do Transtorno Bipolar",
     "Manutenção do Transtorno Bipolar",
-    "Depressão bipolar (associada à fluoxetina, off-label como Symbyax)",
+    "Depressão bipolar (associada à fluoxetina em dose fixa — combinação com aprovação regulatória específica, Symbyax/OFC)",
     "Agitação psicomotora aguda",
   ],
 
@@ -65,6 +65,7 @@ export const olanzapina: Medicamento = {
     "Hipersensibilidade à olanzapina",
     "Risco de glaucoma de ângulo fechado não tratado",
     "Diabetes descompensada ou dislipidemia grave não controlada (cautela extrema)",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [
@@ -145,7 +146,7 @@ export const olanzapina: Medicamento = {
   perolasClinicas: [
     "O ganho de peso costuma ser mais rápido e pronunciado nas primeiras semanas de tratamento — orientar dieta e atividade física ANTES de iniciar, não depois de já observado o ganho, pois grande parte do peso ganho no primeiro ano ocorre nos primeiros 2-3 meses.",
     "A formulação orodispersível é útil para garantir adesão em pacientes com suspeita de 'cheeking' (esconder o comprimido na bochecha sem engolir).",
-    "A associação com fluoxetina em dose fixa (equivalente ao antigo Symbyax) é a única combinação com aprovação regulatória específica para depressão bipolar refratária — considerar antes de outras combinações off-label nesse cenário.",
+    "A associação com fluoxetina em dose fixa (Symbyax/OFC) tem duas indicações aprovadas distintas, que não devem ser confundidas: episódio depressivo associado ao Transtorno Bipolar I (indicação direta, sem exigir falha terapêutica prévia) e depressão unipolar resistente ao tratamento (após falha de pelo menos 2 tentativas de antidepressivo). É a única combinação olanzapina+antidepressivo com essa aprovação regulatória específica — considerar antes de outras combinações off-label nesses cenários.",
     "Evitar administração intramuscular associada a benzodiazepínico parenteral na mesma janela de tempo — risco descrito de depressão cardiorrespiratória excessiva com essa combinação específica.",
   ],
 

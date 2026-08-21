@@ -90,7 +90,7 @@ export default async function DiagnosticoDetalhe({
           </h2>
           {diagnostico.entrevistaEstruturada && (
             <Link
-              href="/entrevista-estruturada"
+              href={`/entrevista-estruturada?diagnostico=${encodeURIComponent(diagnostico.id)}`}
               className="text-sm text-accent hover:underline"
             >
               Aplicar como entrevista estruturada →

@@ -59,6 +59,7 @@ export const ziprasidona: Medicamento = {
     "Arritmias cardíacas tratadas com antiarrítmicos classe IA e III",
     "Uso concomitante com outros fármacos que prolongam significativamente o QT",
     "Hipersensibilidade à ziprasidona",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [

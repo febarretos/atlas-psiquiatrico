@@ -24,7 +24,7 @@ export function getIndiceBusca(): ItemBusca[] {
     ...medicamentos.map((m) => ({
       tipo: "Medicamento",
       nome: m.nome,
-      sub: m.classe,
+      sub: m.nomeComercial?.length ? `${m.classe} · ${m.nomeComercial.join(", ")}` : m.classe,
       href: `/medicamentos/${encodeURIComponent(m.nome)}`,
     })),
     ...diagnosticos.map((d) => ({

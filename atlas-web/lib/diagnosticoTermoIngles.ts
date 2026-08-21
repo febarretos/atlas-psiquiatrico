@@ -29,6 +29,16 @@ export const diagnosticoTermoIngles: Record<string, string> = {
   delirium: "delirium",
   "transtorno-disforico-pre-menstrual": "premenstrual dysphoric disorder",
   "transtorno-depressivo-induzido-substancia": "substance-induced depressive disorder",
+  "transtorno-uso-tabaco": "tobacco use disorder",
+  "personalidade-antissocial": "antisocial personality disorder",
+  "personalidade-esquizoide": "schizoid personality disorder",
+  "personalidade-dependente": "dependent personality disorder",
+  "personalidade-esquiva": "avoidant personality disorder",
+  "personalidade-obsessivo-compulsiva": "obsessive-compulsive personality disorder",
+  "personalidade-narcisista": "narcissistic personality disorder",
+  "personalidade-paranoide": "paranoid personality disorder",
+  "personalidade-histrionica": "histrionic personality disorder",
+  "personalidade-esquizotipica": "schizotypal personality disorder",
 };
 
 export function termoInglesDoDiagnostico(diagnosticoId: string): string | undefined {

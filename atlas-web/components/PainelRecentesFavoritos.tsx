@@ -12,6 +12,7 @@ const ROTULO_TIPO: Record<TipoItemReferencia, string> = {
   diagnostico: "Diagnóstico",
   escala: "Escala",
   emergencia: "Emergência",
+  fluxograma: "Fluxograma",
 };
 
 function ListaItens({ itens }: { itens: ItemReferencia[] }) {

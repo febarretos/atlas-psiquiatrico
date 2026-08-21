@@ -72,7 +72,7 @@ export const quetiapina: Medicamento = {
   contraIndicacoes: [
     "Hipersensibilidade à quetiapina",
     "Uso concomitante com inibidores potentes da CYP3A4 (ex.: cetoconazol) em altas doses",
-    "Catarata não avaliada (recomenda-se exame oftalmológico periódico)",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [
@@ -118,7 +118,7 @@ export const quetiapina: Medicamento = {
 
   sexual: "Baixa",
 
-  qt: "Baixo",
+  qt: "Moderado",
 
   sintomasExtrapiramidais: "Muito baixo",
 

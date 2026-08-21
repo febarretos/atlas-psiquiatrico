@@ -49,7 +49,7 @@ export const paliperidona: Medicamento = {
     },
   ],
 
-  meiaVida: "23 horas (oral); 25–49 dias (injetável trimestral, reflete liberação prolongada)",
+  meiaVida: "23 horas (oral); 25–49 dias (injetável mensal); 84–139 dias (injetável trimestral) — meias-vidas longas refletem a liberação prolongada das formulações injetáveis",
 
   metabolizacao:
     "Eliminação predominantemente renal (cerca de 80% inalterada ou por via não hepática), com metabolização hepática mínima (CYP2D6 e CYP3A4 contribuem de forma pouco significativa) — diferença farmacocinética relevante frente à maioria dos antipsicóticos.",
@@ -62,6 +62,7 @@ export const paliperidona: Medicamento = {
 
   contraIndicacoes: [
     "Hipersensibilidade à paliperidona ou à risperidona",
+    "ATENÇÃO — alerta de bula (black box, FDA): risco aumentado de mortalidade e de eventos cerebrovasculares em idosos com psicose relacionada à demência — não é indicação aprovada para esse uso; se estritamente necessário, usar menor dose eficaz pelo menor tempo possível",
   ],
 
   vantagens: [

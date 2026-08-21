@@ -172,6 +172,7 @@ export const maniaAguda: Fluxograma = {
       detalhe:
         "Lítio segue sendo o padrão histórico entre os estabilizadores, com a vantagem adicional de evidência robusta de redução de risco de suicídio a longo prazo — relevante na escolha de manutenção, não só da fase aguda. Valproato é alternativa igualmente válida na ausência de condição especial. Solicitar exames basais de função renal e tireoidiana.",
       medicamentosRelacionados: ["litio", "valproato"],
+      diagnosticosRelacionados: ["bipolar-tipo-1"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

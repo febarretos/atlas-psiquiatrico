@@ -88,7 +88,12 @@ export const moca: Escala = {
   ],
 
   notaInterpretacao:
-    "A validação brasileira (Memória et al., 2013, International Journal of Geriatric Psychiatry) identificou ponto de corte ótimo de 25 pontos para rastreio de comprometimento cognitivo leve (sensibilidade 81%, especificidade 77%), discretamente diferente do ponto de corte <26 sugerido na versão original em inglês (Nasreddine et al., 2005) — usar o valor de 25 como referência para a população brasileira. Não esquecer de somar 1 ponto ao escore bruto para indivíduos com ≤12 anos de escolaridade antes de aplicar o ponto de corte. O MoCA tem maior sensibilidade que o MEEM para comprometimento cognitivo leve e para disfunção executiva predominante, mas também maior taxa de falso-positivos em pessoas com baixa escolaridade — interpretar sempre em conjunto com o quadro clínico.",
+    "A validação brasileira (Memória et al., 2013, International Journal of Geriatric Psychiatry) identificou ponto de corte ótimo de 25 pontos para rastreio de comprometimento cognitivo leve (sensibilidade 81%, especificidade 77%), discretamente diferente do ponto de corte <26 sugerido na versão original em inglês (Nasreddine et al., 2005) — usar o valor de 25 como referência para a população brasileira. Não esquecer de somar 1 ponto ao escore bruto para indivíduos com ≤12 anos de escolaridade antes de aplicar o ponto de corte. O MoCA tem maior sensibilidade que o MEEM para comprometimento cognitivo leve e para disfunção executiva predominante, mas também maior taxa de falso-positivos em pessoas com baixa escolaridade — interpretar sempre em conjunto com o quadro clínico. Este formulário pede a escolaridade e soma o ponto automaticamente antes de exibir a interpretação — a pontuação bruta exibida acima não é ajustada.",
+
+  ajusteEscolaridade: [
+    { anosMin: 0, anosMax: 12, rotulo: "12 anos ou menos", ajuste: 1 },
+    { anosMin: 13, anosMax: 99, rotulo: "Mais de 12 anos", ajuste: 0 },
+  ],
 
   referencias: [
     "Nasreddine ZS, Phillips NA, Bédirian V, et al. The Montreal Cognitive Assessment, MoCA: a brief screening tool for mild cognitive impairment. J Am Geriatr Soc. 2005.",

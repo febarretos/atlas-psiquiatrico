@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,6 +18,20 @@ export default function Sidebar({ aberto, onFechar, onAbrirBusca }: Props) {
   const ativo = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
+  // O <aside> fica sempre no DOM (só desloca com -translate-x-full em
+  // mobile) — sem isso, leitor de tela e navegação por teclado enxergam o
+  // menu fechado como se estivesse visível. `md:` é 768px no Tailwind
+  // (breakpoint padrão), mesmo limiar usado nas classes md: abaixo.
+  const [fechadoEmMobile, setFechadoEmMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const atualizar = () => setFechadoEmMobile(mq.matches && !aberto);
+    atualizar();
+    mq.addEventListener("change", atualizar);
+    return () => mq.removeEventListener("change", atualizar);
+  }, [aberto]);
+
   return (
     <>
       {aberto && (
@@ -28,6 +43,8 @@ export default function Sidebar({ aberto, onFechar, onAbrirBusca }: Props) {
       )}
 
       <aside
+        aria-hidden={fechadoEmMobile}
+        inert={fechadoEmMobile ? true : undefined}
         className={`fixed inset-y-0 left-0 z-40 flex w-[272px] min-h-dvh -translate-x-full transform flex-col overflow-y-auto border-r border-rule bg-panel transition-transform duration-200 ease-out print:hidden md:static md:translate-x-0 ${
           aberto ? "translate-x-0" : ""
         }`}

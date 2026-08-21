@@ -40,11 +40,11 @@ const TURNO_LABEL: Record<NonNullable<NoInterativo["turno"]>, string> = {
 
 const QUALIDADE_ESTILO: Record<
   NonNullable<OpcaoInterativa["qualidadeDecisao"]>,
-  { label: string; classe: string }
+  { label: string; classe: string; badgeColor: "green" | "yellow" | "red" }
 > = {
-  ideal: { label: "Ideal", classe: "border-ok-border bg-ok-bg text-ok" },
-  aceitavel: { label: "Aceitável", classe: "border-warn-border bg-warn-bg text-warn" },
-  problematica: { label: "Problemática", classe: "border-alert-border bg-alert-bg text-alert" },
+  ideal: { label: "Ideal", classe: "border-ok-border bg-ok-bg text-ok", badgeColor: "green" },
+  aceitavel: { label: "Aceitável", classe: "border-warn-border bg-warn-bg text-warn", badgeColor: "yellow" },
+  problematica: { label: "Problemática", classe: "border-alert-border bg-alert-bg text-alert", badgeColor: "red" },
 };
 
 // Feedback construtivo baseado na mistura de qualidadeDecisao das
@@ -71,6 +71,27 @@ function gerarFeedbackQualidade(opcoesEscolhidas: OpcaoInterativa[]): string {
   }
 
   return `Foram ${problematicas} decisões problemáticas ao longo deste caso — vale revisar cada uma delas abaixo com calma. Errar num caso simulado é exatamente pra isso: identificar lacunas antes que apareçam com um paciente de verdade.`;
+}
+
+// Mesma lógica do feedback narrativo acima, mas para o estilo MCQ
+// (correta/explicacao) — paridade de acabamento entre os dois estilos na
+// tela de síntese.
+function gerarFeedbackCorreta(opcoesComCorreta: OpcaoInterativa[]): string {
+  const total = opcoesComCorreta.length;
+  if (total === 0) return "";
+
+  const acertos = opcoesComCorreta.filter((o) => o.correta).length;
+
+  if (acertos === total) {
+    return "Todas as respostas corretas — domínio sólido do raciocínio clínico exigido neste caso.";
+  }
+
+  if (acertos === 0) {
+    return "Nenhuma resposta correta neste caso — vale revisar cada etapa abaixo com calma antes de refazer.";
+  }
+
+  const erros = total - acertos;
+  return `${acertos} de ${total} respostas corretas (${erros} para revisar) — as explicações abaixo mostram por que cada alternativa é ou não compatível com o quadro.`;
 }
 
 // Módulo interativo unificado — generaliza o antigo CasoClinicoPlayer
@@ -109,6 +130,29 @@ export default function CasoInterativoPlayer({ caso }: Props) {
     if (!passoAtual.opcaoEscolhida) return;
     setHistorico((atual) => [...atual, { noId: passoAtual.opcaoEscolhida!.proximoNoId }]);
     setAguardandoContinuar(false);
+  }
+
+  // Se está aguardando "Continuar" (MCQ recém-respondido), só desfaz a
+  // resposta atual sem navegar — evita voltar 2 etapas de uma vez. Caso
+  // contrário, volta pra etapa anterior e a deixa novamente respondível.
+  function voltar() {
+    if (aguardandoContinuar) {
+      setHistorico((atual) => {
+        const novo = [...atual];
+        novo[novo.length - 1] = { noId: novo[novo.length - 1].noId };
+        return novo;
+      });
+      setAguardandoContinuar(false);
+      return;
+    }
+
+    if (historico.length <= 1) return;
+
+    setHistorico((atual) =>
+      atual.slice(0, -1).map((passo, index, arr) =>
+        index === arr.length - 1 ? { noId: passo.noId } : passo
+      )
+    );
   }
 
   function reiniciar() {
@@ -289,8 +333,16 @@ export default function CasoInterativoPlayer({ caso }: Props) {
         />
       )}
 
-      {terminou && (
-        <div className="mt-6">
+      {(historico.length > 1 || aguardandoContinuar) && (
+        <div className="mt-6 flex gap-3">
+          <button
+            type="button"
+            onClick={voltar}
+            className="rounded-lg border border-rule bg-paper px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
+          >
+            ← Voltar
+          </button>
+
           <button
             type="button"
             onClick={reiniciar}
@@ -365,25 +417,60 @@ function TelaSintese({
         <p className="mb-5 text-sm leading-6 text-ink-2">{gerarFeedbackQualidade(opcoesComQualidade)}</p>
       )}
 
-      {opcoesComQualidade.length > 0 && (
+      {opcoesComCorreta.length > 0 && (
+        <p className="mb-5 text-sm leading-6 text-ink-2">{gerarFeedbackCorreta(opcoesComCorreta)}</p>
+      )}
+
+      {opcoesEscolhidas.length > 0 && (
         <div className="mb-5">
           <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-3">
             Suas decisões neste caso
           </div>
 
           <ul className="flex flex-col gap-2">
-            {opcoesComQualidade.map((opcao, index) => {
-              const estilo = QUALIDADE_ESTILO[opcao.qualidadeDecisao!];
+            {opcoesEscolhidas.map((opcao, index) => {
               const medicamento = opcao.medicamentoId
                 ? medicamentos.find((m) => m.id === opcao.medicamentoId)
                 : undefined;
 
+              const estiloQualidade = opcao.qualidadeDecisao
+                ? QUALIDADE_ESTILO[opcao.qualidadeDecisao]
+                : undefined;
+
+              const classe = estiloQualidade
+                ? estiloQualidade.classe
+                : opcao.correta
+                  ? "border-ok-border bg-ok-bg text-ok"
+                  : opcao.correta === false
+                    ? "border-alert-border bg-alert-bg text-alert"
+                    : "border-rule bg-paper text-ink-2";
+
+              const badgeLabel = estiloQualidade
+                ? estiloQualidade.label
+                : opcao.correta !== undefined
+                  ? opcao.correta
+                    ? "Correta"
+                    : "Incorreta"
+                  : undefined;
+
+              const badgeColor = estiloQualidade
+                ? estiloQualidade.badgeColor
+                : opcao.correta !== undefined
+                  ? opcao.correta
+                    ? "green"
+                    : "red"
+                  : "gray";
+
               return (
-                <li key={index} className={`rounded-xl border p-4 text-sm ${estilo.classe}`}>
+                <li key={index} className={`rounded-xl border p-4 text-sm ${classe}`}>
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-medium">{opcao.texto}</span>
-                    <Badge color="gray">{estilo.label}</Badge>
+                    {badgeLabel && <Badge color={badgeColor}>{badgeLabel}</Badge>}
                   </div>
+
+                  {(opcao.consequencia ?? opcao.explicacao) && (
+                    <p className="mt-2 text-sm leading-6">{opcao.consequencia ?? opcao.explicacao}</p>
+                  )}
 
                   {medicamento && (
                     <div className="mt-3">
@@ -437,9 +524,9 @@ function TelaSintese({
         </p>
       )}
 
-      {diagnosticoReal && opcoesComQualidade.length > 0 && (
+      {diagnosticoReal && opcoesEscolhidas.length > 0 && (
         <BotaoCopiarProntuario
-          texto={gerarTextoEvolucaoCasoInterativo(caso, diagnosticoReal, opcoesComQualidade)}
+          texto={gerarTextoEvolucaoCasoInterativo(caso, diagnosticoReal, opcoesEscolhidas)}
         />
       )}
     </div>

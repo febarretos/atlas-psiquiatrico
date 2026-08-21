@@ -8,30 +8,12 @@ import SearchBar from "../../components/SearchBar";
 
 import { normalizarBusca } from "../../lib/normalizarBusca";
 import { escalas } from "../../data/escalas";
+import { ORDEM_USO } from "../../lib/escalasOrdemUso";
 
-// Ordem aproximada de frequência de uso em consultório psiquiátrico
-// ambulatorial geral — instrumentos usados quase em toda consulta primeiro
-// (risco de suicídio, depressão, ansiedade), seguidos dos usados para
-// quadros/monitorizações mais específicas. Escalas não listadas aqui
-// (futuras) caem no fim, em ordem alfabética.
-const ORDEM_USO = [
-  "cssrs",
-  "phq9",
-  "gad7",
-  "asrs6",
-  "madrs",
-  "ybocs",
-  "mdq",
-  "ymrs",
-  "audit",
-  "pcl5",
-  "msi-bpd",
-  "barnes",
-  "aims",
-  "scoff",
-  "aq10",
-  "asrs18",
-];
+// Escalas não listadas em ORDEM_USO (ex.: futuras) caem no fim, em ordem
+// alfabética — lib/auditoria.ts audita que toda escala existente está
+// listada, então essa lacuna só deve acontecer para conteúdo novo ainda
+// não classificado.
 
 // Categorias também seguem a mesma lógica de prevalência/frequência de uso,
 // não ordem alfabética — usa a categoria da primeira escala de cada uma na

@@ -87,7 +87,19 @@ export const meem: Escala = {
   ],
 
   notaInterpretacao:
-    "O MEEM é fortemente influenciado pela escolaridade — os pontos de corte validados para a população brasileira (Bertolucci et al., 1994; Brucki et al., 2003, ambos em Arquivos de Neuro-Psiquiatria) são, por faixa de escolaridade: analfabetos ≈ 20; 1 a 4 anos ≈ 25; 5 a 8 anos ≈ 26,5; 9 a 11 anos ≈ 28; mais de 11 anos ≈ 29. Pontuações abaixo do valor de referência da faixa de escolaridade correspondente sugerem comprometimento cognitivo e indicam investigação adicional, não um diagnóstico por si só. O MEEM tem baixa sensibilidade para comprometimento cognitivo leve e para disfunção executiva predominante (ex.: fases iniciais de demência frontotemporal) — nesses cenários, o MoCA tende a ter melhor sensibilidade.",
+    "O MEEM é fortemente influenciado pela escolaridade — os pontos de corte validados para a população brasileira (Bertolucci et al., 1994; Brucki et al., 2003, ambos em Arquivos de Neuro-Psiquiatria) são, por faixa de escolaridade: analfabetos ≈ 20; 1 a 4 anos ≈ 25; 5 a 8 anos ≈ 26,5; 9 a 11 anos ≈ 28; mais de 11 anos ≈ 29. Pontuações abaixo do valor de referência da faixa de escolaridade correspondente sugerem comprometimento cognitivo e indicam investigação adicional, não um diagnóstico por si só. O MEEM tem baixa sensibilidade para comprometimento cognitivo leve e para disfunção executiva predominante (ex.: fases iniciais de demência frontotemporal) — nesses cenários, o MoCA tende a ter melhor sensibilidade. Este formulário pede a escolaridade e reancora a faixa `notaInterpretacao` automaticamente antes de exibir a interpretação — a pontuação bruta exibida acima não é ajustada.",
+
+  // Reancora o corte "sem indicativo" (hoje 24) no corte real da faixa de
+  // escolaridade do paciente (Brucki et al., 2003) — ex.: analfabeto com
+  // corte ≈20 recebe ajuste +4, então 20+4=24 cai no mesmo lugar que hoje
+  // classifica "sem indicativo" para quem tem >11 anos de estudo.
+  ajusteEscolaridade: [
+    { anosMin: 0, anosMax: 0, rotulo: "Analfabeto(a)", ajuste: 4 },
+    { anosMin: 1, anosMax: 4, rotulo: "1 a 4 anos", ajuste: -1 },
+    { anosMin: 5, anosMax: 8, rotulo: "5 a 8 anos", ajuste: -2.5 },
+    { anosMin: 9, anosMax: 11, rotulo: "9 a 11 anos", ajuste: -4 },
+    { anosMin: 12, anosMax: 99, rotulo: "Mais de 11 anos", ajuste: -5 },
+  ],
 
   referencias: [
     "Folstein MF, Folstein SE, McHugh PR. \"Mini-mental state\": a practical method for grading the cognitive state of patients for the clinician. J Psychiatr Res. 1975.",
