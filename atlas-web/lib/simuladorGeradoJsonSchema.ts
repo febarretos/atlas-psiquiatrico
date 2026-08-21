@@ -73,12 +73,21 @@ export const casoSimuladorGeradoJsonSchema: GeminiSchema = {
   type: "OBJECT",
   properties: {
     id: { type: "STRING", description: "kebab-case, curto, descritivo do caso inteiro." },
-    tituloAnedotico: {
+    titulo: {
       type: "STRING",
       description:
         "Título curto e evocativo, no tom leve/anedótico do caso — não o nome do diagnóstico.",
     },
-    diagnosticoRealId: {
+    categoria: {
+      type: "STRING",
+      description: "Categoria do diagnóstico-alvo (ex.: mesma string de Diagnostico.categoria).",
+    },
+    apresentacaoInicial: {
+      type: "STRING",
+      description:
+        "1-2 frases de contexto do paciente, mostradas antes do primeiro nó (idade, motivo da consulta, quem trouxe/acompanhou).",
+    },
+    diagnosticoId: {
       type: "STRING",
       description: "Deve ser exatamente o id do diagnóstico-alvo fornecido no prompt.",
     },
@@ -92,6 +101,20 @@ export const casoSimuladorGeradoJsonSchema: GeminiSchema = {
       type: "STRING",
       description: "Deve ser o id do primeiro nó (tipicamente turno 'entrevista').",
     },
+    pontosDeEnsino: {
+      type: "ARRAY",
+      description: "2-4 lições didáticas principais do caso, além do diagnóstico em si.",
+      items: { type: "STRING" },
+    },
   },
-  required: ["id", "tituloAnedotico", "diagnosticoRealId", "nos", "noInicialId"],
+  required: [
+    "id",
+    "titulo",
+    "categoria",
+    "apresentacaoInicial",
+    "diagnosticoId",
+    "nos",
+    "noInicialId",
+    "pontosDeEnsino",
+  ],
 };

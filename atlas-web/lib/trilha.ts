@@ -19,10 +19,7 @@ const ROTULOS_SEGMENTO: Record<string, string> = {
   assistente: "Assistente de Medicação",
   "entrevista-estruturada": "Entrevista Diagnóstica Estruturada",
   "casos-clinicos": "Casos Clínicos",
-  simulador: "Simulador",
   "simulador-emergencia": "Simulador de Emergência",
-  estudo: "Modo de Estudo",
-  auditoria: "Auditoria",
   classes: "Por classe",
   categorias: "Por categoria",
 };

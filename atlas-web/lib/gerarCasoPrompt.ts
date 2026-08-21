@@ -76,16 +76,18 @@ const EXEMPLO_ETAPA1: CasoSemAlternativas = {
   titulo: depressaoPsicoticaCotard.titulo,
   categoria: depressaoPsicoticaCotard.categoria,
   apresentacaoInicial: depressaoPsicoticaCotard.apresentacaoInicial,
-  etapas: depressaoPsicoticaCotard.etapas.map((etapa) => {
-    const certa = etapa.opcoes.find((o) => o.correta)!;
-    return {
-      id: etapa.id,
-      narrativaAdicional: etapa.narrativaAdicional,
-      pergunta: etapa.pergunta,
-      respostaCorreta: certa.texto,
-      explicacaoCorreta: certa.explicacao,
-    };
-  }),
+  etapas: depressaoPsicoticaCotard.nos
+    .filter((no) => no.opcoes.length > 0)
+    .map((no) => {
+      const certa = no.opcoes.find((o) => o.correta)!;
+      return {
+        id: no.id,
+        narrativaAdicional: no.narrativaAdicional,
+        pergunta: no.pergunta!,
+        respostaCorreta: certa.texto,
+        explicacaoCorreta: certa.explicacao!,
+      };
+    }),
   diagnosticoFinal: depressaoPsicoticaCotard.diagnosticoFinal,
   diagnosticoId: depressaoPsicoticaCotard.diagnosticoId,
   medicamentosRelacionados: depressaoPsicoticaCotard.medicamentosRelacionados,
@@ -187,21 +189,23 @@ const EXEMPLO_CASO_LIVRE = {
   titulo: depressaoPsicoticaCotard.titulo,
   categoria: depressaoPsicoticaCotard.categoria,
   vinheta: depressaoPsicoticaCotard.apresentacaoInicial,
-  perguntasAbertas: depressaoPsicoticaCotard.etapas.map((etapa, i) => {
-    const certa = etapa.opcoes.find((o) => o.correta)!;
-    const rotulos = [
-      "achado psicopatológico",
-      "mecanismo de formação do delírio",
-      "hipótese diagnóstica",
-      "conduta terapêutica",
-    ];
-    return {
-      etapa: rotulos[i] ?? `etapa-${i + 1}`,
-      pergunta: etapa.pergunta,
-      contextoAdicional: etapa.narrativaAdicional,
-      gabaritoInterno: `${certa.texto} — ${certa.explicacao}`,
-    };
-  }),
+  perguntasAbertas: depressaoPsicoticaCotard.nos
+    .filter((no) => no.opcoes.length > 0)
+    .map((no, i) => {
+      const certa = no.opcoes.find((o) => o.correta)!;
+      const rotulos = [
+        "achado psicopatológico",
+        "mecanismo de formação do delírio",
+        "hipótese diagnóstica",
+        "conduta terapêutica",
+      ];
+      return {
+        etapa: rotulos[i] ?? `etapa-${i + 1}`,
+        pergunta: no.pergunta,
+        contextoAdicional: no.narrativaAdicional,
+        gabaritoInterno: `${certa.texto} — ${certa.explicacao}`,
+      };
+    }),
   diagnosticoFinal: depressaoPsicoticaCotard.diagnosticoFinal,
   diagnosticoId: depressaoPsicoticaCotard.diagnosticoId,
   medicamentosRelacionados: depressaoPsicoticaCotard.medicamentosRelacionados,

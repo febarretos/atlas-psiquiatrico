@@ -10,7 +10,9 @@ export const depressaoPosParto: CasoClinico = {
   apresentacaoInicial:
     "Paciente do sexo feminino, 29 anos, primípara, trazida à consulta de puericultura do bebê (6 semanas de vida) pelo marido, que relata preocupação: 'ela não é a mesma desde que voltamos do hospital'. A paciente refere que, nas primeiras duas semanas após o parto, chorava com facilidade e se sentia 'instável', o que atribuiu ao cansaço e às mudanças hormonais — mas diz que, diferente do que esperava, esse período não passou. Hoje, seis semanas após o parto, relata tristeza praticamente diária, perda de interesse até em atividades de que gostava antes da gravidez, e diz, baixando a voz: 'todo mundo fala que a gente ama o filho na hora que nasce... eu cuido dele, faço tudo certo, mas não sinto esse amor que deveriam sentir. Acho que sou uma péssima mãe'. Nega alterações perceptivas (não ouve vozes, não vê coisas) e nega ideias de que algo ruim vá acontecer por forças externas.",
 
-  etapas: [
+  noInicialId: "etapa-1",
+
+  nos: [
     {
       id: "etapa-1",
       pergunta:
@@ -22,24 +24,28 @@ export const depressaoPosParto: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. O baby blues é extremamente comum (até 50-80% das puérperas), tipicamente começa nos primeiros dias pós-parto, tem intensidade leve (labilidade emocional, choro fácil) e resolve espontaneamente em até 2 semanas, sem necessidade de tratamento específico. A persistência de sintomas depressivos francos — tristeza quase diária, anedonia, culpa excessiva — além dessa janela, com prejuízo funcional, ultrapassa o esperado para o baby blues e aponta para um episódio depressivo maior propriamente dito.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "O fato de a paciente ser primípara (primeiro filho)",
           correta: false,
           explicacao:
             "Ser primípara é um fator de vulnerabilidade e de menor experiência prévia com o puerpério, mas não é, por si só, o elemento diferenciador entre baby blues e depressão pós-parto — multíparas também podem desenvolver depressão pós-parto, inclusive com risco aumentado se já tiveram episódio em gestação anterior.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "O fato de o marido ter notado a mudança e trazido a paciente à consulta",
           correta: false,
           explicacao:
             "A percepção de terceiros sobre a mudança é um dado clínico relevante e frequentemente o motivo do encaminhamento, mas o critério diferenciador entre os dois quadros é clínico (duração e intensidade dos sintomas), não quem percebeu ou trouxe a paciente à consulta.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "A idade da paciente (29 anos) estar dentro da faixa reprodutiva típica",
           correta: false,
           explicacao:
             "A idade materna dentro da faixa reprodutiva habitual não tem relação direta com a diferenciação entre baby blues e depressão pós-parto; idade materna muito jovem ou avançada pode ser fator de risco adicional, mas não é o elemento central aqui.",
+          proximoNoId: "etapa-2",
         },
       ],
     },
@@ -54,6 +60,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. A paciente está cuidando adequadamente do bebê ('cuido dele, faço tudo certo') apesar de vivenciar sentimentos de culpa e desvalia desproporcionais — um padrão clássico de cognição depressiva (autoavaliação distorcida negativamente), e não uma falha real de vínculo ou de cuidado. Nomear isso corretamente como sintoma depressivo, e não como fracasso pessoal real, é importante tanto para o diagnóstico quanto para o acolhimento da paciente, que frequentemente já vem carregando vergonha e medo de julgamento por não sentir o que 'deveria'.",
+          proximoNoId: "etapa-3",
         },
         {
           texto:
@@ -61,6 +68,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Não há indicação de separação da mãe e do bebê neste momento: a paciente está cuidando adequadamente da criança, e o relato de ausência de sentimento de amor intenso é um sintoma depressivo (anedonia/embotamento afetivo aplicado ao vínculo), não um sinal de risco direto ao bebê que justifique separação. Medidas assim são desproporcionais e podem, inclusive, aumentar a culpa e o sofrimento da paciente.",
+          proximoNoId: "etapa-3",
         },
         {
           texto:
@@ -68,6 +76,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Não há delírio nem alteração perceptiva descritos — a paciente expressa um sentimento subjetivo doloroso (culpa, ausência de afeto esperado), com juízo de realidade preservado, sem qualquer conteúdo delirante sobre o bebê ou sobre si mesma. Não há elementos para sugerir psicose neste relato.",
+          proximoNoId: "etapa-3",
         },
         {
           texto:
@@ -75,6 +84,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Embora ajustes emocionais façam parte do puerpério, a intensidade (culpa marcada, anedonia) e a persistência além de duas semanas, associadas a prejuízo subjetivo relatado pela própria paciente e percebido pelo marido, ultrapassam o que se considera ajuste normal — minimizar como 'não precisa de intervenção' deixaria de tratar um quadro depressivo real.",
+          proximoNoId: "etapa-3",
         },
       ],
     },
@@ -89,18 +99,21 @@ export const depressaoPosParto: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. O DSM-5-TR não trata a 'depressão pós-parto' como um diagnóstico à parte, mas como um Transtorno Depressivo Maior com o especificador 'com início no periparto' (início durante a gestação ou nas primeiras 4 semanas pós-parto, embora, na prática clínica, o rastreio costuma se estender por vários meses do primeiro ano). O quadro aqui — humor deprimido, anedonia, culpa excessiva, prejuízo funcional, por mais de 2 semanas, sem sintomas psicóticos — preenche os critérios centrais de um episódio depressivo maior nesse contexto temporal específico.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Baby blues prolongado, quadro autolimitado que deve apenas ser observado",
           correta: false,
           explicacao:
             "O baby blues, por definição, resolve em até 2 semanas; um quadro que persiste e se intensifica além desse prazo, com anedonia e culpa proeminentes, já não se enquadra nessa categoria autolimitada e requer conduta ativa, não apenas observação.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Psicose puerperal, emergência psiquiátrica que exige internação imediata",
           correta: false,
           explicacao:
             "A psicose puerperal é uma emergência psiquiátrica grave, de início tipicamente muito mais precoce (primeiras 2 semanas, frequentemente dias) e dramático, com sintomas psicóticos floridos (delírios, alucinações, confusão, humor extremamente instável) — nenhum desses elementos está presente neste caso, que tem juízo de realidade preservado.",
+          proximoNoId: "etapa-4",
         },
         {
           texto:
@@ -108,6 +121,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "O Transtorno de Adaptação é um diagnóstico de exclusão quando a sintomatologia não preenche critérios completos para um transtorno depressivo maior — aqui, a combinação de humor deprimido persistente, anedonia e culpa excessiva com prejuízo funcional já preenche critérios mais específicos de Transtorno Depressivo Maior, tornando esse diagnóstico mais preciso.",
+          proximoNoId: "etapa-4",
         },
       ],
     },
@@ -124,6 +138,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. Perguntar sobre ideação de autolesão e sobre pensamentos de causar mal ao bebê é parte obrigatória da avaliação em qualquer quadro depressivo perinatal — perguntar não induz o comportamento, e deixar de perguntar por desconforto de um familiar é um erro evitável. Vale notar que pensamentos intrusivos egodistônicos sobre dano acidental ao bebê (sem desejo de executá-los) são relativamente comuns na depressão e ansiedade perinatal e diferentes, em natureza e risco, de ideação congruente com o humor ou de conteúdo delirante — mas essa distinção só pode ser feita perguntando ativamente, não presumindo a resposta.",
+          proximoNoId: "etapa-5",
         },
         {
           texto:
@@ -131,6 +146,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "A garantia de um familiar, por mais bem-intencionada, não substitui a avaliação clínica direta com a própria paciente — deixar de perguntar sobre risco por desconforto de terceiros é uma falha grave de avaliação, especialmente em um quadro depressivo com culpa proeminente relacionada à maternidade.",
+          proximoNoId: "etapa-5",
         },
         {
           texto:
@@ -138,6 +154,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "É desproporcional e prematuro acionar o conselho tutelar antes de sequer completar a avaliação de risco com a paciente — essa medida só se justificaria diante de risco concreto identificado após avaliação adequada, não como reação antecipada à simples possibilidade de investigar o tema.",
+          proximoNoId: "etapa-5",
         },
         {
           texto:
@@ -145,6 +162,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Ideação e pensamentos intrusivos são experiências subjetivas e internas — só a própria paciente pode relatá-los. A observação do marido é um dado complementar útil, mas nunca substitui a pergunta direta e a avaliação clínica com a paciente.",
+          proximoNoId: "etapa-5",
         },
       ],
     },
@@ -160,6 +178,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. A depressão perinatal não tratada carrega riscos reais tanto para a mãe quanto para o desenvolvimento do vínculo e do bebê, superando, na maioria dos casos, os riscos de um antidepressivo com bom perfil de segurança na lactação. A sertralina é frequentemente citada como uma das opções de primeira escolha entre os ISRS nesse contexto, por apresentar passagem para o leite materno relativamente baixa e amplo histórico de uso descrito na amamentação. A decisão de tratar (e com o quê) deve sempre ser compartilhada com a paciente, explicando riscos e benefícios de tratar e de não tratar, sem impor a suspensão da amamentação como pré-requisito automático.",
+          proximoNoId: "fim",
         },
         {
           texto:
@@ -167,6 +186,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Não é necessário suspender a amamentação como pré-condição — diversos antidepressivos, com destaque para a sertralina, têm perfil de segurança bem descrito durante a lactação. Impor essa suspensão de forma automática retira uma opção importante de vínculo e pode aumentar a culpa e o sofrimento da paciente sem necessidade clínica real.",
+          proximoNoId: "fim",
         },
         {
           texto:
@@ -174,6 +194,7 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Diferente do baby blues, um episódio depressivo maior estabelecido não deve ser conduzido de forma apenas expectante — a depressão perinatal não tratada tem impacto real na mãe e no desenvolvimento do vínculo e do bebê, e há tratamentos eficazes e seguros disponíveis que não devem ser postergados.",
+          proximoNoId: "fim",
         },
         {
           texto:
@@ -181,8 +202,13 @@ export const depressaoPosParto: CasoClinico = {
           correta: false,
           explicacao:
             "Benzodiazepínicos não tratam o quadro depressivo de base e não são indicados como monoterapia neste contexto; podem ter uso pontual para sintomas ansiosos específicos, mas o eixo do tratamento deve ser a psicoterapia associada, quando indicado, a um antidepressivo com perfil de segurança adequado à lactação.",
+          proximoNoId: "fim",
         },
       ],
+    },
+    {
+      id: "fim",
+      opcoes: [],
     },
   ],
 

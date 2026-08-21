@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import Badge from "./Badge";
-import CasoClinicoPlayer from "./CasoClinicoPlayer";
+import CasoInterativoPlayer from "./CasoInterativoPlayer";
 import CasoLivrePlayer from "./CasoLivrePlayer";
 import SearchBar from "./SearchBar";
 
@@ -167,7 +167,7 @@ export default function CasosClinicosPage({
           </div>
 
           {casoGerado ? (
-            <CasoClinicoPlayer caso={casoGerado} />
+            <CasoInterativoPlayer caso={casoGerado} />
           ) : casoLivreGerado ? (
             <CasoLivrePlayer caso={casoLivreGerado} />
           ) : null}
@@ -302,7 +302,7 @@ export default function CasosClinicosPage({
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   <Badge color="blue">{c.categoria}</Badge>
-                  <Badge color="gray">{c.etapas.length} etapa(s)</Badge>
+                  <Badge color="gray">{c.nos.length} etapa(s)</Badge>
                 </div>
               </Link>
             ))}

@@ -10,7 +10,9 @@ export const maniaPsicoticaVsEsquizofrenia: CasoClinico = {
   apresentacaoInicial:
     "Paciente do sexo masculino, 24 anos, trazido pelos pais após 5 dias de sono reduzido (2 a 3 horas por noite, sem sensação de cansaço), gastos financeiros excessivos (comprou um carro à vista, sem planejamento prévio) e discurso muito acelerado. Sem episódios psiquiátricos prévios conhecidos. Ao exame, fala rápida e em volume elevado, saltando de assunto em assunto: 'Doutor, eu vou revolucionar a psiquiatria, aliás psiquiatria rima com pediatria, eu adoro crianças, crianças são o futuro, futuro é agora, você sabia que eu já resolvi a fórmula da fusão nuclear?'.",
 
-  etapas: [
+  noInicialId: "etapa-1",
+
+  nos: [
     {
       id: "etapa-1",
       pergunta: "Como classificar o padrão do discurso apresentado?",
@@ -20,24 +22,28 @@ export const maniaPsicoticaVsEsquizofrenia: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. As ideias se sucedem rapidamente, mas mantêm conexões identificáveis entre si — aqui por assonância ('psiquiatria... pediatria') e associações por contiguidade — ainda que superficiais. Um ouvinte atento consegue reconstruir o nexo entre uma ideia e a seguinte.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Afrouxamento de associações",
           correta: false,
           explicacao:
             "No afrouxamento de associações não haveria nexo identificável entre as ideias, mesmo em retrospecto. Aqui existe uma lógica de conexão rastreável (assonância/trocadilho), típica de fuga de ideias, não de afrouxamento.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Circunstancialidade",
           correta: false,
           explicacao:
             "Na circunstancialidade o discurso é prolixo, mas eventualmente retorna e responde à pergunta original. Aqui o tópico muda completamente, sem retorno ao ponto de partida — perfil de fuga de ideias, não de circunstancialidade.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Salada de palavras",
           correta: false,
           explicacao:
             "Na salada de palavras a própria estrutura gramatical das frases se perde, tornando o discurso ininteligível mesmo em nível de frase isolada. Aqui cada frase é gramaticalmente correta e compreensível isoladamente — incompatível com salada de palavras.",
+          proximoNoId: "etapa-2",
         },
       ],
     },
@@ -52,24 +58,28 @@ export const maniaPsicoticaVsEsquizofrenia: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. Crença fixa e incorrigível de possuir capacidades extraordinárias, claramente alinhada (congruente) com o humor eufórico/expansivo predominante — padrão clássico de delírio de grandeza em episódio maníaco.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Ideia sobrevalorizada",
           correta: false,
           explicacao:
             "A convicção aqui é absoluta e o conteúdo é objetivamente incompatível com a realidade (resolver a fusão nuclear em poucos dias) — isso caracteriza delírio, não uma ideia sobrevalorizada, que seria sustentada com convicção menos absoluta.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Delírio persecutório",
           correta: false,
           explicacao:
             "O tema da crença é de grandiosidade/capacidade excepcional, não de perseguição ou ameaça — tema incompatível com delírio persecutório.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Confabulação",
           correta: false,
           explicacao:
             "Confabulação é o preenchimento de uma lacuna de memória com conteúdo falso, tipicamente em síndromes amnésticas. Aqui não há déficit de memória envolvido — trata-se de uma crença grandiosa, não de um preenchimento mnésico.",
+          proximoNoId: "etapa-3",
         },
       ],
     },
@@ -84,24 +94,28 @@ export const maniaPsicoticaVsEsquizofrenia: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. Síndrome maníaca completa (humor expansivo, redução da necessidade de sono, fuga de ideias, grandiosidade) com sintomas psicóticos congruentes com o humor, sem outros achados que sugiram diagnóstico alternativo.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Esquizofrenia",
           correta: false,
           explicacao:
             "O quadro é dominado por uma síndrome afetiva proeminente e de instalação aguda (5 dias), com delírio claramente congruente com o humor — perfil muito mais típico de mania psicótica do que de esquizofrenia, que tipicamente tem instalação mais insidiosa e sintomas psicóticos não necessariamente ligados ao humor.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Transtorno Esquizoafetivo",
           correta: false,
           explicacao:
             "O Transtorno Esquizoafetivo exige um período significativo de sintomas psicóticos NA AUSÊNCIA de sintomas de humor proeminentes — isso não está demonstrado neste caso, onde os sintomas psicóticos surgem junto com (e são congruentes a) o episódio de humor.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Intoxicação por estimulantes",
           correta: false,
           explicacao:
             "Não há dado no caso sugerindo uso de substâncias. Embora seja sempre um diagnóstico diferencial obrigatório diante de sintomas maníacos, o quadro apresentado é plenamente explicado por um episódio maníaco primário.",
+          proximoNoId: "etapa-4",
         },
       ],
     },
@@ -115,26 +129,34 @@ export const maniaPsicoticaVsEsquizofrenia: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. Estabilizadores de humor e antipsicóticos atípicos são primeira linha para mania aguda, inclusive com sintomas psicóticos — a escolha específica considera perfil de efeitos adversos e características do paciente.",
+          proximoNoId: "fim",
         },
         {
           texto: "Antidepressivo isolado",
           correta: false,
           explicacao:
             "Antidepressivo em monoterapia está contraindicado em mania aguda pelo risco de piora do quadro maníaco/virada — não é conduta apropriada aqui.",
+          proximoNoId: "fim",
         },
         {
           texto: "Benzodiazepínico isolado como tratamento definitivo",
           correta: false,
           explicacao:
             "Benzodiazepínicos têm papel adjuvante útil para agitação/insônia na fase aguda, mas não constituem tratamento definitivo da mania — não substituem estabilizador de humor ou antipsicótico.",
+          proximoNoId: "fim",
         },
         {
           texto: "Psicoterapia isolada, sem medicação",
           correta: false,
           explicacao:
             "Mania aguda com sintomas psicóticos e comportamento de risco (gasto financeiro excessivo) exige tratamento farmacológico ativo — psicoterapia isolada é insuficiente e inadequada nesta fase aguda.",
+          proximoNoId: "fim",
         },
       ],
+    },
+    {
+      id: "fim",
+      opcoes: [],
     },
   ],
 

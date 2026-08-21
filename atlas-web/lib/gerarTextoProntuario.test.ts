@@ -6,7 +6,7 @@ import {
   gerarTextoDiagnostico,
   gerarTextoEscala,
   gerarTextoConduta,
-  gerarTextoSimulador,
+  gerarTextoEvolucaoCasoInterativo,
   gerarTextoTendenciaEscala,
   gerarTextoEntrevistaEstruturada,
   limparRotuloParaTrilha,
@@ -18,7 +18,7 @@ import type { Diagnostico, EntrevistaEstruturada } from "../data/diagnosticos/ty
 import type { Escala } from "../data/escalas/types.ts";
 import type { FluxogramaNode } from "../data/fluxogramas/types.ts";
 import type { EntradaHistorico } from "./historicoEscalas.ts";
-import { voJardim } from "../data/simulador/vo-jardim.ts";
+import { voJardim } from "../data/casos-clinicos/vo-jardim.ts";
 import { diagnosticos } from "../data/diagnosticos/index.ts";
 
 // Fixtures deliberadamente independentes de data/medicamentos, data/
@@ -181,18 +181,18 @@ test("gerarTextoConduta: nó de conduta real do fluxograma de depressão maior, 
   );
 });
 
-test("gerarTextoSimulador: caminho 'bom' pelo caso real vo-jardim, até o desfecho", () => {
-  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoRealId)!;
+test("gerarTextoEvolucaoCasoInterativo: caminho 'bom' pelo caso real vo-jardim, até o desfecho", () => {
+  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoId)!;
 
   // Percorre manualmente o caminho "ideal" do caso real (mesmos ids de nó
-  // usados em data/simulador/vo-jardim.ts) — simula o que o
-  // SimuladorPlayer acumularia jogando até o desfecho-bom.
+  // usados em data/casos-clinicos/vo-jardim.ts) — simula o que o
+  // CasoInterativoPlayer acumularia jogando até o desfecho-bom.
   const porId = new Map(voJardim.nos.map((n) => [n.id, n]));
   const idsDoCaminho = ["entrevista-jardim", "exames-completo", "conduta-boa", "evolucao-boa"];
   const opcoesEscolhidas = idsDoCaminho.map((id) => porId.get(id)!.opcoes[0]);
 
-  const texto = gerarTextoSimulador(voJardim, diagnosticoReal, opcoesEscolhidas);
-  console.log("\n[simulador]\n" + texto);
+  const texto = gerarTextoEvolucaoCasoInterativo(voJardim, diagnosticoReal, opcoesEscolhidas);
+  console.log("\n[caso interativo]\n" + texto);
 
   assert.ok(texto.startsWith('Nota de evolução (caso simulado "O Vô Que Só Queria Cuidar do Jardim")'));
   assert.ok(texto.includes("Transtorno Depressivo Maior (CID-11: 6A70)"));
@@ -203,9 +203,9 @@ test("gerarTextoSimulador: caminho 'bom' pelo caso real vo-jardim, até o desfec
   assert.ok(!texto.includes("problematica"));
 });
 
-test("gerarTextoSimulador: sem decisões tomadas ainda, gera só o cabeçalho", () => {
-  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoRealId)!;
-  const texto = gerarTextoSimulador(voJardim, diagnosticoReal, []);
+test("gerarTextoEvolucaoCasoInterativo: sem decisões tomadas ainda, gera só o cabeçalho", () => {
+  const diagnosticoReal = diagnosticos.find((d) => d.id === voJardim.diagnosticoId)!;
+  const texto = gerarTextoEvolucaoCasoInterativo(voJardim, diagnosticoReal, []);
 
   assert.equal(
     texto,

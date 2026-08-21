@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
 import BotaoFavoritar from "../../../components/BotaoFavoritar";
-import CriteriosChecklist from "../../../components/CriteriosChecklist";
 import DiagnosticoProntuarioPanel from "../../../components/DiagnosticoProntuarioPanel";
 import InfoCard from "../../../components/InfoCard";
 import Lista from "../../../components/Lista";
@@ -85,11 +84,21 @@ export default async function DiagnosticoDetalhe({
       </div>
 
       <div className="mt-9">
-        <h2 className="mb-3.5 font-serif text-2xl font-medium text-ink">
-          Critérios diagnósticos (DSM-5-TR)
-        </h2>
+        <div className="mb-3.5 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-serif text-2xl font-medium text-ink">
+            Critérios diagnósticos (DSM-5-TR)
+          </h2>
+          {diagnostico.entrevistaEstruturada && (
+            <Link
+              href="/entrevista-estruturada"
+              className="text-sm text-accent hover:underline"
+            >
+              Aplicar como entrevista estruturada →
+            </Link>
+          )}
+        </div>
         <div className="rounded-xl border border-rule bg-panel p-6">
-          <CriteriosChecklist itens={diagnostico.criteriosDiagnosticos} />
+          <Lista itens={diagnostico.criteriosDiagnosticos} />
         </div>
       </div>
 

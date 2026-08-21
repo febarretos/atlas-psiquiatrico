@@ -1,7 +1,8 @@
-// Gera um caso do Simulador de Psiquiatria offline, numa única chamada
-// ao Gemini (a árvore de decisão inteira de uma vez), valida com zod e
-// salva em data/simulador/<id>.ts. NÃO é uma rota do site — rodado
-// manualmente por quem mantém o conteúdo.
+// Gera um caso clínico interativo estilo narrativo-ramificado (ex-
+// Simulador de Psiquiatria, hoje fundido em Casos Clínicos) offline,
+// numa única chamada ao Gemini (a árvore de decisão inteira de uma vez),
+// valida com zod e salva em data/casos-clinicos/<id>.ts. NÃO é uma rota
+// do site — rodado manualmente por quem mantém o conteúdo.
 //
 // Uso:
 //   npm run gerar-caso-simulador -- <diagnosticoId>
@@ -27,10 +28,10 @@ import {
   type CasoSimuladorGerado,
 } from "../lib/simuladorGeradoSchema";
 import { chamarGemini, extrairJson } from "../lib/gemini";
-import type { CasoSimulador } from "../data/simulador/types";
+import type { CasoClinico } from "../data/casos-clinicos/types";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DIR_SIMULADOR = join(__dirname, "..", "data", "simulador");
+const DIR_CASOS_CLINICOS = join(__dirname, "..", "data", "casos-clinicos");
 
 // scripts/ roda fora do Next, que é quem normalmente carrega
 // .env.local — lê manualmente aqui, sem dependência nova.
@@ -82,38 +83,38 @@ function paraVarName(id: string): string {
   return id.replace(/-([a-z0-9])/g, (_match, c: string) => c.toUpperCase());
 }
 
-function salvarArquivoCaso(caso: CasoSimulador): string {
+function salvarArquivoCaso(caso: CasoClinico): string {
   const varName = paraVarName(caso.id);
-  const conteudo = `import { CasoSimulador } from "./types";
+  const conteudo = `import { CasoClinico } from "./types";
 
-export const ${varName}: CasoSimulador = ${JSON.stringify(caso, null, 2)};
+export const ${varName}: CasoClinico = ${JSON.stringify(caso, null, 2)};
 `;
 
-  const caminho = join(DIR_SIMULADOR, `${caso.id}.ts`);
+  const caminho = join(DIR_CASOS_CLINICOS, `${caso.id}.ts`);
   writeFileSync(caminho, conteudo, "utf8");
   return caminho;
 }
 
 function atualizarIndex(id: string) {
   const varName = paraVarName(id);
-  const caminhoIndex = join(DIR_SIMULADOR, "index.ts");
+  const caminhoIndex = join(DIR_CASOS_CLINICOS, "index.ts");
   let conteudo = readFileSync(caminhoIndex, "utf8");
 
   if (conteudo.includes(`from "./${id}"`)) {
-    console.log(`data/simulador/index.ts já importa "${id}" — pulando atualização do índice.`);
+    console.log(`data/casos-clinicos/index.ts já importa "${id}" — pulando atualização do índice.`);
     return;
   }
 
-  const primeiraLinha = 'import { CasoSimulador } from "./types";\n';
+  const marcadorArray = "\n\nexport const casosClinicos = [";
+  const posicaoInsercaoImport = conteudo.indexOf(marcadorArray);
   const linhaImport = `import { ${varName} } from "./${id}";\n`;
-  const posicaoInsercaoImport = conteudo.indexOf(primeiraLinha) + primeiraLinha.length;
 
   conteudo =
     conteudo.slice(0, posicaoInsercaoImport) +
     linhaImport +
     conteudo.slice(posicaoInsercaoImport);
 
-  conteudo = conteudo.replace("\n];", `\n  ${varName},\n];`);
+  conteudo = conteudo.replace(/(\n\];)/, `\n  ${varName},$1`);
 
   writeFileSync(caminhoIndex, conteudo, "utf8");
 }
@@ -170,8 +171,10 @@ async function main() {
 
   const gerado = await gerarComRetry(prompt);
 
-  const caso: CasoSimulador = {
+  const caso: CasoClinico = {
     ...gerado,
+    diagnosticoFinal: diagnostico.nome,
+    medicamentosRelacionados: medicamentosPrimeiraLinha.map((m) => m.id),
     ...(inspiracao.length > 0
       ? { inspiracaoExterna: { titulo: inspiracao[0].titulo, url: inspiracao[0].url } }
       : {}),

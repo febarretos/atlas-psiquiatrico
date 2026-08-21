@@ -103,26 +103,32 @@ function embaralhar<T>(itens: T[]): T[] {
 
 // Junta o resultado da chamada 1 (caso + resposta certa por etapa) com o
 // resultado da chamada 2 (3 distratores por etapa) no formato final
-// CasoGerado, já validado por casoGeradoSchema (que exige exatamente uma
-// opção correta por etapa).
+// CasoGerado, já validado por casoGeradoSchema. O LLM só produz a lista
+// plana de etapas — proximoNoId (sequencial, "fim" na última) e o nó
+// terminal são sempre calculados aqui, nunca pedidos ao modelo: é
+// mecânico, e pedir isso ao LLM só adicionaria uma chance de erro numa
+// parte que não precisa de nenhum julgamento.
 function combinarComDistratores(
   caso: CasoSemAlternativas,
   distratores: DistratoresResposta
 ): CasoGerado {
   const distratoresPorEtapa = new Map(distratores.etapas.map((e) => [e.etapaId, e]));
 
-  const etapas = caso.etapas.map((etapa) => {
+  const nos = caso.etapas.map((etapa, indice) => {
     const entrada = distratoresPorEtapa.get(etapa.id);
     if (!entrada) {
       throw new Error(`Distratores não retornados para a etapa "${etapa.id}".`);
     }
 
+    const proximoNoId = indice + 1 < caso.etapas.length ? caso.etapas[indice + 1].id : "fim";
+
     const opcoes = embaralhar([
-      { texto: etapa.respostaCorreta, correta: true, explicacao: etapa.explicacaoCorreta },
+      { texto: etapa.respostaCorreta, correta: true, explicacao: etapa.explicacaoCorreta, proximoNoId },
       ...entrada.alternativasErradas.map((d) => ({
         texto: d.texto,
         correta: false,
         explicacao: d.explicacao,
+        proximoNoId,
       })),
     ]);
 
@@ -139,7 +145,8 @@ function combinarComDistratores(
     titulo: caso.titulo,
     categoria: caso.categoria,
     apresentacaoInicial: caso.apresentacaoInicial,
-    etapas,
+    nos: [...nos, { id: "fim", opcoes: [] }],
+    noInicialId: caso.etapas[0].id,
     diagnosticoFinal: caso.diagnosticoFinal,
     diagnosticoId: caso.diagnosticoId,
     medicamentosRelacionados: caso.medicamentosRelacionados,

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
-import CasoClinicoPlayer from "../../../components/CasoClinicoPlayer";
+import CasoInterativoPlayer from "../../../components/CasoInterativoPlayer";
 
 import { casosClinicos } from "../../../data/casos-clinicos";
 
@@ -35,7 +35,7 @@ export default async function CasoClinicoDetalhe({
           </div>
         </div>
 
-        <CasoClinicoPlayer key={caso.id} caso={caso} />
+        <CasoInterativoPlayer key={caso.id} caso={caso} />
       </div>
     </main>
   );

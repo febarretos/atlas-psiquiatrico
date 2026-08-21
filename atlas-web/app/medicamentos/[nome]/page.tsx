@@ -3,7 +3,7 @@ import { medicamentos } from "../../../data/medicamentos";
 import { diagnosticos } from "../../../data/diagnosticos";
 import { fluxogramas } from "../../../data/fluxogramas";
 import { casosSimuladorEmergencia } from "../../../data/simulador-emergencia";
-import { casosSimulador } from "../../../data/simulador";
+import { casosClinicos } from "../../../data/casos-clinicos";
 import { notFound } from "next/navigation";
 
 import Badge from "../../../components/Badge";
@@ -99,7 +99,7 @@ export default async function Medicamento({
     c.acoesDisponiveis.some((a) => a.medicamentoId === medicamento.id)
   );
 
-  const casosSimuladorQueUsam = casosSimulador.filter((c) =>
+  const casosClinicosQueUsam = casosClinicos.filter((c) =>
     c.nos.some((n) => n.opcoes.some((o) => o.medicamentoId === medicamento.id))
   );
 
@@ -107,7 +107,7 @@ export default async function Medicamento({
     diagnosticosQueUsam.length > 0 ||
     fluxogramasQueUsam.length > 0 ||
     casosEmergenciaQueUsam.length > 0 ||
-    casosSimuladorQueUsam.length > 0;
+    casosClinicosQueUsam.length > 0;
 
   const primeiraPosologia = medicamento.posologias[0];
   const perfilPresente = EIXOS_PERFIL.filter((eixo) => medicamento[eixo.chave]);
@@ -534,15 +534,15 @@ export default async function Medicamento({
               </div>
             )}
 
-            {casosSimuladorQueUsam.length > 0 && (
+            {casosClinicosQueUsam.length > 0 && (
               <div>
                 <h3 className="mb-2.5 font-mono text-[9.5px] tracking-[0.13em] uppercase text-ink-4">
-                  Aparece no Simulador de Psiquiatria
+                  Aparece em Casos Clínicos
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {casosSimuladorQueUsam.map((c) => (
-                    <Link key={c.id} href={`/simulador/${c.id}`}>
-                      <Badge color="gray">{c.tituloAnedotico}</Badge>
+                  {casosClinicosQueUsam.map((c) => (
+                    <Link key={c.id} href={`/casos-clinicos/${c.id}`}>
+                      <Badge color="gray">{c.titulo}</Badge>
                     </Link>
                   ))}
                 </div>

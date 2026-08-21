@@ -10,7 +10,9 @@ export const sindromeCatatonica: CasoClinico = {
   apresentacaoInicial:
     "Paciente do sexo feminino, 34 anos, com história de Transtorno Depressivo Maior recorrente, internada há 2 dias por piora importante do quadro depressivo. A enfermagem relata que a paciente permanece imóvel na cama, não fala e não se alimenta espontaneamente. Ao exame, mantém os olhos abertos e parece alerta, mas não responde verbalmente a nenhuma pergunta. Quando o examinador eleva seu braço e o solta, ele permanece na posição em que foi deixado por vários minutos.",
 
-  etapas: [
+  noInicialId: "etapa-1",
+
+  nos: [
     {
       id: "etapa-1",
       pergunta:
@@ -21,24 +23,28 @@ export const sindromeCatatonica: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. A resistência leve e constante à mobilização passiva, com manutenção da nova posição por tempo prolongado (catalepsia), é a descrição clássica de flexibilidade cérea — um dos sinais motores centrais da catatonia.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Negativismo",
           correta: false,
           explicacao:
             "Negativismo é resistência ativa a instruções ou tentativas de mobilização (ou ausência completa de resposta/cooperação) — não a manutenção passiva de uma postura imposta, que caracteriza a flexibilidade cérea/catalepsia.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Estupor",
           correta: false,
           explicacao:
             "Estupor descreve o quadro geral de ausência de reatividade motora e de fala — é o pano de fundo do caso, mas não o sinal específico testado pelo examinador ao mobilizar o braço.",
+          proximoNoId: "etapa-2",
         },
         {
           texto: "Maneirismo",
           correta: false,
           explicacao:
             "Maneirismo é um movimento voluntário normal executado de forma peculiar ou exagerada, mantendo alguma finalidade reconhecível — não descreve a manutenção passiva de uma postura imposta pelo examinador.",
+          proximoNoId: "etapa-2",
         },
       ],
     },
@@ -52,24 +58,28 @@ export const sindromeCatatonica: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. A combinação de alterações motoras específicas (imobilidade, mutismo, flexibilidade cérea/catalepsia) com nível de consciência aparentemente preservado é o quadro definidor da catatonia — uma síndrome transdiagnóstica que exige reconhecimento e conduta específicos.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Torpor por causa orgânica",
           correta: false,
           explicacao:
             "No torpor haveria rebaixamento do próprio nível de consciência, com necessidade de estímulo vigoroso para qualquer resposta. Aqui a paciente parece alerta (olhos abertos, aparência de vigília preservada), o que aponta para catatonia, não para rebaixamento do sensório.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Estupor depressivo simples, sem catatonia",
           correta: false,
           explicacao:
             "A lentificação psicomotora extrema da depressão grave pode se assemelhar a um quadro catatônico, mas a presença específica de flexibilidade cérea é um sinal motor catatônico formal que vai além da simples lentificação — justificando a suspeita ativa de catatonia sobreposta ao quadro depressivo.",
+          proximoNoId: "etapa-3",
         },
         {
           texto: "Coma",
           correta: false,
           explicacao:
             "No coma não há abertura ocular nem qualquer resposta com propósito, mesmo a estímulo intenso. A paciente aqui mantém os olhos abertos e reage à mobilização passiva de forma característica (flexibilidade cérea) — incompatível com coma.",
+          proximoNoId: "etapa-3",
         },
       ],
     },
@@ -84,24 +94,28 @@ export const sindromeCatatonica: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. O teste com benzodiazepínico em dose adequada (classicamente lorazepam) é tanto diagnóstico quanto terapêutico na catatonia, com resposta frequentemente rápida e expressiva. A ECT é altamente eficaz e deve ser considerada precocemente em casos refratários ou graves (ex.: catatonia maligna).",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Iniciar antipsicótico em dose plena imediatamente",
           correta: false,
           explicacao:
             "Antipsicóticos, especialmente os de alta potência, podem piorar a catatonia e aumentam o risco de síndrome neuroléptica maligna nesse contexto — devem ser usados com grande cautela, geralmente só após controle inicial da catatonia com benzodiazepínico.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Aguardar resolução espontânea",
           correta: false,
           explicacao:
             "A catatonia tem risco de complicações graves (desidratação, desnutrição, trombose venosa profunda, úlceras de pressão) e exige tratamento ativo — não deve ser conduzida de forma expectante.",
+          proximoNoId: "etapa-4",
         },
         {
           texto: "Iniciar antidepressivo tricíclico imediatamente",
           correta: false,
           explicacao:
             "Não é a conduta inicial prioritária diante do quadro catatônico agudo — o primeiro passo é o teste com benzodiazepínico para tratar a catatonia em si antes de ajustar o tratamento do transtorno de base.",
+          proximoNoId: "etapa-4",
         },
       ],
     },
@@ -116,26 +130,34 @@ export const sindromeCatatonica: CasoClinico = {
           correta: true,
           explicacao:
             "Correto. Ao contrário de uma crença comum, a catatonia não é exclusiva de esquizofrenia — ocorre com frequência igual ou maior em transtornos do humor (como neste caso) e também em condições médicas gerais, exigindo investigação etiológica ampla.",
+          proximoNoId: "fim",
         },
         {
           texto: "Exclusivamente em esquizofrenia",
           correta: false,
           explicacao:
             "Esse é um equívoco comum. A catatonia associada a transtornos do humor é, na verdade, pelo menos tão frequente quanto a associada à esquizofrenia na prática clínica atual.",
+          proximoNoId: "fim",
         },
         {
           texto: "Exclusivamente em intoxicação por substâncias",
           correta: false,
           explicacao:
             "Substâncias podem precipitar catatonia, mas não são a única nem a principal causa — transtornos do humor, esquizofrenia e diversas condições médicas gerais também são causas bem estabelecidas.",
+          proximoNoId: "fim",
         },
         {
           texto: "Exclusivamente em transtornos neurológicos",
           correta: false,
           explicacao:
             "Condições neurológicas são causas possíveis (e devem ser investigadas, sobretudo em primeiro episódio), mas a catatonia é classicamente transdiagnóstica, ocorrendo também em transtornos psiquiátricos primários como no caso apresentado.",
+          proximoNoId: "fim",
         },
       ],
+    },
+    {
+      id: "fim",
+      opcoes: [],
     },
   ],
 

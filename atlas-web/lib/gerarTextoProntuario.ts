@@ -2,7 +2,7 @@ import type { Medicamento } from "../data/types";
 import type { Diagnostico } from "../data/diagnosticos/types";
 import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
-import type { CasoSimulador, OpcaoSimulador } from "../data/simulador/types";
+import type { CasoClinico, OpcaoInterativa } from "../data/casos-clinicos/types";
 import type { EntradaHistorico } from "./historicoEscalas";
 import { avaliarAlgoritmo, avaliarRastreio, contagemExibivel } from "./entrevistaEstruturada";
 
@@ -203,15 +203,17 @@ export function gerarTextoEntrevistaEstruturada(modulos: RespostaModuloEntrevist
   return linhas.join("\n").trim();
 }
 
-// Resumo do caso jogado no Simulador de Psiquiatria, como uma nota de
-// evolução — o diagnóstico real (só revelado no desfecho) e a sequência
-// de decisões tomadas pelo caminho, sem os rótulos internos
+// Resumo do caso jogado (estilo narrativo, com qualidadeDecisao — ex-
+// Simulador de Psiquiatria, hoje fundido em Casos Clínicos), como uma
+// nota de evolução — o diagnóstico real (só revelado no desfecho) e a
+// sequência de decisões tomadas pelo caminho, sem os rótulos internos
 // "ideal"/"aceitavel"/"problematica" (são feedback pra quem jogou, não
-// pertencem a uma nota clínica).
-export function gerarTextoSimulador(
-  caso: CasoSimulador,
+// pertencem a uma nota clínica). Só faz sentido pra caminhos com
+// `qualidadeDecisao` — casos de múltipla escolha pura não usam esta função.
+export function gerarTextoEvolucaoCasoInterativo(
+  caso: CasoClinico,
   diagnosticoReal: Diagnostico,
-  opcoesEscolhidas: OpcaoSimulador[]
+  opcoesEscolhidas: OpcaoInterativa[]
 ): string {
   const cid = diagnosticoReal.cid11
     ? `CID-11: ${diagnosticoReal.cid11}`
@@ -221,16 +223,16 @@ export function gerarTextoSimulador(
 
   const diagnosticoTexto = cid ? `${diagnosticoReal.nome} (${cid})` : diagnosticoReal.nome;
 
-  const base = `Nota de evolução (caso simulado "${caso.tituloAnedotico}"): diagnóstico ${diagnosticoTexto}.`;
+  const base = `Nota de evolução (caso simulado "${caso.titulo}"): diagnóstico ${diagnosticoTexto}.`;
 
   if (opcoesEscolhidas.length === 0) {
     return base;
   }
 
-  // opcao.texto no simulador costuma ser uma frase completa (termina em
-  // "."), diferente dos rótulos curtos de opção do fluxograma — remove
-  // esse ponto final antes de juntar, pelo mesmo motivo de
-  // gerarTextoConduta: nunca gerar "..".
+  // opcao.texto no estilo narrativo costuma ser uma frase completa
+  // (termina em "."), diferente dos rótulos curtos de opção do
+  // fluxograma — remove esse ponto final antes de juntar, pelo mesmo
+  // motivo de gerarTextoConduta: nunca gerar "..".
   const trilha = opcoesEscolhidas
     .map((opcao) => limparRotuloParaTrilha(opcao.texto).replace(/\.+$/, ""))
     .join(", ");

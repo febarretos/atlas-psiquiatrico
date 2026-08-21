@@ -1,9 +1,12 @@
 import { z } from "zod";
 
-// Espelha data/simulador/types.ts. `inspiracaoExterna` é deliberadamente
-// omitido do que o Gemini gera — o script já sabe qual artigo usou pra
-// inspirar a narrativa (foi ele quem buscou) e anexa isso depois de
-// validar, em vez de pedir pro modelo repetir um dado que já temos.
+// Espelha o subconjunto narrativo-ramificado de data/casos-clinicos/types.ts
+// (OpcaoInterativa/NoInterativo/CasoClinico, estilo ex-Simulador, com
+// qualidadeDecisao/consequencia em vez de correta/explicacao).
+// `inspiracaoExterna` é deliberadamente omitido do que o Gemini gera — o
+// script já sabe qual artigo usou pra inspirar a narrativa (foi ele quem
+// buscou) e anexa isso depois de validar, em vez de pedir pro modelo
+// repetir um dado que já temos.
 export const opcaoSimuladorSchema = z.object({
   texto: z.string().min(1),
   consequencia: z.string().min(1),
@@ -28,10 +31,13 @@ export const noSimuladorSchema = z.object({
 export const casoSimuladorGeradoSchema = z
   .object({
     id: z.string().min(1),
-    tituloAnedotico: z.string().min(1),
-    diagnosticoRealId: z.string().min(1),
+    titulo: z.string().min(1),
+    categoria: z.string().min(1),
+    apresentacaoInicial: z.string().min(1),
+    diagnosticoId: z.string().min(1),
     nos: z.array(noSimuladorSchema).min(3),
     noInicialId: z.string().min(1),
+    pontosDeEnsino: z.array(z.string().min(1)).min(1),
   })
   .superRefine((caso, ctx) => {
     const idsExistentes = new Set(caso.nos.map((n) => n.id));

@@ -41,7 +41,7 @@ export function montarPromptSimulador(
   const diagnosticoJson = JSON.stringify(diagnostico, null, 2);
   const medicamentosJson = JSON.stringify(medicamentosPrimeiraLinha, null, 2);
 
-  return `Você é um psiquiatra experiente escrevendo um caso narrativo interativo para o "Simulador de Psiquiatria" do Atlas Psiquiátrico — um jogo de árvore de decisão para ensino de residentes e psiquiatras.
+  return `Você é um psiquiatra experiente escrevendo um caso narrativo interativo, estilo árvore de decisão ramificada, para o módulo Casos Clínicos do Atlas Psiquiátrico — um jogo de árvore de decisão para ensino de residentes e psiquiatras.
 
 Sua resposta será validada automaticamente contra um schema JSON e contra checagens de integridade da árvore (todo nó referenciado precisa existir, todo nó precisa ser alcançável a partir do nó inicial). Respeite os tipos e a estrutura, mas o que este texto pede é o que o schema sozinho não consegue garantir: qualidade narrativa e exatidão clínica.
 
@@ -63,8 +63,12 @@ ${montarBlocoInspiracao(inspiracao)}
 - 4 a 5 opções em cada nó de decisão (todo nó que não é "desfecho").
 - Cada opção precisa de: texto (o que o jogador escolhe), consequencia (o que acontece na história como resultado direto — mostrado assim que o jogador escolhe), proximoNoId (apontando pra um nó que você também vai gerar), e qualidadeDecisao ("ideal", "aceitavel" ou "problematica") — uma avaliação clínica honesta dessa escolha específica, nunca mostrada durante o jogo, só no resumo final.
 - Preencha medicamentoId (usando um dos ids da lista de medicamentos acima) quando a opção envolver prescrever especificamente um deles. Omita quando não aplicável — nunca invente um id que não esteja na lista.
-- diagnosticoRealId deve ser exatamente "${diagnostico.id}".
+- diagnosticoId deve ser exatamente "${diagnostico.id}".
+- categoria deve ser exatamente "${diagnostico.categoria}".
+- apresentacaoInicial: 1-2 frases de contexto do paciente (idade, motivo da consulta, quem trouxe/acompanhou), mostradas ao jogador antes do primeiro nó.
+- titulo: curto e evocativo, no tom leve/anedótico do caso — não o nome do diagnóstico.
 - noInicialId deve ser o id do primeiro nó (turno "entrevista").
+- pontosDeEnsino: 2 a 4 lições didáticas principais do caso, além do diagnóstico em si.
 - Cada nó de desfecho deve refletir de forma honesta o resultado do caminho de decisões que levou até ele — um caminho com decisões majoritariamente "problematica" deve levar a um desfecho pior (não necessariamente catastrófico, mas com consequência real), e um caminho majoritariamente "ideal" a um desfecho bom.
 
 ## Regras para as opções de cada nó — evitar que a resposta certa fique óbvia só pela forma

@@ -5,7 +5,6 @@ import { emergencias } from "../data/emergencias";
 import { fluxogramas } from "../data/fluxogramas";
 import { dominiosPsicopatologicos } from "../data/psicopatologia";
 import { casosClinicos } from "../data/casos-clinicos";
-import { casosSimulador } from "../data/simulador";
 import { casosSimuladorEmergencia } from "../data/simulador-emergencia";
 import { normalizarBusca } from "./normalizarBusca";
 
@@ -71,12 +70,6 @@ export function getIndiceBusca(): ItemBusca[] {
       nome: c.titulo,
       sub: c.categoria,
       href: `/casos-clinicos/${c.id}`,
-    })),
-    ...casosSimulador.map((c) => ({
-      tipo: "Simulador",
-      nome: c.tituloAnedotico,
-      sub: "Caso interativo",
-      href: `/simulador/${c.id}`,
     })),
     ...casosSimuladorEmergencia.map((c) => ({
       tipo: "Simulador de Emergência",

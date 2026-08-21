@@ -1,17 +1,19 @@
-import { CasoSimulador } from "./types";
+import { CasoClinico } from "./types";
 
 // Caso escrito à mão (NÃO gerado pelo Gemini/script) só pra validar o
 // schema, a UI e a exportação pro prontuário antes da primeira geração
-// real — ver conversa de implementação do módulo Simulador. Doses e
-// critérios usados aqui (sertralina, escitalopram) conferem com
-// data/medicamentos; substituir/remover quando o primeiro caso real for
-// gerado com `npm run gerar-caso-simulador`.
-export const voJardim: CasoSimulador = {
+// real — ver conversa de implementação do módulo Simulador (agora
+// unificado em Casos Clínicos). Doses e critérios usados aqui (sertralina,
+// escitalopram) conferem com data/medicamentos.
+export const voJardim: CasoClinico = {
   id: "vo-jardim",
 
-  tituloAnedotico: "O Vô Que Só Queria Cuidar do Jardim",
+  titulo: "O Vô Que Só Queria Cuidar do Jardim",
 
-  diagnosticoRealId: "depressao-maior",
+  categoria: "Transtornos do Humor",
+
+  apresentacaoInicial:
+    "Paciente do sexo masculino, 74 anos, viúvo há 8 meses, trazido pela filha à consulta por insônia e fadiga que atribui a 'preocupação com o jardim' — a filha nota, incomodada, que ele não cuida do jardim há meses e vem se afastando de atividades e pessoas que antes gostava, incluindo os netos.",
 
   noInicialId: "entrevista-jardim",
 
@@ -245,5 +247,24 @@ export const voJardim: CasoSimulador = {
         "O quadro de Joaquim se agrava sem que ninguém tenha reconhecido a tempo os sinais que ele foi deixando, um a um, ao longo do caminho. Este desfecho é um lembrete: a queixa somática atípica ('só estou cansado') é, com frequência, a forma como a depressão se apresenta em idosos — e cada oportunidade de perguntar diretamente sobre humor e ideação é uma chance real de mudar o rumo da história.",
       opcoes: [],
     },
+  ],
+
+  diagnosticoFinal:
+    "Transtorno Depressivo Maior em paciente idoso, mascarado por queixa somática atípica ('cansaço', desinteresse atribuído ao jardim) e agravado por luto recente.",
+
+  diagnosticoId: "depressao-maior",
+
+  medicamentosRelacionados: ["sertralina", "escitalopram"],
+
+  pontosDeEnsino: [
+    "Em idosos, a depressão frequentemente se apresenta de forma atípica — queixas somáticas inespecíficas (fadiga, dores) ou perda de interesse por atividades antes prazerosas, em vez do relato direto de tristeza.",
+    "Perguntar diretamente sobre humor, anedonia e ideação de morte é necessário mesmo quando a queixa inicial é somática — o paciente frequentemente não verbaliza isso espontaneamente, sobretudo na frente de familiares.",
+    "Ideação passiva de morte ('seria mais fácil não acordar') exige avaliação de risco ativa e registro, mesmo sem plano ou intenção declarados.",
+    "Em pacientes idosos, iniciar antidepressivo em dose baixa, com titulação cuidadosa, reduz o risco de ativação e de efeitos adversos.",
+  ],
+
+  referencias: [
+    "American Psychiatric Association (APA). DSM-5-TR.",
+    "APA Practice Guideline for the Treatment of Patients with Major Depressive Disorder.",
   ],
 };

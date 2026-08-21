@@ -39,9 +39,7 @@ export const grupos: GrupoMenu[] = [
     titulo: "Casos & prática",
     itens: [
       { nome: "Casos Clínicos", href: "/casos-clinicos" },
-      { nome: "Simulador", href: "/simulador" },
       { nome: "Simulador de Emergência", href: "/simulador-emergencia" },
-      { nome: "Modo de Estudo", href: "/estudo" },
     ],
   },
 ];
