@@ -14,11 +14,17 @@ export default function Topbar({ onAbrirMenu, onAbrirBusca }: Props) {
   const pathname = usePathname();
   const trilha = getTrilha(pathname);
 
-  const [online, setOnline] = useState(
-    () => typeof navigator === "undefined" || navigator.onLine
-  );
+  // Sempre inicia "online" (igual ao SSR, que não tem acesso a `navigator`)
+  // e corrige pro valor real só depois de montar — ler `navigator.onLine`
+  // já no useState fazia a primeira renderização do cliente divergir da
+  // do servidor sempre que `navigator.onLine` era `false` na hidratação,
+  // disparando "Hydration failed" e descartando a árvore inteira.
+  const [online, setOnline] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincronizando com navigator.onLine (indisponível durante SSR)
+    setOnline(navigator.onLine);
+
     const marcarOnline = () => setOnline(true);
     const marcarOffline = () => setOnline(false);
 

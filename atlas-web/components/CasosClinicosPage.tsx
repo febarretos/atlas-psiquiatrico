@@ -10,6 +10,7 @@ import SearchBar from "./SearchBar";
 
 import { CasoClinico } from "../data/casos-clinicos/types";
 import type { CasoLivre } from "../lib/casoLivreSchema";
+import type { CasoSemAlternativas } from "../lib/casoSemAlternativasSchema";
 import { diagnosticos } from "../data/diagnosticos";
 import type { Dificuldade } from "../lib/gerarCasoPrompt";
 import { chamarComRetryDeQuota } from "../lib/chamarComRetryDeQuota";
@@ -46,6 +47,10 @@ export default function CasosClinicosPage({
   const [diagnosticoEscolhido, setDiagnosticoEscolhido] = useState("");
   const [dificuldade, setDificuldade] = useState<Dificuldade>("classico");
   const [carregandoModo, setCarregandoModo] = useState<ModoGeracao | null>(null);
+  // Só usada no modo múltipla-escolha, que agora são 2 chamadas ao
+  // servidor em sequência (ver comentário em gerarCaso) — mantém o
+  // usuário informado de qual das duas está em andamento.
+  const [etapaAtual, setEtapaAtual] = useState<"caso" | "alternativas" | null>(null);
   const [aguardandoSegundos, setAguardandoSegundos] = useState<number | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [casoGerado, setCasoGerado] = useState<CasoClinico | null>(null);
@@ -58,7 +63,45 @@ export default function CasosClinicosPage({
     setAguardandoSegundos(null);
 
     try {
-      const { resposta, dados } = await chamarComRetryDeQuota(
+      if (modo === "resposta-livre") {
+        const { resposta, dados } = await chamarComRetryDeQuota(
+          () =>
+            fetch("/api/gerar-caso", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                diagnosticoId: diagnosticoEscolhido || undefined,
+                dificuldade,
+                modo,
+              }),
+            }),
+          setAguardandoSegundos
+        );
+
+        const corpo = dados as {
+          erro?: string;
+          mensagem?: string;
+          casoLivre?: CasoLivre;
+          inspiracao?: FonteInspiracao[];
+        } | null;
+
+        if (!resposta.ok) {
+          throw new Error(corpo?.erro ?? corpo?.mensagem ?? `Erro ${resposta.status}`);
+        }
+
+        setCasoLivreGerado(corpo?.casoLivre as CasoLivre);
+        setCasoGerado(null);
+        setFontes(corpo?.inspiracao ?? []);
+        return;
+      }
+
+      // Múltipla escolha: 2 chamadas de IA sequenciais numa invocação
+      // serverless só levavam ~70-90s no total, estourando o teto de 60s
+      // do maxDuration — cada etapa agora é uma requisição própria (ver
+      // app/api/gerar-caso e app/api/gerar-caso-distratores), com o
+      // resultado da primeira indo e voltando pelo cliente pra segunda.
+      setEtapaAtual("caso");
+      const primeira = await chamarComRetryDeQuota(
         () =>
           fetch("/api/gerar-caso", {
             method: "POST",
@@ -72,30 +115,54 @@ export default function CasosClinicosPage({
         setAguardandoSegundos
       );
 
-      const corpo = dados as {
+      const corpoEtapa1 = primeira.dados as {
         erro?: string;
         mensagem?: string;
-        casoLivre?: CasoLivre;
-        caso?: CasoClinico;
+        casoSemAlternativas?: CasoSemAlternativas;
         inspiracao?: FonteInspiracao[];
       } | null;
 
-      if (!resposta.ok) {
-        throw new Error(corpo?.erro ?? corpo?.mensagem ?? `Erro ${resposta.status}`);
+      if (!primeira.resposta.ok) {
+        throw new Error(
+          corpoEtapa1?.erro ?? corpoEtapa1?.mensagem ?? `Erro ${primeira.resposta.status}`
+        );
+      }
+      if (!corpoEtapa1?.casoSemAlternativas) {
+        throw new Error("Resposta inesperada do servidor ao gerar o caso.");
       }
 
-      if (modo === "resposta-livre") {
-        setCasoLivreGerado(corpo?.casoLivre as CasoLivre);
-        setCasoGerado(null);
-      } else {
-        setCasoGerado(corpo?.caso as CasoClinico);
-        setCasoLivreGerado(null);
+      setEtapaAtual("alternativas");
+      setAguardandoSegundos(null);
+      const segunda = await chamarComRetryDeQuota(
+        () =>
+          fetch("/api/gerar-caso-distratores", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ casoSemAlternativas: corpoEtapa1.casoSemAlternativas }),
+          }),
+        setAguardandoSegundos
+      );
+
+      const corpoEtapa2 = segunda.dados as {
+        erro?: string;
+        mensagem?: string;
+        caso?: CasoClinico;
+      } | null;
+
+      if (!segunda.resposta.ok) {
+        throw new Error(
+          corpoEtapa2?.erro ?? corpoEtapa2?.mensagem ?? `Erro ${segunda.resposta.status}`
+        );
       }
-      setFontes(corpo?.inspiracao ?? []);
+
+      setCasoGerado(corpoEtapa2?.caso as CasoClinico);
+      setCasoLivreGerado(null);
+      setFontes(corpoEtapa1.inspiracao ?? []);
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao gerar o caso.");
     } finally {
       setCarregandoModo(null);
+      setEtapaAtual(null);
       setAguardandoSegundos(null);
     }
   }
@@ -255,7 +322,9 @@ export default function CasosClinicosPage({
                     {carregandoModo === "multipla-escolha"
                       ? aguardandoSegundos !== null
                         ? `Aguardando ${aguardandoSegundos}s…`
-                        : "Gerando…"
+                        : etapaAtual === "alternativas"
+                          ? "Gerando alternativas…"
+                          : "Gerando o caso…"
                       : "Múltipla escolha (4-5 etapas)"}
                   </button>
 
