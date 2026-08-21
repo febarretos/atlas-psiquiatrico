@@ -35,13 +35,17 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
         agitacaoPsicomotora: 0.6,
         riscoIminente: 1.3,
       },
+      // Para de progredir a partir do turno seguinte ao benzodiazepínico
+      // em esquema fixo — sem isso, o motor ensinava que suspender a
+      // causa (aqui, tratá-la) não muda nada.
+      paraApos: "benzodiazepinico-titulado",
     },
   ],
 
   acoesDisponiveis: [
     {
       id: "benzodiazepinico-titulado",
-      label: "Benzodiazepínico em dose ajustada à gravidade (guiado por CIWA-Ar)",
+      label: "Benzodiazepínico em esquema fixo/front-loading (não guiado por CIWA-Ar — paciente confuso não relata sintomas de forma confiável)",
       categoria: "medicacao",
       medicamentoId: "diazepam",
       custoTempo: 1,
@@ -85,7 +89,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
     },
     {
       id: "antipsicotico-em-vez-de-bzd",
-      label: "Usar antipsicótico pra conter a agitação e as alucinações",
+      label: "Usar antipsicótico isolado, no lugar do benzodiazepínico, pra conter a agitação e as alucinações",
       categoria: "medicacao",
       medicamentoId: "haloperidol",
       custoTempo: 1,
@@ -106,7 +110,7 @@ export const deliriumTremensFraturaFemur: CasoSimuladorEmergencia = {
       custoTempo: 1,
       efeitoImediato: {},
       resultadoTexto:
-        "CIWA-Ar: 28 pontos — abstinência grave. Indica benzodiazepínico em doses altas e monitorização contínua.",
+        "CIWA-Ar não é confiável neste paciente: a escala depende de o paciente relatar sintomas subjetivos (cefaleia, distúrbios sensoriais, orientação), e ele está confuso/desorientado — delirium tremens já estabelecido. Preferir esquema fixo (front-loading) de benzodiazepínico guiado por sinais objetivos e reavaliação clínica frequente, não pontuação da escala.",
       repetivel: true,
     },
     {

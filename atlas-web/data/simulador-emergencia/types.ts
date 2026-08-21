@@ -25,10 +25,13 @@
 //    existe pra ações que são incorretas *neste caso específico*, ponto.
 //    condicaoDeUso é só texto informativo pro jogador — não é avaliado
 //    pelo motor.
-// 4. regrasDeEvolucaoNatural são todas aplicadas a cada turno decorrido,
-//    incondicionalmente (representam a progressão da doença não tratada)
-//    — `condicao` é só o rótulo legível mostrado no log, não uma
-//    condição avaliada pelo motor.
+// 4. regrasDeEvolucaoNatural são aplicadas a cada turno decorrido
+//    (representam a progressão da doença não tratada) — `condicao` é só
+//    o rótulo legível mostrado no log, não uma condição avaliada pelo
+//    motor. A ÚNICA condição que o motor de fato avalia é `paraApos`
+//    (ver RegraEvolucao abaixo): se o id de ação ali já estiver em
+//    acoesJaUsadas, a regra para de ser aplicada a partir do turno
+//    seguinte. Regras sem `paraApos` continuam incondicionais.
 // 5. limiaresDesfecho: a direção de "piorou o suficiente" de cada campo é
 //    inferida comparando o limiar contra sinaisVitaisIniciais (limiar
 //    maior que o inicial = "subir é ruim/é a meta", limiar menor = "descer
@@ -73,6 +76,15 @@ export interface RegraEvolucao {
   // não avaliada pelo motor (ver item 4 acima).
   condicao: string;
   efeitoPorTurno: EfeitoSinaisVitais;
+
+  // Id de AcaoDisponivel que, uma vez escolhido, desativa esta regra a
+  // partir do turno seguinte — pra regras que representam progressão da
+  // doença NÃO TRATADA (ex.: "abstinência progredindo sem
+  // benzodiazepínico"), que deixam de fazer sentido fisiológico depois
+  // que o tratamento correto foi dado. Omitir quando a regra representa
+  // um processo que continua independentemente de qualquer ação do
+  // jogador (ex.: efeito residual de uma toxina já absorvida).
+  paraApos?: string;
 }
 
 export interface AcaoDisponivel {

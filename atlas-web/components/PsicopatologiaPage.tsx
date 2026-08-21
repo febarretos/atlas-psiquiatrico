@@ -6,6 +6,7 @@ import Link from "next/link";
 import Badge from "./Badge";
 import SearchBar from "./SearchBar";
 
+import { normalizarBusca } from "../lib/normalizarBusca";
 import { DominioPsicopatologico } from "../data/psicopatologia/types";
 
 interface Props {
@@ -18,16 +19,14 @@ export default function PsicopatologiaPage({
   const [busca, setBusca] = useState("");
 
   const lista = useMemo(() => {
-    const termo = busca.toLowerCase();
+    const termo = normalizarBusca(busca);
 
     return dominios.filter((d) => {
-      const textoDominio = (d.nome + " " + d.descricao).toLowerCase();
+      const textoDominio = normalizarBusca(d.nome + " " + d.descricao);
       if (textoDominio.includes(termo)) return true;
 
       return d.achados.some((a) =>
-        (a.nome + " " + (a.sinonimos ?? []).join(" "))
-          .toLowerCase()
-          .includes(termo)
+        normalizarBusca(a.nome + " " + (a.sinonimos ?? []).join(" ")).includes(termo)
       );
     });
   }, [busca, dominios]);

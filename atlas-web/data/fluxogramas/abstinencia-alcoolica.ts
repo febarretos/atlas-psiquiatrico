@@ -126,7 +126,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
       texto:
         "Hepatopatia significativa: lorazepam em dose ajustada à gravidade, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
       detalhe:
-        "Metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas — evita acúmulo de metabólitos ativos. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+        "Metabolização por glucuronidação direta, sem depender das vias oxidativas hepáticas comprometidas — evita acúmulo de metabólitos ativos. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada. ATENÇÃO: terapia guiada por CIWA-Ar pressupõe paciente comunicativo, sem convulsão/delirium tremens prévios nem confusão mental — nesses casos (abstinência complicada), preferir esquema fixo/front-loading, não pontuação da escala.",
       medicamentosRelacionados: ["lorazepam", "tiamina"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
@@ -139,7 +139,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
       texto:
         "Idoso ou risco de queda: lorazepam em doses menores e mais frequentes, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
       detalhe:
-        "Sem metabólito ativo relevante, o que reduz o risco de sedação cumulativa e queda em relação ao diazepam nessa faixa etária. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+        "Sem metabólito ativo relevante, o que reduz o risco de sedação cumulativa e queda em relação ao diazepam nessa faixa etária. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada. ATENÇÃO: terapia guiada por CIWA-Ar pressupõe paciente comunicativo, sem convulsão/delirium tremens prévios nem confusão mental — nesses casos (abstinência complicada), preferir esquema fixo/front-loading, não pontuação da escala.",
       medicamentosRelacionados: ["lorazepam", "tiamina"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },
@@ -152,7 +152,7 @@ export const abstinenciaAlcoolica: Fluxograma = {
       texto:
         "Sem condição especial identificada: diazepam em dose mais alta, guiado por protocolo (ex. CIWA-Ar) com reavaliações frequentes.",
       detalhe:
-        "A meia-vida longa favorece um desmame mais suave e melhor cobertura anticonvulsivante contínua, sendo a escolha clássica de protocolos de internação quando não há hepatopatia ou risco de acúmulo relevante. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada.",
+        "A meia-vida longa favorece um desmame mais suave e melhor cobertura anticonvulsivante contínua, sendo a escolha clássica de protocolos de internação quando não há hepatopatia ou risco de acúmulo relevante. Administrar tiamina parenteral em dose adequada antes da administração de glicose, para reduzir o risco de precipitar encefalopatia de Wernicke. Monitorar sinais vitais e estado mental de forma seriada. ATENÇÃO: se houver convulsão ou delirium tremens prévios (abstinência complicada) ou o paciente já estiver confuso, terapia guiada por CIWA-Ar não é válida — usar esquema fixo/front-loading em vez de pontuação da escala (ver módulo de Emergências: Delirium Tremens e Convulsão por Abstinência Alcoólica).",
       medicamentosRelacionados: ["diazepam", "tiamina"],
       opcoes: [
         { label: "Monitorizar evolução clínica", proximoNodeId: "monitorizacao-delirium" },

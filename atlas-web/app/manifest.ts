@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Biblioteca clínica de Psiquiatria — medicamentos, diagnósticos, escalas, fluxogramas e emergências.",
     start_url: "/",
     display: "standalone",
-    background_color: "#020617",
-    theme_color: "#020617",
+    background_color: "#fbfaf7",
+    theme_color: "#fbfaf7",
     lang: "pt-BR",
     icons: [
       {

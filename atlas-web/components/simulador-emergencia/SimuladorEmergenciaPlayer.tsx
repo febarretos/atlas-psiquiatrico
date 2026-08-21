@@ -52,6 +52,33 @@ function severidadeEscala0a10(v: number): Severidade {
   return "normal";
 }
 
+// Faixas de referência genéricas (mesmo espírito das funções acima), só
+// usadas nos cards de texto de FC/PA/temperatura/SpO2 exibidos quando o
+// monitor visual (Phaser) falha ao carregar — ver MonitorFisiologico.tsx.
+function severidadeFrequenciaCardiaca(v: number): Severidade {
+  if (v > 130 || v < 40) return "critico";
+  if (v > 100 || v < 50) return "alerta";
+  return "normal";
+}
+
+function severidadePressaoSistolica(v: number): Severidade {
+  if (v > 180 || v < 80) return "critico";
+  if (v > 140 || v < 90) return "alerta";
+  return "normal";
+}
+
+function severidadeTemperatura(v: number): Severidade {
+  if (v >= 39.5 || v < 35) return "critico";
+  if (v >= 38 || v < 36) return "alerta";
+  return "normal";
+}
+
+function severidadeSaturacaoO2(v: number): Severidade {
+  if (v < 90) return "critico";
+  if (v < 95) return "alerta";
+  return "normal";
+}
+
 const CATEGORIA_LABEL: Record<AcaoDisponivel["categoria"], string> = {
   medicacao: "Medicação",
   exame: "Exame",
@@ -134,6 +161,7 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
   const [toast, setToast] = useState<ToastAcao | null>(null);
   const [pulso, setPulso] = useState<PulsoAcao | null>(null);
   const [mudo, setMudo] = useState(false);
+  const [monitorFalhou, setMonitorFalhou] = useState(false);
   const pulsoNonceRef = useRef(0);
 
   useEffect(() => {
@@ -226,10 +254,45 @@ export default function SimuladorEmergenciaPlayer({ caso }: Props) {
               {mudo ? "Som desligado" : "Som ligado"}
             </button>
           </div>
-          <MonitorFisiologico sinais={sinais} emAlarme={alarme} pulso={pulso} mudo={mudo} />
+          <MonitorFisiologico
+            sinais={sinais}
+            emAlarme={alarme}
+            pulso={pulso}
+            mudo={mudo}
+            onErro={() => setMonitorFalhou(true)}
+          />
         </div>
 
         <div className="grid flex-1 grid-cols-2 gap-3 self-stretch sm:grid-cols-3 lg:grid-cols-1">
+          {monitorFalhou && (
+            <>
+              <VitalCard
+                label="Freq. cardíaca"
+                valor={`${sinais.frequenciaCardiaca.toFixed(0)} bpm`}
+                severidade={severidadeFrequenciaCardiaca(sinais.frequenciaCardiaca)}
+              />
+              <VitalCard
+                label="Pressão arterial"
+                valor={`${sinais.pressaoArterial.sistolica.toFixed(0)}/${sinais.pressaoArterial.diastolica.toFixed(0)}`}
+                severidade={severidadePressaoSistolica(sinais.pressaoArterial.sistolica)}
+              />
+              <VitalCard
+                label="Temperatura"
+                valor={`${sinais.temperatura.toFixed(1)}°C`}
+                severidade={severidadeTemperatura(sinais.temperatura)}
+              />
+              <VitalCard
+                label="Saturação O₂"
+                valor={`${sinais.saturacaoO2.toFixed(0)}%`}
+                severidade={severidadeSaturacaoO2(sinais.saturacaoO2)}
+              />
+              <VitalCard
+                label="Risco iminente"
+                valor={`${sinais.riscoIminente.toFixed(0)}/10`}
+                severidade={severidadeEscala0a10(sinais.riscoIminente)}
+              />
+            </>
+          )}
           <VitalCard
             label="Consciência"
             valor={sinais.nivelConsciencia}

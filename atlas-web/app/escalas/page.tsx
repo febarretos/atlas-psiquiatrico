@@ -6,6 +6,7 @@ import Badge from "../../components/Badge";
 import Card from "../../components/Card";
 import SearchBar from "../../components/SearchBar";
 
+import { normalizarBusca } from "../../lib/normalizarBusca";
 import { escalas } from "../../data/escalas";
 
 // Ordem aproximada de frequência de uso em consultório psiquiátrico
@@ -35,12 +36,12 @@ const ORDEM_USO = [
 // Categorias também seguem a mesma lógica de prevalência/frequência de uso,
 // não ordem alfabética — usa a categoria da primeira escala de cada uma na
 // ORDEM_USO para definir a posição do grupo inteiro.
-function ordenarPorUso<T extends { id: string }>(itens: T[]): T[] {
+function ordenarPorUso<T extends { id: string; nome: string }>(itens: T[]): T[] {
   return [...itens].sort((a, b) => {
     const posA = ORDEM_USO.indexOf(a.id);
     const posB = ORDEM_USO.indexOf(b.id);
 
-    if (posA === -1 && posB === -1) return 0;
+    if (posA === -1 && posB === -1) return a.nome.localeCompare(b.nome);
     if (posA === -1) return 1;
     if (posB === -1) return -1;
 
@@ -53,15 +54,9 @@ export default function Escalas() {
 
   const lista = useMemo(() => {
     const filtradas = escalas.filter((e) => {
-      const texto = (
-        e.nome +
-        " " +
-        e.sigla +
-        " " +
-        e.categoria
-      ).toLowerCase();
+      const texto = normalizarBusca(e.nome + " " + e.sigla + " " + e.categoria);
 
-      return texto.includes(busca.toLowerCase());
+      return texto.includes(normalizarBusca(busca));
     });
 
     return ordenarPorUso(filtradas);

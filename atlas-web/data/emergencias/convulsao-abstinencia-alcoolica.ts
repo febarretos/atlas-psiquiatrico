@@ -34,7 +34,7 @@ export const convulsaoAbstinenciaAlcoolica: Emergencia = {
   ],
 
   condutaImediata: [
-    "Benzodiazepínicos são o tratamento e a profilaxia de escolha — diazepam ou lorazepam, guiados por protocolo/escala como o CIWA-Ar",
+    "Benzodiazepínicos são o tratamento e a profilaxia de escolha — diazepam ou lorazepam. Com convulsão em curso ou história de convulsão/delirium tremens prévios (abstinência complicada), preferir esquema fixo/front-loading (ASAM) em vez de terapia guiada por sintomas isolada (ex.: CIWA-Ar), que pressupõe abstinência não complicada e paciente comunicativo",
     "Diante de convulsão em curso, tratar de forma semelhante a uma crise convulsiva aguda: benzodiazepínico intravenoso e reavaliação continuada",
     "Reposição de tiamina antes ou junto da administração de glicose, para prevenir encefalopatia de Wernicke",
     "Correção de distúrbios hidroeletrolíticos, especialmente magnésio e potássio",

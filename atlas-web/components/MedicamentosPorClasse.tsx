@@ -6,6 +6,7 @@ import Link from "next/link";
 import Badge from "./Badge";
 import SearchBar from "./SearchBar";
 
+import { normalizarBusca } from "../lib/normalizarBusca";
 import { Medicamento } from "../data/types";
 
 interface Props {
@@ -29,8 +30,8 @@ export default function MedicamentosPorClasse({ medicamentos }: Props) {
     const porClasse = new Map<string, Medicamento[]>();
 
     for (const m of medicamentos) {
-      const texto = (m.nome + " " + m.classe + " " + (m.subclasse ?? "")).toLowerCase();
-      if (busca && !texto.includes(busca.toLowerCase())) continue;
+      const texto = normalizarBusca(m.nome + " " + m.classe + " " + (m.subclasse ?? ""));
+      if (busca && !texto.includes(normalizarBusca(busca))) continue;
 
       const lista = porClasse.get(m.classe) ?? [];
       lista.push(m);

@@ -6,6 +6,7 @@ import Link from "next/link";
 import Badge from "./Badge";
 import SearchBar from "./SearchBar";
 
+import { normalizarBusca } from "../lib/normalizarBusca";
 import { Diagnostico } from "../data/diagnosticos/types";
 
 interface Props {
@@ -29,8 +30,8 @@ export default function DiagnosticosPorCategoria({ diagnosticos }: Props) {
     const porCategoria = new Map<string, Diagnostico[]>();
 
     for (const d of diagnosticos) {
-      const texto = (d.nome + " " + d.categoria).toLowerCase();
-      if (busca && !texto.includes(busca.toLowerCase())) continue;
+      const texto = normalizarBusca(d.nome + " " + d.categoria);
+      if (busca && !texto.includes(normalizarBusca(busca))) continue;
 
       const lista = porCategoria.get(d.categoria) ?? [];
       lista.push(d);

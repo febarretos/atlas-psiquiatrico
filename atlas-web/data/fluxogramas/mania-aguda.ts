@@ -114,11 +114,11 @@ export const maniaAguda: Fluxograma = {
     {
       id: "conduta-estabilizador-gravidez",
       tipo: "conduta",
-      nivel: "rotina",
+      nivel: "atencao",
       texto:
-        "Gravidez ou mulher em idade fértil sem contracepção eficaz: priorizar lítio, evitando valproato.",
+        "Gravidez ou mulher em idade fértil sem contracepção eficaz: priorizar lítio, evitando valproato — mas considerar também antipsicótico (ver módulo de Medicamentos), frequentemente preferido a estabilizador de humor na gestação.",
       detalhe:
-        "Valproato é um dos psicofármacos com maior risco teratogênico documentado (defeitos de tubo neural e outras malformações), devendo ser evitado em mulheres em idade fértil sempre que houver alternativa — não apenas em gestação já confirmada. Lítio também tem risco (ex. anomalia de Ebstein), mas é classicamente considerado a opção com perfil mais favorável entre os dois nessa situação. Solicitar exames basais de função renal e tireoidiana.",
+        "Valproato é um dos psicofármacos com maior risco teratogênico documentado (defeitos de tubo neural e outras malformações), devendo ser evitado em mulheres em idade fértil sempre que houver alternativa — não apenas em gestação já confirmada. Lítio também tem risco (ex. anomalia de Ebstein), mas é classicamente considerado a opção com perfil mais favorável entre os dois estabilizadores nessa situação. NICE/CANMAT também consideram antipsicótico (isolado ou associado) opção de primeira linha na mania durante a gestação, muitas vezes preferida a estabilizador de humor pelo perfil de segurança reprodutiva — a decisão entre lítio e antipsicótico é individualizada, não automática. Solicitar exames basais de função renal e tireoidiana.",
       medicamentosRelacionados: ["litio"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
@@ -155,10 +155,10 @@ export const maniaAguda: Fluxograma = {
       tipo: "conduta",
       nivel: "rotina",
       texto:
-        "Ciclagem rápida ou episódio misto: priorizar valproato.",
+        "Ciclagem rápida ou episódio misto: valproato é opção de primeira linha (junto com lítio) — atenção especial ao risco teratogênico se a paciente for mulher em idade fértil.",
       detalhe:
-        "Valproato tem evidência de eficácia mais consistente que o lítio nesses subtipos de apresentação, conforme diretrizes CANMAT/ISBD. Solicitar exames basais de função hepática e hemograma.",
-      medicamentosRelacionados: ["valproato"],
+        "Valproato, olanzapina e aripiprazol têm eficácia documentada em episódios maníacos/mistos com ciclagem rápida (CANMAT/ISBD 2018); lítio também é primeira linha e o maior ensaio comparativo direto (Calabrese et al. 2005, 20 meses, lítio vs. divalproato) não encontrou diferença significativa de eficácia entre os dois — não tratar valproato como superior ao lítio nesse subtipo. ATENÇÃO — risco teratogênico: valproato é um dos psicofármacos com maior risco documentado (defeitos de tubo neural e outras malformações); em mulher em idade fértil sem contracepção eficaz ou gestante, reavaliar para lítio (ver ramo 'Gravidez' desta mesma pergunta) antes de prosseguir com valproato só por causa da ciclagem rápida. Solicitar exames basais de função hepática e hemograma.",
+      medicamentosRelacionados: ["valproato", "litio"],
       opcoes: [
         { label: "Reavaliar resposta após 1-2 semanas", proximoNodeId: "reavaliacao-resposta" },
       ],

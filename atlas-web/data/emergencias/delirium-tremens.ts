@@ -30,7 +30,7 @@ export const deliriumTremens: Emergencia = {
 
   condutaImediata: [
     "Internação hospitalar, geralmente obrigatória nos casos com delirium já estabelecido",
-    "Benzodiazepínicos em doses ajustadas à gravidade (diazepam ou lorazepam), idealmente guiados por protocolo/escala como o CIWA-Ar",
+    "Benzodiazepínicos em esquema fixo/front-loading (doses repetidas e programadas até sedação leve), não guiados pelo CIWA-Ar — a escala depende de o paciente relatar sintomas subjetivos e não é válida em delirium já estabelecido, com confusão/desorientação (CIWA-Ar seriado é ferramenta de abstinência não complicada, em paciente comunicativo)",
     "Reposição de tiamina antes ou junto da administração de glicose, para prevenir encefalopatia de Wernicke",
     "Correção de distúrbios hidroeletrolíticos, especialmente magnésio e potássio",
     "Ambiente calmo, bem iluminado, com reorientação frequente do paciente",
@@ -43,7 +43,7 @@ export const deliriumTremens: Emergencia = {
     "Eletrólitos (magnésio, potássio, fósforo)",
     "Função hepática",
     "Glicemia",
-    "Escala CIWA-Ar seriada para guiar a dose de benzodiazepínico",
+    "Escala CIWA-Ar não é aplicável de forma confiável com delirium já estabelecido (depende de relato subjetivo do paciente) — reavaliação clínica objetiva (sinais vitais, nível de consciência, agitação) guia a dose no esquema fixo",
   ],
 
   diagnosticoDiferencial: [

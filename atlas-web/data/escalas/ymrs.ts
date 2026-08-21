@@ -276,9 +276,10 @@ export const ymrs: Escala = {
     {
       min: 13,
       max: 19,
-      label: "Hipomania provável",
+      label: "Sintomas leves/subsindrômicos",
       cor: "blue",
-      descricao: "Sintomas sugestivos de hipomania; avaliação clínica indicada.",
+      descricao:
+        "Sintomas maníacos leves ou subsindrômicos. A YMRS não avalia duração nem prejuízo funcional — os dois critérios que distinguem hipomania de mania no DSM-5-TR — por isso a pontuação isolada não sustenta rótulo diagnóstico; avaliação clínica indicada.",
     },
     {
       min: 20,

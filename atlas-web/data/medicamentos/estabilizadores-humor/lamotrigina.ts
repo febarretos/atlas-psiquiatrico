@@ -29,7 +29,7 @@ export const lamotrigina: Medicamento = {
     {
       indicacao: "Em associação com Valproato",
       doseInicial: "12,5 mg/dia (25 mg em dias alternados) por 2 semanas",
-      doseUsual: "100–200 mg/dia, com titulação ainda mais lenta e doses reduzidas pela metade",
+      doseUsual: "100 mg/dia (dose-alvo), com titulação ainda mais lenta e doses reduzidas pela metade em relação à monoterapia",
       doseMaxima: "100 mg/dia",
       nivelEvidencia: 4,
     },

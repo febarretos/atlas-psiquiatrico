@@ -122,16 +122,25 @@ export function aplicarEfeito(atual: SinaisVitais, efeito: EfeitoSinaisVitais): 
   return proximo;
 }
 
-// Aplica todas as regras de evolução natural, uma vez por turno
-// decorrido — representam a doença não tratada progredindo.
+// Aplica as regras de evolução natural ainda ativas, uma vez por turno
+// decorrido — representam a doença não tratada progredindo. Uma regra
+// com `paraApos` definido é pulada quando esse id de ação já está em
+// `acoesJaUsadas` (ver comentário em data/simulador-emergencia/types.ts)
+// — ex.: parar de agravar "abstinência sem benzodiazepínico" depois que
+// o benzodiazepínico foi de fato administrado.
 export function aplicarEvolucaoNatural(
   atual: SinaisVitais,
   regras: RegraEvolucao[],
-  turnosDecorridos: number
+  turnosDecorridos: number,
+  acoesJaUsadas: Set<string> = new Set()
 ): SinaisVitais {
+  const regrasAtivas = regras.filter(
+    (regra) => regra.paraApos === undefined || !acoesJaUsadas.has(regra.paraApos)
+  );
+
   let resultado = atual;
   for (let i = 0; i < turnosDecorridos; i++) {
-    for (const regra of regras) {
+    for (const regra of regrasAtivas) {
       resultado = aplicarEfeito(resultado, regra.efeitoPorTurno);
     }
   }
@@ -307,7 +316,12 @@ export function escolherAcao(
 
   const turnosDecorridos = Math.max(0, acao.custoTempo);
 
-  let sinais = aplicarEvolucaoNatural(estado.sinaisAtuais, caso.regrasDeEvolucaoNatural, turnosDecorridos);
+  let sinais = aplicarEvolucaoNatural(
+    estado.sinaisAtuais,
+    caso.regrasDeEvolucaoNatural,
+    turnosDecorridos,
+    estado.acoesJaUsadas
+  );
   sinais = aplicarEfeito(sinais, acao.efeitoImediato);
 
   const foiIncorreta = Boolean(acao.riscoSeIncorreta);

@@ -9,6 +9,11 @@ import {
 } from "../../../lib/avaliarRespostaLivreSchema";
 import { chamarGemini, extrairJson, comUmaRetentativa, respostaDeFalha } from "../../../lib/gemini";
 
+// Com retry (comUmaRetentativa), o pior caso são 2 chamadas sequenciais ao
+// Gemini — pode passar do timeout padrão de 10s da Vercel. 60 é o teto de
+// maxDuration aceito mesmo no plano Hobby, sem precisar de Fluid Compute.
+export const maxDuration = 60;
+
 function montarPromptAvaliacao(
   pergunta: string,
   gabaritoInterno: string,

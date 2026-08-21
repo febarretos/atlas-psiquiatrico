@@ -24,6 +24,13 @@ import { termoInglesDoDiagnostico } from "../../../lib/diagnosticoTermoIngles";
 import { buscarInspiracao, type ArtigoInspiracao } from "../../../lib/buscarInspiracaoEuropePmc";
 import { chamarGemini, extrairJson, comUmaRetentativa, respostaDeFalha } from "../../../lib/gemini";
 
+// Modo múltipla-escolha faz 2 chamadas sequenciais ao Gemini (caso, depois
+// distratores que dependem do resultado da primeira) — com retry
+// (comUmaRetentativa), o pior caso passa fácil dos 10s padrão da Vercel.
+// 60 é o teto de maxDuration aceito mesmo no plano Hobby, sem precisar de
+// Fluid Compute.
+export const maxDuration = 60;
+
 type Modo = "multipla-escolha" | "resposta-livre";
 
 interface CorpoRequisicao {

@@ -2,10 +2,21 @@ const CACHE_NAME = "atlas-psiquiatrico-v3";
 const OFFLINE_URL = "/offline";
 const PRECACHE_URLS = ["/", OFFLINE_URL];
 const ASSET_URL_PATTERN = /\/_next\/static\/[^"'()\s]+/g;
+// Rede "lie-fi" (tecnicamente online, efetivamente travada) não deve
+// prender a navegação — depois desse tempo, cai pro cache/offline em vez
+// de esperar indefinidamente por uma resposta que pode nunca chegar.
+const NAVEGACAO_TIMEOUT_MS = 4000;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    // cache.addAll é tudo-ou-nada: se "/offline" falhar, "/" também não
+    // entrava no cache. cache.add por URL, tolerando falha individual,
+    // evita que uma falha isolada derrube o precache inteiro.
+    caches
+      .open(CACHE_NAME)
+      .then((cache) =>
+        Promise.all(PRECACHE_URLS.map((url) => cache.add(url).catch(() => {})))
+      )
   );
   self.skipWaiting();
 });
@@ -96,16 +107,32 @@ self.addEventListener("fetch", (event) => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(async () => {
-          const cached = await caches.match(request);
-          return cached ?? (await caches.match(OFFLINE_URL));
-        })
+      (async () => {
+        // O fetch em si nunca é cancelado — mesmo que a corrida abaixo
+        // caia pro cache por timeout, esta promise segue rodando em
+        // segundo plano e ainda atualiza o cache se/quando responder.
+        const fetchPromise = fetch(request)
+          .then((response) => {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
+            return response;
+          })
+          .catch(() => null);
+
+        const timeout = new Promise((resolve) =>
+          setTimeout(resolve, NAVEGACAO_TIMEOUT_MS, null)
+        );
+
+        const resposta = await Promise.race([fetchPromise, timeout]);
+        if (resposta) return resposta;
+
+        const cached = await caches.match(request);
+        if (cached) return cached;
+
+        // Sem nada em cache: só aí vale esperar a rede lenta terminar de
+        // verdade, em vez de desistir com o timeout curto.
+        return (await fetchPromise) ?? (await caches.match(OFFLINE_URL));
+      })()
     );
     return;
   }
@@ -115,7 +142,7 @@ self.addEventListener("fetch", (event) => {
       const fetchPromise = fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
           return response;
         })
         .catch(() => cached);

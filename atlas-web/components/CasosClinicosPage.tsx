@@ -13,6 +13,7 @@ import type { CasoLivre } from "../lib/casoLivreSchema";
 import { diagnosticos } from "../data/diagnosticos";
 import type { Dificuldade } from "../lib/gerarCasoPrompt";
 import { chamarComRetryDeQuota } from "../lib/chamarComRetryDeQuota";
+import { normalizarBusca } from "../lib/normalizarBusca";
 
 interface Props {
   casos: CasoClinico[];
@@ -100,12 +101,10 @@ export default function CasosClinicosPage({
   }
 
   const lista = useMemo(() => {
-    const termo = busca.toLowerCase();
+    const termo = normalizarBusca(busca);
 
     return casos.filter((c) =>
-      (c.titulo + " " + c.categoria + " " + c.diagnosticoFinal)
-        .toLowerCase()
-        .includes(termo)
+      normalizarBusca(c.titulo + " " + c.categoria + " " + c.diagnosticoFinal).includes(termo)
     );
   }, [busca, casos]);
 

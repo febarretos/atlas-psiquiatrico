@@ -188,6 +188,63 @@ test("aplicarEvolucaoNatural: 0 turnos decorridos não muda nada", () => {
   assert.deepEqual(resultado, sinaisBase);
 });
 
+test("aplicarEvolucaoNatural: regra com paraApos continua ativa se a ação ainda não foi usada", () => {
+  const regras = [
+    { condicao: "teste", efeitoPorTurno: { riscoIminente: 1 }, paraApos: "tratar-causa" },
+  ];
+  const resultado = aplicarEvolucaoNatural(sinaisBase, regras, 3, new Set());
+  assert.equal(resultado.riscoIminente, 8); // 5 + 1*3, regra ainda ativa
+});
+
+test("aplicarEvolucaoNatural: regra com paraApos para de ser aplicada depois que a ação foi usada", () => {
+  const regras = [
+    { condicao: "teste", efeitoPorTurno: { riscoIminente: 1 }, paraApos: "tratar-causa" },
+  ];
+  const resultado = aplicarEvolucaoNatural(sinaisBase, regras, 3, new Set(["tratar-causa"]));
+  assert.equal(resultado.riscoIminente, 5); // regra desativada, nenhum efeito
+});
+
+test("aplicarEvolucaoNatural: paraApos só desativa a regra específica, outras regras seguem incondicionais", () => {
+  const regras = [
+    { condicao: "tratável", efeitoPorTurno: { riscoIminente: 1 }, paraApos: "tratar-causa" },
+    { condicao: "processo residual", efeitoPorTurno: { temperatura: 0.5 } },
+  ];
+  const resultado = aplicarEvolucaoNatural(sinaisBase, regras, 2, new Set(["tratar-causa"]));
+  assert.equal(resultado.riscoIminente, 5); // desativada
+  assert.equal(resultado.temperatura, 38); // 37 + 0.5*2, incondicional
+});
+
+test("escolherAcao: regra de evolução com paraApos para de progredir depois que a ação-tratamento é escolhida (delirium tremens)", () => {
+  let estado = criarEstadoInicial(deliriumTremensFraturaFemur);
+  const bzd = deliriumTremensFraturaFemur.acoesDisponiveis.find(
+    (a) => a.id === "benzodiazepinico-titulado"
+  )!;
+
+  // Antes do benzodiazepínico: passar turnos com uma ação neutra (custoTempo>0,
+  // sem efeito) deveria deixar a evolução natural agravar riscoIminente.
+  const comunicacao = deliriumTremensFraturaFemur.acoesDisponiveis.find(
+    (a) => a.id === "tranquilizar-familia"
+  )!;
+  const riscoAntes = estado.sinaisAtuais.riscoIminente;
+  estado = escolherAcao(deliriumTremensFraturaFemur, estado, comunicacao);
+  assert.ok(estado.sinaisAtuais.riscoIminente > riscoAntes, "evolução deveria agravar antes do tratamento");
+
+  // Aplica o benzodiazepínico (a regra de evolução natural tem
+  // paraApos: "benzodiazepinico-titulado").
+  estado = escolherAcao(deliriumTremensFraturaFemur, estado, bzd);
+
+  // Turno seguinte com ação neutra de novo: a evolução NÃO deveria mais
+  // agravar riscoIminente por conta própria (só o próprio efeito da ação,
+  // que aqui é {}).
+  const riscoDepoisTratar = estado.sinaisAtuais.riscoIminente;
+  estado = escolherAcao(deliriumTremensFraturaFemur, estado, comunicacao);
+  assert.equal(
+    estado.sinaisAtuais.riscoIminente,
+    riscoDepoisTratar,
+    "evolução não deveria mais agravar depois do benzodiazepínico em esquema fixo"
+  );
+});
+
 test("verificarDesfecho: riscoIminente >= 10 é óbito, independente de limiaresDesfecho.obito", () => {
   const desfecho = verificarDesfecho(nmsPlantaoSexta, { ...sinaisBase, riscoIminente: 10 }, 1);
   assert.equal(desfecho, "obito");
