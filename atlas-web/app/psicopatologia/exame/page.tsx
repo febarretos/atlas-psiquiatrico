@@ -12,9 +12,12 @@ export default function ExameEstadoMental() {
           </h1>
 
           <p className="mt-3 text-ink-2">
-            Montado a partir dos achados marcados como observados nos
-            domínios de Psicopatologia — revise e edite antes de copiar
-            para o prontuário.
+            Cada domínio de Psicopatologia entra com um padrão normal;
+            marcar um achado como observado substitui esse padrão pela
+            alteração encontrada. Cobre só os 11 domínios semiológicos do
+            módulo — aparência e atitude, inteligência e juízo
+            crítico/insight não são gerados aqui. Revise e complete
+            antes de copiar para o prontuário.
           </p>
         </div>
 

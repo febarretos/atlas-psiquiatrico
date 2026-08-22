@@ -5,11 +5,15 @@ export const vivenciasTempoEspaco: DominioPsicopatologico = {
 
   nome: "Vivências do Tempo e do Espaço",
 
+  rotuloClinico: "Vivências do tempo e do espaço",
+
   descricao:
     "Trata da experiência subjetiva e vivida da passagem do tempo e da extensão do espaço — não do julgamento cognitivo/formal sobre em que dia, hora ou lugar a pessoa está (desorientação temporoespacial, tratada no domínio Atenção e Orientação), mas de como o tempo e o espaço são sentidos e vividos por dentro. Uma pessoa pode estar corretamente orientada (sabe que dia é hoje) e, ainda assim, vivenciar o tempo como tendo parado, acelerado ou perdido continuidade — fenômeno de raiz fenomenológica (Minkowski, Binswanger, Jaspers) com forte valor semiológico nos transtornos do humor e nos quadros psicóticos.",
 
   normalidade:
     "O tempo vivido normalmente flui de forma contínua e relativamente homogênea, integrando passado, presente e futuro em uma narrativa pessoal coerente — a pessoa sente que o tempo passa em ritmo compatível com a atividade que realiza (mais rápido quando absorvida/engajada, mais devagar quando entediada ou em espera), sem que essa variação normal comprometa o senso de continuidade da própria existência. O espaço vivido é sentido como estável, orientado em relação ao próprio corpo, e adequadamente proporcional — nem opressivamente vasto, nem estranhamente contraído. Variações fisiológicas (a sensação de que 'o tempo voou' em um evento prazeroso, ou 'não passa' em uma sala de espera) são universais e não indicam, por si só, patologia.",
+
+  notaNormal: "Vivência do tempo e do espaço preservada, sem alterações de ritmo, continuidade ou proporção percebida.",
 
   achados: [
     {

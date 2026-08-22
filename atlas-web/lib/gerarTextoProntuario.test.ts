@@ -9,6 +9,7 @@ import {
   gerarTextoEvolucaoCasoInterativo,
   gerarTextoTendenciaEscala,
   gerarTextoEntrevistaEstruturada,
+  gerarTextoExameEstadoMental,
   limparRotuloParaTrilha,
   type RespostaModuloEntrevista,
 } from "./gerarTextoProntuario.ts";
@@ -17,6 +18,7 @@ import type { Medicamento } from "../data/types.ts";
 import type { Diagnostico, EntrevistaEstruturada } from "../data/diagnosticos/types.ts";
 import type { Escala } from "../data/escalas/types.ts";
 import type { FluxogramaNode } from "../data/fluxogramas/types.ts";
+import type { AchadoPsicopatologico, DominioPsicopatologico } from "../data/psicopatologia/types.ts";
 import type { EntradaHistorico } from "./historicoEscalas.ts";
 import { voJardim } from "../data/casos-clinicos/vo-jardim.ts";
 import { diagnosticos } from "../data/diagnosticos/index.ts";
@@ -355,6 +357,104 @@ test("gerarTextoEntrevistaEstruturada: agrupa por categoria e ignora módulos se
   assert.ok(texto.startsWith("ENTREVISTA ESTRUTURADA — módulos com rastreio positivo:"));
   assert.ok(texto.includes("## Transtornos do Humor"));
   assert.equal(texto.match(/Transtorno Depressivo Maior:/g)?.length, 1);
+});
+
+// ─────────────────────────────────────────────────────────────
+// gerarTextoExameEstadoMental — nota gerada a partir dos achados
+// psicopatológicos marcados, com baseline "normal" por domínio.
+// ─────────────────────────────────────────────────────────────
+
+function achadoFixture(overrides: Partial<AchadoPsicopatologico> = {}): AchadoPsicopatologico {
+  return {
+    id: "achado-generico",
+    nome: "Achado genérico",
+    definicao: "Definição de teste.",
+    caracteristicas: [],
+    exemploClinico: "Exemplo de teste.",
+    transtornosAssociados: [],
+    ...overrides,
+  };
+}
+
+function dominioFixture(overrides: Partial<DominioPsicopatologico> = {}): DominioPsicopatologico {
+  return {
+    id: "dominio-generico",
+    nome: "Domínio Genérico de Teste",
+    rotuloClinico: "Domínio genérico",
+    descricao: "Descrição de teste.",
+    normalidade: "Parágrafo educativo de teste sobre normalidade.",
+    notaNormal: "Sem alterações no domínio genérico.",
+    achados: [],
+    ...overrides,
+  };
+}
+
+test("gerarTextoExameEstadoMental: seleção vazia usa notaNormal de todos os domínios, na ordem, com a linha de escopo ao final", () => {
+  const dominios = [
+    dominioFixture({ id: "d1", rotuloClinico: "Primeiro", notaNormal: "Primeiro normal." }),
+    dominioFixture({ id: "d2", rotuloClinico: "Segundo", notaNormal: "Segundo normal." }),
+  ];
+
+  const texto = gerarTextoExameEstadoMental(dominios, []);
+  console.log("\n[EEM, seleção vazia]\n" + texto);
+
+  assert.equal(
+    texto,
+    "Primeiro: Primeiro normal.\nSegundo: Segundo normal.\n[Completar manualmente: aparência e atitude, inteligência, juízo crítico/insight — fora do escopo deste gerador]"
+  );
+});
+
+test("gerarTextoExameEstadoMental: domínio com achado marcado substitui a nota normal; ordem segue a lista de domínios, não a de marcação", () => {
+  const achado = achadoFixture({ id: "achado-a", nome: "Achado A" });
+  const dominios = [
+    dominioFixture({ id: "d1", rotuloClinico: "Primeiro", notaNormal: "Primeiro normal." }),
+    dominioFixture({
+      id: "d2",
+      rotuloClinico: "Segundo",
+      notaNormal: "Segundo normal.",
+      achados: [achado],
+    }),
+  ];
+
+  // Marca o achado do segundo domínio antes de "processar" o primeiro,
+  // pra garantir que a ordem de saída segue `dominios`, não `idsSelecionados`.
+  const texto = gerarTextoExameEstadoMental(dominios, ["achado-a"]);
+
+  assert.equal(texto.split("\n")[0], "Primeiro: Primeiro normal.");
+  assert.equal(texto.split("\n")[1], "Segundo: Achado A.");
+});
+
+test("gerarTextoExameEstadoMental: achado com parêntese explicativo tem o parêntese removido", () => {
+  const achado = achadoFixture({ id: "achado-b", nome: "Hipotimia (humor deprimido)" });
+  const dominios = [dominioFixture({ achados: [achado] })];
+
+  const texto = gerarTextoExameEstadoMental(dominios, ["achado-b"]);
+
+  assert.ok(texto.startsWith("Domínio genérico: Hipotimia."));
+  assert.ok(!texto.includes("humor deprimido"));
+});
+
+test("gerarTextoExameEstadoMental: ideação suicida vira placeholder de especificação, nunca o nome cru", () => {
+  const achado = achadoFixture({ id: "ideacao-suicida", nome: "Ideação suicida e ideias de morte" });
+  const dominios = [dominioFixture({ achados: [achado] })];
+
+  const texto = gerarTextoExameEstadoMental(dominios, ["ideacao-suicida"]);
+  console.log("\n[EEM, ideação suicida]\n" + texto);
+
+  assert.ok(!texto.includes("Ideação suicida e ideias de morte."));
+  assert.ok(texto.includes("[ESPECIFICAR"));
+  assert.ok(texto.includes("C-SSRS"));
+});
+
+test("gerarTextoExameEstadoMental: achado excluído (definicional) nunca aparece, mesmo se marcado", () => {
+  const achado = achadoFixture({ id: "delirio-definicao-geral", nome: "Delírio (definição geral)" });
+  const dominios = [dominioFixture({ notaNormal: "Nada alterado.", achados: [achado] })];
+
+  const texto = gerarTextoExameEstadoMental(dominios, ["delirio-definicao-geral"]);
+
+  // Sem achados "reais" marcados nesse domínio, cai no baseline normal.
+  assert.ok(texto.startsWith("Domínio genérico: Nada alterado."));
+  assert.ok(!texto.includes("definição geral"));
 });
 
 test("limparRotuloParaTrilha: remove prefixo sim/não e ajusta caixa", () => {

@@ -15,12 +15,12 @@ export const dominiosPsicopatologicos = [
   atencaoOrientacao,
   sensopercepcao,
   pensamentoCursoForma,
+  linguagem,
   pensamentoConteudo,
   afetividadeHumor,
   psicomotricidade,
   memoria,
   conscienciaDoEu,
-  linguagem,
   vivenciasTempoEspaco,
 ];
 

@@ -34,6 +34,13 @@ export interface DominioPsicopatologico {
 
   nome: string;
 
+  // Rótulo curto, sem travessão/parênteses explicativos, pra uso em
+  // texto de nota clínica (Exame do Estado Mental gerado em
+  // lib/gerarTextoProntuario.ts) — `nome` é o título da seção de
+  // referência/estudo, feito pra ser didático, não pra ser colado num
+  // prontuário.
+  rotuloClinico: string;
+
   descricao: string;
 
   // Descrição educativa da função psíquica dentro da normalidade — o que
@@ -43,6 +50,11 @@ export interface DominioPsicopatologico {
   // manuais de psicopatologia brasileiros (Dalgalarrondo, Cheniaux), que
   // sempre descrevem a função normal antes de suas alterações.
   normalidade: string;
+
+  // Frase curta, estilo nota clínica (não o parágrafo educativo de
+  // `normalidade`), usada como baseline no Exame do Estado Mental gerado
+  // pra qualquer domínio sem achado marcado como observado.
+  notaNormal: string;
 
   achados: AchadoPsicopatologico[];
 

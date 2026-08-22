@@ -5,11 +5,15 @@ export const atencaoOrientacao: DominioPsicopatologico = {
 
   nome: "Transtornos da Atenção e da Orientação",
 
+  rotuloClinico: "Atenção e orientação",
+
   descricao:
     "A atenção (capacidade de focalizar e sustentar a percepção sobre um estímulo) e a orientação (localização do indivíduo no tempo, espaço e em relação a si mesmo) são funções dependentes do nível de consciência e frequentemente as primeiras a se alterar em quadros orgânicos agudos, precedendo alterações mais evidentes de outras funções psíquicas. Dalgalarrondo estrutura a atenção em dois eixos independentes — vigilância (capacidade de dirigir a atenção a um estímulo novo, captura involuntária) e tenacidade (capacidade de fixar e manter o foco voluntariamente) — e é a combinação desses dois eixos, não um único continuum, que diferencia os quadros clínicos de alteração atencional (ver Distratibilidade abaixo).",
 
   normalidade:
     "A atenção normal alterna, de forma equilibrada, entre foco voluntário (dirigido intencionalmente a uma tarefa) e captura involuntária por estímulos relevantes do ambiente — um mecanismo adaptativo, não um defeito. É esperado que a atenção flutue ao longo do dia conforme fadiga, motivação, interesse pelo assunto e nível de estimulação externa: dificuldade de concentração ao ler um texto enfadonho tarde da noite, ou distração momentânea diante de um barulho inesperado, fazem parte da experiência cotidiana e não configuram patologia. A orientação, por sua vez, costuma ser automática — na maior parte do tempo não 'calculamos' conscientemente em que dia estamos ou onde estamos. Dalgalarrondo situa a orientação normal como um pano de fundo silencioso da consciência, que só se torna tema de atenção deliberada em situações incomuns (acordar em lugar desconhecido, viagens longas com fuso horário). Cheniaux destaca que uma breve confusão sobre o dia da semana ao acordar, corrigida em segundos, não tem o mesmo peso clínico de uma desorientação persistente e não corrigível mesmo diante de pistas do ambiente.",
+
+  notaNormal: "Atento, orientado em tempo, espaço e pessoa.",
 
   achados: [
     {

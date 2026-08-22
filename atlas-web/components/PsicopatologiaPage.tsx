@@ -7,7 +7,7 @@ import Badge from "./Badge";
 import SearchBar from "./SearchBar";
 
 import { normalizarBusca } from "../lib/normalizarBusca";
-import { obterAchadosSelecionados } from "../lib/exameEstadoMental";
+import { obterAchadosSelecionadosValidos } from "../lib/exameEstadoMental";
 import { DominioPsicopatologico } from "../data/psicopatologia/types";
 
 interface Props {
@@ -24,8 +24,8 @@ export default function PsicopatologiaPage({
   // montagem, evitando divergência entre servidor e cliente.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sincronizando com localStorage (indisponível durante SSR)
-    setTotalSelecionados(obterAchadosSelecionados().length);
-  }, []);
+    setTotalSelecionados(obterAchadosSelecionadosValidos(dominios).length);
+  }, [dominios]);
 
   const lista = useMemo(() => {
     const termo = normalizarBusca(busca);

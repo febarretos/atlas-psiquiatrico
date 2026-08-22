@@ -5,11 +5,15 @@ export const linguagem: DominioPsicopatologico = {
 
   nome: "Linguagem e Comunicação",
 
+  rotuloClinico: "Linguagem",
+
   descricao:
     "A linguagem é o instrumento motor e expressivo através do qual o pensamento se torna comunicável — articulação, fluência, ritmo, volume e melodia da fala (prosódia), além da capacidade de nomear, compreender e repetir. Este domínio trata do aparelho expressivo da comunicação em si; a organização e o encadeamento do conteúdo do pensamento que a linguagem veicula (fuga de ideias, afrouxamento de associações, neologismo, salada de palavras) pertencem ao domínio Curso e Forma do Pensamento — os dois se sobrepõem na prática clínica e devem ser lidos em conjunto.",
 
   normalidade:
     "A fala normal é fluente, articulada com clareza, produzida em ritmo e volume adequados ao contexto social, com prosódia variável que acompanha e expressa o conteúdo emocional do discurso (entonação mais viva ao narrar algo emocionante, mais grave ao relatar algo triste). A pessoa nomeia objetos, compreende instruções e repete frases sem esforço, e regula espontaneamente a quantidade de fala conforme o interesse do interlocutor e as normas da conversação (turnos de fala, pausas). Cansaço, sotaque regional, bilinguismo e nervosismo situacional podem alterar temporariamente a fluência ou a articulação sem que isso configure patologia — o critério é o desvio persistente e não intencional do padrão habitual do próprio indivíduo.",
+
+  notaNormal: "Discurso fluente e articulado, com compreensão, nomeação e repetição preservadas.",
 
   achados: [
     {
