@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import Badge from "./Badge";
 import SearchBar from "./SearchBar";
 
 import { normalizarBusca } from "../lib/normalizarBusca";
+import { obterAchadosSelecionados } from "../lib/exameEstadoMental";
 import { DominioPsicopatologico } from "../data/psicopatologia/types";
 
 interface Props {
@@ -17,6 +18,14 @@ export default function PsicopatologiaPage({
   dominios,
 }: Props) {
   const [busca, setBusca] = useState("");
+  const [totalSelecionados, setTotalSelecionados] = useState(0);
+
+  // localStorage só existe no cliente: sincroniza a contagem após a
+  // montagem, evitando divergência entre servidor e cliente.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincronizando com localStorage (indisponível durante SSR)
+    setTotalSelecionados(obterAchadosSelecionados().length);
+  }, []);
 
   const lista = useMemo(() => {
     const termo = normalizarBusca(busca);
@@ -42,6 +51,16 @@ export default function PsicopatologiaPage({
           Semiologia psiquiátrica por domínio — definições precisas,
           diferenciação fina entre achados semelhantes e vinhetas clínicas.
         </p>
+
+        <Link
+          href="/psicopatologia/exame"
+          className="mt-4 inline-flex items-center gap-2 rounded-lg border border-rule bg-panel px-4 py-2 text-sm font-medium text-ink-2 transition-colors hover:border-accent hover:text-accent"
+        >
+          Exame do Estado Mental
+          {totalSelecionados > 0 && (
+            <Badge color="blue">{totalSelecionados} marcado(s)</Badge>
+          )}
+        </Link>
       </div>
 
       <div className="mb-8">

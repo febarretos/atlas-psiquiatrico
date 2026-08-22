@@ -3,6 +3,7 @@ import type { Diagnostico } from "../data/diagnosticos/types";
 import type { Escala, EscalaFaixa } from "../data/escalas/types";
 import type { FluxogramaNode } from "../data/fluxogramas/types";
 import type { CasoClinico, OpcaoInterativa } from "../data/casos-clinicos/types";
+import type { DominioPsicopatologico } from "../data/psicopatologia/types";
 import type { EntradaHistorico } from "./historicoEscalas";
 import { avaliarAlgoritmo, avaliarRastreio, contagemExibivel } from "./entrevistaEstruturada";
 
@@ -238,4 +239,29 @@ export function gerarTextoEvolucaoCasoInterativo(
     .join(", ");
 
   return `${base} Conduta seguida ao longo do caso: ${trilha}.`;
+}
+
+// Exame do Estado Mental montado a partir dos achados psicopatológicos
+// marcados como observados — um parágrafo por domínio, na mesma ordem
+// clássica em que os domínios são listados (que já corresponde à
+// estrutura tradicional de um EEM redigido). Só lista o que foi
+// explicitamente marcado: nunca declara "demais funções sem alterações"
+// pra domínios sem achados marcados, pois a ferramenta não tem como
+// saber se aquele domínio foi de fato avaliado ou só não foi revisado
+// ainda — essa conclusão cabe ao médico, editando o texto antes de copiar.
+export function gerarTextoExameEstadoMental(
+  dominios: DominioPsicopatologico[],
+  idsSelecionados: string[]
+): string {
+  const linhas: string[] = [];
+
+  for (const dominio of dominios) {
+    const achadosDoDominio = dominio.achados.filter((a) => idsSelecionados.includes(a.id));
+    if (achadosDoDominio.length === 0) continue;
+
+    const nomes = achadosDoDominio.map((a) => a.nome).join(", ");
+    linhas.push(`${dominio.nome}: ${nomes}.`);
+  }
+
+  return linhas.join("\n");
 }

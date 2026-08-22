@@ -14,6 +14,7 @@ const ROTULOS_SEGMENTO: Record<string, string> = {
   diagnosticos: "Diagnósticos",
   emergencias: "Emergências",
   psicopatologia: "Psicopatologia",
+  exame: "Exame do Estado Mental",
   escalas: "Escalas",
   fluxogramas: "Fluxogramas",
   assistente: "Assistente de Medicação",
