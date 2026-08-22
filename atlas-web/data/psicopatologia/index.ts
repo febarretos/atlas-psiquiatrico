@@ -7,6 +7,8 @@ import { afetividadeHumor } from "./afetividade-humor";
 import { psicomotricidade } from "./psicomotricidade";
 import { memoria } from "./memoria";
 import { conscienciaDoEu } from "./consciencia-do-eu";
+import { linguagem } from "./linguagem";
+import { vivenciasTempoEspaco } from "./vivencias-tempo-espaco";
 
 export const dominiosPsicopatologicos = [
   consciencia,
@@ -18,6 +20,8 @@ export const dominiosPsicopatologicos = [
   psicomotricidade,
   memoria,
   conscienciaDoEu,
+  linguagem,
+  vivenciasTempoEspaco,
 ];
 
 export * from "./types";
